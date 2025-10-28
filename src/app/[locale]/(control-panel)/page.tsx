@@ -20,72 +20,72 @@ interface Props {
 export default async function HomePage({ searchParams }: Props) {
   let { page, limit, status, search, StartDate, EndDate } = await searchParams;
 
-  const urlSearchParams = new URLSearchParams({
-    page: page || '1',
-    limit: limit || `${DEFAULT_LIMIT}`,
-    ...(status && { IsActive: status }),
-    ...(search && { Name: search }),
-    StartDate: StartDate || '',
-    EndDate: EndDate || '',
-  });
+  // const urlSearchParams = new URLSearchParams({
+  //   page: page || '1',
+  //   limit: limit || `${DEFAULT_LIMIT}`,
+  //   ...(status && { IsActive: status }),
+  //   ...(search && { Name: search }),
+  //   StartDate: StartDate || '',
+  //   EndDate: EndDate || '',
+  // });
 
-  // Banners
-  const banners = await getData<{ totalCount: number; items: Banner[] }>(
-    `${endpoints.banners.list}?${urlSearchParams.toString()}`,
-    { tags: [FetchTags.BannersList] }
-  );
-  if ('error' in banners) throw new Error(banners.error);
+  // // Banners
+  // const banners = await getData<{ totalCount: number; items: Banner[] }>(
+  //   `${endpoints.banners.list}?${urlSearchParams.toString()}`,
+  //   { tags: [FetchTags.BannersList] }
+  // );
+  // if ('error' in banners) throw new Error(banners.error);
 
-  // Categories
-  const category = await getData<{ totalCount: number; items: Category[] }>(
-    `${endpoints.categories.category}`,
-    { tags: [FetchTags.MostPurchased] }
-  );
-  if ('error' in category) throw new Error(category.error);
+  // // Categories
+  // const category = await getData<{ totalCount: number; items: Category[] }>(
+  //   `${endpoints.categories.category}`,
+  //   { tags: [FetchTags.MostPurchased] }
+  // );
+  // if ('error' in category) throw new Error(category.error);
 
-  // Offers
-  const offers = await getData<{ totalCount: number; items: any }>(
-    `${endpoints.offer.list}?${urlSearchParams.toString()}`,
-    { tags: [FetchTags.OffersList] }
-  );
-  if ('error' in offers) throw new Error(offers.error);
+  // // Offers
+  // const offers = await getData<{ totalCount: number; items: any }>(
+  //   `${endpoints.offer.list}?${urlSearchParams.toString()}`,
+  //   { tags: [FetchTags.OffersList] }
+  // );
+  // if ('error' in offers) throw new Error(offers.error);
 
-  // Best Sellers
-  const bestSellers = await getData<{ totalCount: number; items: Product[] }>(
-    `${endpoints.sellers.bestSellers}?IsPopular=true&IsTopOrder=false`,
-    { tags: [FetchTags.OffersList] }
-  );
-  if ('error' in bestSellers) throw new Error(bestSellers.error);
+  // // Best Sellers
+  // const bestSellers = await getData<{ totalCount: number; items: Product[] }>(
+  //   `${endpoints.sellers.bestSellers}?IsPopular=true&IsTopOrder=false`,
+  //   { tags: [FetchTags.OffersList] }
+  // );
+  // if ('error' in bestSellers) throw new Error(bestSellers.error);
 
-  // Last Orders
-  let lastOrders: any = null;
-  try {
-    const res = await getData<{
-      items: any;
-      code: number;
-      message: string;
-      data: {
-        totalCount: number;
-        items: PastOrders[];
-      };
-    }>(endpoints.orderAgain.get, { tags: [FetchTags.OffersList] });
+  // // Last Orders
+  // let lastOrders: any = null;
+  // try {
+  //   const res = await getData<{
+  //     items: any;
+  //     code: number;
+  //     message: string;
+  //     data: {
+  //       totalCount: number;
+  //       items: PastOrders[];
+  //     };
+  //   }>(endpoints.orderAgain.get, { tags: [FetchTags.OffersList] });
 
-    if (!('error' in res)) {
-      lastOrders = res.data.data;
-    }
-  } catch {
-    // تجاهل أي خطأ في API الطلبات السابقة
-    lastOrders = { totalCount: 0, items: [] };
-  }
+  //   if (!('error' in res)) {
+  //     lastOrders = res.data.data;
+  //   }
+  // } catch {
+  //   // تجاهل أي خطأ في API الطلبات السابقة
+  //   lastOrders = { totalCount: 0, items: [] };
+  // }
 
   return (
     <HomeView
-      category={category.data.items}
-      banners={banners.data.items}
-      bestSellers={bestSellers.data.items}
-      offers={offers.data.items}
-      pastOrders={lastOrders?.items || []}
-      lastOrderTotal={lastOrders?.totalCount || 0}
+      // category={category.data.items}
+      // banners={banners.data.items}
+      // bestSellers={bestSellers.data.items}
+      // offers={offers.data.items}
+      // pastOrders={lastOrders?.items || []}
+      // lastOrderTotal={lastOrders?.totalCount || 0}
     />
   );
 }
