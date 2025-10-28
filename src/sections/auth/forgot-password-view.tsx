@@ -1,6 +1,7 @@
 'use client';
 
 import * as Yup from 'yup';
+
 import Box from '@mui/material/Box';
 import YupPassword from 'yup-password';
 import Alert from '@mui/material/Alert';
