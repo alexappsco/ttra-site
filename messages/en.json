@@ -1,7 +1,8 @@
 {
   "Metadata": {
-    "title": "Sinwan Store",
+    "title": "Thimar Senwan",
     "description": "Sinwan Website description",
+    "language": "Language",
     "Categories": {
       "title": "Categories | Sinwan"
     },
@@ -44,17 +45,29 @@
     "ContactUs": {
       "title": "Contact Us | Sinwan"
     },
-    "Clients": {
-      "title": "Clients | Sinwan"
+    "Carts": {
+      "title": "Carts | Sinwan"
     },
-    "WorksArea": {
-      "title": "Works Area | Sinwan"
+    "Location": {
+      "title": "Locations | Sinwan"
     },
     "Reports": {
       "title": "Reports | Sinwan"
     },
-    "DeliveryFees": {
-      "title": "Delivery Fees | Sinwan"
+    "Favorite": {
+      "title": "Favorites | Sinwan"
+    },
+    "Pay": {
+      "title": "Pay | Sinwan"
+    },
+    "ProductDetails": {
+      "title": "Product Details | Sinwan"
+    },
+    "MyOrder": {
+      "title": "My Orders"
+    },
+    "Settings": {
+      "title": "Settings | Sinwan"
     }
   },
   "Nav": {
@@ -83,9 +96,7 @@
     "return-policy": "Return Policy",
     "privacy-policy": "Privacy Policy",
     "contact-us": "Contact Us",
-    "Work-area": "Works Area",
-    "delivery-fees": "Delivery Fees",
-    "setting":"setting"
+    "Work-area": "Works Area"
   },
   "Global": {
     "title": "Sinwan",
@@ -179,11 +190,16 @@
       "page": "Page",
       "save_data": "Save Data",
       "profile_image": "Profile Image",
+      "selected_file":"Selected File ",
+      "new_image_selected":" ✓ New image selected",
       "current_password": " Current Password",
       "new_password": "New Password",
       "confirm_new_password": "Confirm New Password",
       "basic_data": "Basic Data",
-      "change_password": "Change Password"
+      "change_password": "Change Password",
+      "my_products": "My Products",
+      "our_branches": "Our Branches",
+      "order_date":"Order Date"
     },
     "Helper": {
       "drop_or_select": "Drop files here or click <browse>browse</browse> through your machine",
@@ -212,10 +228,13 @@
       "active": "Active",
       "next": "Next",
       "finish": "Finish",
-      "register": "Register"
+      "register": "Register",
+      "send": "Send",
+      "skip":"Skip"
     },
     "Validation": {
       "var_required": "{var} is Required",
+      "phone_must_start_5": "PhoneNumber Must Start With 5",
       "var_exists": "{var} already exists",
       "var_invalid": "{var} is Invalid",
       "var_email": "{var} must be a valid email address",
@@ -243,13 +262,8 @@
       "var1_before_var2": "{var1} must be before {var2}",
       "var1_after_var2": "{var1} must be after {var2}",
       "password_validate": "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character",
-      "validated_number": "Number must contain only digits",
-      "must_be_positive": "Must be greater than or equal to zero",
-      "end_distance_greater": "Distance To must be greater than Distance From",
-      "required": "This field is required",
-      "vat_min": "VAT must be at least 0.01",
-      "vat_max": "VAT cannot exceed 1.00",
-      "vat_invalid": "Please enter a valid VAT percentage between 0.01 and 1.00"
+      "password_required": "Password is Required",
+      "code_required": "Code is Required"
     },
     "Sections": {
       "DeleteDialog": {
@@ -264,6 +278,31 @@
         "more_than": "more than",
         "dense": "Dense"
       }
+    },
+    "Footer": {
+      "Policy": {
+        "privacy_policy": "Privacy Policy",
+        "Exchange_Return_Policy": "Exchange and Return Policy",
+        "You_can_also_get_our_mobile_app": "You can also get our mobile app"
+      }
+    },
+    "Account-Popover": {
+      "update_profile": "Update Profile",
+      "logout": "Logout",
+      "no_phone":"No Phone",
+      "as_guset":"Guest"
+    },
+    "Message": {
+      "Added_To_wishlist_success": "Added to wishlist successfully",
+      "Removed_From_wishlist_success": "Removed from wishlist successfully",
+      "Added_To_cart_success": "Added to cart successfully",
+      "Removed_From_cart_success": "Removed from cart successfully",
+      "enter_coupon": "Please enter a coupon code",
+      "coupon_applied_success": "Coupon applied successfully ",
+      "error_occurred": "An error occurred, try again",
+      "returned_order_success": "The Order has been returned successfully",
+      "canceled_order_success": "The Order has been canceled successfully",
+      "rating_submitted_successfully": "Rating submitted successfully"
     }
   },
   "Pages": {
@@ -289,6 +328,13 @@
     },
     "Auth": {
       "login_title": "Sign In",
+      "enter_phone_number": "Enter Phone Number",
+      "create_new_account": "Create New Account",
+      "create_account": "Create Account",
+      "not_have_account": "Don't have an account",
+      "have_account_already": "Already have an account?",
+      "log": "Sign In",
+      "user_name": "User Name",
       "forgot_password": "Forgot Password?",
       "login_submit": "Sign In",
       "verify_otp": "Verify OTP",
@@ -300,372 +346,187 @@
     "Home": {
       "min_free_shipping": "Minimum free shipping",
       "free_shipping_threshold": "Free Shipping Threshold",
-      "vat_percentage": "VAT Percentage",
       "best_sellers": "Best Sellers",
       "revenue": "Revenue",
       "sales": "Sales",
       "free_shipping_orders": "Total Shipping Orders",
-      "total_orders": "Total Orders",
+      "total_orders": " Total Orders",
       "sales_by_day": "Sales By Day",
-      "edit_free_shipping_vat": "Edit Free Shipping & VAT"
+      "edit_free_shipping": "change Minimum Free Shipping",
+      "categories": "Categories",
+      "best_offer": "Best Offer",
+      "best_seller": "Best Seller",
+      "order_again": "Order Again",
+      "add_to_cart": " Add to Cart",
+      "no_past_orders": "No previous orders to date",
+      "off": "Off",
+      "category": "Category :",
+      "no_favorite_items": "You don’t have any favorite items yet"
     },
-    "Categories": {
-      "categories_title": "Main Categories",
-      "subcategories_title": "Subcategories",
-      "add_category": "Add Category",
-      "add_subcategory": "Add Subcategory",
-      "edit_category_title": "Edit Category",
-      "add_category_title": "Add Main Category",
-      "add_subcategory_title": "Add Subcategory",
-      "edit_subcategory_title": "Edit Subcategory",
-      "category_name_ar": "Main Category Name in Arabic",
-      "category_name_en": "Main Category Name in English"
-    },
-    "Products": {
-      "product_title": "Products",
-      "add_product": "Add Product",
-      "main_section": "Main Section",
-      "sub_section": "Sub Section",
-      "unit": "Unit",
-      "barcode": "Barcode",
-      "edit_product": "Edit Product",
-      "add_subunit": "Add Sub Unit",
-      "remove_subunit": "Remove Sub Unit",
-      "out_of_stock": "Out of Stock"
-    },
-    "Units": {
-      "units_title": "Units",
-      "add_unit": "Add Unit",
-      "edit_unit_title": "Edit Unit",
-      "add_unit_title": "Add Unit"
-    },
-    "Orders": {
-      "title": "Orders",
-      "order_number": "Order Number",
-      "client_name": "Client Name",
-      "creation_time": "Creation Time",
-      "total_order_amount": "Total Order Amount",
-      "payment_method_name": "Payment Method Name",
-      "is_paid": "Is Paid",
-      "driver_name": "Driver Name",
-      "status": "Status",
-      "paied_type": "paiedType",
-      "all_dates": "All Dates",
-      "done": "Done",
-      "not_done": "Not Done",
-      "not_limited": "Not Limited",
-      "display_order": "View Order",
-      "display_payment": "View Payment",
-      "update_status_order": "Update Order Status",
-      "order_canceled": "Canceled Order",
-      "change_order_status": "Change Order Status",
-      "order_status": "Order Status",
-      "order_value": "Order Value",
-      "currency": "SAR",
-      "payment_method": "Payment Method",
-      "payment_status": "Payment Status",
-      "driver": "Driver",
-      "not_assigned": "Not Assigned",
-      "client_phone": "Client Phone",
-      "client_email": "Client Email",
-      "client_address": "Address",
-      "order_date": "Order Date",
-      "last_update": "Last Update",
-      "barcode": "Barcode",
-      "quantity": "Quantity",
-      "prdcts": " Products ",
-      "unit_price": "Unit Price",
-      "cancel_order": "Cancel Order",
-      "reason": "ٌReason",
-      "reason_returned": "Return Reason",
-      "cancel_reason_placeholder": " Cancel Reason",
-      "total_price": "Total Price",
-      "delivery_fee": "Delivery Fee",
-      "vat_15": "VAT 15%",
-      "vat_rate": "VAT {var}%",
-      "discount": "Discount",
-      "final_total": "Final Total",
-      "notes": "Notes",
-      "no_notes": "No notes available",
-      "add_notes_placeholder": "Add your notes here",
-      "assign_driver": "Assign Driver",
-      "order_canceled_success": "Order Canceled Successfully",
-      "single_order": "Order",
-      "returned_number": "Returned Number",
-      "returned_time": "Returned Time",
-      "products_count_returned": "Products Count Returned",
-      "returned_value": "Returned Value",
-      "returned_refused": "Returned Refused",
-      "delivery_fee_with_shipping_cost": "Delivery Fee (Including VAT)",
-      "add_notes_client": " Add Notes For Client",
-      "add_not": "Add Note",
-      "purchasesvalue": "Purchases Value",
-      "OrderStatus": {
-        "all": "All",
-        "new_order": "New Orders",
-        "in_progress": "In Progress",
-        "out_for_delivery": "Out for Delivery",
-        "canceled": "Canceled",
-        "completed": "Completed",
-        "returned": "Returned",
-        "reviwed": " Reviewed",
-        "acceptable": "Acceptable",
-        "non_acceptable": "Not Acceptable",
-        "success": "Success",
-        "PartiallyReturned": "PartiallyReturned",
-        "0": 0,
-        "1": "1"
-      },
-      "PaymentStatus": {
-        "success": "Paid",
-        "failed": "Payment Failed"
-      }
-    },
-    "Offers": {
-      "title": "Offers",
-      "offer": "Offer",
-      "add_offer": "Add New Offer",
-      "edit_offer": "Edit Offer",
-      "delete_offer": "Delete Offer"
-    },
-    "Banners": {
-      "start_date": "Start Date",
-      "end_date": "End Date",
-      "add_banner": "Add Banner",
-      "this_banner": "This Is Banner "
-    },
-    "DiscountCodes": {
-      "code": "Code",
-      "start_date": "Start Date",
-      "end_date": "End Date",
-      "type_discount": "Discount Type",
-      "this_discount": "This Code",
-      "add_discount": "Add Discount Code",
-      "discount_type": "Discount Type",
-      "discount_value": "Discount Value",
-      "maximum_value": "Maximum Value",
-      "current_uses": "Current Uses",
-      "status": "Status",
-      "this_codes": "This Codes",
-      "new_coupon": "Add New Coupon",
-      "percantage": "Percantage",
-      "values": "Values"
-    },
-    "Notification": {
-      "all": "All",
-      "title": "Notifications Title",
-      "body": "Notification Body",
-      "date": "Date",
-      "user_id": "User ID",
-      "order_number": "Order Number",
-      "order_id": "Order ID",
-      "device_token": "Device Token",
-      "add_notification": "Add New Notification",
-      "notification": "Notification",
-      "client": "Client",
-      "driver": "Driver",
-      "send_to": "Send To",
-      "send_to_all": "Send To All",
-      "send_to_specific": "Send To Specific",
-      "notification_type": "Notification Type",
-      "select_users": "Select Users",
-      "select_order": "Select Order",
-      "select_drivers": "Select Driver",
-      "status": {
-        "notification_type": "Notification Type",
-        "system_maintenance": "System Maintenance",
-        "system_update": "System Update",
-        "system_alert": "System Alert",
-        "account_update": "Account Update",
-        "logout": "Logout",
-        "order_placed": "Order Placed",
-        "order_confirmed": "Order Confirmed",
-        "order_processing": "Order Processing",
-        "order_shipped": "Order Shipped",
-        "order_delivered": "Order Delivered",
-        "order_cancelled": "Order Cancelled",
-        "order_delayed": "Order Delayed",
-        "return_requested": "Return Requested",
-        "return_accepted": "Return Accepted",
-        "return_rejected": "Return Rejected",
-        "information": "Information",
-        "warning": "Warning",
-        "error": "Error",
-        "success": "Success"
-      },
-      "send_notification": " Send Notification",
-      "ar_title_notification": " Arabic Title Notifications",
-      "eng_title_notification": " English Title Notifications",
-      "ar_content": " Arabic Content",
-      "eng_content": " English Content",
-      "limited_client": " Assigned Client",
-      "limited_driver": " Assigned Driver",
-      "select_at_least_one_user": "Select At Least One User",
-      "failed_to_send_notification": "Failed To Send Notification",
-      "creation_time": "Creation Time"
-    },
-    "Drivers": {
-      "driver_title": "Drivers",
-      "add_driver": "Add Driver",
-      "select_date": "Select Date",
-      "display_info": "Display Driver Information",
-      "change_driver_status": "Change Driver Status",
-      "edit_driver": "Edit Driver",
-      "new_driver": "New Driver",
-      "edit_info": "Edit  Information",
-      "main_info": "Main Information",
-      "info_of_vehicle": " Vehicle Information",
-      "display_orders": "Display Orders",
-      "table": {
-        "status": "Account Status",
-        "registrationDate": "Registration Date",
-        "workArea": "Work Area",
-        "idNumber": "ID Number",
-        "phoneNumber": "Phone Number",
-        "email": "Email",
-        "name": "Driver Name",
-        "profile_picture": "Profile Picture",
-        "birth_date": "Birth Date"
-      },
-      "status": {
-        "all": "All",
-        "active": "Activation",
-        "waiting": "Waiting for Approval",
-        "blocked": "Be Blocked"
-      },
-      "actions": {
-        "edit": "Edit Driver",
-        "close": "Close",
-        "viewDocuments": "View Documents"
-      },
-      "personal": {
-        "address": "Address",
-        "city": "City",
-        "birthDate": "Birth Date"
-      },
-      "vehicle": {
-        "type": "Vehicle Type",
-        "color": "Vehicle Color",
-        "licenseNumber": "License Plate",
-        "model": "Vehicle Model",
-        "vehicle_info": " Vehicle Information"
-      },
-      "images": {
-        "idPhoto": "ID Photo",
-        "profilePhoto": "Profile Photo",
-        "licensePhoto": "License Photo"
-      }
-    },
-    "Clients": {
-      "client_name": "Client Name",
-      "client_phone": " Phone Number",
-      "gender": "Gender",
-      "account_date": "Account Date",
-      "account_status": "Account Status",
-      "this_client": " Client {var}",
-      "client_address": "Address",
-      "birth_date": "Birth Date"
-    },
-    "Employee": {
-      "title": "employee",
-      "department": "Department",
-      "old_password": "Old Password",
-      "new_password": "New Password",
-      "permissions": "Permissions",
-      "edit_employee": "Edit Employee",
-      "add_employee": "Add Employee",
-      "this_employee": " Employee {var}",
-      "elements": "Elements",
-      "leave_empty_to_keep": "Enter Password"
-    },
-    "ReturnPolicy": {
-      "title": "Return Policy",
-      "return_policy": "Return Policy",
-      "add_return_policy": "Add Return Policy",
-      "edit_return_policy": "Edit Return Policy",
-      "content_ar": "Content With Arabic",
-      "content_en": "Content With English",
-      "title_ar": "Title in Arabic",
-      "title_en": "Title in English"
-    },
-    "PrivacyPolicy": {
-      "title": "Privacy Policy",
-      "privacy_policy": "Privacy Policy",
-      "add_privacy_policy": "Add Privacy Policy",
-      "edit_privacy_policy": "Edit Privacy Policy"
-    },
-    "ContactUs": {
-      "title": "Contact Us",
-      "social_media_added": " Social Media Added ",
-      "add_title": "Add new contact address",
-      "edit_title": "Edit contact address",
-      "title_var": " Social Media {var}",
-      "this_client": " Client {var}",
-      "client_address": "Address",
-      "birth_date": "Birth Date"
-    },
-    "WorkArea": {
-      "work_area": "Work Area",
-      "area": "Area",
-      "city": "City",
-      "this_area": "This Area",
-      "add_work_area": " Add Work Area",
-      "edit_work_area": "Edit Work Area",
-      "name_area": " Area Name",
-      "avaliable_space": "Avaliable Space",
-      "shopping_price": "Shopping Price"
+"SetLocation": {
+  "title": "Set Your Location",
+  "title1": "Locations",
+  "search_location": "Search Location",
+  "details_address": "Address Details",
+  "ex_address": "Riyadh, Street Name...",
+  "set_default": "Set this location as default",
+  "choose_location": "Choose location",
+  "add_new_location": "Add New Location",
+  "location_name": "Location Name",
+  "location_details": "Location Details is required",
+  "latitude": "Latitude",
+  "longitude": "Longitude",
+  "update_location_success": "Location updated successfully",
+  "no_description": "No Description",
+  "default": "Default",
+  "at_least_one_default": "At least one location must be set as default",
+  "edit_title": "Edit Address",
+  "update_location":"Update Location"
+}
+,
+    "ProductDetails": {
+      "add_to_cart": " Add to Cart",
+      "description": "Product Description"
     },
     "Currency": {
       "symbol": "SAR"
     },
-    "Reports": {
-      "title": "Reports",
-      "salesReports": "Sales Reports",
-      "vat_amount": "Vat Amount",
-      "discount": "Discount",
-      "net_revenue": "netRevenue",
-      "shipping_fees": "Shipping Fees",
-      "returns": "Returns",
-      "coins": "",
-      "Sales": {
-        "title": "Sales Reports",
-        "totalSales": "Total Sales",
-        "deliveryFees": "Delivery Fees",
-        "paymentFees": "Payment Fees",
-        "discounts": "Discounts",
-        "netRevenue": "Net Revenue"
-      },
-      "orders": "Orders",
-      "drivers": "Drivers",
-      "clients": "Clients",
-      "banners": "Banners",
-      "products": "Products",
-      "select_date_range": "Select Date Range",
-      "dateFilter": {
-        "day": "Today",
-        "week": "This Week",
-        "month": "This Month"
-      },
-      "daily_report": "Daily Report",
-      "weekly_report": "Weekly Report",
-      "monthly_report": "Monthly Report"
+    "offers": {
+      "display_all": " Display All",
+      "No_offers": "No offers available yet",
+      "featured_offers": "Featured Offers"
     },
-    "Setting": {
-      "PermissionTitle": "Permission Required",
-      "PermissionMessage": "You must have the correct permission to be able to view this section.",
-      "PermissionActivate": "Settings permission must be activated"
+    "favorite": {
+      "title": "Favorite",
+      "no_favorite": "No favorite products yet",
+      "total_favorite": "Total Favorite Products",
+      "remove_all": "Remove All",
+      "empty_favorite": "Favorite List is Empty",
+      "explore_products": "Explore Products",
+      "no_items": "No Items"
     },
-    "DeliveryFees": {
-      "add_delivery_fee": "Add Delivery Fee",
-      "this_delivery_fee": "This Delivery Fee",
-      "from_meter": "From Meter",
-      "to_meter": "To Meter",
-      "edit_delivery_fee": "Edit Delivery Fee",
-      "city": "City",
-      "fee": "Fee",
-      "meter": "Meter",
-      "distance_from": "Distance From",
-      "distance_to": "Distance To"
-    }
+
+    "Order": {
+      "resend_order": "Order Again",
+      "Status": {
+        "Pending": "Pending",
+        "Processing": "Processing",
+        "Shipped": "Shipped",
+        "Delivered": "Delivered",
+        "Canceled": "Canceled",
+        "Returned": "Returned",
+        "all": "All",
+        "Accepted": "Accepted",
+        "Rejected": "Rejected",
+        "InProgress": "In Progress",
+        "PartiallyReturned":"Partially Returned"
+      },
+      "order_number": "Order Number",
+      "display_order": "Display Order",
+      "no_items": "No Notes",
+      "driver_name": "Driver Name",
+      "reorder": "Reorder",
+      "return": "Return",
+      "this_order": "This Order",
+      "return_reason": "Return Reason",
+      "cancel_reason": "Canceled Reason",
+      "reason": "Reason",
+      "note": "Note",
+      "confirm_return": "Confirm return",
+      "confirm_canceled": "Confirm Canceled",
+      "are_you_sure_return": "Are you sure you want to return this order?",
+      "are_you_sure_cancel": "Are you sure you want to Cancel this order?",
+      "order_updates": "Order Updates",
+      "time": "Time",
+      "track_order": "Track Order",
+      "arrives_in": "Arrives in {minutes} minutes",
+      "address": "Address",
+      "add_rating": "Add Rating",
+      "delivery_time": "Delivery Time",
+      "packaging": "Packaging",
+      "communication": "Communication",
+      "add_comment": "Add Comment",
+      "select_items_to_return":"Select Items To Return",
+      "select_all":"Select All",
+      "vat_rate": "VAT {var}%",
+      "delivery_fee_with_shipping_cost": "Delivery Fee (Including VAT)"
+
+
+    },
+    "Return_Order": {
+      "title": "Returns",
+      "title2": "Return Orders",
+      "display_return_order": "Display Return Order",
+      "returned_on": "Returned on",
+      "deliver_at": "Delivered at",
+      "refused_reason": "Refused Reason",
+      "no_reason_provided": "No reason provided",
+      "return_order_number": "Return Order Number"
+    },
+    "Carts": {
+      "title": "Cart",
+      "summary": {
+        "subtotal": "Subtotal",
+        "vat": "VAT",
+        "discount": "Discount",
+        "shipping": "Shipping Fee",
+        "total": "Total",
+        "pay": "Pay",
+        "total_items":"Total",
+        "purchasesvalue": "Purchases Value"
+
+      },
+      "discountCoupon": "Discount Coupon",
+      "enter_coupon": "Enter coupon code",
+      "apply": "Apply",
+      "no_items_in_cart":"No Items In Cart"
+    },
+    "Pay": {
+      "title": "Pay",
+      "notes": "Notes",
+      "add_notes_for_order": "Added Notes To Order",
+      "send_order_success": "Your request has been sent successfully",
+      "is_copy": "The link has been copied",
+      "pay_type": "Payment method",
+      "go_to_payment": "Go To Payment Page",
+      "payment_fee":"Payment Fee"
+    },
+    "MyProfile": {
+      "title": "My Profile",
+      "name": "Name",
+      "phone": "Phone Number",
+      "email": "Email",
+      "gender": "Gender",
+      "birthDate": "Date of Birth",
+      "edit_profile":"Edit Profile",
+      "new_profile_preview": "New Profile Preview",
+      "current_profile_image": "Current Profile Image",
+      "supported_formats": "Supported formats: JPG, PNG, GIF. Max size: 5MB",
+        "phone_unchangeable": "Phone number cannot be changed"
+
+
+},
+ "Notifications": {
+  "title": "Notifications",
+  "mark_all": "Mark all as read",
+  "empty": "No notifications yet",
+  "order_ready": "Your order has been prepared and is on its way!",
+  "view_offer": "View offers",
+  "track_order": "Track Order",
+  "order_number": "Order No: {orderNumber}",
+  "today": "Today",
+  "yesterday": "Yesterday"
+},
+"Search":{
+"title":"Search",
+"no_results":"No Results",
+"try_different_keywords": "Try using different keywords."
+
+},
+"Common":{
+  "loading":"Loading"
+}
+
+
   }
 }

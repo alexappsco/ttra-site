@@ -15,8 +15,8 @@ export function useNavData() {
             icon: ICONS.navbar.main,
           },
           {
-            title: 'categories',
-            path: paths.controlPanel.categories.list,
+            title: 'category',
+            path: paths.controlPanel.category.list,
             icon: ICONS.navbar.categories,
           },
           {
@@ -115,11 +115,6 @@ export function useNavData() {
             title: 'Work-area',
             path: paths.controlPanel.workArea.list,
             icon: ICONS.navbar.workArea,
-          },
-          {
-            title: 'delivery-fees',
-            path: paths.controlPanel.deliveryFees.list,
-            icon: ICONS.navbar.deliveryFees,
           },
         ],
       },

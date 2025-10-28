@@ -35,9 +35,8 @@ export interface OrderStatus {
   inProgress: number;
   accepted: number;
   rejected: number;
-  partiallyReturned:number;
 }
-
+  
   export interface PaymentMethod {
     id: string;
     name: string;
@@ -46,12 +45,12 @@ export interface OrderStatus {
     processingFee: number;
     image: string;
   }
-
+  
   export interface PaymentMethodsData {
     totalCount: number;
     items: PaymentMethod[];
   }
-
+  
   export interface PaymentMethodsApiResponse {
     success: boolean;
     data: {
@@ -75,74 +74,32 @@ export interface OrderStatus {
     unitOfMeasureNameEn: string;
     quantity: number;
     priceAtPurchase: number;
-    totalPriceWithVat: number;
     totalPrice: number;
-    priceAtPurchaseWithVat: number;
-
   }
-export interface OrderDetailsType {
-  id: string;
-  orderNumber: string;
-  status: string;
-  creationTime: string;
-  lastModificationTime: string;
-
-  client: {
-    name: string;
-    phone: string;
-    email: string;
-  };
-
-  address: {
-    description: string;
-    longitude: number;
-    latitude: number;
-  };
-
-  driver: {
+  export interface OrderDetailsType {
     id: string;
-    name: string;
-    phoneNumber: string;
-  } | null;
-
-  payment: {
+    clientName: string;
+    clientPhone: string;
+    clientEmail: string;
+    clientAddress: string;
+    creationTime: string; // ISO date string
+    lastModificationTime: string; // ISO date string
+    orderNumber: string;
+    status: string;
     paymentMethodName: string;
+    driverName: string | null;
     transactionStatus: string;
-    isPaid: boolean;
-  };
-
-  pricing: {
     totalPrice: number;
     discount: number;
     shippingCost: number;
     vatRate: number;
     vatAmount: number;
-    paymentFee: number;
     totalOrderAmount: number;
-  };
-
-  note: string | null;
-
-  orderItems: OrderItem[];
-}
-
-// Define OrderItem interface based on the provided data
-export interface OrderItem {
-  id: string;
-  productId: string;
-  productBarcode: string;
-  productNameAr: string;
-  productNameEn: string;
-  productImage: string;
-  unitOfMeasureNameAr: string;
-  unitOfMeasureNameEn: string;
-  quantity: number;
-  priceAtPurchase: number;
-  priceAtPurchaseWithVat: number;
-  totalPrice: number;
-  totalPriceWithVat: number;
-}
-
+    note: string | null;
+    orderItems: OrderItem[]; // Change `any[]` to a specific type if order items have a defined structure
+    longitude: number;
+    latitude: number;
+  }
   export interface OrderResponse {
     success: boolean;
     data: OrderDetailsType;
@@ -150,7 +107,7 @@ export interface OrderItem {
     status: number;
   }
   export interface DriverOrder {
-
+    
     orderId: string;
   orderNumber: string;
   orderCreatedDate: string; // ISO date string
@@ -161,5 +118,27 @@ export interface OrderItem {
   }
   export interface DriverOrders{
     items:DriverOrder[]
-
+    
   }
+  export interface PastOrders {
+  id: string;
+  orderNumber: string;
+  status: string;
+  orderDate: string; // ISO string format
+  deliveryDate: string; // ISO string format
+  orderItems: {
+    productName: string;
+    quantity: number;
+    unitOfMeasure: string;
+    totalPrice: number;
+    imageUrls: {
+      url: string;
+    }[];
+  }[];
+  price: {
+    totalPrice: number;
+    discount: number;
+    shippingPrice: number;
+    finalPrice: number;
+  };
+}

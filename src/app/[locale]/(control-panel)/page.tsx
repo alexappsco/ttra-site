@@ -1,17 +1,22 @@
-
+import { Banner } from 'src/types/banner';
+import { Product } from 'src/types/product';
+import { PastOrders } from 'src/types/order';
 import { endpoints } from 'src/utils/endpoints';
+import { Category } from 'src/types/categories';
 import { getTranslations } from 'next-intl/server';
 import { getData } from 'src/utils/crud-fetch-api';
-import { NoPermissionView } from 'src/sections/error';
 import { FetchTags } from 'src/actions/config-actions';
 import { DEFAULT_LIMIT } from 'src/components/constant';
 import HomeView from 'src/sections/home/views/list-view';
-import { Reports, SettingData, SalesRevenue, PurchasedProduct } from 'src/types/home';
 
 // ----------------------------------------------------------------------
+
 interface Props {
-  searchParams: Promise<Record<'page' | 'limit' | 'status' | 'search' | 'StartDate' | 'EndDate', string | undefined>>;
+  searchParams: Promise<
+    Record<'page' | 'limit' | 'status' | 'search' | 'StartDate' | 'EndDate', string | undefined>
+  >;
 }
+
 export default async function HomePage({ searchParams }: Props) {
   let { page, limit, status, search, StartDate, EndDate } = await searchParams;
 
@@ -22,58 +27,71 @@ export default async function HomePage({ searchParams }: Props) {
     ...(search && { Name: search }),
     StartDate: StartDate || '',
     EndDate: EndDate || '',
-
   });
 
-  const mostPurchaseProducts = await getData<{ totalCount: number; items: PurchasedProduct[] }>(
-    `${endpoints.home.mostPurchasedProducts}?${urlSearchParams.toString()}`,
+  // Banners
+  const banners = await getData<{ totalCount: number; items: Banner[] }>(
+    `${endpoints.banners.list}?${urlSearchParams.toString()}`,
+    { tags: [FetchTags.BannersList] }
+  );
+  if ('error' in banners) throw new Error(banners.error);
+
+  // Categories
+  const category = await getData<{ totalCount: number; items: Category[] }>(
+    `${endpoints.categories.category}`,
     { tags: [FetchTags.MostPurchased] }
   );
-  if ('error' in mostPurchaseProducts) {
-    if (mostPurchaseProducts.status === 403) {
-      return <NoPermissionView />;
-    }
-    throw new Error(mostPurchaseProducts.error);
-  }
+  if ('error' in category) throw new Error(category.error);
 
-  const reports = await getData<Reports>(
-    endpoints.home.reports
+  // Offers
+  const offers = await getData<{ totalCount: number; items: any }>(
+    `${endpoints.offer.list}?${urlSearchParams.toString()}`,
+    { tags: [FetchTags.OffersList] }
   );
-  if ('error' in reports) {
-    if (reports.status === 403) {
-      return <NoPermissionView />;
-    }
-    throw new Error(reports.error);
-  }
+  if ('error' in offers) throw new Error(offers.error);
 
-  const SalesRenveu = await getData<SalesRevenue>(
-    `${endpoints.home.salesRenveu}?${urlSearchParams.toString()}`,
-    { tags: [FetchTags.SalesRenveu] }
+  // Best Sellers
+  const bestSellers = await getData<{ totalCount: number; items: Product[] }>(
+    `${endpoints.sellers.bestSellers}?IsPopular=true&IsTopOrder=false`,
+    { tags: [FetchTags.OffersList] }
   );
-  if ('error' in SalesRenveu) {
-    if (SalesRenveu.status === 403) {
-      return <NoPermissionView />;
+  if ('error' in bestSellers) throw new Error(bestSellers.error);
+
+  // Last Orders
+  let lastOrders: any = null;
+  try {
+    const res = await getData<{
+      items: any;
+      code: number;
+      message: string;
+      data: {
+        totalCount: number;
+        items: PastOrders[];
+      };
+    }>(endpoints.orderAgain.get, { tags: [FetchTags.OffersList] });
+
+    if (!('error' in res)) {
+      lastOrders = res.data.data;
     }
-    throw new Error(SalesRenveu.error);
+  } catch {
+    // تجاهل أي خطأ في API الطلبات السابقة
+    lastOrders = { totalCount: 0, items: [] };
   }
 
-  const freeShipping = await getData<{ totalCount: number; data: SettingData }>(
-    endpoints.home.freeShipping
+  return (
+    <HomeView
+      category={category.data.items}
+      banners={banners.data.items}
+      bestSellers={bestSellers.data.items}
+      offers={offers.data.items}
+      pastOrders={lastOrders?.items || []}
+      lastOrderTotal={lastOrders?.totalCount || 0}
+    />
   );
-  if ('error' in freeShipping) {
-    if (freeShipping.status === 403) {
-      return <NoPermissionView />;
-    }
-    throw new Error(freeShipping.error);
-  }
-
-  return <HomeView
-    mostPurchaseProducts={mostPurchaseProducts.data.items}
-    reports={reports.data}
-    salesRenveu={SalesRenveu.data}
-    freeShipping={freeShipping?.data?.data?.items}
-  />;
 }
+
+// ----------------------------------------------------------------------
+
 export async function generateMetadata({ params }: { params: Promise<any> }) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'Metadata' });

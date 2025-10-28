@@ -44,7 +44,6 @@ export default function Header({ onOpenNav }: Props) {
           <SvgColor src="/assets/icons/navbar/ic_menu_item.svg" sx={{ color: 'primary.main' }} />
         </IconButton>
       )}
-
       <Stack
         flexGrow={1}
         direction="row"
@@ -60,6 +59,7 @@ export default function Header({ onOpenNav }: Props) {
   );
 
   return (
+
     <AppBar
       sx={{
         height: HEADER.H_MOBILE,
@@ -71,7 +71,7 @@ export default function Header({ onOpenNav }: Props) {
           duration: theme.transitions.duration.shorter,
         }),
         ...(lgUp && {
-          width: `calc(100% - ${NAV.W_VERTICAL + 1}px)`,
+          width: '100%',
           height: HEADER.H_DESKTOP,
           ...(offsetTop && {
             height: HEADER.H_DESKTOP_OFFSET,

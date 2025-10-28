@@ -5,7 +5,7 @@ import axiosInstance from 'src/utils/axios';
 import { endpoints } from 'src/utils/endpoints';
 
 import { ACCESS_TOKEN, REFRESH_TOKEN } from './config';
-import { User, UserSession, LoginCretentials } from './types';
+import { User, UserSession, LoginCretentials, RegiterCretentials } from './types';
 
 export interface LoginRes extends User {
   accessToken: string;
@@ -14,28 +14,58 @@ export interface LoginRes extends User {
   refreshTokenExpireAt: Date;
 }
 
+// Login API Call
 export async function login(credentials: LoginCretentials): Promise<UserSession> {
   try {
     const res = await axiosInstance.post(endpoints.auth.login, credentials);
-
     const { accessToken, refreshToken, accessTokenExpireAt, refreshTokenExpireAt, ...user } =
       res as unknown as LoginRes;
+
     return {
       user,
-      accessToken: {
-        value: accessToken,
-        expire: accessTokenExpireAt,
-      },
-      refreshToken: {
-        value: refreshToken,
-        expire: refreshTokenExpireAt,
-      },
+      accessToken: { value: accessToken, expire: accessTokenExpireAt },
+      refreshToken: { value: refreshToken, expire: refreshTokenExpireAt },
     };
-  } catch (error) {
-    throw new Error(error.message);
+  } catch (error: any) {
+    throw new Error(error?.message || 'Login failed');
   }
 }
+export async function Register(credentials: RegiterCretentials): Promise<UserSession> {
+    try {
+      const res = await axiosInstance.post(endpoints.auth.register, credentials);
 
+      const { accessToken, refreshToken, accessTokenExpireAt, refreshTokenExpireAt, ...user } =
+        res as unknown as LoginRes;
+      return {
+        user,
+        accessToken: {
+          value: accessToken,
+          expire: accessTokenExpireAt,
+        },
+        refreshToken: {
+          value: refreshToken,
+          expire: refreshTokenExpireAt,
+        },
+      };
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
+export async function verifyOtpApi(credentials: any): Promise<UserSession> {
+  try {
+    const res = await axiosInstance.post(endpoints.auth.verifyOTP, credentials);
+    const { accessToken, refreshToken, accessTokenExpireAt, refreshTokenExpireAt, ...user } =
+      res as unknown as LoginRes;
+
+    return {
+      user,
+      accessToken: { value: accessToken, expire: accessTokenExpireAt },
+      refreshToken: { value: refreshToken, expire: refreshTokenExpireAt },
+    };
+  } catch (error: any) {
+    throw new Error(error?.message || 'OTP verification failed');
+  }
+}
 export async function refreshSession(): Promise<UserSession> {
   try {
     const cookiesStore = await cookies();
@@ -84,20 +114,6 @@ export async function requestOtp(email: string): Promise<void> {
     throw new Error(error.message);
   }
 }
-
-export async function verifyOtp(email: string, otp: string): Promise<{ accessToken: string }> {
-  try {
-    const response = await axiosInstance.post(endpoints.auth.verifyOtp, {
-      email,
-      isPhone: false,
-      otp,
-    });
-    return response as unknown as { accessToken: string };
-  } catch (error) {
-    throw new Error(error.message);
-  }
-}
-
 export async function resetPassword({
   newPassword,
   confirmPassword,

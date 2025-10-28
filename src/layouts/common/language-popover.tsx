@@ -5,10 +5,10 @@ import Iconify from 'src/components/iconify';
 import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
 import { varHover } from 'src/components/animate';
-import { allLocales } from 'src/i18n/config-locale';
 import { useCurrentLocale } from 'src/utils/locale-utils';
 import { clientRedirect } from 'src/actions/client-redirect';
 import { usePathname, useSearchParams } from 'next/navigation';
+import { allLocales, LocaleType } from 'src/i18n/config-locale';
 import CustomPopover, { usePopover } from 'src/components/custom-popover';
 
 // ----------------------------------------------------------------------
@@ -21,7 +21,6 @@ export default function LanguagePopover({ large = false }: { large?: boolean }) 
   const searchParams = useSearchParams();
 
   const handleChangeLang = useCallback(
-    // (newLocale: LocaleType) => {
     (newLocale: string) => {
       if (currentLocale.value !== newLocale) {
         (async () => {

@@ -2,8 +2,7 @@ export type LocaleType = 'en' | 'ar';
 
 interface LocaleSetting {
   label: string;
-  // value: LocaleType;
-  value:string;
+  value: string;
   dir: 'ltr' | 'rtl';
   currency: string;
   icon: string;
@@ -16,7 +15,6 @@ interface LocaleSetting {
 export const locales: LocaleType[] = ['ar', 'en'];
 export const defaultLocale: LocaleType = 'ar';
 
-// export const localesSettings: { [key in LocaleType]: LocaleSetting } = {
 export const localesSettings: { [key in string]: LocaleSetting } = {
   ar: {
     label: 'العربية',

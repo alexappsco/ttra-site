@@ -40,7 +40,7 @@ export default function SharedTable<T extends { id: string }>({
             <TableHeadCustom headLabel={tableHead} enableActions={!!actions?.length} />
 
             <TableBody>
-             {data.map((row) => (
+              {data.map((row) => (
                 <SharedTableRow<T>
                   key={row.id}
                   row={row}

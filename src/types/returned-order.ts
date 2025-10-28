@@ -1,80 +1,48 @@
 export interface ReturnedOrder {
-  id: string;
-  orderId: string;
-  orderNumber: string;
-  orderNote: null;
-  returnOrderNumber: string;
-  clientName: string;
-  paymentMethodName: string;
-  driverName: string;
-  totalReturnedItemsPrice: number;
-  vatRate: number;
-  vatAmount: number;
-  refundAmount: number;
-  returnedDate: Date;
-  reason: string;
-  adminReason: null;
-  status: string;
-}
-export interface ReturnOrderDetails {
-  orderDate: Date;
-  phone: string;
-  email: string;
-  orderItemsCount: number;
-  address: Address;
-  orderItems: OrderItem[];
-  id: string;
-  orderId: string;
-  orderNumber: string;
-  orderNote: string;
-  returnOrderNumber: string;
-  clientName: string;
-  paymentMethodName: string;
-  driverName: string;
-  totalReturnedItemsPrice: number;
-  vatRate: number;
-  vatAmount: number;
-  refundAmount: number;
-  returnedDate: Date;
-  reason: string;
-  adminReason: null;
-  status: string;
-}
-
-export interface Address {
-  id: string;
-  name: string;
-  latitude: number;
-  longitude: number;
-  description: string;
-  isDefault: boolean;
-  userId: string;
-}
-
-export interface OrderItem {
-  id: string;
-  productBarcode: string;
-  name: MeasurementUnit;
-  productImages: ProductImage[];
-  measurementUnit: MeasurementUnit;
-  quantity: number;
-  priceAtPurchase:number;
-  totalPrice:number;
-  priceAtPurchaseWithVat: number;
-  totalPriceWithVat: number;
-
-}
-
-export interface MeasurementUnit {
-  nameEn: string;
-  nameAr: string;
-}
-
-export interface ProductImage {
-  imageUrl: string;
-}
-
-export interface ReturnedOrderItem {
+    id: string;
+    orderId: string;
+    orderNumber: string;
+    returnOrderNumber: string;
+    clientName: string;
+    paymentMethodName: string;
+    driverName: string;
+    totalAmount: number;
+    totalOrderAmount: number;
+    returnedDate: string; 
+    creationTime: string;
+    reason: string;
+    status: string; 
+  }
+    export interface ReturnedOrderDetails {
+      orderDate: string; // ISO format date string
+      address: {
+        id: string;
+        name: string;
+        latitude: number;
+        longitude: number;
+        description: string | null;
+        isDefault: boolean;
+        userId: string;
+      };     
+       phone: string;
+      email: string;
+      orderItemsCount: number;
+      orderItems: any[]; // You can replace 'any' with a specific OrderItem type if available
+      id: string;
+      orderId: string;
+      orderNumber: string;
+      returnOrderNumber: string;
+      clientName: string;
+      paymentMethodName: string;
+      driverName: string;
+      totalAmount: number;
+      returnedDate: string; // 
+      reason: string;
+      status: string; 
+      orderNote: string;
+    }
+    
+  export interface ReturnedOrderItem {
   id: string;
   name: {
     nameEn: string;
@@ -93,3 +61,4 @@ export interface ReturnedOrderItem {
   productBarcode: string;
 }
 
+  

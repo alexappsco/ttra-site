@@ -32,7 +32,7 @@ export default function RHFMap({
         {label}
       </FormLabel>
       <Box
-        height="20rem"
+        height="40rem"
         borderRadius={1}
         overflow="hidden"
         border={(theme) =>
@@ -42,7 +42,7 @@ export default function RHFMap({
         }
       >
         <APIProvider apiKey={MAP_KEY}>
-          <Box height="100%">
+          <Box height="100%" >
             <Map
               defaultCenter={defaultCenter || MAP_DEFAULT_CENTER}
               defaultZoom={defaultZoom ?? MAP_DEFAULT_ZOOM}

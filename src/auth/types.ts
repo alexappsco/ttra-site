@@ -1,8 +1,11 @@
 import { Profile } from "src/types/prof";
 
 export interface User {
+  isHasLocation: any;
   id: string;
   name: string;
+  profileImage:string;
+  phoneNumber:number;
   avatar: string;
   username: string;
   email: string;
@@ -15,8 +18,20 @@ export interface User {
 
 
 export interface LoginCretentials {
+    phoneNumber: string;
   email: string;
-  password: string;
+  isPhone: boolean
+}
+export interface RegiterCretentials{
+  name: string;
+  phoneNumber: string;
+}
+export interface SetLocationCretentials{
+  name: string;
+  latitude: number;
+  longitude: number;
+  description: string;
+  isDefault: boolean;
 }
 
 export interface AuthStore {

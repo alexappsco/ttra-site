@@ -33,6 +33,7 @@ export default function Main({ children, sx, ...other }: BoxProps) {
         }}
         bgcolor="background.neutral"
       >
+        
         {children}
       </Box>
     );

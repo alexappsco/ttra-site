@@ -17,7 +17,7 @@ export default function RHFPhone({
     <RHFTextField
       name={name}
       label={label}
-      placeholder="7xx xxx xxx"
+      placeholder="5xx xxx xxx"
       slotProps={{
         input: {
           [dir === 'ltr' ? 'startAdornment' : 'endAdornment']: (
@@ -28,8 +28,8 @@ export default function RHFPhone({
               spacing={0.5}
               dir="ltr"
             >
-              <Iconify icon="twemoji:flag-yemen" />
-              <Typography color="text.secondary">+967</Typography>
+              <Iconify icon="twemoji:flag-saudi-arabia" />
+              <Typography color="text.secondary">+966</Typography>
             </Stack>
           ),
           inputProps: {

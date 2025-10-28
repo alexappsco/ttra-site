@@ -5,7 +5,8 @@ export const HOST_API = process.env.NEXT_PUBLIC_HOST_API;
 export const ASSETS_API = process.env.NEXT_PUBLIC_ASSETS_API;
 
 // ROOT PATH AFTER LOGIN SUCCESSFUL
-export const PATH_AFTER_LOGIN = paths.controlPanel.main; // as '/dashboar
+export const PATH_AFTER_LOGIN = paths.auth.verify; // as '/dashboar
+export const PATH_AFTER_VERIFY = paths.controlPanel.main; // as '/dashboar
 
 export const COOKIES_KEYS = {
   lang: 'NEXT_LOCALE',

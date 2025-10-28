@@ -25,9 +25,6 @@ export default function CustomBreadcrumbs({
     <Box sx={{ mb: 1.5, ...sx }}>
       <Stack direction="row" alignItems="center" minHeight={80} flexWrap="wrap">
         <Box sx={{ flexGrow: 1 }}>
-          {/* HEADING */}
-          {heading && <Typography variant="h4">{heading}</Typography>}
-
           {/* BREADCRUMBS */}
           {!!links.length && (
             <Breadcrumbs
@@ -51,6 +48,9 @@ export default function CustomBreadcrumbs({
               ))}
             </Breadcrumbs>
           )}
+          {/* HEADING */}
+          {heading && <Typography variant="h4">{heading}</Typography>}
+
         </Box>
 
         {actions?.length && (

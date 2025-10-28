@@ -1,86 +1,59 @@
-
 'use client';
-import React from 'react';
-import { Box, Stack } from '@mui/material';
-import { Reports, SettingItem, SalesRevenue, PurchasedProduct } from 'src/types/home';
 
-import ChartInfo from './chart-info';
-import CardItemList from './card-item-list';
-import SquareCardItems from './square-card-info';
-import DeliveryFreeProgress from './free-delivery-progress-bar';
+import React from 'react';
+import Image from 'src/components/image';
+import { Banner } from 'src/types/banner';
+import { Product } from 'src/types/product';
+import { PastOrders } from 'src/types/order';
+import { Box, Grid2, Container } from '@mui/material';
+
+import OfferView from './offer-view';
+import BannerSlider from './banner-view';
+import CategoryView from './category-view';
+import BetSellerView from './best-seller-view';
+import FavoriteSection from './favorite-section';
+import LastOrdersView from './last-order.tsx/last-orders-view';
+
 
 interface Props {
-  mostPurchaseProducts: PurchasedProduct[];
-  reports: Reports;
-  salesRenveu?: SalesRevenue;
-  freeShipping: SettingItem[];
+  category: any;
+  banners: Banner[];
+  offers: any;
+  bestSellers: Product[];
+  pastOrders?: PastOrders[] | [];
+  // favorites?: any;
+  lastOrderTotal:number;
 }
-export default function HomeView({
-  mostPurchaseProducts,
-  reports,
-  salesRenveu,
-  freeShipping,
-}: Props) {
+
+export default function HomeView({ category, banners, offers, bestSellers, pastOrders,lastOrderTotal }: Props) {
   return (
-    <>
-      {/* 1. This component already works by stacking vertically on mobile */}
-      <Box sx={{p:2}}>
-        <SquareCardItems items={reports} />
-
+    <Container sx={{ alignItems: "center", justifyContent: "center" }}>
+      <BannerSlider items={banners} />
+      <Box sx={{my:5}}>
+      <CategoryView items={category} />
       </Box>
-
-      {/* 2. Main content area: Make it responsive */}
-      <Stack
-        mt={2}
-        alignItems={'flex-start'}
-
-        // --- RESPONSIVENESS APPLIED HERE ---
-        sx={{
-          // Default for mobile (small screens): Stack items vertically
-          flexDirection: 'column',
-
-          // For tablets and desktops (medium screens and up): Stack items horizontally
-          '@media (min-width: 900px)': { // 'md' breakpoint and up
-            flexDirection: 'row',
-          },
-        }}
-        // ------------------------------------
-      >
-        {/* CardItemList (Most Purchased Products) */}
-        <Box
-          sx={{
-            width: '100%', // Take full width on mobile
-            // For tablets and desktops (md and up): Use 38% width
-            '@media (min-width: 900px)': {
-              width: '38%',
-            },
-            px:2
+      <OfferView items={offers} />
+      <Box sx={{my:5}}>
+       <BetSellerView items={bestSellers} />
+      </Box>
+      <Grid2 container spacing={3} sx={{ mt: 2, mb: 2 }}>
+        <Image
+          src="/assets/images/banners/app-banner.svg"
+          alt="offer"
+          width={'100%'}
+          height={200}
+          style={{
+            width: '100%',
+            height: 'auto',
+            display: 'block',
+            borderRadius: 24,
           }}
-        >
-          <CardItemList
-            items={mostPurchaseProducts}
-            reports={reports}
-          />
-        </Box>
-
-        {/* ChartInfo and DeliveryFreeProgress */}
-        <Box
-          sx={{
-            width: '100%', // Take full width on mobile
-            marginTop: { xs: 2, md: 0 }, // Add top margin on mobile, none on desktop
-            borderRadius: 3,
-            // For tablets and desktops (md and up): Use 62% width
-            '@media (min-width: 900px)': {
-              width: '62%',
-            },
-          }}
-        >
-          <ChartInfo items={mostPurchaseProducts} salesRenveu={salesRenveu} />
-          <Stack direction="row" width="100%" p={2}>
-            <DeliveryFreeProgress reports={reports} freeShipping={freeShipping} />
-          </Stack>
-        </Box>
-      </Stack>
-    </>
+        />
+      </Grid2>
+      <LastOrdersView items={pastOrders} total={lastOrderTotal}/>
+       <Box sx={{my:5}}>
+      <FavoriteSection />
+      </Box>
+    </Container>
   );
 }

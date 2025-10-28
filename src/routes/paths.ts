@@ -4,34 +4,38 @@ export const paths = {
   auth: {
     login: '/auth/login',
     forgotPassword: '/auth/forgot-password',
+    register: '/auth/register',
+    verify: '/auth/verify',
+    resetPassword: '/auth/reset-password',
+    setlocation: '/auth/set-address'
   },
   // Control Panel
   controlPanel: {
     main: '/',
     profile:{
-      viewProfileEdit:'/edit-profile'
+      viewProfile:'/edit-profile'
     },
-    categories: {
-      list: '/categories',
-      single: (id: string) => `/categories/${id}`,
+    category: {
+      list: '/category',
+      details: (id: string) => `/category/${id}`,
     },
     subCategories: {
-      list: '/sub-categories',
+      list: '/categories/sub-categories',
       single: (id: string) => `/sub-categories/${id}`,
     },
     products: {
       list: '/products',
-      single: (id: string) => `/products/${id}`,
+      single: (id: string) => `/product/${id}`,
       new: '/products/new',
-      details: (id: string) => `/products/details/${id}`,
     },
     orders: {
-      list: '/orders',
-      single: (id: string) => `/orders/${id}`,
+      checkout:"/orders/checkout",
+      list: '/order',
+      single: (id: string) => `/order/${id}`,
     },
     returnOrders: {
-      list: '/orders/return-orders',
-      single: (id: string) => `/orders/return-orders/${id}`,
+      list: '/return-order',
+      single: (id: string) => `/return-order/${id}`,
     },
     units: {
       list: '/products/units',
@@ -39,7 +43,7 @@ export const paths = {
     marketings: {
       root: '/marketings',
       offers: {
-        list: '/marketings/offers',
+        list: '/offers',
         new: '/marketings/offers/new',
         edit: (id: string) => `/marketings/offers/${id}`,
       },
@@ -98,8 +102,23 @@ export const paths = {
     reports:{
       list: '/reports',
     },
-    deliveryFees:{
-      list:'/delivery-fees'
+    offers:{
+     view: '/offers'
+    },
+    favorite:{
+      view: '/favorite'
+    },
+    location:{
+      view:"/location"
+    },
+    cart:{
+      view:"/carts"
+    },
+    paid:{
+      view:'/paid'
+    },
+    search:{
+      view:'/search'
     }
   },
 };

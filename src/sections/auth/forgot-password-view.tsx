@@ -21,7 +21,7 @@ import RHFOTP from 'src/components/hook-form/rhf-otp';
 import { memo, useMemo, useState, useEffect } from 'react';
 import { Link, IconButton, InputAdornment } from '@mui/material';
 import FormProvider, { RHFTextField } from 'src/components/hook-form';
-import { verifyOtp, requestOtp, resetPassword } from 'src/auth/auth-actions';
+import { verifyOtpApi, requestOtp, resetPassword } from 'src/auth/auth-actions';
 
 import { EMAIL_REGEX } from './config-auth';
 
@@ -221,8 +221,8 @@ function OtpStep({
   const onSubmit = handleSubmit(async (data) => {
     try {
       loading.onTrue();
-      const response = await verifyOtp(email, data.otp);
-      setToken(response.accessToken);
+      // const response = await verifyOtp(email, data.otp);
+      // setToken(response.accessToken);
       onNextStep();
     } catch (error) {
       setErrorMsg(error.message);

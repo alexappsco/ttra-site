@@ -11,7 +11,8 @@ import { NavSectionVertical } from 'src/components/nav-section';
 
 import { NAV } from '../config-layout';
 import { useNavData } from './config-navigation';
-
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 // ----------------------------------------------------------------------
 
 type Props = {
@@ -64,38 +65,41 @@ export default function NavVertical({ openNav, onCloseNav }: Props) {
   );
 
   return (
-    <Box
-      sx={{
-        flexShrink: { lg: 0 },
-        width: { lg: NAV.W_VERTICAL },
-        backgroundColor: 'primary.main',
-      }}
-    >
-      {lgUp ? (
-        <Stack
-          sx={{
-            height: 1,
-            position: 'fixed',
-            width: NAV.W_VERTICAL,
-            borderRight: (theme) => `dashed 1px ${theme.palette.divider}`,
-          }}
-        >
-          {renderContent}
-        </Stack>
-      ) : (
-        <Drawer
-          open={openNav}
-          onClose={onCloseNav}
-          PaperProps={{
-            sx: {
-              width: NAV.W_VERTICAL,
-              backgroundColor: (theme) => `${theme.palette.primary.main} !important`,
-            },
-          }}
-        >
-          {renderContent}
-        </Drawer>
-      )}
-    </Box>
+    // <Box
+    //   sx={{
+    //     flexShrink: { lg: 0 },
+    //     width: { lg: NAV.W_VERTICAL },
+    //     backgroundColor: 'primary.main',
+    //   }}
+    // >
+    //   {lgUp ? (
+    //     <Stack
+    //       sx={{
+    //         height: 1,
+    //         position: 'fixed',
+    //         width: NAV.W_VERTICAL,
+    //         borderRight: (theme) => `dashed 1px ${theme.palette.divider}`,
+    //       }}
+    //     >
+    //       {renderContent}
+    //     </Stack>
+    //   ) : (
+    //     <Drawer
+    //       open={openNav}
+    //       onClose={onCloseNav}
+    //       PaperProps={{
+    //         sx: {
+    //           width: NAV.W_VERTICAL,
+    //           backgroundColor: (theme) => `${theme.palette.primary.main} !important`,
+    //         },
+    //       }}
+    //     >
+    <>
+          {/* {renderContent} */}
+    </>
+    //     </Drawer>
+    //   )}
+    // </Box>
+ 
   );
 }

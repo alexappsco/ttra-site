@@ -18,7 +18,6 @@ export const ICONS = {
     reports: icon('navbar/ic_reports'),
     policy: icon('navbar/ic_policy'),
     contactUs: icon('navbar/ic_contact_us'),
-    deliveryFees: icon('navbar/ic_delivery_fees'),
    },
   global: {
     eye: icon('global/ic_eye'),
@@ -43,11 +42,14 @@ export const ICONS = {
   },
   SocialIcons:{
     gmail:icon('social-icons/ic_gmail'),
-    wats:icon('social-icons/ic_wats'),
     facebook:icon('social-icons/ic_facebook'),
     instagram:icon('social-icons/ic_instagram'),
     telegram:icon('social-icons/ic_telegram'),
     snapchat:icon('social-icons/ic_snapchat'),
     tiktok:icon('social-icons/ic_tiktok'),
+    phone:icon('social-icons/ic_phone'),
+    mail:icon('social-icons/ic_mail'),
+    wats:icon('social-icons/ic_wats'),
+    googleApp:icon('social-icons/ic_google_app'),
   }
 };

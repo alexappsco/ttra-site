@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { GuestGuard } from 'src/auth/guard';
+import Footer from 'src/layouts/common/footer-main';
 import AuthClassicLayout from 'src/layouts/auth/classic';
 
 // ----------------------------------------------------------------------
@@ -17,6 +18,7 @@ export default function Layout({ children }: Props) {
       <AuthClassicLayout title={t('Global.title')} image="/logo/logo_single.png">
         {children}
       </AuthClassicLayout>
+      <Footer/>
     </GuestGuard>
   );
 }

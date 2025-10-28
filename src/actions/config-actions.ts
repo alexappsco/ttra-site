@@ -22,5 +22,7 @@ export const enum FetchTags {
   HomeSettings = 'HOME_SETTINGS',
   UpdateProfile='UPDATE_PROFILE',
   viewProfile='VIEW_PROFILE',
-  DeliveryFees='DELIVERY_FEES',
+  FavoritesList='FAVORITES_LIST',
+  cartsList='CARTS_LIST',
+  LocationsList='Location_List'
 }

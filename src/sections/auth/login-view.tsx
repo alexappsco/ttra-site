@@ -1,76 +1,224 @@
+// 'use client';
+
+// import * as yup from 'yup';
+// import Image from 'next/image';
+// import { useState } from 'react';
+// import { paths } from 'src/routes/paths';
+// import { useForm } from 'react-hook-form';
+// import { useTranslations } from 'next-intl';
+// import { LoginCretentials } from 'src/auth/types';
+// import { useAuthStore } from 'src/auth/auth-store';
+// import { useBoolean } from 'src/hooks/use-boolean';
+// import FormProvider from 'src/components/hook-form';
+// import { PATH_AFTER_LOGIN } from 'src/config-global';
+// import { yupResolver } from '@hookform/resolvers/yup';
+// import RHFPhone from 'src/components/hook-form/rhf-phone';
+// import { useRouter, useSearchParams } from 'src/routes/hooks';
+// import { Box, Link, Stack, Button, Container, Typography } from '@mui/material';
+
+// export default function JwtLoginView() {
+//   const t = useTranslations();
+//   const LoginSchema = yup.object().shape({
+//     email: yup.string(),
+// phoneNumber: yup
+//     .string()
+//     .required(t('Global.Validation.password_required'))
+//     // .matches(/^5\d*$/, t('Global.Validation.phone_must_start_5')),
+//     //
+//     });
+
+//   const { login } = useAuthStore();
+//   const router = useRouter();
+//   const [errorMsg, setErrorMsg] = useState('');
+//   const searchParams = useSearchParams();
+//   const returnTo = searchParams.get('returnTo');
+//   const showPassword = useBoolean();
+
+//   const defaultValues = {
+//     phoneNumber: '',
+//     email: '',
+//     isPhone: true,
+//   };
+
+//   const methods = useForm({
+//     resolver: yupResolver(LoginSchema),
+//     defaultValues,
+//   }) as any;
+
+//   const { reset, handleSubmit, formState: { isSubmitting } } = methods;
+
+//   const onSubmit = handleSubmit(async (data: LoginCretentials) => {
+//     try {
+//       const res = await login({ ...data, phoneNumber: `+966${data.phoneNumber}`, isPhone: true, email: '' });
+
+//       if (typeof res === 'object' && 'error' in res) {
+//         reset();
+//         setErrorMsg(res.error);
+//       } else {
+//         router.push(returnTo || PATH_AFTER_LOGIN);
+//       }
+//     } catch (error) {
+//       reset();
+//       setErrorMsg(typeof error === 'string' ? error : (error as Error).message);
+//     }
+//   });
+
+//   return (
+//     <Box
+//       sx={{
+//         minHeight: '100vh',
+//         width: '100%',
+//         backgroundColor: '#a2b5a3',
+//         backgroundImage: 'url("/assets/background/bgColor-sinwan-auth.png")',
+//         backgroundRepeat: 'no-repeat',
+//         backgroundSize: 'cover',
+//         backgroundPosition: 'center',
+//         display: 'flex',
+//         justifyContent: 'center',
+//         alignItems: 'center',
+//         p: { xs: 2, sm: 3 },
+//       }}
+//     >
+//       <Container maxWidth="sm">
+//         <Box
+//           sx={{
+//             bgcolor: 'background.paper',
+//             borderRadius: 3,
+//             boxShadow: 3,
+//             p: { xs: 3, sm: 4 },
+//             textAlign: 'center',
+//             width: '100%',
+//             maxWidth: 500,
+//             mx: 'auto',
+//           }}
+//         >
+//           {/* Logo */}
+//           <Box sx={{ mb: 2 }}>
+//             <Image
+//               src="/logo/logo_single.png"
+//               alt="Logo"
+//               width={200}
+//               height={150}
+//               style={{ margin: 'auto', maxWidth: '100%', height: 'auto' }}
+//             />
+//           </Box>
+
+//           {/* Title */}
+//           <Typography
+//             variant="h5"
+//             fontWeight="bold"
+//             color="#4B684C"
+//             mb={1}
+//             sx={{ fontSize: { xs: '1.2rem', sm: '1.5rem' } }}
+//           >
+//             {t('Pages.Auth.login_title')}
+//           </Typography>
+
+//           {/* Subtitle */}
+//           <Typography
+//             variant="h6"
+//             color="text.secondary"
+//             mb={3}
+//             sx={{ textAlign: 'left', fontSize: { xs: '0.9rem', sm: '1rem' } }}
+//           >
+//             {t('Pages.Auth.enter_phone_number')}
+//           </Typography>
+
+//           {/* Form */}
+//           <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+//             <Stack spacing={2}>
+//               {/* Phone Field */}
+//               <RHFPhone
+//                 name="phoneNumber"
+//                 sx={{
+//                   '& .MuiInputBase-root': {
+//                     height: 56,
+//                     bgcolor: '#F5F5F5',
+//                     borderRadius: 1,
+//                     px: 2,
+//                   },
+//                 }}
+//               />
+
+//               {/* Submit Button */}
+//               <Button
+//                 type="submit"
+//                 fullWidth
+//                 variant="contained"
+//                 size="large"
+//                 sx={{
+//                   height: 56,
+//                   fontWeight: 'bold',
+//                   fontSize: { xs: '0.95rem', sm: '1rem' },
+//                   bgcolor: '#4B684C',
+//                   '&:hover': { bgcolor: '#3a523c' },
+//                   color: '#fff',
+//                   borderRadius: 1,
+//                 }}
+//                 disabled={isSubmitting}
+//               >
+//                 {t('Pages.Auth.login_title')}
+//               </Button>
+//             </Stack>
+//           </FormProvider>
+
+//           {/* Register link */}
+//           <Typography variant="body2" mt={3} sx={{ fontSize: { xs: '0.85rem', sm: '0.95rem' } }}>
+//             {t('Pages.Auth.not_have_account')}{' '}
+//             <Link href={paths.auth.register} underline="hover" fontWeight="bold">
+//               {t('Pages.Auth.create_new_account')}
+//             </Link>
+//           </Typography>
+//         </Box>
+//       </Container>
+//     </Box>
+//   );
+// }
 'use client';
 
 import * as yup from 'yup';
+import Image from 'next/image';
 import { useState } from 'react';
-import Box from '@mui/material/Box';
-import Link from '@mui/material/Link';
-import YupPassword from 'yup-password';
-import Alert from '@mui/material/Alert';
-import Stack from '@mui/material/Stack';
 import { paths } from 'src/routes/paths';
-import { ICONS } from 'src/config-icons';
 import { useForm } from 'react-hook-form';
 import { useTranslations } from 'next-intl';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import LoadingButton from '@mui/lab/LoadingButton';
-import { useBoolean } from 'src/hooks/use-boolean';
+import { LoginCretentials } from 'src/auth/types';
 import { useAuthStore } from 'src/auth/auth-store';
-import { RouterLink } from 'src/routes/components';
+import FormProvider from 'src/components/hook-form';
 import { PATH_AFTER_LOGIN } from 'src/config-global';
 import { yupResolver } from '@hookform/resolvers/yup';
-import InputAdornment from '@mui/material/InputAdornment';
+import RHFPhone from 'src/components/hook-form/rhf-phone';
 import { useRouter, useSearchParams } from 'src/routes/hooks';
-import FormProvider, { RHFTextField } from 'src/components/hook-form';
+import LanguagePopover from 'src/layouts/common/language-popover';
+import { Box, Link, Stack, Paper, Button, Container, Typography } from '@mui/material';
 
-import { EMAIL_REGEX } from './config-auth';
-
-YupPassword(yup);
 // ----------------------------------------------------------------------
 
-export default function LoginView() {
+export default function JwtLoginView() {
   const t = useTranslations();
-  const { login } = useAuthStore();
-
-  const LABELS = {
-    email: t('Global.Label.email'),
-    password: t('Global.Label.password'),
-  };
-
   const router = useRouter();
+  const { login, loginAsGuest } = useAuthStore();
+  // const theme = useTheme();
 
   const [errorMsg, setErrorMsg] = useState('');
-
   const searchParams = useSearchParams();
-
   const returnTo = searchParams.get('returnTo');
-
-  const showPassword = useBoolean();
+  // const showPassword = useBoolean();
 
   const LoginSchema = yup.object().shape({
-    email: yup
-      .string()
-      .required(t('Global.Validation.var_required', { var: LABELS.email }))
-      .matches(EMAIL_REGEX, t('Global.Validation.var_invalid', { var: LABELS.email })),
-    password: yup
-      .string()
-      .min(8, t('Global.Validation.var_min', { var: LABELS.password, min: 8 }))
-      .minLowercase(1, t('Global.Validation.var_min_lowercase', { var: LABELS.password, min: 1 }))
-      .minUppercase(1, t('Global.Validation.var_min_uppercase', { var: LABELS.password, min: 1 }))
-      .minNumbers(1, t('Global.Validation.var_min_number', { var: LABELS.password, min: 1 }))
-      .minSymbols(1, t('Global.Validation.var_min_special', { var: LABELS.password, min: 1 }))
-      .required(t('Global.Validation.var_required', { var: LABELS.password })),
+    phoneNumber: yup.string().required(t('Global.Validation.password_required')),
   });
 
   const defaultValues = {
-    email: 'admin@sanwan.com',
-    password: 'Admin@12345',
+    phoneNumber: '',
+    email: '',
+    isPhone: true,
   };
 
   const methods = useForm({
     resolver: yupResolver(LoginSchema),
     defaultValues,
-  });
+  }) as any;
 
   const {
     reset,
@@ -78,106 +226,200 @@ export default function LoginView() {
     formState: { isSubmitting },
   } = methods;
 
-  const onSubmit = handleSubmit(async (data) => {
-    const res = await login?.(data);
-    if (typeof res === 'object' && 'error' in res) {
+  const onSubmit = handleSubmit(async (data: LoginCretentials) => {
+    try {
+      const res = await login({
+        ...data,
+        phoneNumber: `+966${data.phoneNumber}`,
+        isPhone: true,
+        email: '',
+      });
+
+      if ('error' in res) {
+        reset();
+        setErrorMsg(res.error);
+      } else if ('redirectTo' in res) {
+        router.push(res.redirectTo);
+      }
+    } catch (error) {
       reset();
-      setErrorMsg(res.error);
-    } else {
-      router.push(returnTo || PATH_AFTER_LOGIN);
+      setErrorMsg(typeof error === 'string' ? error : (error as Error).message);
     }
   });
-
-  const renderHead = (
-    <Typography
-      variant="h3"
-      textTransform="capitalize"
-      textAlign="center"
-      color="primary.contrastText"
-    >
-      {t('Pages.Auth.login_title')}
-    </Typography>
-  );
-
-  const renderForm = (
-    <Stack spacing={5} sx={{ minWidth: '100%' }}>
-      {renderHead}
-
-      {!!errorMsg && <Alert severity="error">{errorMsg}</Alert>}
-
-      <RHFTextField
-        name="email"
-        label={LABELS.email}
-        variant="filled"
-        color="primary"
-        formLabelProps={{
-          sx: {
-            color: 'white',
-          },
-        }}
-      />
-
-      <Box>
-        <RHFTextField
-          name="password"
-          label={LABELS.password}
-          type={showPassword.value ? 'text' : 'password'}
-          variant="filled"
-          color="primary"
-          slotProps={{
-            input: {
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton onClick={showPassword.onToggle} edge="end">
-                    {showPassword.value ? ICONS.global.eyeClosed : ICONS.global.eye}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            },
-          }}
-          formLabelProps={{
-            sx: {
-              color: 'white',
-            },
-          }}
-        />
-        <Link
-          href={paths.auth.forgotPassword}
-          component={RouterLink}
-          color="primary.light"
-          variant="caption"
-          paddingInlineStart={2}
-          display="inline-block"
-        >
-          {t('Pages.Auth.forgot_password')}
-        </Link>
-      </Box>
-
-      <LoadingButton
-        fullWidth
-        color="primary"
-        size="large"
-        type="submit"
-        variant="soft"
-        loading={isSubmitting}
-        sx={{ mt: -1 }}
-      >
-        {t('Pages.Auth.login_submit')}
-      </LoadingButton>
-    </Stack>
-  );
 
   return (
     <Box
       sx={{
+        minHeight: '100vh',
         width: '100%',
-        maxWidth: '440px',
-        marginInline: 'auto',
+        backgroundColor: '#a2b5a3',
+        backgroundImage: 'url("/assets/background/bgColor-sinwan-auth.png")',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        display: 'flex',
+        flexDirection: 'column',
       }}
     >
-      <FormProvider methods={methods} onSubmit={onSubmit}>
-        {renderForm}
-      </FormProvider>
+      {/* === TOP BAR === */}
+      <Box
+        sx={{
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          px: { xs: 2, sm: 4, md: 6 },
+          py: { xs: 1.5, sm: 2 },
+        }}
+      >
+        <Button
+          variant="outlined"
+          onClick={async () => {
+            const res = await loginAsGuest();
+            if ('redirectTo' in res) {
+              router.push(res.redirectTo);
+            }
+          }}
+          sx={{
+            borderRadius: 10,
+            borderColor: '#fff',
+            color: '#fff',
+            fontWeight: 600,
+            fontSize: { xs: '0.8rem', sm: '0.9rem' },
+            textTransform: 'none',
+            px: { xs: 2, sm: 3 },
+            transition: '0.3s',
+            '&:hover': {
+              backgroundColor: 'rgba(255,255,255,0.15)',
+              borderColor: '#fff',
+            },
+          }}
+        >
+          {t('Global.Action.skip')}
+        </Button>
+
+        <LanguagePopover />
+      </Box>
+
+      {/* === LOGIN FORM === */}
+      <Box
+        sx={{
+          flexGrow: 1,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          px: { xs: 2, sm: 3 },
+          py: { xs: 3, sm: 5 },
+        }}
+      >
+        <Container maxWidth="sm">
+          <Paper
+            elevation={5}
+            sx={{
+              borderRadius: 4,
+              p: { xs: 3, sm: 5 },
+              textAlign: 'center',
+              backdropFilter: 'blur(12px)',
+              backgroundColor: 'rgba(255,255,255,0.9)',
+            }}
+          >
+            {/* Logo */}
+            <Box sx={{ mb: 2 }}>
+              <Image
+                src="/logo/logo_single.png"
+                alt="Logo"
+                width={180}
+                height={120}
+                style={{
+                  margin: 'auto',
+                  maxWidth: '100%',
+                  height: 'auto',
+                }}
+              />
+            </Box>
+
+            <Typography
+              variant="h5"
+              fontWeight="bold"
+              color="#4B684C"
+              mb={1}
+              sx={{
+                fontSize: { xs: '1.3rem', sm: '1.6rem' },
+              }}
+            >
+              {t('Pages.Auth.login_title')}
+            </Typography>
+
+            <Typography
+              variant="body1"
+              color="text.secondary"
+              mb={3}
+              sx={{
+                textAlign: 'center',
+                fontSize: { xs: '0.9rem', sm: '1rem' },
+              }}
+            >
+              {t('Pages.Auth.enter_phone_number')}
+            </Typography>
+
+            <FormProvider methods={methods} onSubmit={onSubmit}>
+              <Stack spacing={2}>
+                <RHFPhone
+                  name="phoneNumber"
+                  sx={{
+                    '& .MuiInputBase-root': {
+                      height: 56,
+                      bgcolor: '#F5F5F5',
+                      borderRadius: 2,
+                      px: 2,
+                      fontSize: { xs: '0.9rem', sm: '1rem' },
+                    },
+                  }}
+                />
+
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  size="large"
+                  sx={{
+                    height: 56,
+                    fontWeight: 'bold',
+                    fontSize: { xs: '0.95rem', sm: '1rem' },
+                    bgcolor: '#4B684C',
+                    '&:hover': { bgcolor: '#3a523c' },
+                    color: '#fff',
+                    borderRadius: 2,
+                    mt: 1,
+                  }}
+                  disabled={isSubmitting}
+                >
+                  {t('Pages.Auth.login_title')}
+                </Button>
+              </Stack>
+            </FormProvider>
+
+            <Typography
+              variant="body2"
+              mt={3}
+              sx={{
+                fontSize: { xs: '0.85rem', sm: '0.95rem' },
+              }}
+            >
+              {t('Pages.Auth.not_have_account')}{' '}
+              <Link href={paths.auth.register} underline="hover" fontWeight="bold" color="#4B684C">
+                {t('Pages.Auth.create_new_account')}
+              </Link>
+            </Typography>
+
+            {errorMsg && (
+              <Typography color="error" sx={{ mt: 2 }}>
+                {errorMsg}
+              </Typography>
+            )}
+          </Paper>
+        </Container>
+      </Box>
     </Box>
   );
 }
