@@ -290,7 +290,8 @@
       "update_profile": "Update Profile",
       "logout": "Logout",
       "no_phone":"No Phone",
-      "as_guset":"Guest"
+      "as_guset":"Guest",
+      "no_name":"لا اسم"
     },
     "Message": {
       "Added_To_wishlist_success": "Added to wishlist successfully",

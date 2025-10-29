@@ -3,8 +3,8 @@ import { Profile } from 'src/types/prof';
 import { paths } from 'src/routes/paths';
 
 import { LoginCretentials, RegiterCretentials } from './types';
-import { saveSession, removeSession, restoreSession, updateUserSession } from './auth-utils';
 import { login, Register, verifyOtpApi, refreshSession } from './auth-actions';
+import { saveSession, removeSession, restoreSession, updateUserSession } from './auth-utils';
 
 type AuthStore = {
   loading: boolean;

@@ -1,63 +1,66 @@
 'use client';
 
 import React from 'react';
-import Image from 'src/components/image';
-import { Banner } from 'src/types/banner';
-import { Product } from 'src/types/product';
-import { PastOrders } from 'src/types/order';
-import { Box, Grid2, Container } from '@mui/material';
+import { Box, Typography } from '@mui/material';
+import BannerSlider from './banner-view'; // تأكد من صحة المسار
+import InvestmentHero from './best-seller-view'; // القسم الثاني (اختياري)
+import FirstSection from '../section-third/first-section';
+import SecondSection from '../section-third/second-section';
 
-import OfferView from './offer-view';
-import BannerSlider from './banner-view';
-import CategoryView from './category-view';
-import BetSellerView from './best-seller-view';
-import FavoriteSection from './favorite-section';
-import LastOrdersView from './last-order.tsx/last-orders-view';
-
-
-interface Props {
-  // category: any;
-  // banners: Banner[];
-  // offers: any;
-  // bestSellers: Product[];
-  // pastOrders?: PastOrders[] | [];
-  // // favorites?: any;
-  // lastOrderTotal:number;
-}
-
-export default function HomeView(
-  // { category, banners, offers, bestSellers, pastOrders,lastOrderTotal }: Props
-) {
+export default function HomeView() {
   return (
-    // <Container sx={{ alignItems: "center", justifyContent: "center" }}>
-    //   <BannerSlider items={banners} />
-    //   <Box sx={{my:5}}>
-    //   <CategoryView items={category} />
-    //   </Box>
-    //   <OfferView items={offers} />
-    //   <Box sx={{my:5}}>
-    //    <BetSellerView items={bestSellers} />
-    //   </Box>
-    //   <Grid2 container spacing={3} sx={{ mt: 2, mb: 2 }}>
-    //     <Image
-    //       src="/assets/images/banners/app-banner.svg"
-    //       alt="offer"
-    //       width={'100%'}
-    //       height={200}
-    //       style={{
-    //         width: '100%',
-    //         height: 'auto',
-    //         display: 'block',
-    //         borderRadius: 24,
-    //       }}
-    //     />
-    //   </Grid2>
-    //   <LastOrdersView items={pastOrders} total={lastOrderTotal}/>
-    //    <Box sx={{my:5}}>
-    //   <FavoriteSection />
-    //   </Box>
-    // </Container>
     <>
+      {/* القسم الأول: السلايدر */}
+      <BannerSlider />
+
+      {/* القسم الثاني: صورة متجاوبة ومحتواة */}
+      <Box
+        component="section"
+        sx={{
+          width: '100%',
+          mt: 4,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          bgcolor: '#fff', // لون خلفية اختياري لتوضيح حدود الصورة
+        }}
+      >
+        <Box
+          component="img"
+          src="/assets/section_2.svg" // ← مسار الصورة
+          alt="Investment Section"
+          sx={{
+            width: '100%',
+            height: { xs: 200, sm: 300, md: 450 },
+            objectFit: 'contain', // ✅ يجعل الصورة محتواة بالكامل
+            borderRadius: 2,
+          }}
+        />
+      </Box>
+      <Box sx={{my:2}}>
+       {/* Title Text */}
+        <Typography
+          sx={{
+            fontFamily: "'Frutiger LT Arabic', sans-serif",
+            fontWeight: 700,
+            fontSize: { xs: '22px', sm: '30px', md: '42px' },
+            lineHeight: { xs: '32px', sm: '42px', md: '51px' },
+            color: 'rgb(0,72,181)',
+            letterSpacing: '0.1px',
+            mb: { xs: 3, md: 5 },
+            textAlign: 'center',
+            width: '100%',
+            px: 2,
+            py:2,
+          }}
+        >
+          مميزات تجعل استحواذ منصتك الأولى لبيع وشراء الأعمال التجارية
+        </Typography>
+
+      </Box>
+<FirstSection/>
+<SecondSection/>
+
     </>
   );
 }
