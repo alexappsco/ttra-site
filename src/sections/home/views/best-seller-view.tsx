@@ -1,81 +1,126 @@
-
 'use client';
 
-import Slider from 'react-slick';
-import { Product } from 'src/types/product';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import { useTranslations } from 'next-intl';
-import { styled } from '@mui/material/styles';
-import { Box, Typography } from '@mui/material';
-import ProductCard from 'src/sections/components/product-card';
+import { Box, Typography, Button } from '@mui/material';
+import Image from 'next/image';
 
-interface Props {
-  items: Product[];
-}
-
-// Custom Arrow Component
-const Arrow = styled('div')<{ showGreen: boolean }>(({ theme }) => ({
-  zIndex: 2,
-  '&:before': {
-    color:  theme? theme.palette.primary.light : '#ccc', // fallback grey
-    fontSize: '28px',
-  },
-}));
-
-export default function BestSellerView({ items }: Props) {
-  const t = useTranslations();
-  const showGreen = items.length > 4;
-
-  const settings = {
-    dots: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    nextArrow: <Arrow showGreen={showGreen} />,
-    prevArrow: <Arrow showGreen={showGreen} />,
-    responsive: [
-      { breakpoint: 1200, settings: { slidesToShow: 3 } },
-      { breakpoint: 900, settings: { slidesToShow: 2 } },
-      { breakpoint: 600, settings: { slidesToShow: 1 } },
-    ],
-  };
-
+export default function InvestmentHero() {
   return (
-    <>
-      <Box sx={{ mt: 4, mb: 2 }}>
+    <Box
+      sx={{
+        position: 'relative',
+        width: '100%',
+        height: { xs: 500, md: 600 },
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        overflow: 'hidden',
+        bgcolor: '#0048b5',
+        backgroundImage: 'url(/assets/khobar-bg.jpg)', // 🔹 replace with real background
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        color: '#fff',
+      }}
+    >
+      {/* Overlay gradient */}
+      <Box
+        sx={{
+          position: 'absolute',
+          inset: 0,
+          bgcolor: 'rgba(0,72,181,0.6)',
+          zIndex: 1,
+        }}
+      />
+
+      {/* Cards section */}
+      <Box
+        sx={{
+          position: 'relative',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: { xs: 1, md: 3 },
+          zIndex: 2,
+        }}
+      >
+        {/* Left card */}
         <Box
+          component="img"
+          src="/assets/slide_img_2.svg"
+          alt="left"
           sx={{
-            mt: 4,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            flexWrap: 'wrap',
+            width: { xs: 120, md: 240 },
+            opacity: 0.3,
+            transform: { md: 'translateX(60px)' },
           }}
-        >
-          <Typography
-            variant="h6"
-            sx={{
-              fontFamily: 'DIN Next LT Arabic',
-              fontWeight: 700,
-              fontSize: { xs: '24px', sm: '28px' },
-              color: '#447143',
-              mb: 2,
-            }}
-          >
-            {t('Pages.Home.best_seller')}
-          </Typography>
-        </Box>
+        />
+
+        {/* Center card */}
+        <Box
+          component="img"
+          src="/assets/slide_img_1.svg"
+          alt="center"
+          sx={{
+            width: { xs: 180, md: 320 },
+            zIndex: 3,
+            boxShadow: '0px 10px 30px rgba(0,0,0,0.3)',
+            borderRadius: 3,
+          }}
+        />
+
+        {/* Right card */}
+        <Box
+          component="img"
+          src="/assets/slide_img_3.svg"
+          alt="right"
+          sx={{
+            width: { xs: 120, md: 240 },
+            opacity: 0.3,
+            transform: { md: 'translateX(-60px)' },
+          }}
+        />
       </Box>
 
-      <Slider {...settings}>
-        {items.map((item) => (
-          <Box sx={{ px: 1 }} key={item.id} style={{ padding: '0 8px' }}>
-            <ProductCard product={item} />
-          </Box>
-        ))}
-      </Slider>
-    </>
+      {/* Text section */}
+      <Box
+        sx={{
+          position: 'absolute',
+          right: { xs: 16, md: 80 },
+          top: '50%',
+          transform: 'translateY(-50%)',
+          zIndex: 3,
+          textAlign: 'right',
+          maxWidth: 420,
+        }}
+      >
+        <Typography
+          variant="h4"
+          sx={{
+            fontWeight: 'bold',
+            mb: 1,
+            lineHeight: 1.4,
+          }}
+        >
+          استحوذ على فرصتك الاستثمارية اليوم
+        </Typography>
+        <Typography variant="body1" sx={{ opacity: 0.9, mb: 3 }}>
+          اكتشف، قيّم، وتفاوض لإنشاء أو بيع الأعمال التجارية بسهولة عبر منصة “استحواذ”.
+        </Typography>
+
+        <Button
+          variant="contained"
+          sx={{
+            bgcolor: '#fff',
+            color: '#0048b5',
+            fontWeight: 'bold',
+            borderRadius: 10,
+            px: 3,
+            py: 1,
+            '&:hover': { bgcolor: '#e6e6e6' },
+          }}
+        >
+          التسجيل
+        </Button>
+      </Box>
+    </Box>
   );
 }

@@ -288,7 +288,8 @@
       "update_profile": "تحديث  الحساب",
       "logout": "تسجيل الخروج",
       "no_phone":"لا يوجد هاتف",
-      "as_guset":"زائر"
+      "as_guset":"زائر",
+      "no_name":"لأ اسم"
     },
     "Message": {
       "Added_To_wishlist_success": "تمت الإضافة إلى قائمة المفضلات بنجاح",
