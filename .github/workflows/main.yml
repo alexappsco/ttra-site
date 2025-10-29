@@ -1,10 +1,9 @@
-
 name: Deploy to Ubuntu Server
 
 on:
   push:
     branches:
-      - main  # Deploy only when code is pushed to the main branch
+      - main
 
 jobs:
   deploy:
@@ -31,12 +30,10 @@ jobs:
           SSH_HOST: ${{ secrets.SSH_HOST }}
           SSH_USER: ${{ secrets.SSH_USERNAME }}
         run: |
-          # Configure SSH key for server access
           mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -t ed25519 -H $SSH_HOST >> ~/.ssh/known_hosts
-          # SSH into server and run commands
           ssh $SSH_USER@$SSH_HOST << 'EOF'
             set -e
             source ~/.bashrc
@@ -44,13 +41,11 @@ jobs:
             ssh-add ~/.ssh/id_ed25519
             cd /var/www/client
             git pull
-            # Install nvm if not already installed
             if ! command -v nvm &> /dev/null; then
               curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
               export NVM_DIR="$HOME/.nvm"
               [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
             fi
-            # Use Node.js 20 and install dependencies
             nvm use 20
             npm install -f
             npm run build
