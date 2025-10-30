@@ -3,8 +3,6 @@
 import Image from 'next/image';
 import NextLink from 'next/link';
 import { useState } from 'react';
-import { useTranslations } from 'next-intl';
-import { useRouter } from 'next/navigation';
 import Iconify from 'src/components/iconify';
 import { useResponsive } from 'src/hooks/use-responsive';
 import {
@@ -15,7 +13,6 @@ import {
   Drawer,
   AppBar,
   Toolbar,
-  useTheme,
   ListItem,
   Container,
   IconButton,
@@ -24,9 +21,7 @@ import {
 } from '@mui/material';
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
-  const t = useTranslations();
-  const theme = useTheme();
-  const router = useRouter();
+
   const [mobileOpen, setMobileOpen] = useState(false);
   const isDesktop = useResponsive('up', 'md');
 
