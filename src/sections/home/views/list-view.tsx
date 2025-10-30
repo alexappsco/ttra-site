@@ -2,8 +2,9 @@
 
 import React from 'react';
 import { Box, Typography } from '@mui/material';
+
 import BannerSlider from './banner-view'; // تأكد من صحة المسار
-import InvestmentHero from './best-seller-view'; // القسم الثاني (اختياري)
+// القسم الثاني (اختياري)
 import FirstSection from '../section-third/first-section';
 import SecondSection from '../section-third/second-section';
 

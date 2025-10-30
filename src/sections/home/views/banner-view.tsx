@@ -1,7 +1,7 @@
 'use client';
 
-import { Box, Typography, Button } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
+import { Box, Button, Typography } from '@mui/material';
 
 // ✅ بيانات الخلفيات
 const staticBanners = [
