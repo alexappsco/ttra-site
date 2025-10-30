@@ -34,8 +34,8 @@ jobs:
         run: |
           # Setup SSH directory and keys
           mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/ed25519
+          chmod 600 ~/.ssh/ed25519
 
           # Add host to known hosts
           ssh-keyscan -H "$SSH_HOST" >> ~/.ssh/known_hosts 2>/dev/null
@@ -50,7 +50,7 @@ jobs:
             eval "$(ssh-agent -s)"
 
             # Navigate to project directory
-            cd /var/www/client
+            cd /var/www/site
 
             # Pull latest changes
             echo "Pulling latest changes..."
@@ -77,7 +77,7 @@ jobs:
 
             # Restart PM2 service
             echo "Restarting PM2 service..."
-            pm2 restart client
+            pm2 restart site
 
             echo "Deployment completed successfully!"
           EOF
