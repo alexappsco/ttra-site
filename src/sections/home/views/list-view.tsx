@@ -7,6 +7,7 @@ import BannerSlider from './banner-view'; // تأكد من صحة المسار
 // القسم الثاني (اختياري)
 import FirstSection from '../section-third/first-section';
 import SecondSection from '../section-third/second-section';
+import JourneySection from './journey-section';
 
 export default function HomeView() {
   return (
@@ -61,6 +62,7 @@ export default function HomeView() {
       </Box>
 <FirstSection/>
 <SecondSection/>
+<JourneySection/>
 
     </>
   );
