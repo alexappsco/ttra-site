@@ -119,7 +119,6 @@ export default function JwtSetLocation() {
       <Container maxWidth="lg" sx={{ mt: 3 }}>
         <FormProvider methods={methods} onSubmit={onSubmit} >
           {/* Main container */}
-          {/* sss */}
           <Box
             sx={{
               width: '100%',
