@@ -39,7 +39,7 @@ const NAV_LINKS = [
   {
     label: 'المدونة',
     href: '/blog',
-    iconPath: '/assets/icons/navbar/note.svgsvg', // path for المدونة
+    iconPath: '/assets/icons/navbar/note.svg', // path for المدونة
   },
   {
     label: 'حمل التطبيق',
