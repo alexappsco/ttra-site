@@ -13,18 +13,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
+      # - name: Set up Node.js
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: '20'
 
-      - name: Install dependencies
-        run: |
-          npm install -f
+      # - name: Install dependencies
+      #   run: |
+      #     npm install -f
 
-      - name: Build Next.js app
-        run: |
-          npm run build
+      # - name: Build Next.js app
+      #   run: |
+      #     npm run build
 
       - name: Deploy and Run Post-Build Commands on Server
         env:
@@ -50,7 +50,7 @@ jobs:
             eval "$(ssh-agent -s)"
 
             # Navigate to project directory
-            cd /var/www/client
+            cd /var/www/site
 
             # Pull latest changes
             echo "Pulling latest changes..."
@@ -77,7 +77,7 @@ jobs:
 
             # Restart PM2 service
             echo "Restarting PM2 service..."
-            pm2 restart client
+            pm2 restart site
 
             echo "Deployment completed successfully!"
           EOF
