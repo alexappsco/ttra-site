@@ -75,58 +75,6 @@ export default function InvestmentHero() {
         />
       ))}
 
-      {/* ✅ النص في اليسار */}
-      <Box
-        sx={{
-          position: 'absolute',
-          left: { xs: 16, md: 80 },
-          top: '50%',
-          transform: 'translateY(-50%)',
-          textAlign: 'left',
-          color: '#fff',
-          zIndex: 5,
-          maxWidth: 480,
-        }}
-      >
-        <Typography
-          variant="h3"
-          sx={{
-            fontWeight: 700,
-            lineHeight: 1.3,
-            mb: 2,
-          }}
-        >
-          استحوذ على فرصتك<br />الاستثمارية اليوم
-        </Typography>
-
-        <Typography
-          variant="body1"
-          sx={{
-            opacity: 0.95,
-            mb: 4,
-            fontSize: { xs: 14, md: 16 },
-          }}
-        >
-          اكتشف، قيّم، وتفاوض لشراء أو بيع الأعمال التجارية بسهولة عبر منصة "استحواذ".
-        </Typography>
-
-        <Button
-          variant="contained"
-          sx={{
-            bgcolor: '#fff',
-            color: '#0048b5',
-            fontWeight: 'bold',
-            borderRadius: 20,
-            px: 4,
-            py: 1.2,
-            fontSize: 16,
-            boxShadow: '0 4px 14px rgba(255,255,255,0.3)',
-            '&:hover': { bgcolor: '#f3f3f3' },
-          }}
-        >
-          ← التسجيل
-        </Button>
-      </Box>
 
       {/* ✅ الكروت الأمامية في اليمين */}
       <Box
@@ -181,6 +129,59 @@ export default function InvestmentHero() {
           );
         })}
       </Box>
+      {/* ✅ النص في اليسار */}
+      <Box
+        sx={{
+          position: 'absolute',
+          left: { xs: 16, md: 80 },
+          top: '50%',
+          transform: 'translateY(-50%)',
+          textAlign: 'left',
+          color: '#fff',
+          zIndex: 5,
+          maxWidth: 480,
+        }}
+      >
+        <Typography
+          variant="h3"
+          sx={{
+            fontWeight: 700,
+            lineHeight: 1.3,
+            mb: 2,
+          }}
+        >
+          استحوذ على فرصتك<br />الاستثمارية اليوم
+        </Typography>
+
+        <Typography
+          variant="body1"
+          sx={{
+            opacity: 0.95,
+            mb: 4,
+            fontSize: { xs: 14, md: 16 },
+          }}
+        >
+          اكتشف، قيّم، وتفاوض لشراء أو بيع الأعمال التجارية بسهولة عبر منصة "استحواذ".
+        </Typography>
+
+        <Button
+          variant="contained"
+          sx={{
+            bgcolor: '#fff',
+            color: '#0048b5',
+            fontWeight: 'bold',
+            borderRadius: 20,
+            px: 4,
+            py: 1.2,
+            fontSize: 16,
+            boxShadow: '0 4px 14px rgba(255,255,255,0.3)',
+            '&:hover': { bgcolor: '#f3f3f3' },
+          }}
+        >
+          ← التسجيل
+        </Button>
+      </Box>
+
     </Box>
   );
 }

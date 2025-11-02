@@ -26,17 +26,19 @@ import {
 
 // 1. Desktop Navigation Links (with icons)
 const NAV_LINKS = [
-  {
+        {
     label: 'الرئيسية',
     href: '/',
     iconPath: '/assets/icons/navbar/main_.svg', // path for الرئيسية
   },
-  {
+
+
+   {
     label: 'المشاريع المطروحة',
     href: '/projects',
     iconPath: '/assets/icons/navbar/projects.svg', // path for المشاريع المطروحة
   },
-  {
+    {
     label: 'المدونة',
     href: '/blog',
     iconPath: '/assets/icons/navbar/note.svg', // path for المدونة
@@ -46,6 +48,7 @@ const NAV_LINKS = [
     href: '/download',
     iconPath: '/assets/icons/navbar/app.svg', // path for حمل التطبيق
   },
+
 ];
 
 // 2. Action Links (Login/Add) for both desktop and mobile
