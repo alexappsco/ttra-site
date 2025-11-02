@@ -1,18 +1,39 @@
+
+
 import React from 'react';
 import {
   Box,
-  Container,
-  Typography,
-  Stack,
   Link,
+  Stack,
   Button,
-  useTheme
+  useTheme,
+  Container,
+  Typography
 } from '@mui/material';
-// ✅ نستخدم الأيقونات المتوفرة فقط: Instagram و Apple و Twitter.
-// سنعتمد على أيقونة Twitter بدلاً من X، ونستخدم SVG لأيقونة TikTok
-import { Instagram, Twitter as XIcon, Apple } from '@mui/icons-material';
 
-// --- أيقونات منصات التواصل الاجتماعي المخصصة (لعدم توفر أيقونة TikTok و X المخصصة) ---
+// ✅ لا حاجة لاستيراد أيقونات من @mui/icons-material للـ Social Icons بعد الآن
+
+// --- أيقونات منصات التواصل الاجتماعي المخصصة (ملفات SVG) ---
+
+// مكون لأيقونة Instagram SVG
+const InstagramIcon = (props: any) => (
+  <img src="/assets/icons/social-icons/insta.svg" alt="Instagram" width="24" height="24" {...props} />
+);
+
+// مكون لأيقونة TikTok SVG
+const TikTokIcon = (props: any) => (
+  <img src="/assets/icons/social-icons/tiktok.svg" alt="TikTok" width="24" height="24" {...props} />
+);
+
+// مكون لأيقونة X (Twitter) SVG
+const X_Icon = (props: any) => (
+  <img src="/assets/icons/social-icons/x.svg" alt="X (Twitter)" width="24" height="24" {...props} />
+);
+
+// SocialIcon يتم تعريفه هنا في ملف Footer.tsx نفسه
+
+// ✅ تم إزالة GooglePlayIcon و AppDownloadButton حيث سيتم استخدام صور ثابتة بدلاً منها
+
 const SocialIcon = ({ IconComponent, href }: { IconComponent: React.ElementType, href: string }) => {
   const theme = useTheme();
   return (
@@ -22,31 +43,8 @@ const SocialIcon = ({ IconComponent, href }: { IconComponent: React.ElementType,
   );
 };
 
-// --- أيقونة TikTok بسيطة (مخصصة SVG) ---
-const TikTokIcon = (props: any) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    width="24"
-    height="24"
-    fill="currentColor"
-    {...props}
-  >
-    <path d="M12.3 0c.9 0 1.9.4 2.6 1.1s1.1 1.7 1.1 2.6c0 .9-.4 1.9-1.1 2.6s-1.7 1.1-2.6 1.1c-.9 0-1.9-.4-2.6-1.1s-1.1-1.7-1.1-2.6c0-.9.4-1.9 1.1-2.6s1.7-1.1 2.6-1.1zm-1.8 17.5c0 .3-.1.6-.3.8s-.4.3-.7.3c-.3 0-.6-.1-.8-.3s-.3-.4-.3-.7v-5.2c0-.3.1-.6.3-.8s.4-.3.7-.3c.3 0 .6.1.8.3s.3.4.3.7v5.2zm-2.7 0c0 .3-.1.6-.3.8s-.4.3-.7.3c-.3 0-.6-.1-.8-.3s-.3-.4-.3-.7v-5.2c0-.3.1-.6.3-.8s.4-.3.7-.3c.3 0 .6.1.8.3s.3.4.3.7v5.2zm10.7-3.7v3.7c0 .9-.4 1.9-1.1 2.6s-1.7 1.1-2.6 1.1c-.9 0-1.9-.4-2.6-1.1s-1.1-1.7-1.1-2.6v-3.7c0-.9.4-1.9 1.1-2.6s1.7-1.1 2.6-1.1c.9 0 1.9.4 2.6 1.1s1.1 1.7 1.1 2.6z"/>
-  </svg>
-);
-
-
-// --- أيقونة Google Play (مخصصة SVG) ---
-const GooglePlayIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white">
-        <path d="M2.083 20.312l9.999 3.655 9.999-3.655v-7.669l-9.999-3.655-9.999 3.655v7.669zm1.187-8.086l8.812 3.23 8.812-3.23-8.812-3.23-8.812 3.23zM2.083 4.887l9.999 3.655 9.999-3.655-9.999-3.655-9.999 3.655z" fillRule="evenodd"/>
-    </svg>
-);
-
-
-// --- مكون زر تحميل التطبيق ---
-const AppDownloadButton = ({ platform, icon, href }: { platform: string, icon: React.ReactNode, href: string }) => {
+// --- مكون زر تحميل التطبيق (تم الإبقاء عليه كما هو، لكننا نمرر الصور مباشرة الآن) ---
+const AppDownloadButton = ({ platform, iconSrc, href }: { platform: string, iconSrc: string, href: string }) => {
     const theme = useTheme();
 
     // تصميم مخصص لزر Apple Store لتقليد التصميم المرفق في الصورة
@@ -63,18 +61,19 @@ const AppDownloadButton = ({ platform, icon, href }: { platform: string, icon: R
                 bgcolor: '#000',
                 color: '#fff',
                 borderRadius: 1.5,
-                p: isAppStore ? 1 : 1.5, // تقليل البادينغ قليلاً لـ App Store
+                p: isAppStore ? 1 : 1.5,
                 height: 50,
                 minWidth: 150,
                 '&:hover': { bgcolor: '#333' },
                 fontSize: '0.9rem',
                 fontWeight: 'bold',
+                display: 'flex', // للتأكد من توسيط المحتوى
+                alignItems: 'center',
+                justifyContent: 'center',
             }}
         >
             <Stack direction="row" alignItems="center" spacing={1} sx={{ direction: 'ltr' }}>
-                <Box sx={{ fontSize: '1.2rem' }}>
-                   {isAppStore ? <Apple sx={{ fontSize: 24, color: 'white' }} /> : icon}
-                </Box>
+                <Box component="img" src={iconSrc} alt={`${platform} icon`} sx={{ width: 24, height: 24 }} />
                 <Stack alignItems="flex-start" sx={{ lineHeight: 1.2 }}>
                     <Typography variant="caption" sx={{ fontSize: '0.65rem', textTransform: 'uppercase' }}>
                         {isAppStore ? 'Download on the' : 'GET IT ON'}
@@ -88,6 +87,7 @@ const AppDownloadButton = ({ platform, icon, href }: { platform: string, icon: R
     );
 };
 
+
 // --- المكون الرئيسي لتذييل الصفحة ---
 export const Footer: React.FC = () => {
     const theme = useTheme();
@@ -98,6 +98,10 @@ export const Footer: React.FC = () => {
         { name: 'الأسئلة الشائعة', href: '#' },
         { name: 'تواصل معنا', href: '#' },
     ];
+
+    // مسارات صور التطبيق
+    const googleAppImgPath = '/assets/footer/GoogleApp.png';
+    const appleAppImgPath = '/assets/footer/AppleApp.png';
 
     return (
         <Box
@@ -118,12 +122,11 @@ export const Footer: React.FC = () => {
                     spacing={{ xs: 4, md: 0 }}
                     sx={{ pb: 3, mb: 3, borderBottom: `1px solid ${theme.palette.divider}` }}
                 >
-                    {/* 1. الروابط السريعة (تظهر أولاً على الجوال) */}
+                    {/* 1. الروابط السريعة (تظهر ثانياً على الجوال) */}
                     <Stack
                         direction="row"
                         spacing={{ xs: 2, md: 4 }}
                         justifyContent={{ xs: 'center', md: 'flex-start' }}
-                        // ✅ على الشاشات الصغيرة، اطلب ظهور الروابط ثانياً بعد أزرار التطبيق
                         sx={{ width: { xs: '100%', md: 'auto' }, order: { xs: 2, md: 1 } }}
                     >
                         {quickLinks.map((link) => (
@@ -143,23 +146,44 @@ export const Footer: React.FC = () => {
                         ))}
                     </Stack>
 
-                    {/* 2. أزرار تحميل التطبيق (تظهر أولاً على الجوال) */}
+                    {/* 2. أزرار تحميل التطبيق (تم استبدالها بصور) */}
                     <Stack
                         direction="row"
                         spacing={2}
                         justifyContent={{ xs: 'center', md: 'flex-end' }}
                         sx={{ width: { xs: '100%', md: 'auto' }, order: { xs: 1, md: 2 } }}
                     >
-                        <AppDownloadButton
-                            platform="Google Play"
-                            icon={<GooglePlayIcon />}
-                            href="#"
-                        />
-                        <AppDownloadButton
-                            platform="App Store"
-                            icon={<></>} // الأيقونة يتم تمريرها داخليًا كـ <Apple> في المكون نفسه
-                            href="#"
-                        />
+                        {/* ✅ زر Google Play كصورة */}
+                        <Link href="#" target="_blank" rel="noopener" sx={{ display: 'inline-block' }}>
+                            <Box
+                                component="img"
+                                src={googleAppImgPath}
+                                alt="Google Play App Download"
+                                sx={{
+                                    height: { xs: 45, md: 50 },
+                                    width: 'auto',
+                                    maxWidth: '100%',
+                                    borderRadius: 1.5,
+                                    boxShadow: theme.shadows[1],
+                                }}
+                            />
+                        </Link>
+
+                        {/* ✅ زر App Store كصورة */}
+                        <Link href="#" target="_blank" rel="noopener" sx={{ display: 'inline-block' }}>
+                            <Box
+                                component="img"
+                                src={appleAppImgPath}
+                                alt="App Store App Download"
+                                sx={{
+                                    height: { xs: 45, md: 50 },
+                                    width: 'auto',
+                                    maxWidth: '100%',
+                                    borderRadius: 1.5,
+                                    boxShadow: theme.shadows[1],
+                                }}
+                            />
+                        </Link>
                     </Stack>
                 </Stack>
 
@@ -177,13 +201,12 @@ export const Footer: React.FC = () => {
                         sx={{
                             fontSize: { xs: '0.75rem', md: '0.9rem' },
                             textAlign: { xs: 'center', md: 'right' },
-                            order: { xs: 1, md: 2 }, // ترتيب في الجوال (الأول)، الديسكتوب (الثاني)
-                            // يضمن عرض النص على سطرين أو أكثر في الجوال
+                            order: { xs: 1, md: 2 },
                             maxWidth: { xs: '100%', md: '50%' }
                         }}
                     >
                         كل الحقوق محفوظة لصالح شركة منصة استحواذ للتقنية
-                        <br className="md:hidden" /> {/* إضافة كسر سطر في الجوال */}
+                        <br className="md:hidden" />
                         المسجلة برقم: 7051862113
                     </Typography>
 
@@ -193,12 +216,10 @@ export const Footer: React.FC = () => {
                         spacing={2}
                         order={{ xs: 2, md: 1 }}
                     >
-                        {/* Instagram */}
-                        <SocialIcon IconComponent={Instagram} href="#" />
-                        {/* TikTok (SVG مخصص) */}
-                        <SocialIcon IconComponent={TikTokIcon} href="#" />
-                        {/* X (Twitter) */}
-                        <SocialIcon IconComponent={XIcon} href="#" />
+                        {/* ✅ استخدام مكونات SVG الجديدة */}
+                        <SocialIcon IconComponent={InstagramIcon} href="https://www.instagram.com/isthwath?igsh=NmE2MG14cGtxMXdu" />
+                        <SocialIcon IconComponent={TikTokIcon} href="https://www.tiktok.com/@isthwath?_t=ZS-90qp1PPBbhy&_r=1" />
+                        <SocialIcon IconComponent={X_Icon} href="https://x.com/isthwath?t=njhzZ92EtYko7qkPVTXcEA&s=09" />
                     </Stack>
                 </Stack>
             </Container>
