@@ -115,7 +115,7 @@ export const DiamondCard: React.FC<DiamondCardProps> = ({
             overflow: 'hidden',
             transition: 'opacity 0.4s ease, max-height 0.4s ease',
             fontSize: { xs: 8, sm: 12, md: 13 },
-            lineHeight: 1.2,
+            lineHeight: 1.5,
           }}
         >
           {description}
