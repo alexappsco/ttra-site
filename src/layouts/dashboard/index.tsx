@@ -4,6 +4,7 @@
 import Image from 'next/image';
 import NextLink from 'next/link';
 import { useState } from 'react';
+import { useLocale } from 'next-intl';
 import Iconify from 'src/components/iconify';
 import { useResponsive } from 'src/hooks/use-responsive';
 import {
@@ -31,8 +32,6 @@ const NAV_LINKS = [
     href: '/',
     iconPath: '/assets/icons/navbar/main_.svg', // path for الرئيسية
   },
-
-
    {
     label: 'المشاريع المطروحة',
     href: '/projects',
@@ -89,7 +88,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
   const [mobileOpen, setMobileOpen] = useState(false);
   const isDesktop = useResponsive('up', 'md');
-
+  const locale = useLocale();
   const handleDrawerToggle = () => setMobileOpen((prev) => !prev);
 
   // Drawer (for mobile) - MODIFIED to use NAV_LINKS and ACTION_LINKS
