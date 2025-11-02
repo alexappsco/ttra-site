@@ -8,6 +8,7 @@ import BannerSlider from './banner-view'; // تأكد من صحة المسار
 import FirstSection from '../section-third/first-section';
 import SecondSection from '../section-third/second-section';
 import JourneySection from './journey-section';
+import InteractiveCardSection from '../section-two/interactive-card-section';
 
 export default function HomeView() {
   return (
@@ -15,32 +16,11 @@ export default function HomeView() {
       {/* القسم الأول: السلايدر */}
       <BannerSlider />
 
-      {/* القسم الثاني: صورة متجاوبة ومحتواة */}
-      <Box
-        component="section"
-        sx={{
-          width: '100%',
-          mt: 4,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          bgcolor: '#fff', // لون خلفية اختياري لتوضيح حدود الصورة
-        }}
-      >
-        <Box
-          component="img"
-          src="/assets/section_2.svg" // ← مسار الصورة
-          alt="Investment Section"
-          sx={{
-            width: '100%',
-            height: { xs: 200, sm: 300, md: 450 },
-            objectFit: 'contain', // ✅ يجعل الصورة محتواة بالكامل
-            borderRadius: 2,
-          }}
-        />
-      </Box>
-      <Box sx={{my:2}}>
-       {/* Title Text */}
+      {/* ✅ القسم الثاني: المكون التفاعلي الجديد بدلاً من الصورة الثابتة */}
+      <InteractiveCardSection />
+
+      <Box sx={{ my: 2 }}>
+        {/* Title Text */}
         <Typography
           sx={{
             fontFamily: "'Frutiger LT Arabic', sans-serif",
@@ -53,16 +33,16 @@ export default function HomeView() {
             textAlign: 'center',
             width: '100%',
             px: 2,
-            py:2,
+            py: 2,
           }}
         >
           مميزات تجعل استحواذ منصتك الأولى لبيع وشراء الأعمال التجارية
         </Typography>
 
       </Box>
-<FirstSection/>
-<SecondSection/>
-<JourneySection/>
+      <FirstSection />
+      <SecondSection />
+      <JourneySection />
 
     </>
   );
