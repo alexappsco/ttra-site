@@ -9,6 +9,7 @@ import FirstSection from '../section-third/first-section';
 import SecondSection from '../section-third/second-section';
 import JourneySection from './journey-section';
 import InteractiveCardSection from '../section-two/interactive-card-section';
+import ProjectShowcaseSection from './last-order.tsx/section-four';
 
 export default function HomeView() {
   return (
@@ -43,7 +44,7 @@ export default function HomeView() {
       <FirstSection />
       <SecondSection />
       <JourneySection />
-
+<ProjectShowcaseSection/>
     </>
   );
 }

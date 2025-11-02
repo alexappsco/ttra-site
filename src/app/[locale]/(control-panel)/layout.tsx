@@ -1,9 +1,9 @@
 'use client';
 
 import { AuthGuard } from 'src/auth/guard';
-import { SearchProvider } from 'src/context/SearchContext';
 import Footer from 'src/layouts/common/footer-main';
 import DashboardLayout from 'src/layouts/dashboard';
+import { SearchProvider } from 'src/context/SearchContext';
 
 // ----------------------------------------------------------------------
 
