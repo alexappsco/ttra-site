@@ -1,28 +1,28 @@
 {
   "Metadata": {
     "title": "Isthwath",
-    "description": "istihwaz Website description",
+    "description": "Isthwathe description",
     "language": "Language",
     "Categories": {
-      "title": "Categories | istihwaz"
+      "title": "Categories | Isthwath"
     },
       "landing": {
-      "title": "Landing Page | istihwaz"
+      "title": "Landing Page | Isthwath"
     },
     "SubCategories": {
-      "title": "Subcategories | Sinwan"
+      "title": "Subcategories | Isthwath"
     },
     "Orders": {
-      "title": "Orders | Sinwan"
+      "title": "Orders | Isthwath"
     },
     "Products": {
-      "title": "Products | Sinwan"
+      "title": "Products | Isthwath"
     },
     "Units": {
-      "title": "Units | Sinwan"
+      "title": "Units | Isthwath"
     },
     "ReturnedOrder": {
-      "title": "Returned Orders | Sinwan"
+      "title": "Returned Orders | Isthwath"
     },
     "Banners": {
       "title": "Banners"
@@ -31,46 +31,46 @@
       "title": "Discount codes"
     },
     "Offers": {
-      "title": "Offers | Sinwan"
+      "title": "Offers | Isthwath"
     },
     "Notifications": {
-      "title": "Notifications | Sinwan"
+      "title": "Notifications | Isthwath"
     },
     "Drivers": {
-      "title": "Drivers | Sinwan"
+      "title": "Drivers | Isthwath"
     },
     "ReturnPolicy": {
-      "title": "Return Policy | Sinwan"
+      "title": "Return Policy | Isthwath"
     },
     "PrivacyPolicy": {
-      "title": "Privacy Policy | Sinwan"
+      "title": "Privacy Policy | Isthwath"
     },
     "ContactUs": {
-      "title": "Contact Us | Sinwan"
+      "title": "Contact Us | Isthwath"
     },
     "Carts": {
-      "title": "Carts | Sinwan"
+      "title": "Carts | Isthwath"
     },
     "Location": {
-      "title": "Locations | Sinwan"
+      "title": "Locations | Isthwath"
     },
     "Reports": {
-      "title": "Reports | Sinwan"
+      "title": "Reports | Isthwath"
     },
     "Favorite": {
-      "title": "Favorites | Sinwan"
+      "title": "Favorites | Isthwath"
     },
     "Pay": {
-      "title": "Pay | Sinwan"
+      "title": "Pay | Isthwath"
     },
     "ProductDetails": {
-      "title": "Product Details | Sinwan"
+      "title": "Product Details | Isthwath"
     },
     "MyOrder": {
       "title": "My Orders"
     },
     "Settings": {
-      "title": "Settings | Sinwan"
+      "title": "Settings | Isthwath"
     }
   },
   "Nav": {
@@ -102,7 +102,7 @@
     "Work-area": "Works Area"
   },
   "Global": {
-    "title": "Sinwan",
+    "title": "Isthwath",
     "comma": ",",
     "Date": {
       "sunday": "Sunday",
