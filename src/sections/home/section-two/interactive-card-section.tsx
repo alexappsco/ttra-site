@@ -13,14 +13,14 @@ export const InteractiveCardSection: React.FC = () => {
       description: 'ابحث، اكتشف، وتفاوض على مشروع يحقق طموحك الاستثماري',
       mainIconPath: '/assets/section-two/accountant.svg',
       hoverIconPath: '/assets/section-two/accountant.svg',
-      bgColor: '#0D6EFD',
+      bgColor: '#0ABEF8',
     },
     {
       title: 'البائع',
       description: 'اعرض نشاطك التجاري وابدأ التواصل مع المشترين المحتملين',
       mainIconPath: '/assets/section-two/users.svg',
       hoverIconPath: '/assets/section-two/users.svg',
-      bgColor: '#0D6EFD',
+      bgColor: '#0082D2',
     },
   ];
 
@@ -60,7 +60,7 @@ export const InteractiveCardSection: React.FC = () => {
             mainIconPath="/assets/section-two/isthwaz.svg"
             title="استحواذ"
             description="منصتك الذكية لعرض وشراء المشاريع التجارية بكل سهولة"
-            bgColor="#03A9F4"
+            bgColor="#00AAE1"
             hoverIconPath="/assets/section-two/isthwaz.svg"
           />
         </Box>

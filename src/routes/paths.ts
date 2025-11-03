@@ -119,6 +119,9 @@ export const paths = {
     },
     search:{
       view:'/search'
+    },
+    landing:{
+      view:'/landing-page'
     }
   },
 };

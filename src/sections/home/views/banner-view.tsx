@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { Box, Button, Typography } from '@mui/material';
+import { useRouter } from 'next/navigation';
+import { paths } from 'src/routes/paths';
 
 const staticBanners = [
   { id: 1, url: '/assets/img_1.png' },
@@ -17,6 +19,7 @@ const slides = ['/assets/slide_img_1.svg', '/assets/slide_img_1.svg', '/assets/s
 export default function InvestmentHero() {
   const [bgIndex, setBgIndex] = useState(0);
   const [slideIndex, setSlideIndex] = useState(0);
+  const router = useRouter();
 
   useEffect(() => {
     const bgInterval = setInterval(() => {
@@ -177,6 +180,7 @@ export default function InvestmentHero() {
             boxShadow: '0 4px 14px rgba(255,255,255,0.3)',
             '&:hover': { bgcolor: '#f3f3f3' },
           }}
+          onClick={()=>{  router.push(paths.controlPanel.landing.view)}}
         >
           ← التسجيل
         </Button>

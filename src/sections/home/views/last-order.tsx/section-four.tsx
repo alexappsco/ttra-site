@@ -12,15 +12,17 @@ import {
   Typography,
   CardContent
 } from '@mui/material';
+import { useRouter } from 'next/navigation';
+import { paths } from 'src/routes/paths';
 
 // --- بيانات المشاريع الوهمية ---
-// ملاحظة: لقد أضفت مسارات صور وهمية يمكنك استبدالها بـ img1.png, img2.png, img3.png
+// ملاحظة: لقد أضفت مسارات صور وهمية يمكنك استبدالها بـ img1.svg, img2.svg, img3.svg
 const DUMMY_PROJECTS = [
   {
     id: 1,
     title: 'متجر فيت بودي',
     description: 'متجر متخصص في بيع أدوات اللياقة البدنية والمكملات الغذائية، بعلامة تجارية حديثة وخدمة توصيل سريعة.',
-    imagePath: '/assets/section-four/img1.png',
+    imagePath: '/assets/section-four/img1.svg',
     tags: ['طرح جديد'],
     location: 'المدينة الدمام',
     views: 520,
@@ -34,7 +36,7 @@ const DUMMY_PROJECTS = [
     id: 2,
     title: 'ميني ماركت',
     description: 'سوبرماركت قائم في حي سكني نشيط. يوفر منتجات غذائية ويومية متنوعة. بانتظام ومتابعة بكناليات.',
-    imagePath: '/assets/section-four/img2.png',
+    imagePath: '/assets/section-four/img2.svg',
     tags: ['مستهدفة'],
     location: 'المدينة جدة',
     views: 320,
@@ -48,7 +50,7 @@ const DUMMY_PROJECTS = [
     id: 3,
     title: 'عيادة التوازن للعلاج الطبيعي',
     description: 'عيادة متخصصة في العلاج الطبيعي وإعادة التأهيل. تقدم خدمات متميزة بجودة ممتازة.',
-    imagePath: '/assets/section-four/img3.png',
+    imagePath: '/assets/section-four/img3.svg',
     tags: ['طرح جديد'],
     location: 'المدينة الرياض',
     views: 2357,
@@ -63,6 +65,7 @@ const DUMMY_PROJECTS = [
 // --- مكون بطاقة المشروع الفردية ---
 const ProjectCard: React.FC<typeof DUMMY_PROJECTS[0]> = (project) => {
   const theme = useTheme();
+  const router = useRouter();
 
   // دالة مساعدة لتنسيق البيانات المالية
   const DataRow = ({ label, value, change, isProfit = false }: { label: string, value: string, change: number, isProfit?: boolean }) => {
@@ -106,7 +109,7 @@ const ProjectCard: React.FC<typeof DUMMY_PROJECTS[0]> = (project) => {
           image={project.imagePath}
           alt={project.title}
 
-          sx={{ objectFit: 'cover',width: '100%' }}
+          sx={{ objectFit: 'cover', width: '100%' }}
         />
         {/* شارة 'طرح جديد' */}
         <Box
@@ -130,8 +133,8 @@ const ProjectCard: React.FC<typeof DUMMY_PROJECTS[0]> = (project) => {
         <Stack direction="row" justifyContent="space-between" alignItems="center" mb={1}>
           <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#0048B5' }}>{project.title}</Typography>
           <Stack direction="row" alignItems="center" spacing={0.5}>
-             <Typography variant="caption" color="text.secondary">{project.views}</Typography>
-             <VisibilityIcon sx={{ fontSize: 16, color: 'text.secondary' }} />
+            <Typography variant="caption" color="text.secondary">{project.views}</Typography>
+            <VisibilityIcon sx={{ fontSize: 16, color: 'text.secondary' }} />
           </Stack>
         </Stack>
 
@@ -168,7 +171,7 @@ const ProjectCard: React.FC<typeof DUMMY_PROJECTS[0]> = (project) => {
 // --- المكون الرئيسي للقسم ---
 export const ProjectShowcaseSection: React.FC = () => {
   const theme = useTheme();
-
+  const router = useRouter();
   return (
     <Box
       component="section"
@@ -204,7 +207,7 @@ export const ProjectShowcaseSection: React.FC = () => {
           هذه أمثلة لعرض المشاريع المطروحة داخل المنصة — يمكنك الآن تصفح الإعلانات أو بدء طرح مشروعك بكل سهولة.
         </Typography>
 
-        {/* شريط البحث */}
+        شريط البحث
         <Stack
           direction="row"
           spacing={1}
@@ -220,11 +223,23 @@ export const ProjectShowcaseSection: React.FC = () => {
           <Button
             variant="contained"
             sx={{
-              height: 56,
-              bgcolor: '#03A9F4',
-              '&:hover': { bgcolor: '#0398D9' },
-              boxShadow: theme.shadows[3],
-              px: { xs: 2, md: 4 }
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              px: 2.5, // padding inline ~ 20px
+              gap: 1.25, // gap ~ 10px
+              width: 90,
+              height: 51,
+              margin: '0 auto',
+              bgcolor: '#0095FA',
+              boxShadow: '0px 4px 34px rgba(112, 79, 56, 0.14)',
+              borderRadius: '65px',
+              textTransform: 'none',
+              fontWeight: 'bold',
+              '&:hover': {
+                bgcolor: '#0085E0',
+                boxShadow: '0px 4px 28px rgba(112, 79, 56, 0.18)',
+              },
             }}
           >
             بحث
@@ -256,36 +271,75 @@ export const ProjectShowcaseSection: React.FC = () => {
           />
         </Stack>
 
-        {/* عرض بطاقات المشاريع (الصفوف) */}
-        <Stack
-          direction={{ xs: 'column', md: 'row' }}
-          spacing={{ xs: 4, md: 3 }}
-          justifyContent="center"
-          alignItems="center"
-          mb={6}
-        >
-          {DUMMY_PROJECTS.map((project) => (
-            <ProjectCard key={project.id} {...project} />
-          ))}
-        </Stack>
+            {/* عرض الصور فقط */}
+<Stack
+  direction={{ xs: 'column', md: 'row' }}
+  spacing={{ xs: 4, md: 3 }}
+  justifyContent="center"
+  alignItems="center"
+  mb={6}
+>
+  {DUMMY_PROJECTS.map((project) => (
+    <Box
+      key={project.id}
+      sx={{
+        position: 'relative',
+        width: { xs: '100%', sm: 300, md: 350 },
+        borderRadius: 3,
+        overflow: 'hidden',
+        boxShadow: '0px 4px 12px rgba(0,0,0,0.1)',
+        transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+        '&:hover': {
+          transform: 'translateY(-4px)',
+          boxShadow: '0px 8px 20px rgba(0,0,0,0.15)',
+        },
+      }}
+    >
+      <Box
+        component="img"
+        src={project.imagePath}
+        alt={project.title}
+        sx={{
+          width: '100%',
+          height: 'auto',
+          display: 'block',
+          objectFit: 'cover',
+        }}
+      />
+    </Box>
+  ))}
+</Stack>
 
-        {/* الزر الرئيسي السفلي */}
         <Button
           variant="contained"
-          size="large"
           sx={{
-            bgcolor: '#03A9F4',
-            '&:hover': { bgcolor: '#0398D9' },
-            py: 1.5,
-            px: 6,
-            borderRadius: 99,
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            px: 2.5, // 10px horizontal padding
+            py: 1.5, // 12px vertical padding
+            gap: 1.25, // 10px gap
+            width: 623,
+            height: 58,
+            bgcolor: '#0095FA',
+            boxShadow: '0px 4px 5px rgba(7, 102, 232, 0.2)',
+            borderRadius: '14px',
+            color: '#fff',
             fontSize: '1.1rem',
             fontWeight: 'bold',
-            boxShadow: theme.shadows[4],
+            textTransform: 'none',
+            mx: 'auto', // center horizontally
+            '&:hover': {
+              bgcolor: '#0085E0',
+              boxShadow: '0px 4px 8px rgba(7, 102, 232, 0.3)',
+            },
           }}
+          onClick={()=>{router.push(paths.controlPanel.landing.view); }}
         >
-          تصفح المشروعات المطروحة
-        </Button>
+
+          تصفح النشاطات المطروحة</Button>
+
       </Container>
     </Box>
   );

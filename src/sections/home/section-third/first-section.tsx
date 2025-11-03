@@ -67,7 +67,7 @@ export default function FirstSection() {
                 px: { xs: 2, sm: 4 },
                 py: 1.5,
                 mb: 4,
-                textAlign: 'right',
+                textAlign: 'left',
               }}
             >
               <Box
@@ -108,7 +108,7 @@ export default function FirstSection() {
                           fontWeight: 700,
                           fontSize: { xs: 16, sm: 18 },
                           color: 'rgb(0,72,181)',
-                          textAlign: 'right',
+                          textAlign: 'left',
                           margin: 0,
                           mb: 1,
                         }}
@@ -120,7 +120,7 @@ export default function FirstSection() {
                         sx={{
                           fontSize: { xs: 14, sm: 16 },
                           color: '#000',
-                          textAlign: 'right',
+                          textAlign: 'left',
                           lineHeight: 1.6,
                           margin: 0,
                         }}

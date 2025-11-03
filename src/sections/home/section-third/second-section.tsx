@@ -84,6 +84,17 @@ export default function SecondSection() {
                       boxShadow: 1,
                     }}
                   >
+                       <Box
+                      component="img"
+                      src="/assets/Right.svg"
+                      alt=""
+                      sx={{
+                        width: 24,
+                        height: 24,
+                        flexShrink: 0,
+                        mt: 0.5,
+                      }}
+                    />
                     <Box sx={{ flex: 1 }}>
                       <Box
                         component="h3"
@@ -111,17 +122,6 @@ export default function SecondSection() {
                         {feature.description}
                       </Box>
                     </Box>
-                    <Box
-                      component="img"
-                      src="/assets/Right.svg"
-                      alt=""
-                      sx={{
-                        width: 24,
-                        height: 24,
-                        flexShrink: 0,
-                        mt: 0.5,
-                      }}
-                    />
                   </Box>
                 </Grid2>
               ))}
