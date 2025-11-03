@@ -11,8 +11,8 @@ export const viewport = {
 export const metadata = {
   title: 'Istihwaz',
   description:
-    'The starting point for your next project with Minimal UI Kit, built on the newest version of Material-UI ©, ready to be customized to your style.',
-  keywords: 'react,material,kit,application,dashboard,admin,template',
+    'isthwaz is a comprehensive platform designed to streamline the acquisition process for businesses and individuals alike.',
+  keywords: 'acquisition, business, platform, streamline',
   manifest: '/favicon/site.webmanifest',
   icons: {
     icon: [
