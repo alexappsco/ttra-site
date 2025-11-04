@@ -116,85 +116,178 @@ export default function JourneySection() {
       </Typography>
 
       {/* Steps with Arrows */}
-      <Fade in timeout={500}>
-        <Box
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          flexWrap="wrap"
-          gap={2}
+<Fade in timeout={500}>
+  <Box
+    display="flex"
+    justifyContent="center"
+    alignItems="center"
+    flexWrap="wrap"
+    gap={2}
+    sx={{
+      flexDirection: { xs: 'row', md: 'row-reverse' }, // 👈 عكس الاتجاه في الديسكتوب فقط
+    }}
+  >
+    {steps.map((step, index) => (
+      <Box
+        key={index}
+        display="flex"
+        alignItems="center"
+        sx={{ mb: { xs: 2, md: 0 } }}
+      >
+                {/* Arrow (except after last one) */}
+
+        {index !== steps.length - 1 && (
+  <Box
+    sx={{
+      mx: 2,
+      display: {
+        xs: 'none', // ❌ إخفاء في الموبايل
+        md: 'flex', // ✅ عرض في الشاشات الكبيرة
+      },
+      alignItems: 'center',
+      '@media (min-width:900px) and (max-width:1520px)': {
+        display: 'none', // ❌ إخفاء من 900 إلى 1520px
+      },
+    }}
+  >
+    <Image
+      src="/assets/images/home/arrow.png"
+      alt="arrow"
+      width={40}
+      height={40}
+    />
+  </Box>
+)}
+
+
+        {/* Step Card */}
+        <Paper
+          elevation={3}
+          sx={{
+            p: 3,
+            borderRadius: 3,
+            width: 290,
+            height: 240,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            textAlign: 'center',
+            backgroundColor: '#fff',
+            transition: 'transform 0.3s ease',
+            '&:hover': { transform: 'translateY(-5px)' },
+          }}
         >
-          {steps.map((step, index) => (
-            <Box
-              key={index}
-              display="flex"
-              alignItems="center"
-              sx={{ mb: { xs: 2, md: 0 } }}
-            >
-              {/* Step Card */}
-              <Paper
-                elevation={3}
-                sx={{
-                  p: 3,
-                  borderRadius: 3,
-                  width: 280,
-                  height: '100%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'flex-start',
-                  alignItems: 'center',
-                  textAlign: 'center',
-                  backgroundColor: '#fff',
-                  transition: 'transform 0.3s ease',
-                  '&:hover': { transform: 'translateY(-5px)' },
-                }}
-              >
-                {/* ✅ PNG Icon */}
-                <Box
-                  sx={{
-                    width: 60,
-                    height: 60,
-                    mb: 2,
-                    position: 'relative',
-                  }}
-                >
-                  <Image
-                    src={step.img}
-                    alt={step.title}
-                    fill
-                    style={{ objectFit: 'contain' }}
-                  />
-                </Box>
+          {/* ✅ PNG Icon */}
+          <Box
+            sx={{
+              width: 60,
+              height: 60,
+              mb: 2,
+              position: 'relative',
+            }}
+          >
+            <Image
+              src={step.img}
+              alt={step.title}
+              fill
+              style={{ objectFit: 'contain' }}
+            />
+          </Box>
 
-                <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 1 }}>
-                  {step.title}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {step.desc}
-                </Typography>
-              </Paper>
+          <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 1 }}>
+            {step.title}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {step.desc}
+          </Typography>
+        </Paper>
 
-              {/* Arrow (except after last one) */}
-              {index !== steps.length - 1 && (
-                <Box
-                  sx={{
-                    mx: 2,
-                    display: { xs: 'none', md: 'flex' },
-                    alignItems: 'center',
-                  }}
-                >
-                  <Image
-                    src="/assets/images/home/arrow.png"
-                    alt="arrow"
-                    width={40}
-                    height={40}
-                  />
-                </Box>
-              )}
-            </Box>
-          ))}
-        </Box>
-      </Fade>
+
+      </Box>
+    ))}
+  </Box>
+</Fade>
+
     </Box>
   );
-}
+ }
+//   <Fade in timeout={500}>
+//         <Box
+//           display="flex"
+//           justifyContent="center"
+//           alignItems="center"
+//           flexWrap="wrap"
+//           gap={2}
+//         >
+//           {steps.map((step, index) => (
+//             <Box
+//               key={index}
+//               display="flex"
+//               alignItems="center"
+//               sx={{ mb: { xs: 2, md: 0 } }}
+//             >
+//               {/* Step Card */}
+//               <Paper
+//                 elevation={3}
+//                 sx={{
+//                   p: 3,
+//                   borderRadius: 3,
+//                   width: 290,
+//                   height: 240,
+//                   display: 'flex',
+//                   flexDirection: 'column',
+//                   justifyContent: 'flex-start',
+//                   alignItems: 'center',
+//                   textAlign: 'center',
+//                   backgroundColor: '#fff',
+//                   transition: 'transform 0.3s ease',
+//                   '&:hover': { transform: 'translateY(-5px)' },
+//                 }}
+//               >
+//                 {/* ✅ PNG Icon */}
+//                 <Box
+//                   sx={{
+//                     width: 60,
+//                     height: 60,
+//                     mb: 2,
+//                     position: 'relative',
+//                   }}
+//                 >
+//                   <Image
+//                     src={step.img}
+//                     alt={step.title}
+//                     fill
+//                     style={{ objectFit: 'contain' }}
+//                   />
+//                 </Box>
+
+//                 <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 1 }}>
+//                   {step.title}
+//                 </Typography>
+//                 <Typography variant="body2" color="text.secondary">
+//                   {step.desc}
+//                 </Typography>
+//               </Paper>
+
+//               {/* Arrow (except after last one) */}
+//               {index !== steps.length - 1 && (
+//                 <Box
+//                   sx={{
+//                     mx: 2,
+//                     display: { xs: 'none', md: 'flex' },
+//                     alignItems: 'center',
+//                   }}
+//                 >
+//                   <Image
+//                     src="/assets/images/home/arrow.png"
+//                     alt="arrow"
+//                     width={40}
+//                     height={40}
+//                   />
+//                 </Box>
+//               )}
+//             </Box>
+//           ))}
+//         </Box>
+//       </Fade>

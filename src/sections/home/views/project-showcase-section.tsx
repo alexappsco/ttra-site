@@ -21,7 +21,7 @@ const DUMMY_PROJECTS = [
     title: 'متجر فيت بودي',
     description:
       'متجر متخصص في بيع أدوات اللياقة البدنية والمكملات الغذائية، بعلامة تجارية حديثة وخدمة توصيل سريعة.',
-    imagePath: '/assets/section-four/img1.svg',
+    imagePath: '/assets/section-four/img3.svg',
     tags: ['طرح جديد'],
     location: 'المدينة الدمام',
     views: 520,
@@ -51,7 +51,7 @@ const DUMMY_PROJECTS = [
     title: 'عيادة التوازن للعلاج الطبيعي',
     description:
       'عيادة متخصصة في العلاج الطبيعي وإعادة التأهيل. تقدم خدمات متميزة بجودة ممتازة.',
-    imagePath: '/assets/section-four/img3.svg',
+    imagePath: '/assets/section-four/img1.svg',
     tags: ['طرح جديد'],
     location: 'المدينة الرياض',
     views: 2357,
