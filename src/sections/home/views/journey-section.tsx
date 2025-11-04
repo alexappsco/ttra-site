@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
 import Image from 'next/image';
-import { Box, Button, Typography, Grid, Paper, Fade } from '@mui/material';
+import { useState } from 'react';
+import { Box, Grid, Fade, Paper, Button, Typography } from '@mui/material';
 
 export default function JourneySection() {
   const [mode, setMode] = useState<'buyer' | 'seller'>('seller');
