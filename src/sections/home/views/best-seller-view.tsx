@@ -54,7 +54,6 @@ export default function InvestmentHero() {
           }}
         />
 
-        {/* Center card */}
         <Box
           component="img"
           src="/assets/slide_img_1.svg"
