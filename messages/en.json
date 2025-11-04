@@ -306,7 +306,9 @@
       "error_occurred": "An error occurred, try again",
       "returned_order_success": "The Order has been returned successfully",
       "canceled_order_success": "The Order has been canceled successfully",
-      "rating_submitted_successfully": "Rating submitted successfully"
+      "rating_submitted_successfully": "Rating submitted successfully",
+      "landing_page_title":"We are now in the experimental launch phase!"
+
     }
   },
   "Pages": {

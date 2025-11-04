@@ -304,7 +304,8 @@
       "error_occurred": "حدث خطأ، حاول مرة أخرى",
       "returned_order_success": "تم أرجاع الطلب بنجاح",
       "canceled_order_success": "تم الغاء الطلب بنجاح",
-      "rating_submitted_successfully": "تم إرسال التقييم بنجاح"
+      "rating_submitted_successfully": "تم إرسال التقييم بنجاح",
+      "landing_page_title":"! نحن الآن في مرحلة الإطلاق التجريبي"
     }
   },
   "Pages": {

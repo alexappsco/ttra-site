@@ -1,9 +1,11 @@
 'use client';
 import React from 'react';
 import { Box, Paper, Typography, Stack, Button, useTheme, useMediaQuery } from '@mui/material';
+import { useTranslations } from 'next-intl';
 
 export default function LandingView() {
-  const googleAppImgPath = '/assets/footer/GoogleApp.png';
+  const t = useTranslations();
+const googleAppImgPath = '/assets/footer/GoogleApp.png';
   const appleAppImgPath = '/assets/footer/AppleApp.png';
   const loadingImgPath = '/assets/images/loading.png';
 
@@ -44,16 +46,15 @@ export default function LandingView() {
             <Typography
               variant="h3"
               sx={{
-                fontSize: { xs: '1.2rem', sm: '1.5rem', md: '1.8rem' },
+                fontSize: { xs: '1.2rem', sm: '1.5rem', md: '2rem' },
                 fontWeight: 'bold',
                 color: '#000',
-                mb: 2,
+                mb: 5,
                 lineHeight: 1.4,
                 textAlign: 'left',
               }}
-            >
-              تكن الآن في مرحلة الإطلاق<br />
-              ! التجريبي
+            >{t(`Global.Message.landing_page_title`)}
+
             </Typography>
 
             <Typography
@@ -61,26 +62,26 @@ export default function LandingView() {
               sx={{
                 color: '#000',
                 lineHeight: 1.6,
-                mb: 1,
-                fontSize: { xs: '0.9rem', md: '1rem' },
+                mb: 2,
+                fontSize: { xs: '0.9rem', md: '1.10rem' },
                 textAlign: 'left',
 
               }}
             >
-              مكانك تحميل تطبيق <span style={{ fontWeight: 'bold', color: '#0D6EFD' }}>استحواذ</span> على جميع الخدمات والمصيرات وجد تصفح المشاريع مباشرة.
-            </Typography>
+              يمكنك تحميل تطبيق <span style={{ fontWeight: 'bold', color: '#0D6EFD' }}>استحواذ</span> والاستفادة من جميع الخدمات وتصفّح المشاريع مباشرة عبر التطبيق      
+                     </Typography>
 
             <Typography
               variant="body1"
               sx={{
                 color: '#000',
                 lineHeight: 1.6,
-                fontSize: { xs: '0.9rem', md: '1rem' },
+                fontSize: { xs: '0.9rem', md: '1.10rem' },
                                 textAlign: 'left',
 
               }}
             >
-              الموقع الإلكتروني لا يزال قيد التطوير وسيتم إطلاقه قريبًا بإذن الله.
+              . الموقع الإلكتروني لا يزال قيد التطوير وسيتم إطلاقه قريبًا بإذن الله
             </Typography>
           </Box>
 
