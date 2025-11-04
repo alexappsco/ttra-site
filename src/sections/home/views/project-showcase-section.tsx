@@ -120,6 +120,26 @@ export const ProjectShowcaseSection: React.FC = () => {
             mx: 'auto',
           }}
         >
+
+          <Button
+            variant="contained"
+            sx={{
+              minWidth: { xs: '100%', sm: 100 },
+              height: { xs: 48, sm: 54 },
+              borderRadius: '65px',
+              px: { xs: 2, sm: 3 },
+              fontWeight: 'bold',
+              fontSize: { xs: '0.9rem', sm: '1rem' },
+              bgcolor: '#0095FA',
+              boxShadow: '0px 4px 34px rgba(112, 79, 56, 0.14)',
+              '&:hover': {
+                bgcolor: '#0085E0',
+                boxShadow: '0px 4px 28px rgba(112, 79, 56, 0.18)',
+              },
+            }}
+          >
+            بحث
+          </Button>
           <TextField
             fullWidth
             placeholder="البحث عن الشركات"
@@ -143,26 +163,6 @@ export const ProjectShowcaseSection: React.FC = () => {
               },
             }}
           />
-
-          <Button
-            variant="contained"
-            sx={{
-              minWidth: { xs: '100%', sm: 100 },
-              height: { xs: 48, sm: 54 },
-              borderRadius: '65px',
-              px: { xs: 2, sm: 3 },
-              fontWeight: 'bold',
-              fontSize: { xs: '0.9rem', sm: '1rem' },
-              bgcolor: '#0095FA',
-              boxShadow: '0px 4px 34px rgba(112, 79, 56, 0.14)',
-              '&:hover': {
-                bgcolor: '#0085E0',
-                boxShadow: '0px 4px 28px rgba(112, 79, 56, 0.18)',
-              },
-            }}
-          >
-            بحث
-          </Button>
         </Stack>
 
         {/* ==== عرض المشاريع ==== */}
