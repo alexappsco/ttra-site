@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useRef, useState, useLayoutEffect } from 'react';
 import { Box, Stack, useTheme, Container } from '@mui/material';
 
 import DiamondCard from './diamond-card-section';
@@ -7,9 +7,16 @@ import DiamondCard from './diamond-card-section';
 export const InteractiveCardSection: React.FC = () => {
   const theme = useTheme();
 
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const topRef = useRef<HTMLDivElement | null>(null);
+  const leftRef = useRef<HTMLDivElement | null>(null);
+  const rightRef = useRef<HTMLDivElement | null>(null);
+
+  
+
   const CARD_DATA = [
     {
-      title: 'المستثمر',
+      title: 'المشتري',
       description: 'ابحث، اكتشف، وتفاوض على مشروع يحقق طموحك الاستثماري',
       mainIconPath: '/assets/section-two/accountant.svg',
       hoverIconPath: '/assets/section-two/accountant.svg',
@@ -23,6 +30,109 @@ export const InteractiveCardSection: React.FC = () => {
       bgColor: '#0082D2',
     },
   ];
+  // Hook: measures the three card wrappers and returns container size + connector lines
+  function useConnectorLines(
+    containerRef: React.RefObject<HTMLElement | null>,
+    topRef: React.RefObject<HTMLElement | null>,
+    leftRef: React.RefObject<HTMLElement | null>,
+    rightRef: React.RefObject<HTMLElement | null>
+  ) {
+    const [containerSizeState, setContainerSizeState] = useState({ width: 0, height: 0 });
+    const [linesState, setLinesState] = useState<{ x1: number; y1: number; x2: number; y2: number }[]>([]);
+
+    useLayoutEffect(() => {
+      const update = () => {
+        const container = containerRef.current;
+        const top = topRef.current;
+        const left = leftRef.current;
+        const right = rightRef.current;
+        if (!container || !top || !left || !right) return;
+
+        const cRect = container.getBoundingClientRect();
+        const tRect = top.getBoundingClientRect();
+        const lRect = left.getBoundingClientRect();
+        const rRect = right.getBoundingClientRect();
+
+        const center = (rect: DOMRect) => ({ x: rect.left + rect.width / 2 - cRect.left, y: rect.top + rect.height / 2 - cRect.top });
+        const t = center(tRect);
+        const l = center(lRect);
+        const r = center(rRect);
+
+        setContainerSizeState({ width: Math.max(1, Math.round(cRect.width)), height: Math.max(1, Math.round(cRect.height)) });
+        setLinesState([
+          { x1: t.x, y1: t.y, x2: l.x, y2: l.y },
+          { x1: t.x, y1: t.y, x2: r.x, y2: r.y },
+        ]);
+      };
+
+      let rafId = 0;
+      const schedule = () => {
+        if (rafId) cancelAnimationFrame(rafId);
+        rafId = requestAnimationFrame(update);
+      };
+
+      const ro = new ResizeObserver(schedule);
+      if (containerRef.current) ro.observe(containerRef.current);
+      if (topRef.current) ro.observe(topRef.current);
+      if (leftRef.current) ro.observe(leftRef.current);
+      if (rightRef.current) ro.observe(rightRef.current);
+
+      window.addEventListener('resize', schedule);
+      window.addEventListener('scroll', schedule, true);
+
+      schedule();
+
+      return () => {
+        ro.disconnect();
+        window.removeEventListener('resize', schedule);
+        window.removeEventListener('scroll', schedule, true);
+        if (rafId) cancelAnimationFrame(rafId);
+      };
+    }, [containerRef, topRef, leftRef, rightRef]);
+
+    return { containerSizeState, linesState } as const;
+  }
+
+  // Presentational component for the SVG overlay
+  const SvgConnectors: React.FC<{
+    containerSize: { width: number; height: number };
+    lines: { x1: number; y1: number; x2: number; y2: number }[];
+    stroke: string;
+  }> = ({ containerSize, lines, stroke }) => (
+    <Box
+      sx={{
+        position: 'absolute',
+        inset: 0,
+        pointerEvents: 'none',
+        zIndex: 0,
+        overflow: 'visible',
+      }}
+    >
+      <svg
+        width="100%"
+        height="100%"
+        viewBox={`0 0 ${containerSize.width} ${containerSize.height}`}
+        preserveAspectRatio="none"
+        style={{ display: containerSize.width && containerSize.height ? 'block' : 'none' }}
+      >
+        {lines.map((ln, idx) => (
+          <line
+            key={idx}
+            x1={ln.x1}
+            y1={ln.y1}
+            x2={ln.x2}
+            y2={ln.y2}
+            stroke={stroke}
+            strokeWidth={1}
+            strokeDasharray="6 6"
+            strokeLinecap="round"
+          />
+        ))}
+      </svg>
+    </Box>
+  );
+
+  const { containerSizeState: containerSizeHook, linesState: linesHook } = useConnectorLines(containerRef, topRef, leftRef, rightRef);
 
   return (
     <Box
@@ -46,14 +156,18 @@ export const InteractiveCardSection: React.FC = () => {
           zIndex: 1,
           px: { xs: 2, sm: 4, md: 0 },
         }}
+          ref={containerRef}
       >
-        {/* 🔹 Top Card */}
+        {/* 🔹 Top Card (center) - wrapper with ref so we can measure its center */}
         <Box
+          ref={topRef}
           sx={{
             width: '100%',
             display: 'flex',
             justifyContent: 'center',
             mb: { xs: 4, sm: 6, md: 0 },
+            position: 'relative',
+            zIndex: 3,
           }}
         >
           <DiamondCard
@@ -65,41 +179,47 @@ export const InteractiveCardSection: React.FC = () => {
           />
         </Box>
 
-        <Stack
-          direction={{ xs: 'column', sm: 'row' }}
-          alignItems="center"
-          justifyContent="center"
-          sx={{
-            mt: { xs: 5, sm: 5, md: 8 },
-            position: 'relative',
-            zIndex: 1,
-            rowGap: { xs: 6, sm: 0 }, // ✅ adds vertical gap between cards in column layout
-            columnGap: { sm: 6, md: 8 }, // ✅ spacing for horizontal (desktop)
-          }}
-        >
-          {CARD_DATA.map((card, index) => (
-            <React.Fragment key={card.title}>
-              <DiamondCard {...card} />
+        {/* SVG overlay that draws dynamic connector lines between card centers (rendered by SvgConnectors) */}
+        <SvgConnectors containerSize={containerSizeHook} lines={linesHook} stroke={theme.palette.grey[400]} />
 
-              {/* Hide connector on mobile */}
-              {index < CARD_DATA.length - 1 && (
-                <Box
-                  sx={{
-                    display: { xs: 'none', sm: 'block' },
-                    width: { sm: '60px', md: '80px' },
-                    height: '1px',
-                    backgroundColor: theme.palette.grey[400],
-                    backgroundSize: '8px 1px',
-                    backgroundImage:
-                      'linear-gradient(to right, #9e9e9e 33%, rgba(255,255,255,0) 0%)',
-                    backgroundRepeat: 'repeat-x',
-                    backgroundPosition: 'center',
-                  }}
-                />
-              )}
-            </React.Fragment>
-          ))}
-        </Stack>
+<Stack
+  alignItems="center"
+  justifyContent="center"
+  sx={{
+    position: 'relative',
+    zIndex: 2,
+    width: '100%',
+    // height: { xs: '260px', sm: '140px', md: '260px' }, // ارتفاع ثابت لكل الشاشات
+    minHeight: { xs: '80px', sm: '140px', md: '260px' }, // ارتفاع ثابت لكل الشاشات
+    maxHeight: { xs: '120px', sm: '200px', md: '260px' }, // ارتفاع ثابت لكل الشاشات
+  }}
+>
+
+  {/* ⬣ الكارت اليسار */}
+  <Box
+    sx={{
+      position: 'absolute',
+      bottom: '0px',
+      left: '15%',
+    }}
+  >
+    <Box ref={leftRef} sx={{ display: 'inline-block', position: 'relative', zIndex: 3 }}>
+      <DiamondCard {...CARD_DATA[0]} />
+    </Box>
+  </Box>
+  {/* ⬣ الكارت اليمين */}
+  <Box
+    sx={{
+      position: 'absolute',
+      bottom: '0px',
+      right: '15%',
+    }}
+  >
+    <Box ref={rightRef} sx={{ display: 'inline-block', position: 'relative', zIndex: 3 }}>
+      <DiamondCard {...CARD_DATA[1]} />
+    </Box>
+  </Box>
+</Stack>
 
       </Container>
     </Box>
