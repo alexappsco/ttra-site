@@ -31,13 +31,12 @@ export const InteractiveCardSection: React.FC = () => {
     },
   ];
 
-  // ✅ وظيفة تحدد أي خط يضيء حسب الكارت المظلل
   const getStroke = (index: number, baseColor: string) => {
     if (hovered === null) return baseColor;
 
-    if (hovered === 'top') return "#00AAE1"; // الكارت الأعلى → كلا الخطين يضيئون
-    if (hovered === 'left' && index === 0) return "#0ABEF8"; // المشتري → الخط الأيسر
-    if (hovered === 'right' && index === 1) return "#0082D2"; // البائع → الخط الأيمن
+    if (hovered === 'top') return "#00AAE1"; 
+    if (hovered === 'left' && index === 0) return "#0ABEF8"; 
+    if (hovered === 'right' && index === 1) return "#0082D2"; 
 
     return baseColor;
   };

@@ -5,11 +5,11 @@ import { Box, Typography } from '@mui/material';
 
 import BannerSlider from './banner-view'; // تأكد من صحة المسار
 // القسم الثاني (اختياري)
-import FirstSection from '../section-third/first-section';
-import SecondSection from '../section-third/second-section';
+import FirstSection from './company-section';
+import SecondSection from './office-section';
 import JourneySection from './journey-section';
+import ProjectShowcaseSection from './project-showcase-section';
 import InteractiveCardSection from '../section-two/interactive-card-section';
-import ProjectShowcaseSection from './last-order.tsx/section-four';
 
 export default function HomeView() {
   return (
@@ -36,15 +36,13 @@ export default function HomeView() {
             px: 2,
             py: 2,
           }}
-        >
-          مميزات تجعل استحواذ منصتك الأولى لبيع وشراء الأعمال التجارية
+        >          مميزات تجعل استحواذ منصتك الأولى لبيع وشراء الأعمال التجارية
         </Typography>
-
       </Box>
       <FirstSection />
       <SecondSection />
       <JourneySection />
-<ProjectShowcaseSection/>
+      <ProjectShowcaseSection />
     </>
   );
 }

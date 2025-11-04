@@ -4,23 +4,23 @@ import React from 'react';
 import { Box, Grid2 } from '@mui/material';
 
 
-export default function FirstSection() {
+export default function CompanySection() {
   const features = [
     {
       subtitle: "إدراج سريع وتحكم كامل",
-      description: "لإنشاء حسابك وإدارة مشاريعك بخطوات بسيطة مع إمكانية تعديل وإدارة التفاصيل في أي وقت."
+      description: "أنشئ حسابك وأدرج مشروعك بخطوات بسيطة، مع إمكانية تعديل وإدارة تفاصيل الطرح في أي وقت."
     },
     {
       subtitle: "توثيق إلكتروني متكامل",
-      description: "من توقيع مذكرات عدم الإفصاح إلى استلام العروض والتفاوض إلكترونياً بكل سهولة وأمان."
+      description: "من توقيع مذكرات عدم الإفصاح إلى استلام العروض والتفاوض إلكترونيًا بكل سهولة وأمان."
     },
     {
       subtitle: "تواصل وعروض في مكان واحد",
-      description: "تتابع المراسلات والعروض داخل المنصة وتبني علاقات تجارية من لوحة تحكم واحدة."
+      description: "تلقَّ الرسائل والعروض داخل المنصة، وقارن بينها وتابع حالتها من لوحة تحكم واحدة."
     },
     {
       subtitle: "عمولة عادلة وشفافة",
-      description: "نسبة 5% فقط بعد إتمام عملية البيع بنجاح."
+      description: "لا تُدفع أي رسوم مسبقة — فقط 5% بعد إتمام عملية البيع بنجاح"
     }
   ];
 
@@ -29,9 +29,7 @@ export default function FirstSection() {
       component="section"
       sx={{
         width: '100%',
-        py: { xs: 4, md: 8 },
         px: { xs: 2, sm: 4, md: 8 },
-        bgcolor: '#f9f9f9',
         display: 'flex',
         justifyContent: 'center',
       }}
@@ -75,7 +73,7 @@ export default function FirstSection() {
                 sx={{
                   fontWeight: 700,
                   fontSize: { xs: 20, sm: 26 },
-                  color: 'rgb(0,72,181)',
+                  color: '#565656',
                   margin: 0,
                 }}
               >
@@ -107,7 +105,7 @@ export default function FirstSection() {
                         sx={{
                           fontWeight: 700,
                           fontSize: { xs: 16, sm: 18 },
-                          color: 'rgb(0,72,181)',
+                          color: '#0A0A0A',
                           textAlign: 'left',
                           margin: 0,
                           mb: 1,
@@ -119,7 +117,7 @@ export default function FirstSection() {
                         component="p"
                         sx={{
                           fontSize: { xs: 14, sm: 16 },
-                          color: '#000',
+                          color: '#4A5565',
                           textAlign: 'left',
                           lineHeight: 1.6,
                           margin: 0,

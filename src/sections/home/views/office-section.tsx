@@ -10,7 +10,7 @@ const features = [
   },
   {
     subtitle: "تفاصيل شاملة ومقارنة سهلة",
-    description: "استعرض التوظيف العاملي والتمويلية، وخطط المشاريع المفضلة، وقارنها في أي وقت."
+    description: "استعرض الجوانب المالية والتشغيلية، واحفظ المشاريع المفضلة وقارنها في أي وقت."
   },
   {
     subtitle: "تواصل مباشر",
@@ -22,15 +22,13 @@ const features = [
   }
 ];
 
-export default function SecondSection() {
+export default function OfficeSection() {
   return (
     <Box
       component="section"
       sx={{
         width: '100%',
-        py: { xs: 4, md: 8 },
         px: { xs: 2, sm: 4, md: 8 },
-        bgcolor: '#f9f9f9',
         display: 'flex',
         justifyContent: 'center',
       }}
@@ -58,11 +56,12 @@ export default function SecondSection() {
                 sx={{
                   fontWeight: 700,
                   fontSize: { xs: 20, sm: 26 },
-                  color: 'rgb(0,72,181)',
+                  color: '#565656',
                   margin: 0,
+                  textAlign: { xs: 'left', lg: 'right' },
                 }}
               >
-                استشف فرصك الاستثمارية بثقة
+                استكشف فرصك الاستثمارية بثقة
               </Box>
             </Box>
 
@@ -84,7 +83,7 @@ export default function SecondSection() {
                       boxShadow: 1,
                     }}
                   >
-                       <Box
+                    <Box
                       component="img"
                       src="/assets/Right.svg"
                       alt=""
@@ -101,8 +100,8 @@ export default function SecondSection() {
                         sx={{
                           fontWeight: 700,
                           fontSize: { xs: 16, sm: 18 },
-                          color: 'rgb(0,72,181)',
-                          textAlign: 'right',
+                          color: '#0A0A0A',
+                          textAlign: { xs: 'left', lg: 'right' },
                           margin: 0,
                           mb: 1,
                         }}
@@ -113,8 +112,8 @@ export default function SecondSection() {
                         component="p"
                         sx={{
                           fontSize: { xs: 14, sm: 16 },
-                          color: '#000',
-                          textAlign: 'right',
+                          color: '#4A5565',
+                          textAlign: { xs: 'left', lg: 'right' },
                           lineHeight: 1.6,
                           margin: 0,
                         }}
