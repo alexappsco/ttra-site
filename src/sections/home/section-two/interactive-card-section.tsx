@@ -134,6 +134,15 @@ export const InteractiveCardSection: React.FC = () => {
             strokeWidth={3}
             strokeDasharray="6 6"
             strokeLinecap="round"
+            style={{
+              animation:
+                hovered === 'top' ||
+                (hovered === 'left' && idx === 0) ||
+                (hovered === 'right' && idx === 1)
+                  ? 'glow-dash 1.5s infinite ease-in-out'
+                  : 'none',
+              transition: 'stroke 0.3s ease-in-out'
+            }}
           />
         ))}
       </svg>
@@ -142,6 +151,26 @@ export const InteractiveCardSection: React.FC = () => {
 
   const { containerSizeState: containerSizeHook, linesState: linesHook } =
     useConnectorLines(containerRef, topRef, leftRef, rightRef);
+
+    const glowAnimation = `
+  @keyframes glow-dash {
+    0% {
+      stroke-dashoffset: 0;
+      filter: drop-shadow(0px 0px 3px currentColor);
+      opacity: 1;
+    }
+    50% {
+      stroke-dashoffset: 20;
+      filter: drop-shadow(0px 0px 6px currentColor);
+      opacity: 0.7;
+    }
+    100% {
+      stroke-dashoffset: 0;
+      filter: drop-shadow(0px 0px 3px currentColor);
+      opacity: 1;
+    }
+  }
+`;
 
   return (
     <Box
@@ -159,14 +188,14 @@ export const InteractiveCardSection: React.FC = () => {
       }}
     >
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }} ref={containerRef}>
-        
+        <style>{glowAnimation}</style>
         <Box
           ref={topRef}
                    sx={{
             width: '100%',
             display: 'flex',
             justifyContent: 'center',
-            mb: { xs: 2, sm: 8, md: 12 },
+            mb: { xs: 2, sm: 9, md: 12 },
             position: 'relative',
             zIndex: 3,
           }}
