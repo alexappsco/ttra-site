@@ -1,3 +1,233 @@
+// 'use client';
+// import React, { useRef, useState, useLayoutEffect } from 'react';
+// import { Box, Stack, useTheme, Container } from '@mui/material';
+
+// import DiamondCard from './diamond-card-section';
+
+// export const InteractiveCardSection: React.FC = () => {
+//   const theme = useTheme();
+
+//   const containerRef = useRef<HTMLDivElement | null>(null);
+//   const topRef = useRef<HTMLDivElement | null>(null);
+//   const leftRef = useRef<HTMLDivElement | null>(null);
+//   const rightRef = useRef<HTMLDivElement | null>(null);
+
+  
+
+//   const CARD_DATA = [
+//     {
+//       title: 'المشتري',
+//       description: 'ابحث، اكتشف، وتفاوض على مشروع يحقق طموحك الاستثماري',
+//       mainIconPath: '/assets/section-two/accountant.svg',
+//       hoverIconPath: '/assets/section-two/accountant.svg',
+//       bgColor: '#0ABEF8',
+//     },
+//     {
+//       title: 'البائع',
+//       description: 'اعرض نشاطك التجاري وابدأ التواصل مع المشترين المحتملين',
+//       mainIconPath: '/assets/section-two/users.svg',
+//       hoverIconPath: '/assets/section-two/users.svg',
+//       bgColor: '#0082D2',
+//     },
+//   ];
+//   // Hook: measures the three card wrappers and returns container size + connector lines
+//   function useConnectorLines(
+//     containerRef: React.RefObject<HTMLElement | null>,
+//     topRef: React.RefObject<HTMLElement | null>,
+//     leftRef: React.RefObject<HTMLElement | null>,
+//     rightRef: React.RefObject<HTMLElement | null>
+//   ) {
+//     const [containerSizeState, setContainerSizeState] = useState({ width: 0, height: 0 });
+//     const [linesState, setLinesState] = useState<{ x1: number; y1: number; x2: number; y2: number }[]>([]);
+
+//     useLayoutEffect(() => {
+//       const update = () => {
+//         const container = containerRef.current;
+//         const top = topRef.current;
+//         const left = leftRef.current;
+//         const right = rightRef.current;
+//         if (!container || !top || !left || !right) return;
+
+//         const cRect = container.getBoundingClientRect();
+//         const tRect = top.getBoundingClientRect();
+//         const lRect = left.getBoundingClientRect();
+//         const rRect = right.getBoundingClientRect();
+
+//         const center = (rect: DOMRect) => ({ x: rect.left + rect.width / 2 - cRect.left, y: rect.top + rect.height / 2 - cRect.top });
+//         const t = center(tRect);
+//         const l = center(lRect);
+//         const r = center(rRect);
+
+//         setContainerSizeState({ width: Math.max(1, Math.round(cRect.width)), height: Math.max(1, Math.round(cRect.height)) });
+//         setLinesState([
+//           { x1: t.x, y1: t.y, x2: l.x, y2: l.y },
+//           { x1: t.x, y1: t.y, x2: r.x, y2: r.y },
+//         ]);
+//       };
+
+//       let rafId = 0;
+//       const schedule = () => {
+//         if (rafId) cancelAnimationFrame(rafId);
+//         rafId = requestAnimationFrame(update);
+//       };
+
+//       const ro = new ResizeObserver(schedule);
+//       if (containerRef.current) ro.observe(containerRef.current);
+//       if (topRef.current) ro.observe(topRef.current);
+//       if (leftRef.current) ro.observe(leftRef.current);
+//       if (rightRef.current) ro.observe(rightRef.current);
+
+//       window.addEventListener('resize', schedule);
+//       window.addEventListener('scroll', schedule, true);
+
+//       schedule();
+
+//       return () => {
+//         ro.disconnect();
+//         window.removeEventListener('resize', schedule);
+//         window.removeEventListener('scroll', schedule, true);
+//         if (rafId) cancelAnimationFrame(rafId);
+//       };
+//     }, [containerRef, topRef, leftRef, rightRef]);
+
+//     return { containerSizeState, linesState } as const;
+//   }
+
+//   // Presentational component for the SVG overlay
+//   const SvgConnectors: React.FC<{
+//     containerSize: { width: number; height: number };
+//     lines: { x1: number; y1: number; x2: number; y2: number }[];
+//     stroke: string;
+//   }> = ({ containerSize, lines, stroke }) => (
+//     <Box
+//       sx={{
+//         position: 'absolute',
+//         inset: 0,
+//         pointerEvents: 'none',
+//         zIndex: 0,
+//         overflow: 'visible',
+//       }}
+//     >
+//       <svg
+//         width="100%"
+//         height="100%"
+//         viewBox={`0 0 ${containerSize.width} ${containerSize.height}`}
+//         preserveAspectRatio="none"
+//         style={{ display: containerSize.width && containerSize.height ? 'block' : 'none' }}
+//       >
+//         {lines.map((ln, idx) => (
+//           <line
+//             key={idx}
+//             x1={ln.x1}
+//             y1={ln.y1}
+//             x2={ln.x2}
+//             y2={ln.y2}
+//             stroke={stroke}
+//             strokeWidth={1}
+//             strokeDasharray="6 6"
+//             strokeLinecap="round"
+//           />
+//         ))}
+//       </svg>
+//     </Box>
+//   );
+
+//   const { containerSizeState: containerSizeHook, linesState: linesHook } = useConnectorLines(containerRef, topRef, leftRef, rightRef);
+
+//   return (
+//     <Box
+//       component="section"
+//       sx={{
+//         py: { xs: 4, sm: 6, md: 10 },
+//         px: { xs: 1, sm: 2, md: 0 },
+//         backgroundColor: '#fff',
+//         textAlign: 'center',
+//         display: 'flex',
+//         flexDirection: 'column',
+//         alignItems: 'center',
+//         width: '100%',
+//         position: 'relative',
+//       }}
+//     >
+//       <Container
+//         maxWidth="lg"
+//         sx={{
+//           position: 'relative',
+//           zIndex: 1,
+//           px: { xs: 2, sm: 4, md: 0 },
+//         }}
+//           ref={containerRef}
+//       >
+//         {/* 🔹 Top Card (center) - wrapper with ref so we can measure its center */}
+//         <Box
+//           ref={topRef}
+//           sx={{
+//             width: '100%',
+//             display: 'flex',
+//             justifyContent: 'center',
+//             mb: { xs: 4, sm: 6, md: 0 },
+//             position: 'relative',
+//             zIndex: 3,
+//           }}
+//         >
+//           <DiamondCard
+//             mainIconPath="/assets/section-two/isthwaz.svg"
+//             title="استحواذ"
+//             description="منصتك الذكية لعرض وشراء المشاريع التجارية بكل سهولة"
+//             bgColor="#00AAE1"
+//             hoverIconPath="/assets/section-two/isthwaz.svg"
+//           />
+//         </Box>
+
+//         {/* SVG overlay that draws dynamic connector lines between card centers (rendered by SvgConnectors) */}
+//         <SvgConnectors containerSize={containerSizeHook} lines={linesHook} stroke={theme.palette.grey[400]} />
+
+// <Stack
+//   alignItems="center"
+//   justifyContent="center"
+//   sx={{
+//     position: 'relative',
+//     zIndex: 2,
+//     width: '100%',
+//     // height: { xs: '260px', sm: '140px', md: '260px' }, // ارتفاع ثابت لكل الشاشات
+//     minHeight: { xs: '80px', sm: '140px', md: '260px' }, // ارتفاع ثابت لكل الشاشات
+//     maxHeight: { xs: '120px', sm: '200px', md: '260px' }, // ارتفاع ثابت لكل الشاشات
+//   }}
+// >
+
+//   {/* ⬣ الكارت اليسار */}
+//   <Box
+//     sx={{
+//       position: 'absolute',
+//       bottom: '0px',
+//       left: '15%',
+//     }}
+//   >
+//     <Box ref={leftRef} sx={{ display: 'inline-block', position: 'relative', zIndex: 3 }}>
+//       <DiamondCard {...CARD_DATA[0]} />
+//     </Box>
+//   </Box>
+//   {/* ⬣ الكارت اليمين */}
+//   <Box
+//     sx={{
+//       position: 'absolute',
+//       bottom: '0px',
+//       right: '15%',
+//     }}
+//   >
+//     <Box ref={rightRef} sx={{ display: 'inline-block', position: 'relative', zIndex: 3 }}>
+//       <DiamondCard {...CARD_DATA[1]} />
+//     </Box>
+//   </Box>
+// </Stack>
+
+//       </Container>
+//     </Box>
+//   );
+// };
+
+// export default InteractiveCardSection;
+
 'use client';
 import React, { useRef, useState, useLayoutEffect } from 'react';
 import { Box, Stack, useTheme, Container } from '@mui/material';
@@ -12,7 +242,7 @@ export const InteractiveCardSection: React.FC = () => {
   const leftRef = useRef<HTMLDivElement | null>(null);
   const rightRef = useRef<HTMLDivElement | null>(null);
 
-  
+  const [hovered, setHovered] = useState<'top' | 'left' | 'right' | null>(null);
 
   const CARD_DATA = [
     {
@@ -30,7 +260,18 @@ export const InteractiveCardSection: React.FC = () => {
       bgColor: '#0082D2',
     },
   ];
-  // Hook: measures the three card wrappers and returns container size + connector lines
+
+  // ✅ وظيفة تحدد أي خط يضيء حسب الكارت المظلل
+  const getStroke = (index: number, baseColor: string) => {
+    if (hovered === null) return baseColor;
+
+    if (hovered === 'top') return "#00AAE1"; // الكارت الأعلى → كلا الخطين يضيئون
+    if (hovered === 'left' && index === 0) return "#0ABEF8"; // المشتري → الخط الأيسر
+    if (hovered === 'right' && index === 1) return "#0082D2"; // البائع → الخط الأيمن
+
+    return baseColor;
+  };
+
   function useConnectorLines(
     containerRef: React.RefObject<HTMLElement | null>,
     topRef: React.RefObject<HTMLElement | null>,
@@ -58,7 +299,7 @@ export const InteractiveCardSection: React.FC = () => {
         const l = center(lRect);
         const r = center(rRect);
 
-        setContainerSizeState({ width: Math.max(1, Math.round(cRect.width)), height: Math.max(1, Math.round(cRect.height)) });
+        setContainerSizeState({ width: Math.round(cRect.width), height: Math.round(cRect.height) });
         setLinesState([
           { x1: t.x, y1: t.y, x2: l.x, y2: l.y },
           { x1: t.x, y1: t.y, x2: r.x, y2: r.y },
@@ -72,10 +313,10 @@ export const InteractiveCardSection: React.FC = () => {
       };
 
       const ro = new ResizeObserver(schedule);
-      if (containerRef.current) ro.observe(containerRef.current);
-      if (topRef.current) ro.observe(topRef.current);
-      if (leftRef.current) ro.observe(leftRef.current);
-      if (rightRef.current) ro.observe(rightRef.current);
+      ro.observe(containerRef.current!);
+      ro.observe(topRef.current!);
+      ro.observe(leftRef.current!);
+      ro.observe(rightRef.current!);
 
       window.addEventListener('resize', schedule);
       window.addEventListener('scroll', schedule, true);
@@ -86,14 +327,12 @@ export const InteractiveCardSection: React.FC = () => {
         ro.disconnect();
         window.removeEventListener('resize', schedule);
         window.removeEventListener('scroll', schedule, true);
-        if (rafId) cancelAnimationFrame(rafId);
       };
     }, [containerRef, topRef, leftRef, rightRef]);
 
     return { containerSizeState, linesState } as const;
   }
 
-  // Presentational component for the SVG overlay
   const SvgConnectors: React.FC<{
     containerSize: { width: number; height: number };
     lines: { x1: number; y1: number; x2: number; y2: number }[];
@@ -113,7 +352,6 @@ export const InteractiveCardSection: React.FC = () => {
         height="100%"
         viewBox={`0 0 ${containerSize.width} ${containerSize.height}`}
         preserveAspectRatio="none"
-        style={{ display: containerSize.width && containerSize.height ? 'block' : 'none' }}
       >
         {lines.map((ln, idx) => (
           <line
@@ -122,8 +360,8 @@ export const InteractiveCardSection: React.FC = () => {
             y1={ln.y1}
             x2={ln.x2}
             y2={ln.y2}
-            stroke={stroke}
-            strokeWidth={1}
+            stroke={getStroke(idx, stroke)} // ✅ هنا السحر
+            strokeWidth={3}
             strokeDasharray="6 6"
             strokeLinecap="round"
           />
@@ -132,7 +370,8 @@ export const InteractiveCardSection: React.FC = () => {
     </Box>
   );
 
-  const { containerSizeState: containerSizeHook, linesState: linesHook } = useConnectorLines(containerRef, topRef, leftRef, rightRef);
+  const { containerSizeState: containerSizeHook, linesState: linesHook } =
+    useConnectorLines(containerRef, topRef, leftRef, rightRef);
 
   return (
     <Box
@@ -149,26 +388,21 @@ export const InteractiveCardSection: React.FC = () => {
         position: 'relative',
       }}
     >
-      <Container
-        maxWidth="lg"
-        sx={{
-          position: 'relative',
-          zIndex: 1,
-          px: { xs: 2, sm: 4, md: 0 },
-        }}
-          ref={containerRef}
-      >
-        {/* 🔹 Top Card (center) - wrapper with ref so we can measure its center */}
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }} ref={containerRef}>
+        
+        {/* ✅ الكارت العلوي */}
         <Box
           ref={topRef}
-          sx={{
+                   sx={{
             width: '100%',
             display: 'flex',
             justifyContent: 'center',
-            mb: { xs: 4, sm: 6, md: 0 },
+            mb: { xs: 2, sm: 8, md: 12 },
             position: 'relative',
             zIndex: 3,
           }}
+          onMouseEnter={() => setHovered('top')}
+          onMouseLeave={() => setHovered(null)}
         >
           <DiamondCard
             mainIconPath="/assets/section-two/isthwaz.svg"
@@ -179,51 +413,41 @@ export const InteractiveCardSection: React.FC = () => {
           />
         </Box>
 
-        {/* SVG overlay that draws dynamic connector lines between card centers (rendered by SvgConnectors) */}
+        {/* ✅ SVG خطوط الربط */}
         <SvgConnectors containerSize={containerSizeHook} lines={linesHook} stroke={theme.palette.grey[400]} />
 
-<Stack
-  alignItems="center"
-  justifyContent="center"
-  sx={{
-    position: 'relative',
-    zIndex: 2,
-    width: '100%',
-    // height: { xs: '260px', sm: '140px', md: '260px' }, // ارتفاع ثابت لكل الشاشات
-    minHeight: { xs: '80px', sm: '140px', md: '260px' }, // ارتفاع ثابت لكل الشاشات
-    maxHeight: { xs: '120px', sm: '200px', md: '260px' }, // ارتفاع ثابت لكل الشاشات
-  }}
->
+        {/* ✅ الكارتان السفليان */}
+        <Stack
+          alignItems="center"
+          justifyContent="center"
+          sx={{ position: 'relative', zIndex: 3, width: '100%', minHeight: 150 }}
+        >
+          <Box sx={{ position: 'absolute', bottom: 0, left: '15%' }}>
+            <Box
+              ref={leftRef}
+              sx={{ position: 'relative' }}
+              onMouseEnter={() => setHovered('left')}
+              onMouseLeave={() => setHovered(null)}
+            >
+              <DiamondCard {...CARD_DATA[0]} />
+            </Box>
+          </Box>
 
-  {/* ⬣ الكارت اليسار */}
-  <Box
-    sx={{
-      position: 'absolute',
-      bottom: '0px',
-      left: '15%',
-    }}
-  >
-    <Box ref={leftRef} sx={{ display: 'inline-block', position: 'relative', zIndex: 3 }}>
-      <DiamondCard {...CARD_DATA[0]} />
-    </Box>
-  </Box>
-  {/* ⬣ الكارت اليمين */}
-  <Box
-    sx={{
-      position: 'absolute',
-      bottom: '0px',
-      right: '15%',
-    }}
-  >
-    <Box ref={rightRef} sx={{ display: 'inline-block', position: 'relative', zIndex: 3 }}>
-      <DiamondCard {...CARD_DATA[1]} />
-    </Box>
-  </Box>
-</Stack>
-
+          <Box sx={{ position: 'absolute', bottom: 0, right: '15%' }}>
+            <Box
+              ref={rightRef}
+              sx={{ position: 'relative' }}
+              onMouseEnter={() => setHovered('right')}
+              onMouseLeave={() => setHovered(null)}
+            >
+              <DiamondCard {...CARD_DATA[1]} />
+            </Box>
+          </Box>
+        </Stack>
       </Container>
     </Box>
   );
 };
 
 export default InteractiveCardSection;
+
