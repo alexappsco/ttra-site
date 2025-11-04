@@ -36,8 +36,9 @@ const DiamondCardRoot = styled(Box)(({ theme }) => ({
     height: 200,
   },
   [theme.breakpoints.down('sm')]: {
-    width: 160,
-    height: 160,
+    width: 90,
+    height: 90,
+    fontSize: 12,
   },
 }));
 
@@ -90,9 +91,10 @@ export const DiamondCard: React.FC<DiamondCardProps> = ({
           <Image
             src={isActive ? finalHoverIconPath : mainIconPath}
             alt={`${title} icon`}
-            width={isActive ? 70 : 100}
-            height={isActive ? 70 : 100}
-            style={{ marginBottom: theme.spacing(1), transition: 'all 0.3s ease' }}
+            width={isActive ? 50 : 100}
+            height={isActive ? 50 : 100}
+            // style={{ height: 'auto' }}
+            style={{ marginBottom: theme.spacing(1), transition: 'all 0.3s ease', height: 'auto'}}
           />
         </Box>
 
@@ -101,7 +103,7 @@ export const DiamondCard: React.FC<DiamondCardProps> = ({
           sx={{
             fontWeight: 'bold',
             mb: 0.5,
-            fontSize: { xs: 12, sm: 14, md: 16 },
+            fontSize: { xs: 12, sm: 8, md: 16 },
           }}
         >
           {title}
@@ -115,7 +117,7 @@ export const DiamondCard: React.FC<DiamondCardProps> = ({
             overflow: 'hidden',
             transition: 'opacity 0.4s ease, max-height 0.4s ease',
             fontSize: { xs: 8, sm: 12, md: 13 },
-            lineHeight: 1.5,
+            // lineHeight: 1.5,
           }}
         >
           {description}
