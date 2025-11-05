@@ -16,27 +16,29 @@ export const InteractiveCardSection: React.FC = () => {
 
   const CARD_DATA = [
     {
-      title: 'المشتري',
-      description: 'ابحث، اكتشف، وتفاوض على مشروع يحقق طموحك الاستثماري',
-      mainIconPath: '/assets/section-two/accountant.svg',
-      hoverIconPath: '/assets/section-two/accountant.svg',
-      bgColor: '#0ABEF8',
-    },
-    {
       title: 'البائع',
       description: 'اعرض نشاطك التجاري وابدأ التواصل مع المشترين المحتملين',
       mainIconPath: '/assets/section-two/users.svg',
       hoverIconPath: '/assets/section-two/users.svg',
+      bgColor: '#0ABEF8',
+
+    },
+    {
+      title: 'المشتري',
+      description: 'ابحث، اكتشف، وتفاوض على مشروع يحقق طموحك الاستثماري',
+      mainIconPath: '/assets/section-two/accountant.svg',
+      hoverIconPath: '/assets/section-two/accountant.svg',
       bgColor: '#0082D2',
+
     },
   ];
 
   const getStroke = (index: number, baseColor: string) => {
     if (hovered === null) return baseColor;
 
-    if (hovered === 'top') return "#00AAE1"; 
-    if (hovered === 'left' && index === 0) return "#0ABEF8"; 
-    if (hovered === 'right' && index === 1) return "#0082D2"; 
+    if (hovered === 'top') return "#00AAE1";
+    if (hovered === 'left' && index === 0) return "#0ABEF8";
+    if (hovered === 'right' && index === 1) return "#0082D2";
 
     return baseColor;
   };
@@ -129,7 +131,7 @@ export const InteractiveCardSection: React.FC = () => {
             y1={ln.y1}
             x2={ln.x2}
             y2={ln.y2}
-            stroke={getStroke(idx, stroke)} 
+            stroke={getStroke(idx, stroke)}
             strokeWidth={3}
             strokeDasharray="6 6"
             strokeLinecap="round"

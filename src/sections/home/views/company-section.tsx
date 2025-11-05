@@ -20,7 +20,7 @@ export default function CompanySection() {
     },
     {
       subtitle: "عمولة عادلة وشفافة",
-      description: "لا تُدفع أي رسوم مسبقة — فقط 5% بعد إتمام عملية البيع بنجاح"
+      description: "لا تُدفع أي رسوم مسبقة — فقط 5% بعد إتمام عملية البيع بنجاح."
     }
   ];
 
