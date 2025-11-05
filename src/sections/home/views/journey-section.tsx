@@ -178,6 +178,57 @@ export default function JourneySection() {
             '&:hover': { transform: 'translateY(-5px)' },
           }}
         >
+<<<<<<< HEAD
+          {steps.map((step, index) => (
+            <Box
+              key={index}
+              display="flex"
+              alignItems="center"
+              sx={{ mb: { xs: 2, md: 0 } }}
+            >
+              {/* Step Card */}
+              <Paper
+                elevation={3}
+                sx={{
+                  p: 3,
+                  borderRadius: 3,
+                  width: 290,
+                  height: 240,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'flex-start',
+                  alignItems: 'center',
+                  textAlign: 'center',
+                  backgroundColor: '#fff',
+                  transition: 'transform 0.3s ease',
+                  '&:hover': { transform: 'translateY(-5px)' },
+                }}
+              >
+                {/* ✅ PNG Icon */}
+                <Box
+                  sx={{
+                    width: 60,
+                    height: 60,
+                    mb: 2,
+                    position: 'relative',
+                  }}
+                >
+                  <Image
+                    src={step.img}
+                    alt={step.title}
+                    fill
+                    style={{ objectFit: 'contain' }}
+                  />
+                </Box>
+
+                <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 1 }}>
+                  {step.title}
+                </Typography>
+                <Typography variant="body2" color="text.secondary" >
+                  {step.desc}
+                </Typography>
+              </Paper>
+=======
           {/* ✅ PNG Icon */}
           <Box
             sx={{
@@ -208,6 +259,7 @@ export default function JourneySection() {
     ))}
   </Box>
 </Fade>
+>>>>>>> df71235c02b53ec73d4fd7cb5c328d2a744dc662
 
     </Box>
   );

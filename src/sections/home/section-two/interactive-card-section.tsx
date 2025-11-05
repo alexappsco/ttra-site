@@ -215,7 +215,7 @@ export const InteractiveCardSection: React.FC = () => {
         <Stack
           alignItems="center"
           justifyContent="center"
-          sx={{ position: 'relative', zIndex: 3, width: '100%', minHeight: 150 }}
+          sx={{ position: 'relative', zIndex: 3, width: '100%', height: {xs:75 ,sm:140,md:150} }}
         >
           <Box sx={{ position: 'absolute', bottom: 0, left: '15%' }}>
             <Box

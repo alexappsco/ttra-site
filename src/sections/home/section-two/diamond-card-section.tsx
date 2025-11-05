@@ -103,7 +103,7 @@ export const DiamondCard: React.FC<DiamondCardProps> = ({
           sx={{
             fontWeight: 'bold',
             mb: 0.5,
-            fontSize: { xs: 12, sm: 8, md: 16 },
+            fontSize: { xs: 12, sm: 15, md: 18 },
           }}
         >
           {title}
