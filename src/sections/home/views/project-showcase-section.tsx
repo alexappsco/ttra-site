@@ -19,48 +19,18 @@ const DUMMY_PROJECTS = [
   {
     id: 1,
     title: 'متجر فيت بودي',
-    description:
-      'متجر متخصص في بيع أدوات اللياقة البدنية والمكملات الغذائية، بعلامة تجارية حديثة وخدمة توصيل سريعة.',
-    imagePath: '/assets/section-four/img1.svg',
-    tags: ['طرح جديد'],
-    location: 'المدينة الدمام',
-    views: 520,
-    price: '320,000 ر.س',
-    cost: '95,000 ر.س',
-    profit: '100,000 ر.س',
-    priceChange: 5,
-    profitChange: 4,
+    imagePath: '/assets/section-four/img3.svg',
   },
   {
     id: 2,
     title: 'ميني ماركت',
-    description:
-      'سوبرماركت قائم في حي سكني نشيط. يوفر منتجات غذائية ويومية متنوعة. بانتظام ومتابعة بكناليات.',
     imagePath: '/assets/section-four/img2.svg',
-    tags: ['مستهدفة'],
-    location: 'المدينة جدة',
-    views: 320,
-    price: '500,000 ر.س',
-    cost: '180,000 ر.س',
-    profit: '90,000 ر.س',
-    priceChange: 24,
-    profitChange: 0,
   },
   {
     id: 3,
     title: 'عيادة التوازن للعلاج الطبيعي',
-    description:
-      'عيادة متخصصة في العلاج الطبيعي وإعادة التأهيل. تقدم خدمات متميزة بجودة ممتازة.',
-    imagePath: '/assets/section-four/img3.svg',
-    tags: ['طرح جديد'],
-    location: 'المدينة الرياض',
-    views: 2357,
-    price: '1,000,000 ر.س',
-    cost: '290,000 ر.س',
-    profit: '230,000 ر.س',
-    priceChange: 29,
-    profitChange: 17,
-  },
+    imagePath: '/assets/section-four/img1.svg',
+   },
 ];
 
 export const ProjectShowcaseSection: React.FC = () => {
@@ -164,7 +134,6 @@ export const ProjectShowcaseSection: React.FC = () => {
             }}
           />
         </Stack>
-
         {/* ==== عرض المشاريع ==== */}
         <Stack
           direction={{ xs: 'column', sm: 'row', md: 'row' }}
