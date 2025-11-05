@@ -121,9 +121,15 @@ export default function JourneySection() {
           justifyContent="center"
           alignItems="center"
           flexWrap="wrap"
-          gap={2}
+          gap={{
+             xs: 2,     // ~16px (phones - 1 per row)
+      sm: 3,     // ~24px (tablets - 2 per row)
+      md: 2,     // ~16px (3 per row on desktop)
+      lg: 3,     // ~24px (wider screens, more space)
+      xl: 4,
+          }}
           sx={{
-            flexDirection: { xs: 'row', md: 'row-reverse' }, //  عكس الاتجاه في الديسكتوب فقط
+            flexDirection: { xs: 'row-reverse', md: 'row-reverse' }, //  عكس الاتجاه في الديسكتوب فقط
           }}
         >
           {steps.map((step, index) => (
@@ -139,7 +145,7 @@ export default function JourneySection() {
                       md: 'flex', //
                     },
                     alignItems: 'center',
-                    '@media (min-width:900px) and (max-width:1520px)': {
+                    '@media (min-width:900px) and (max-width:1568px)': {
                       display: 'none', //
                     },
                   }}
@@ -192,82 +198,3 @@ export default function JourneySection() {
     </Box>
   );
 }
-//   <Fade in timeout={500}>
-//         <Box
-//           display="flex"
-//           justifyContent="center"
-//           alignItems="center"
-//           flexWrap="wrap"
-//           gap={2}
-//         >
-//           {steps.map((step, index) => (
-//             <Box
-//               key={index}
-//               display="flex"
-//               alignItems="center"
-//               sx={{ mb: { xs: 2, md: 0 } }}
-//             >
-//               {/* Step Card */}
-//               <Paper
-//                 elevation={3}
-//                 sx={{
-//                   p: 3,
-//                   borderRadius: 3,
-//                   width: 290,
-//                   height: 240,
-//                   display: 'flex',
-//                   flexDirection: 'column',
-//                   justifyContent: 'flex-start',
-//                   alignItems: 'center',
-//                   textAlign: 'center',
-//                   backgroundColor: '#fff',
-//                   transition: 'transform 0.3s ease',
-//                   '&:hover': { transform: 'translateY(-5px)' },
-//                 }}
-//               >
-//                 {/* ✅ PNG Icon */}
-//                 <Box
-//                   sx={{
-//                     width: 60,
-//                     height: 60,
-//                     mb: 2,
-//                     position: 'relative',
-//                   }}
-//                 >
-//                   <Image
-//                     src={step.img}
-//                     alt={step.title}
-//                     fill
-//                     style={{ objectFit: 'contain' }}
-//                   />
-//                 </Box>
-
-//                 <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 1 }}>
-//                   {step.title}
-//                 </Typography>
-//                 <Typography variant="body2" color="text.secondary">
-//                   {step.desc}
-//                 </Typography>
-//               </Paper>
-
-//               {/* Arrow (except after last one) */}
-//               {index !== steps.length - 1 && (
-//                 <Box
-//                   sx={{
-//                     mx: 2,
-//                     display: { xs: 'none', md: 'flex' },
-//                     alignItems: 'center',
-//                   }}
-//                 >
-//                   <Image
-//                     src="/assets/images/home/arrow.png"
-//                     alt="arrow"
-//                     width={40}
-//                     height={40}
-//                   />
-//                 </Box>
-//               )}
-//             </Box>
-//           ))}
-//         </Box>
-//       </Fade>
