@@ -1,9 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { Box, Button, Typography } from '@mui/material';
-import { useRouter } from 'next/navigation';
 import { paths } from 'src/routes/paths';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import Iconify from 'src/components/iconify';
+import { Box, Button, Typography } from '@mui/material';
 
 const staticBanners = [
   { id: 1, url: '/assets/img_1.png' },
@@ -161,7 +162,8 @@ export default function InvestmentHero() {
           sx={{
             opacity: 0.95,
             mb: 2,
-            fontSize: { xs: 12, md: 16 },
+            fontWeight: 400,
+            fontSize: { xs: 12, md: 18 },
           }}
         >
           اكتشف، قيّم، وتفاوض لشراء أو بيع الأعمال التجارية بسهولة عبر منصة "استحواذ".
@@ -180,9 +182,10 @@ export default function InvestmentHero() {
             boxShadow: '0 4px 14px rgba(255,255,255,0.3)',
             '&:hover': { bgcolor: '#f3f3f3' },
           }}
-          onClick={()=>{  router.push(paths.controlPanel.landing.view)}}
+          endIcon={<Iconify icon="mdi:arrow-left" />}
+          onClick={() => { router.push(paths.controlPanel.landing.view) }}
         >
-          ← التسجيل
+           التسجيل
         </Button>
       </Box>
 
