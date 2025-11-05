@@ -16,17 +16,17 @@ export const InteractiveCardSection: React.FC = () => {
 
   const CARD_DATA = [
     {
-      title: 'المشتري',
-      description: 'ابحث، اكتشف، وتفاوض على مشروع يحقق طموحك الاستثماري',
-      mainIconPath: '/assets/section-two/accountant.svg',
-      hoverIconPath: '/assets/section-two/accountant.svg',
-      bgColor: '#0ABEF8',
-    },
-    {
       title: 'البائع',
       description: 'اعرض نشاطك التجاري وابدأ التواصل مع المشترين المحتملين',
       mainIconPath: '/assets/section-two/users.svg',
       hoverIconPath: '/assets/section-two/users.svg',
+      bgColor: '#0ABEF8',
+    },
+    {
+      title: 'المشتري',
+      description: 'ابحث، اكتشف، وتفاوض على مشروع يحقق طموحك الاستثماري',
+      mainIconPath: '/assets/section-two/accountant.svg',
+      hoverIconPath: '/assets/section-two/accountant.svg',
       bgColor: '#0082D2',
     },
   ];
