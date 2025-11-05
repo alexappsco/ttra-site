@@ -133,7 +133,6 @@ export default function InvestmentHero() {
           );
         })}
       </Box>
-      {/* ✅ النص في اليسار */}
       <Box
         sx={{
           position: 'absolute',
@@ -164,7 +163,10 @@ export default function InvestmentHero() {
             mb: 2,
             fontWeight: 400,
             fontSize: { xs: 12, md: 18 },
-          }}
+            width: {
+              md: "330px", // ✅ يبدأ من 900px
+              lg: "auto",  // ✅ يرجع للوضع الطبيعي بعد 1200px (يمكن تغييره)
+            },          }}
         >
           اكتشف، قيّم، وتفاوض لشراء أو بيع الأعمال التجارية بسهولة عبر منصة "استحواذ".
         </Typography>
