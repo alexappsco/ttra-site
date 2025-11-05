@@ -137,8 +137,8 @@ export default function JourneySection() {
                 sx={{
                   p: 3,
                   borderRadius: 3,
-                  width: 280,
-                  height: '100%',
+                  width: 290,
+                  height: 240,
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'flex-start',
@@ -169,7 +169,7 @@ export default function JourneySection() {
                 <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 1 }}>
                   {step.title}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" color="text.secondary" >
                   {step.desc}
                 </Typography>
               </Paper>

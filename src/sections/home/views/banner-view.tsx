@@ -83,13 +83,13 @@ export default function InvestmentHero() {
       <Box
         sx={{
           position: 'absolute',
-          right: { xs: '5%', md: '10%' }, // ✅ moved from left → right
-          bottom: { xs: 100, md: 120 },
+          right: { xs: '26%', md: '10%' }, // ✅ moved from left → right
+          bottom: { xs: 80, md: 120 },
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          width: { xs: 250, md: 350 },
-          height: { xs: 180, md: 240 },
+          width: { xs: 165, md: 350 },
+          height: { xs: 45, md: 240 },
           zIndex: 3,
         }}
       >
@@ -119,7 +119,7 @@ export default function InvestmentHero() {
               alt={`slide-${index}`}
               sx={{
                 position: 'absolute',
-                width: { xs: 200, md: 320 },
+                width: { xs: 180, md: 320 },
                 height: 'auto',
                 borderRadius: 3,
                 boxShadow: '0 8px 24px rgba(0,0,0,0.3)',
@@ -137,7 +137,7 @@ export default function InvestmentHero() {
         sx={{
           position: 'absolute',
           left: { xs: 16, md: 80 },
-          top: '50%',
+          top: {xs:'40%',md:'50%'},
           transform: 'translateY(-50%)',
           textAlign: 'left',
           color: '#fff',
@@ -160,8 +160,8 @@ export default function InvestmentHero() {
           variant="body1"
           sx={{
             opacity: 0.95,
-            mb: 4,
-            fontSize: { xs: 14, md: 16 },
+            mb: 2,
+            fontSize: { xs: 12, md: 16 },
           }}
         >
           اكتشف، قيّم، وتفاوض لشراء أو بيع الأعمال التجارية بسهولة عبر منصة "استحواذ".
