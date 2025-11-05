@@ -1,6 +1,8 @@
+'use client';
+
 import Image from 'next/image';
-import React, { useState } from 'react';
-import { Box, styled, useTheme, Typography } from '@mui/material';
+import React from 'react';
+import { Box, styled, Typography, useTheme } from '@mui/material';
 
 interface DiamondCardProps {
   mainIconPath: string;
@@ -8,6 +10,9 @@ interface DiamondCardProps {
   description: string;
   hoverIconPath?: string;
   bgColor?: string;
+  expanded?: boolean;
+  onToggle?: () => void;
+  isSmallScreen?: boolean;
 }
 
 const DiamondCardRoot = styled(Box)(({ theme }) => ({
@@ -29,15 +34,12 @@ const DiamondCardRoot = styled(Box)(({ theme }) => ({
     boxShadow: theme.shadows[8],
   },
 
-  // ✅ Responsive resizing
-  [theme.breakpoints.down('md')]: {
-    width: 200,
-    height: 200,
-  },
   [theme.breakpoints.down('sm')]: {
-    width: 90,
-    height: 90,
-    fontSize: 12,
+    width: 95,
+    height: 95,
+    '&:hover': {
+      transform: 'rotate(45deg)', // ✅ منع Hover على الموبايل
+    },
   },
 }));
 
@@ -60,67 +62,70 @@ export const DiamondCard: React.FC<DiamondCardProps> = ({
   description,
   hoverIconPath,
   bgColor,
+  expanded,
+  onToggle,
+  isSmallScreen,
 }) => {
   const theme = useTheme();
-  const [isActive, setIsActive] = useState(false);
-
   const finalHoverIconPath = hoverIconPath || mainIconPath;
-
-  const isTouchDevice = typeof window !== 'undefined' && 'ontouchstart' in window;
-
-  const handleInteraction = () => {
-    if (isTouchDevice) setIsActive((prev) => !prev);
-  };
 
   return (
     <DiamondCardRoot
       sx={bgColor ? { backgroundColor: bgColor } : {}}
-      onMouseEnter={() => !isTouchDevice && setIsActive(true)}
-      onMouseLeave={() => !isTouchDevice && setIsActive(false)}
-      onClick={handleInteraction}
+      onClick={isSmallScreen ? onToggle : undefined}
+      onMouseEnter={!isSmallScreen ? onToggle : undefined}
+      onMouseLeave={!isSmallScreen ? onToggle : undefined}
     >
       <DiamondCardContent>
-        <Box
-          sx={{
-            transition: 'transform 0.4s ease',
-            transform: isActive ? 'scale(1.3)' : 'scale(1)',
-          }}
-        >
-          <Image
-            src={isActive ? finalHoverIconPath : mainIconPath}
-            alt={`${title} icon`}
-            width={isActive ? 50 : 100}
-            height={isActive ? 50 : 100}
-            // style={{ height: 'auto' }}
-            style={{ marginBottom: theme.spacing(1), transition: 'all 0.3s ease', height: 'auto' }}
-          />
-        </Box>
+
+        {/* ✅ إخفاء الأيقونة عند Expanded */}
+        {!expanded && (
+          <Box
+            sx={{
+              transition: 'opacity 0.35s ease, transform 0.35s ease',
+              transform: 'scale(1)',
+              pointerEvents: 'none',
+              zIndex: 2,
+            }}
+          >
+            <Image
+              src={finalHoverIconPath}
+              alt={`${title} icon`}
+              width={90}
+              height={90}
+              style={{ height: 'auto' }}
+            />
+          </Box>
+        )}
 
         <Typography
-          variant="subtitle1"
+          variant="subtitle2"
           sx={{
             fontWeight: 'bold',
-            mb: 0.5,
-            fontSize: { xs: 12, sm: 15, md: 18 },
+            mt: 1,
+            fontSize: { xs: 10, sm: 15 },
           }}
         >
           {title}
         </Typography>
 
+        {/* ✅ Description يظهر فقط لما يكون Expanded */}
         <Typography
           variant="body2"
           sx={{
-            opacity: isActive ? 1 : 0,
-            maxHeight: isActive ? '200px' : '0',
+            opacity: expanded ? 1 : 0,
+            maxHeight: expanded ? '200px' : '0px',
             overflow: 'hidden',
-            transition: 'opacity 0.4s ease, max-height 0.4s ease',
-            fontSize: { xs: 8, sm: 12, md: 13 },
-
-            // lineHeight: 1.5,
+            transition: 'opacity 0.35s ease, max-height 0.35s ease',
+            fontSize: { xs: 7.5, sm: 13 },
+            mt: 0.5,
+            width: '90%',
+            textAlign: 'center',
           }}
         >
           {description}
         </Typography>
+
       </DiamondCardContent>
     </DiamondCardRoot>
   );

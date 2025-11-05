@@ -1,6 +1,6 @@
 'use client';
 import React, { useRef, useState, useLayoutEffect } from 'react';
-import { Box, Stack, useTheme, Container } from '@mui/material';
+import { Box, Stack, useTheme, Container, useMediaQuery } from '@mui/material';
 
 import DiamondCard from './diamond-card-section';
 
@@ -179,6 +179,9 @@ export const InteractiveCardSection: React.FC = () => {
     }
   }
 `;
+const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
+const [expanded, setExpanded] = useState<'left' | 'right' | 'top'|null>(null);
 
   return (
     <Box
@@ -216,6 +219,9 @@ export const InteractiveCardSection: React.FC = () => {
             description="منصتك الذكية لعرض وشراء المشاريع التجارية بكل سهولة"
             bgColor="#00AAE1"
             hoverIconPath="/assets/section-two/isthwaz.svg"
+            expanded={expanded === 'top'}
+            onToggle={() => setExpanded(prev => prev === 'top' ? null : 'top')}
+            isSmallScreen={isSmallScreen}
           />
         </Box>
 
@@ -242,7 +248,9 @@ export const InteractiveCardSection: React.FC = () => {
               onMouseEnter={() => setHovered('left')}
               onMouseLeave={() => setHovered(null)}
             >
-              <DiamondCard {...CARD_DATA[0]} />
+              <DiamondCard {...CARD_DATA[0]}        expanded={expanded === 'left'}
+   onToggle={() => setExpanded(prev => prev === 'left' ? null : 'left')}
+        isSmallScreen={isSmallScreen}/>
             </Box>
           </Box>
 
@@ -253,7 +261,9 @@ export const InteractiveCardSection: React.FC = () => {
               onMouseEnter={() => setHovered('right')}
               onMouseLeave={() => setHovered(null)}
             >
-              <DiamondCard {...CARD_DATA[1]} />
+              <DiamondCard {...CARD_DATA[1]}          expanded={expanded === 'right'}
+        onToggle={() => setExpanded(prev => prev === 'right' ? null : 'right')}
+        isSmallScreen={isSmallScreen}/>
             </Box>
           </Box>
         </Stack>
