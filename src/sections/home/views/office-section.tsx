@@ -1,3 +1,4 @@
+
 'use client';
 
 import React from 'react';
@@ -5,7 +6,7 @@ import { Box, Grid2 } from '@mui/material';
 
 const features = [
   {
-    subtitle: "بحث ذهن ومشاريع مميزة",
+    subtitle: "بحث ذكي ومشاريع مميزة",
     description: "بحث عن المشاريع حسب النشاط، المدينة، أو رأس المال، واختر بناءً على بيانات دقيقة لكل مشروع."
   },
   {
@@ -40,8 +41,31 @@ export default function OfficeSection() {
         justifyContent="space-between"
         direction={{ xs: 'column', md: 'row' }}
       >
-        {/* Text Column - Now on the LEFT side */}
-        <Grid2 size={{ xs: 12, md: 6 }}>
+        {/* ✅ Image Column - upper on mobile, right on desktop */}
+        <Grid2
+          size={{ xs: 12, md: 6 }}
+          sx={{ order: { xs: 1, md: 2 } }}
+        >
+          <Box
+            component="img"
+            src="/assets/office.svg"
+            alt="Office Illustration"
+            sx={{
+              width: '100%',
+              height: 'auto',
+              maxWidth: 500,
+              objectFit: 'contain',
+              display: 'block',
+              mx: 'auto'
+            }}
+          />
+        </Grid2>
+
+        {/* ✅ Text Column - lower on mobile, left on desktop */}
+        <Grid2
+          size={{ xs: 12, md: 6 }}
+          sx={{ order: { xs: 2, md: 1 } }}
+        >
           <Box sx={{ mb: 4 }}>
             <Box
               sx={{
@@ -126,23 +150,6 @@ export default function OfficeSection() {
               ))}
             </Grid2>
           </Box>
-        </Grid2>
-
-        {/* Image Column - Now on the RIGHT side */}
-        <Grid2 size={{ xs: 12, md: 6 }}>
-          <Box
-            component="img"
-            src="/assets/office.svg"
-            alt="Office Illustration"
-            sx={{
-              width: '100%',
-              height: 'auto',
-              maxWidth: 500,
-              objectFit: 'contain',
-              display: 'block',
-              mx: 'auto'
-            }}
-          />
         </Grid2>
       </Grid2>
     </Box>
