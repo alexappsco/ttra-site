@@ -9,10 +9,15 @@ export const viewport = {
 
 
 export const metadata = {
-  title: 'Istihwaz',
-description:
-  'Istihwaz is a leading Saudi platform that connects investors and entrepreneurs to buy and sell ready businesses, startups, and commercial projects with ease, security, and transparency.',
- keywords: `
+  title: 'Isthwath | منصة استحواذ',
+  description:
+    'Isthwath is a leading Saudi platform that connects investors and entrepreneurs to buy and sell ready businesses, startups, and commercial projects with ease, security, and transparency.',
+   openGraph: {
+    url: 'https://isthwath.com/ar/',
+    title: 'Isthwath | منصة استحواذ',
+    description: 'Buy and sell businesses and startups in Saudi Arabia.',
+  },
+    keywords: `
 استحواذ لبيع وشراء الأنشطة التجارية, استحواذ لبيع وشراء المشاريع, استثمار في السعودية, استثمار في السوق السعودي,
 استثمار في المتاجر, استثمار في المشاريع الصغيرة, استثمار في مشروع جاهز, استثمار في مشروع ناجح, استثمار في بزنس جاهز,
 استثمار ناجح في السعودية, ابدأ استثمارك اليوم, ابدأ مشروعك الآن, ابدأ مشروعك الجاهز, استحواذ تجاري, بزنس للبيع, بزنس جاهز للبيع,
