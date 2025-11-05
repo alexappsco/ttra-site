@@ -34,9 +34,9 @@ export const InteractiveCardSection: React.FC = () => {
   const getStroke = (index: number, baseColor: string) => {
     if (hovered === null) return baseColor;
 
-    if (hovered === 'top') return "#00AAE1"; 
-    if (hovered === 'left' && index === 0) return "#0ABEF8"; 
-    if (hovered === 'right' && index === 1) return "#0082D2"; 
+    if (hovered === 'top') return '#00AAE1';
+    if (hovered === 'left' && index === 0) return '#0ABEF8';
+    if (hovered === 'right' && index === 1) return '#0082D2';
 
     return baseColor;
   };
@@ -48,7 +48,9 @@ export const InteractiveCardSection: React.FC = () => {
     rightRef: React.RefObject<HTMLElement | null>
   ) {
     const [containerSizeState, setContainerSizeState] = useState({ width: 0, height: 0 });
-    const [linesState, setLinesState] = useState<{ x1: number; y1: number; x2: number; y2: number }[]>([]);
+    const [linesState, setLinesState] = useState<
+      { x1: number; y1: number; x2: number; y2: number }[]
+    >([]);
 
     useLayoutEffect(() => {
       const update = () => {
@@ -63,7 +65,10 @@ export const InteractiveCardSection: React.FC = () => {
         const lRect = left.getBoundingClientRect();
         const rRect = right.getBoundingClientRect();
 
-        const center = (rect: DOMRect) => ({ x: rect.left + rect.width / 2 - cRect.left, y: rect.top + rect.height / 2 - cRect.top });
+        const center = (rect: DOMRect) => ({
+          x: rect.left + rect.width / 2 - cRect.left,
+          y: rect.top + rect.height / 2 - cRect.top,
+        });
         const t = center(tRect);
         const l = center(lRect);
         const r = center(rRect);
@@ -129,7 +134,7 @@ export const InteractiveCardSection: React.FC = () => {
             y1={ln.y1}
             x2={ln.x2}
             y2={ln.y2}
-            stroke={getStroke(idx, stroke)} 
+            stroke={getStroke(idx, stroke)}
             strokeWidth={3}
             strokeDasharray="6 6"
             strokeLinecap="round"
@@ -140,7 +145,7 @@ export const InteractiveCardSection: React.FC = () => {
                 (hovered === 'right' && idx === 1)
                   ? 'glow-dash 1.5s infinite ease-in-out'
                   : 'none',
-              transition: 'stroke 0.3s ease-in-out'
+              transition: 'stroke 0.3s ease-in-out',
             }}
           />
         ))}
@@ -148,10 +153,14 @@ export const InteractiveCardSection: React.FC = () => {
     </Box>
   );
 
-  const { containerSizeState: containerSizeHook, linesState: linesHook } =
-    useConnectorLines(containerRef, topRef, leftRef, rightRef);
+  const { containerSizeState: containerSizeHook, linesState: linesHook } = useConnectorLines(
+    containerRef,
+    topRef,
+    leftRef,
+    rightRef
+  );
 
-    const glowAnimation = `
+  const glowAnimation = `
   @keyframes glow-dash {
     0% {
       stroke-dashoffset: 0;
@@ -190,7 +199,7 @@ export const InteractiveCardSection: React.FC = () => {
         <style>{glowAnimation}</style>
         <Box
           ref={topRef}
-                   sx={{
+          sx={{
             width: '100%',
             display: 'flex',
             justifyContent: 'center',
@@ -210,12 +219,21 @@ export const InteractiveCardSection: React.FC = () => {
           />
         </Box>
 
-        <SvgConnectors containerSize={containerSizeHook} lines={linesHook} stroke={theme.palette.grey[400]} />
+        <SvgConnectors
+          containerSize={containerSizeHook}
+          lines={linesHook}
+          stroke={theme.palette.grey[400]}
+        />
 
         <Stack
           alignItems="center"
           justifyContent="center"
-          sx={{ position: 'relative', zIndex: 3, width: '100%', height: {xs:75 ,sm:140,md:150} }}
+          sx={{
+            position: 'relative',
+            zIndex: 3,
+            width: '100%',
+            height: { xs: 75, sm: 140, md: 150 },
+          }}
         >
           <Box sx={{ position: 'absolute', bottom: 0, left: '15%' }}>
             <Box
@@ -245,4 +263,3 @@ export const InteractiveCardSection: React.FC = () => {
 };
 
 export default InteractiveCardSection;
-

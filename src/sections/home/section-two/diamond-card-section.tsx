@@ -1,4 +1,3 @@
-
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { Box, styled, useTheme, Typography } from '@mui/material';
@@ -67,8 +66,7 @@ export const DiamondCard: React.FC<DiamondCardProps> = ({
 
   const finalHoverIconPath = hoverIconPath || mainIconPath;
 
-  const isTouchDevice =
-    typeof window !== 'undefined' && 'ontouchstart' in window;
+  const isTouchDevice = typeof window !== 'undefined' && 'ontouchstart' in window;
 
   const handleInteraction = () => {
     if (isTouchDevice) setIsActive((prev) => !prev);
@@ -94,7 +92,7 @@ export const DiamondCard: React.FC<DiamondCardProps> = ({
             width={isActive ? 50 : 100}
             height={isActive ? 50 : 100}
             // style={{ height: 'auto' }}
-            style={{ marginBottom: theme.spacing(1), transition: 'all 0.3s ease', height: 'auto'}}
+            style={{ marginBottom: theme.spacing(1), transition: 'all 0.3s ease', height: 'auto' }}
           />
         </Box>
 
@@ -117,6 +115,7 @@ export const DiamondCard: React.FC<DiamondCardProps> = ({
             overflow: 'hidden',
             transition: 'opacity 0.4s ease, max-height 0.4s ease',
             fontSize: { xs: 8, sm: 12, md: 13 },
+
             // lineHeight: 1.5,
           }}
         >
