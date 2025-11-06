@@ -2,4 +2,3 @@ User-agent: *
 Disallow: /
 Allow: /ar/
 
-Sitemap: https://isthwath.com/ar/sitemap.xml
