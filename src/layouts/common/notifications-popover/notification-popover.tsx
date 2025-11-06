@@ -4,9 +4,7 @@
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import { Icon } from '@iconify/react';
-import { paths } from 'src/routes/paths';
 import { useTranslations } from 'next-intl';
-import { useRouter } from 'next/navigation';
 import { Notification } from 'src/types/notification';
 import {
   Box,
@@ -31,7 +29,6 @@ export default function NotificationPopover({
   onBadgeClear,
 }: Props) {
   const t = useTranslations();
-  const router = useRouter();
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
   const handleOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -138,7 +135,7 @@ export default function NotificationPopover({
                         color="success"
                         onClick={() => {
                           handleClose();
-                          router.push(item.orderId ? paths.controlPanel.orders.single(item.orderId) : paths.controlPanel.orders.list);
+                          // router.push(item.orderId ? paths.controlPanel.orders.single(item.orderId) : paths.controlPanel.orders.list);
                         }}
                       >
                         {t('Pages.Notifications.track_order')}
