@@ -11,7 +11,16 @@ export const endpoints = {
     login: '/otps/resend-otp',
     verifyOTP: '/otps/verify-otp',
     register: '/clients/auth/register',
-    setAddress: '/clients/profile/set-address'
+    setAddress: '/clients/profile/set-address',
+    Register: {
+      send_unregistered_otp: '/auth/send-unregistered-otp',
+      verify_new_number_otp: 'auth/verify-unregistered-phone',
+      register:'/auth/register'
+    },
+    Login:{
+      send_otp:'/auth/send-otp',
+      verify_otp:'/auth/verify-otp'
+    }
   },
   categories: {
     category: "/categories",
