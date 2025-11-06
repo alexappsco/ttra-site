@@ -11,7 +11,13 @@ export const viewport = {
 export const metadata = {
   title: 'Isthwath | منصة استحواذ',
   description:
-    'Isthwath is a leading Saudi platform that connects investors and entrepreneurs to buy and sell ready businesses, startups, and commercial projects with ease, security, and transparency.',
+    `استحواذ هي منصة سعودية رائدة تمكّنك من بيع وشراء الأنشطة التجارية والمشاريع الصغيرة بكل سهولة وشفافية.
+تم تصميم المنصة لتكون نقطة التقاء بين رواد الأعمال، المستثمرين، وأصحاب المشاريع الباحثين عن فرص جاهزة للانطلاق أو التوسع داخل السوق السعودي.
+
+من خلال تطبيق استحواذ - Isthwath، يمكنك إدارة عملية البيع أو الشراء بشكل متكامل داخل بيئة رقمية مرنة وآمنة، دون الحاجة إلى وسطاء تقليديين أو إجراءات معقدة.
+نوفّر لك الأدوات والخدمات التي تسهّل رحلتك من لحظة عرض المشروع وحتى توقيع الاتفاق النهائي.
+
+`,
    openGraph: {
     url: 'https://isthwath.com/ar/',
     title: 'Isthwath | منصة استحواذ',
