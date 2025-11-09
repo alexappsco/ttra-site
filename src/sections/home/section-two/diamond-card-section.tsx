@@ -1,8 +1,8 @@
 'use client';
 
-import Image from 'next/image';
 import React from 'react';
-import { Box, styled, Typography, useTheme } from '@mui/material';
+import Image from 'next/image';
+import { Box, styled, useTheme, Typography } from '@mui/material';
 
 interface DiamondCardProps {
   mainIconPath: string;
