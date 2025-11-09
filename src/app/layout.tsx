@@ -66,7 +66,8 @@ Entrepreneurs platform Saudi, Business opportunities KSA, Buyout marketplace Sau
 Entrepreneurs and investors KSA, Saudi business acquisition hub, Business acquisition ecosystem, Startup exchange Saudi Arabia,
 Buy company shares Saudi, Buy company shares KSA, SME funding Saudi Arabia, Startup acquisition platform, Mergers and acquisitions Saudi Arabia
   `,
-  manifest: '/favicon/site.webmanifest',
+  // manifest: '/favicon/site.webmanifest',
+   manifest: '/manifest.json',
   icons: {
     icon: [
       { rel: 'icon', url: '/favicon/favicon.ico' },
