@@ -1,8 +1,7 @@
 'use client';
 
 import { m } from 'framer-motion';
-import { useEffect } from 'react';
-import { useSnackbar } from 'notistack';
+// import { useSnackbar } from 'notistack';
 import Button from '@mui/material/Button';
 import { Container } from '@mui/material';
 import { useTranslations } from 'next-intl';
@@ -17,11 +16,11 @@ import { varBounce, MotionContainer } from 'src/components/animate';
 export default function Page500({ error }: { error?: string }) {
   const t = useTranslations('Pages.Error500');
 
-  const { enqueueSnackbar } = useSnackbar();
+  // const { enqueueSnackbar } = useSnackbar();
 
-  useEffect(() => {
-    if (error) enqueueSnackbar(error, { variant: 'error' });
-  }, [enqueueSnackbar, error]);
+  // useEffect(() => {
+  //   if (error) enqueueSnackbar(error, { variant: 'error' });
+  // }, [enqueueSnackbar, error]);
 
   return (
     <CompactLayout>
