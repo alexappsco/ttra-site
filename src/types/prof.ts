@@ -5,9 +5,10 @@ export interface Profile{
     image: string,
     Name: string,
     Email: string,
-    Image: string,
+    Image: string | null,
     CurrentPassword: string,
     NewPassword: string,
     phoneNumber: string,
     avatar: string,
+    profileImage:string;
 }
