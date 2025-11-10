@@ -6,10 +6,10 @@ import { paths } from 'src/routes/paths';
 import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
-import { useRouter } from 'src/routes/hooks';
 import { useSearchParams } from 'next/navigation';
 import { useAuthStore } from 'src/auth/auth-store';
 import FormProvider from 'src/components/hook-form';
+import { useRouter } from 'src/routes/hooks';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Stack, Button, Container, Typography } from '@mui/material';
 

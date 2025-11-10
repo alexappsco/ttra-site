@@ -1,6 +1,7 @@
 import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 
+import Header from '../common/header-simple';
 
 // ----------------------------------------------------------------------
 
@@ -11,7 +12,7 @@ type Props = {
 export default function CompactLayout({ children }: Props) {
   return (
     <>
-      {/* <Header /> */}
+      <Header />
 
       <Container component="main">
         <Stack

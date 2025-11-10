@@ -167,7 +167,7 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
 
       if (
         state.user.profileImage?.startsWith('blob:') &&
-        state.user.profileImage !== updates.image
+        state.user.profileImage !== updates.profileImage
       ) {
         URL.revokeObjectURL(state.user.profileImage);
       }
