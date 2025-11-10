@@ -33,16 +33,6 @@ export const grey = {
   900: '#161C24',
 };
 
-export const Green = {
-  0: '#FFFFFF',
-  50:'#D7EBD7',
-  100: '#437143',
-  200: '#4CAF50',
-  300: '#388E3C',
-  400: '#2E7D32',
-  500: '#134047',
-
-};
 export const primary = {
   lighter: '#C8FAD6',
   light: '#D7EBD7',
@@ -120,7 +110,6 @@ const base = {
   warning,
   error,
   grey,
-  Green,
   common,
   divider: alpha(grey[500], 0.2),
   action,
