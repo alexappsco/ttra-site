@@ -63,7 +63,7 @@ export default function Footer() {
 
   // Quick Links
   const quickLinks = [
-    { name: 'الشروط والأحكام', href: '/landing-page' },
+    { name: 'الشروط والأحكام', href: '/privacy-policy' },
     { name: 'الأسئلة الشائعة', href: '/landing-page' },
     { name: 'تواصل معنا', href: '/landing-page' }
   ];

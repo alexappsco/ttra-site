@@ -1,5 +1,5 @@
 import { getTranslations } from 'next-intl/server';
-import LandingView from 'src/sections/landing-page/view';
+import PrivacyPolicyView from 'src/sections/privacy-policy/view';
 
 
 
@@ -8,7 +8,7 @@ export default async function Page() {
 
 
   return (
-    <LandingView
+    <PrivacyPolicyView
 
     />
   );

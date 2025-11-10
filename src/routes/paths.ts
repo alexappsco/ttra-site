@@ -17,6 +17,9 @@ export const paths = {
     },
     landing:{
       view:'/landing-page'
+    },
+    privacy:{
+      view:'/privacy-policy'
     }
   },
 };

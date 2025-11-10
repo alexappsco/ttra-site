@@ -203,8 +203,9 @@
 // }
 'use client';
 
+import Image from 'next/image';
 import { paths } from 'src/routes/paths';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import Iconify from 'src/components/iconify';
 import { Box, Button, Typography } from '@mui/material';
@@ -227,9 +228,8 @@ export default function InvestmentHero() {
   const router = useRouter();
   const { requireAuth } = useRequireAuth();
 
-  // ✅ هذا الفعل يحدث فقط لو المستخدم فعلاً مسجل دخول
   const handleAdd = () => {
-    router.push(paths.controlPanel.main); // مثال: يفتح صفحة لوحة التحكم أو أي صفحة أخرى
+    router.push(paths.controlPanel.main);
   };
 
   useEffect(() => {
@@ -254,6 +254,13 @@ export default function InvestmentHero() {
     return 'hidden';
   };
 
+  // Render only the current and next background to avoid decoding all images on first paint
+  const backgroundImages = useMemo(() => {
+    const current = staticBanners[bgIndex];
+    const next = staticBanners[(bgIndex + 1) % staticBanners.length];
+    return [current, next];
+  }, [bgIndex]);
+
   return (
     <Box
       sx={{
@@ -266,30 +273,36 @@ export default function InvestmentHero() {
         justifyContent: 'center',
       }}
     >
-      {/* ✅ الخلفية */}
-      {staticBanners.map((banner, index) => (
-        <Box
-          key={banner.id}
-          sx={{
-            position: 'absolute',
-            inset: 0,
-            backgroundImage: `url(${banner.url})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            transition: 'opacity 1.5s ease-in-out',
-            opacity: bgIndex === index ? 1 : 0,
-            zIndex: 0,
-            '&::after': {
-              content: '""',
-              position: 'absolute',
-              inset: 0,
-              background: 'linear-gradient(to right, rgba(0,72,181,0.75), rgba(0,72,181,0.4))',
-            },
-          }}
-        />
-      ))}
+      {/* Optimized hero background as real <Image> to become LCP target */}
+      <Box sx={{ position: 'absolute', inset: 0, zIndex: 0 }}>
+        {backgroundImages.map((banner, index) => {
+          const isCurrent = index === 0;
+          return (
+            <Box key={banner.id} sx={{ position: 'absolute', inset: 0, opacity: isCurrent ? 1 : 0, transition: 'opacity 1.2s ease-in-out' }}>
+              <Image
+                src={banner.url}
+                alt="hero-background"
+                fill
+                sizes="100vw"
+                priority={isCurrent}
+                loading={isCurrent ? 'eager' : 'lazy'}
+                style={{
+                  objectFit: 'cover',
+                }}
+              />
+              <Box
+                sx={{
+                  position: 'absolute',
+                  inset: 0,
+                  background: 'linear-gradient(to right, rgba(0,72,181,0.75), rgba(0,72,181,0.4))',
+                }}
+              />
+            </Box>
+          );
+        })}
+      </Box>
 
-      {/* ✅ الكروت الأمامية */}
+      {/* Slides */}
       <Box
         sx={{
           position: 'absolute',
@@ -321,12 +334,10 @@ export default function InvestmentHero() {
             zIndex = 2;
           }
 
+          const isCenter = pos === 'center';
           return (
             <Box
               key={index}
-              component="img"
-              src={img}
-              alt={`slide-${index}`}
               sx={{
                 position: 'absolute',
                 width: { xs: 180, md: 320 },
@@ -338,12 +349,23 @@ export default function InvestmentHero() {
                 zIndex,
                 transition: 'all 1s ease-in-out',
               }}
-            />
+            >
+              <Image
+                src={img}
+                alt={`slide-${index}`}
+                width={320}
+                height={200}
+                sizes="(max-width: 900px) 180px, 320px"
+                priority={isCenter}
+                loading={isCenter ? 'eager' : 'lazy'}
+                style={{ width: '100%', height: 'auto', borderRadius: 12 }}
+              />
+            </Box>
           );
         })}
       </Box>
 
-      {/* ✅ النص والأزرار */}
+      {/* Text and button */}
       <Box
         sx={{
           position: 'absolute',

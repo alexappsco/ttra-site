@@ -78,7 +78,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const isDesktop = useResponsive('up', 'md');
   const pathname = usePathname();
 
-  const isHomePage = pathname === '/ar/' || pathname === '/en/';
+  // تحديد ما إذا كان يجب عرض نافبار الرئيسية (الصفحة الرئيسية + privacy policy)
+  const showMainNavbar = pathname === '/' || pathname === '/ar/' || pathname === '/en/' || pathname === '/en/privacy-policy' || pathname === '/ar/privacy-policy/' || pathname === '/privacy-policy';
+
+  // تحديد ما إذا كانت الصفحة الرئيسية الفعلية (للتنسيقات)
 
   const handleDrawerToggle = () => setMobileOpen((prev) => !prev);
 
@@ -100,7 +103,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       </Box>
 
       <List>
-        {isHomePage &&
+        {showMainNavbar &&
           NAV_LINKS.map((item) => (
             <ListItem key={item.label} disablePadding>
               <ListItemButton
@@ -135,7 +138,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           top: 0,
           py: 2,
           boxShadow: 'none',
-          bgcolor: isHomePage ? '#367ce5' : '#fff',
+          bgcolor: showMainNavbar ? '#367ce5' : '#fff',
         }}
       >
         <Container maxWidth="lg">
@@ -146,7 +149,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               py: 0.5,
               boxShadow: '0 4px 10px rgba(0,0,0,0.1)',
               backdropFilter: 'blur(10px)',
-              bgcolor: isHomePage ? 'rgba(255,255,255,0.15)' : '#C4D9ED33',
+              bgcolor: showMainNavbar ? 'rgba(255,255,255,0.15)' : '#C4D9ED33',
               border: '1px solid rgba(255,255,255,0.3)',
             }}
           >
@@ -163,7 +166,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             >
               {/* --- Right Section (Logo + menu) --- */}
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                {isHomePage && (
+                {showMainNavbar && (
                   <IconButton
                     onClick={handleDrawerToggle}
                     sx={{ display: { md: 'none' }, color: '#fff' }}
@@ -173,7 +176,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 )}
 
                 <Image
-                  src={isHomePage ? '/logo/isthwaz_white_logo.svg' : '/logo/logo_blue.svg'}
+                  src={showMainNavbar ? '/logo/isthwaz_white_logo.svg' : '/logo/logo_blue.svg'}
                   alt="Logo"
                   width={110}
                   height={80}
@@ -182,7 +185,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               </Box>
 
               {/* --- Center (Nav links on home page desktop) --- */}
-              {isDesktop && isHomePage && (
+              {isDesktop && showMainNavbar && (
                 <Stack
                   direction="row"
                   spacing={{ xs: 1, sm: 2, md: 3 }}
@@ -191,13 +194,13 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                   sx={{ flexGrow: 1, color: '#fff', fontSize: { xs: 13, sm: 14, md: 15 }, fontWeight: 500 }}
                 >
                   {NAV_LINKS.map((item) => (
-                    <NavItem key={item.label} {...item} isHomePage={isHomePage} />
+                    <NavItem key={item.label} {...item} isHomePage={showMainNavbar} />
                   ))}
                 </Stack>
               )}
 
-              {/* --- Show Back to Home (when not home) --- */}
-              {!isHomePage && (
+              {/* --- Show Back to Home (when not main navbar) --- */}
+              {!showMainNavbar && (
                 <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'flex-end' }}>
                   <BackToHomeButton />
                 </Box>
@@ -216,7 +219,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                   justifyContent: { xs: 'flex-end', md: 'flex-start' },
                 }}
               >
-                {isHomePage && (
+                {showMainNavbar && (
                   <>
                     {/* Add Button */}
                     <Box

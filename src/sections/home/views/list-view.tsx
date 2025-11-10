@@ -1,27 +1,29 @@
 'use client';
 
 import React from 'react';
+import dynamic from 'next/dynamic';
 import { Box, Typography } from '@mui/material';
 
-import BannerSlider from './banner-view'; // تأكد من صحة المسار
-// القسم الثاني (اختياري)
-import FirstSection from './company-section';
-import SecondSection from './office-section';
-import JourneySection from './journey-section';
-import ProjectShowcaseSection from './project-showcase-section';
-import InteractiveCardSection from '../section-two/interactive-card-section';
+import BannerSlider from './banner-view';
+
+// Lazy-load below-the-fold sections to reduce initial JS and improve LCP/TBT
+const InteractiveCardSection = dynamic(() => import('../section-two/interactive-card-section'), {
+  ssr: true,
+  loading: () => null,
+});
+const FirstSection = dynamic(() => import('./company-section'), { ssr: true, loading: () => null });
+const SecondSection = dynamic(() => import('./office-section'), { ssr: true, loading: () => null });
+const JourneySection = dynamic(() => import('./journey-section'), { ssr: true, loading: () => null });
+const ProjectShowcaseSection = dynamic(() => import('./project-showcase-section'), { ssr: true, loading: () => null });
 
 export default function HomeView() {
   return (
     <>
-      {/* القسم الأول: السلايدر */}
       <BannerSlider />
 
-      {/*  القسم الثاني: المكون التفاعلي الجديد بدلاً من الصورة الثابتة */}
       <InteractiveCardSection />
 
       <Box sx={{ my: 2 }}>
-        {/* Title Text */}
         <Typography
           sx={{
             fontFamily: "'Frutiger LT Arabic', sans-serif",
@@ -36,7 +38,8 @@ export default function HomeView() {
             px: 2,
             py: 2,
           }}
-        >          مميزات تجعل استحواذ منصتك الأولى لبيع وشراء الأعمال التجارية
+        >
+          مميزات تجعل استحواذ منصتك الأولى لبيع وشراء الأعمال التجارية
         </Typography>
       </Box>
       <FirstSection />
