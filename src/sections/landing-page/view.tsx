@@ -1,7 +1,8 @@
 'use client';
 import React from 'react';
-import { Box, Paper, Typography, Stack, Button, useTheme, useMediaQuery } from '@mui/material';
 import { useTranslations } from 'next-intl';
+import Navbar from 'src/layouts/dashboard/navbar';
+import { Box, Paper, Stack, Button, useTheme, Typography, useMediaQuery } from '@mui/material';
 
 export default function LandingView() {
   const t = useTranslations();
@@ -13,6 +14,8 @@ const googleAppImgPath = '/assets/footer/GoogleApp.png';
   const isMobile = useMediaQuery(theme.breakpoints.down('md')); // md ~ 900px
 
   return (
+    <>
+    <Navbar isLanding={true} />
     <Box
       sx={{
         minHeight: '100vh',
@@ -68,7 +71,7 @@ const googleAppImgPath = '/assets/footer/GoogleApp.png';
 
               }}
             >
-              يمكنك تحميل تطبيق <span style={{ fontWeight: 'bold', color: '#0D6EFD' }}>استحواذ</span> والاستفادة من جميع الخدمات وتصفّح المشاريع مباشرة عبر التطبيق      
+              يمكنك تحميل تطبيق <span style={{ fontWeight: 'bold', color: '#0D6EFD' }}>استحواذ</span> والاستفادة من جميع الخدمات وتصفّح المشاريع مباشرة عبر التطبيق
                      </Typography>
 
             <Typography
@@ -174,5 +177,6 @@ const googleAppImgPath = '/assets/footer/GoogleApp.png';
         />
       </Box>
     </Box>
+    </>
   );
 }

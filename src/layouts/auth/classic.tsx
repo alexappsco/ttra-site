@@ -3,6 +3,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { useResponsive } from 'src/hooks/use-responsive';
 import { useCurrentLocale } from 'src/utils/locale-utils';
+import Navbar from '../dashboard/navbar';
 // ----------------------------------------------------------------------
 
 const BG_CLIP_START = '10vw';
@@ -26,11 +27,12 @@ export default function AuthClassicLayout({ children, image, title }: Props) {
       justifyContent="center"
       alignItems="center"
     >
+      <Navbar isAuth={true} />
       {children}
     </Stack>
   );
 
- 
+
 
   return (
     // <Stack

@@ -2,8 +2,8 @@ import { create } from 'zustand';
 import { Profile } from 'src/types/prof';
 import { paths } from 'src/routes/paths';
 
-import { LoginCretentials, RegiterCretentials } from './types';
 import { login, Register, verifyOtpApi, refreshSession } from './auth-actions';
+import { LoginCretentials, RegiterCretentials, LoginVerifyCretentials } from './types';
 import { saveSession, removeSession, restoreSession, updateUserSession } from './auth-utils';
 
 type AuthStore = {
@@ -18,7 +18,7 @@ type AuthStore = {
   registerUser: (
     credentials: RegiterCretentials
   ) => Promise<{ redirectTo: string } | { error: string }>;
-  verifyOtp: (otp: string) => Promise<{ redirectTo: string } | { error: string }>;
+  verifyLoginOtp: (credentials:LoginVerifyCretentials) => Promise<{ redirectTo: string } | { error: string }>;
   init: () => Promise<void | { accessTokenExp: number }>;
   logout: () => Promise<void>;
   updateProfile: (updates: Partial<Profile>) => void;
@@ -34,9 +34,9 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
   refreshToken: null,
 
   // -------------------- LOGIN --------------------
-  login: async ({ phoneNumber, email, isPhone }) => {
+  login: async ({ phoneNumber }) => {
     try {
-      await login({ phoneNumber, email, isPhone });
+      await login({ phoneNumber });
       set({ authenticated: false });
       localStorage.setItem('phoneNumber', phoneNumber);
       localStorage.setItem('verifyReferrer', paths.auth.login);
@@ -62,17 +62,15 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
   },
 
   // -------------------- VERIFY OTP --------------------
-  verifyOtp: async (otp: string) => {
+   verifyLoginOtp: async ({ phoneNumber, otp }: LoginVerifyCretentials) => {
     try {
-      const phoneNumber = localStorage.getItem('phoneNumber');
-      if (!phoneNumber) return { error: 'رقم الهاتف غير موجود' };
+      const storedPhoneNumber = localStorage.getItem('phoneNumber');
+      if (!storedPhoneNumber) return { error: 'رقم الهاتف غير موجود' };
 
       const referrer = localStorage.getItem('verifyReferrer') || '';
 
       const { accessToken, refreshToken, user } = await verifyOtpApi({
-        phoneNumber,
-        email: '',
-        isPhone: true,
+        phoneNumber: storedPhoneNumber,
         otp,
       });
 
@@ -84,9 +82,11 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
         refreshToken: refreshToken.value,
       });
 
-      const redirectTo = user?.isHasLocation ? '/' : '/auth/set-address';
+      // const redirectTo = user?.isHasLocation ? '/' : '/auth/set-address';
+          return { redirectTo: '/' };
 
-      return { redirectTo };
+
+      // return { redirectTo };
     } catch (error: any) {
       return { error: error.message };
     }

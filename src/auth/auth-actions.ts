@@ -5,7 +5,7 @@ import axiosInstance from 'src/utils/axios';
 import { endpoints } from 'src/utils/endpoints';
 
 import { ACCESS_TOKEN, REFRESH_TOKEN } from './config';
-import { User, UserSession, LoginCretentials, RegiterCretentials } from './types';
+import { User, UserSession, LoginCretentials, RegiterCretentials, LoginVerifyCretentials } from './types';
 
 export interface LoginRes extends User {
   accessToken: string;
@@ -17,7 +17,7 @@ export interface LoginRes extends User {
 // Login API Call
 export async function login(credentials: LoginCretentials): Promise<UserSession> {
   try {
-    const res = await axiosInstance.post(endpoints.auth.login, credentials);
+    const res = await axiosInstance.post(endpoints.auth.Login.send_otp, credentials);
     const { accessToken, refreshToken, accessTokenExpireAt, refreshTokenExpireAt, ...user } =
       res as unknown as LoginRes;
 
@@ -51,9 +51,9 @@ export async function Register(credentials: RegiterCretentials): Promise<UserSes
       throw new Error(error.message);
     }
   }
-export async function verifyOtpApi(credentials: any): Promise<UserSession> {
+export async function verifyOtpApi(credentials: LoginVerifyCretentials): Promise<UserSession> {
   try {
-    const res = await axiosInstance.post(endpoints.auth.verifyOTP, credentials);
+    const res = await axiosInstance.post(endpoints.auth.Login.verify_otp, credentials);
     const { accessToken, refreshToken, accessTokenExpireAt, refreshTokenExpireAt, ...user } =
       res as unknown as LoginRes;
 

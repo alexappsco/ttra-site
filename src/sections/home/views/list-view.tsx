@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import { Box, Typography } from '@mui/material';
 
 import BannerSlider from './banner-view';
+import Navbar from 'src/layouts/dashboard/navbar';
 
 // Lazy-load below-the-fold sections to reduce initial JS and improve LCP/TBT
 const InteractiveCardSection = dynamic(() => import('../section-two/interactive-card-section'), {
@@ -19,6 +20,8 @@ const ProjectShowcaseSection = dynamic(() => import('./project-showcase-section'
 export default function HomeView() {
   return (
     <>
+          <Navbar isHome={true} />
+
       <BannerSlider />
 
       <InteractiveCardSection />
