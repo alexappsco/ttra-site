@@ -8,7 +8,7 @@ export default function JourneySection() {
   const [mode, setMode] = useState<'buyer' | 'seller'>('seller');
   const isSeller = mode === 'seller';
 
-  // ✅ Seller Steps
+  //  Seller Steps
   const sellerSteps = [
     {
       img: '/assets/images/seller-icon-img/add.png',
@@ -32,7 +32,7 @@ export default function JourneySection() {
     },
   ];
 
-  // ✅ Buyer Steps
+  //  Buyer Steps
   const buyerSteps = [
     {
       img: '/assets/images/buyer-icon-img/search.png',
@@ -172,7 +172,7 @@ export default function JourneySection() {
                   '&:hover': { transform: 'translateY(-5px)' },
                 }}
               >
-                {/* ✅ PNG Icon */}
+                {/*  PNG Icon */}
                 <Box
                   sx={{
                     width: 60,

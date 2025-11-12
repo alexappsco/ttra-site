@@ -53,7 +53,7 @@ export default function Footer() {
   const theme = useTheme();
   const pathname = usePathname();
 
-  // ✅ Only true on homepage (Arabic, English, or default)
+  //  Only true on homepage (Arabic, English, or default)
   const isHomePage =
     pathname === '/' ||
     pathname === '/ar' ||

@@ -9,7 +9,6 @@ import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'src/routes/hooks';
-import { useSearchParams } from 'next/navigation';
 import { useAuthStore } from 'src/auth/auth-store';
 import FormProvider from 'src/components/hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -34,7 +33,6 @@ export default function JwtVerifyView() {
   const [errorMsg, setErrorMsg] = useState('');
   const [timer, setTimer] = useState(30);
   const { verifyLoginOtp } = useAuthStore();
-  const searchParams = useSearchParams();
 
   const phoneNumber =
     typeof window !== 'undefined' ? localStorage.getItem('phoneNumber') : '';
@@ -73,14 +71,10 @@ export default function JwtVerifyView() {
         phoneNumber: storedPhoneNumber,
         otp: data.otp,
       });
-              console.log(res)
-
-
       if ('error' in res) {
         reset();
         setErrorMsg(res.error);
       } else if ('redirectTo' in res) {
-        console.log(res)
         router.push(res.redirectTo);
       }
     } catch (err: any) {
@@ -108,8 +102,8 @@ export default function JwtVerifyView() {
           px: { xs: 2, sm: 4 },
         }}
       >
-        <Container maxWidth="sm" sx={{textAlign:'center'}}>
-          <Box sx={{ textAlign: 'center', mb: 4 ,justifyContent:'center'}}>
+        <Container maxWidth="sm" sx={{ textAlign: 'center' }}>
+          <Box sx={{ textAlign: 'center', mb: 4, justifyContent: 'center' }}>
             <Image
               src="/logo/black_icon.svg"
               alt="Logo"
@@ -148,45 +142,47 @@ export default function JwtVerifyView() {
             </Link>
           </Typography> */}
           <Typography
-  variant="body2"
-  color="text.secondary"
-  sx={{
+            variant="body2"
+            color="text.secondary"
+            sx={{
 
-  }}
->
-  لقد أرسلنا رمز التحقق إلى&nbsp;
-  <br/>
-  <Box display={'flex'} flexDirection={'row'} alignItems={'center'}>
-    <Typography variant='body2' sx={{pb:3,fontWeight: 700,
-    fontSize: 14,}}>
-  {phoneNumber || '966XXXXXXXXX'}،&nbsp;
+            }}
+          >
+            لقد أرسلنا رمز التحقق إلى&nbsp;
+            <br />
+            <Box display={'flex'} flexDirection={'row'} alignItems={'center'}>
+              <Typography variant='body2' sx={{
+                pb: 3, fontWeight: 700,
+                fontSize: 14,
+              }}>
+                {phoneNumber || '966XXXXXXXXX'}،&nbsp;
 
-    </Typography>
-  <Link
-    component={NextLink}
-    href={paths.auth.login}
-    underline="hover"
-    sx={{
-     mb: 3,
-    width: 327,
-    height: 62,
-    fontFamily: `'Frutiger LT Arabic', sans-serif`,
-    fontWeight: 700,
-    fontSize: 16,
-    lineHeight: '31px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    textAlign: 'center',
-    letterSpacing: '0.5px',
-    color: '#59A0F2',
-    mx: 'auto',
-    }}
-  >
-    ليس أنت؟
-  </Link>
-  </Box>
-</Typography>
+              </Typography>
+              <Link
+                component={NextLink}
+                href={paths.auth.login}
+                underline="hover"
+                sx={{
+                  mb: 3,
+                  width: 327,
+                  height: 62,
+                  fontFamily: `'Frutiger LT Arabic', sans-serif`,
+                  fontWeight: 700,
+                  fontSize: 16,
+                  lineHeight: '31px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  textAlign: 'center',
+                  letterSpacing: '0.5px',
+                  color: '#59A0F2',
+                  mx: 'auto',
+                }}
+              >
+                ليس أنت؟
+              </Link>
+            </Box>
+          </Typography>
 
           <FormProvider methods={methods} onSubmit={onSubmit}>
             <Stack spacing={3} alignItems={'center'} textAlign="center" justifyContent={'center'}>

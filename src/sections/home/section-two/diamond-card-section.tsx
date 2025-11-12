@@ -38,7 +38,7 @@ const DiamondCardRoot = styled(Box)(({ theme }) => ({
     width: 95,
     height: 95,
     '&:hover': {
-      transform: 'rotate(45deg)', // ✅ منع Hover على الموبايل
+      transform: 'rotate(45deg)', //  منع Hover على الموبايل
     },
   },
 }));
@@ -78,7 +78,7 @@ export const DiamondCard: React.FC<DiamondCardProps> = ({
     >
       <DiamondCardContent>
 
-        {/* ✅ إخفاء الأيقونة عند Expanded */}
+        {/*  إخفاء الأيقونة عند Expanded */}
         {!expanded && (
           <Box
             sx={{
@@ -109,7 +109,7 @@ export const DiamondCard: React.FC<DiamondCardProps> = ({
           {title}
         </Typography>
 
-        {/* ✅ Description يظهر فقط لما يكون Expanded */}
+        {/*  Description يظهر فقط لما يكون Expanded */}
         <Typography
           variant="body2"
           sx={{

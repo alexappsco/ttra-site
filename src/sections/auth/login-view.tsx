@@ -6,12 +6,12 @@ import { useState } from 'react';
 import { paths } from 'src/routes/paths';
 import { useForm } from 'react-hook-form';
 import { useTranslations } from 'next-intl';
+import { useRouter } from 'src/routes/hooks';
 import { LoginCretentials } from 'src/auth/types';
 import { useAuthStore } from 'src/auth/auth-store';
 import FormProvider from 'src/components/hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import RHFPhone from 'src/components/hook-form/rhf-phone';
-import { useRouter, useSearchParams } from 'src/routes/hooks';
 import {
   Box,
   Link,
@@ -27,8 +27,6 @@ export default function JwtLoginView() {
   const { login } = useAuthStore();
 
   const [errorMsg, setErrorMsg] = useState('');
-  const searchParams = useSearchParams();
-  const returnTo = searchParams.get('returnTo');
 
   const LoginSchema = yup.object().shape({
     phoneNumber: yup.string().required(t('Global.Validation.password_required')),
@@ -56,13 +54,11 @@ export default function JwtLoginView() {
       const res = await login({
         phoneNumber: `966${data.phoneNumber}`,
       });
-      console.log("res in login",res)
 
       if ('error' in res) {
         reset();
         setErrorMsg(res.error);
       } else if ('redirectTo' in res) {
-              console.log("res in login",res)
 
         router.push(res.redirectTo);
       }
@@ -93,7 +89,7 @@ export default function JwtLoginView() {
           px: { xs: 0, sm: 4 },
         }}
       >
-        <Container maxWidth="sm">
+        <Container maxWidth="sm" sx={{ textAlign: 'center' }}>
           <Box sx={{ textAlign: 'center', mb: 4 }}>
             <Image
               src="/logo/logo_istihwaz.svg"
@@ -112,8 +108,28 @@ export default function JwtLoginView() {
           >
             {t('Pages.Auth.login_title')}
           </Typography>
+          <Typography sx={{
+            width: 338,
+            height: 29,
+            fontFamily: `'Frutiger LT Arabic', sans-serif`,
+            fontStyle: 'normal',
+            fontWeight: 300,
+            fontSize: 16,
+            lineHeight: '180%',
+            display: 'flex',
+            alignItems: 'center',
+            color: '#797979',
+            textAlign: 'center',
+            mx: 'auto', // center it horizontally
+            '@media (max-width:600px)': {
+              width: '100%', // make it flexible on mobile
+              fontSize: 14, // slightly smaller for smaller screens
+            },
+          }}>
+            من فضلك قم بتسجيل الدخول برقم الهاتف المسجل
+          </Typography>
 
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+          <Typography variant="body2" color="text.secondary" sx={{ mb: 3, textAlign: 'left' }}>
             {t('Pages.Auth.enter_phone_number')}
           </Typography>
 
