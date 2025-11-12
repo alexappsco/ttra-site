@@ -19,8 +19,10 @@ export interface User {
 
 export interface LoginCretentials {
     phoneNumber: string;
-  email: string;
-  isPhone: boolean
+}
+export interface LoginVerifyCretentials {
+    phoneNumber: string;
+    otp:string
 }
 export interface RegiterCretentials{
   name: string;

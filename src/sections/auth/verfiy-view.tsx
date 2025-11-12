@@ -1,17 +1,26 @@
+
 'use client';
 
 import * as yup from 'yup';
 import Image from 'next/image';
+import NextLink from 'next/link';
 import { paths } from 'src/routes/paths';
 import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import { useRouter } from 'src/routes/hooks';
 import { useSearchParams } from 'next/navigation';
 import { useAuthStore } from 'src/auth/auth-store';
 import FormProvider from 'src/components/hook-form';
-import { useRouter } from 'src/routes/hooks';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Box, Stack, Button, Container, Typography } from '@mui/material';
+import {
+  Box,
+  Link,
+  Stack,
+  Button,
+  Container,
+  Typography,
+} from '@mui/material';
 
 import RHFOTP from './rhf-otp-view';
 
@@ -23,29 +32,19 @@ export default function JwtVerifyView() {
   const t = useTranslations();
   const router = useRouter();
   const [errorMsg, setErrorMsg] = useState('');
-  const [referrer, setReferrer] = useState('');
-  const { verifyOtp } = useAuthStore();
+  const [timer, setTimer] = useState(30);
+  const { verifyLoginOtp } = useAuthStore();
   const searchParams = useSearchParams();
 
-  const phoneNumber = typeof window !== 'undefined' ? localStorage.getItem('phoneNumber') : '';
+  const phoneNumber =
+    typeof window !== 'undefined' ? localStorage.getItem('phoneNumber') : '';
 
   useEffect(() => {
-    const storedReferrer = localStorage.getItem('verifyReferrer');
-    const urlReferrer = searchParams.get('from');
-
-    // Prefer URL parameter over localStorage
-    if (urlReferrer) {
-      setReferrer(urlReferrer);
-      localStorage.setItem('verifyReferrer', urlReferrer);
-    } else if (storedReferrer) {
-      setReferrer(storedReferrer);
+    if (timer > 0) {
+      const interval = setInterval(() => setTimer((prev) => prev - 1), 1000);
+      return () => clearInterval(interval);
     }
-
-    // Cleanup on component unmount
-    return () => {
-      localStorage.removeItem('verifyReferrer');
-    };
-  }, [searchParams]);
+  }, [timer]);
 
   const VerifySchema = yup.object().shape({
     otp: yup.string().required(t('Global.Validation.code_required')),
@@ -62,13 +61,26 @@ export default function JwtVerifyView() {
     formState: { isSubmitting },
   } = methods;
 
-  const onSubmit = handleSubmit(async ({ otp }) => {
+  const onSubmit = handleSubmit(async (data: VerifyFormValues) => {
     try {
-      const res = await verifyOtp(otp);
+      const storedPhoneNumber = localStorage.getItem('phoneNumber');
+      if (!storedPhoneNumber) {
+        setErrorMsg('رقم الهاتف غير موجود');
+        return;
+      }
+
+      const res = await verifyLoginOtp({
+        phoneNumber: storedPhoneNumber,
+        otp: data.otp,
+      });
+              console.log(res)
+
+
       if ('error' in res) {
         reset();
         setErrorMsg(res.error);
       } else if ('redirectTo' in res) {
+        console.log(res)
         router.push(res.redirectTo);
       }
     } catch (err: any) {
@@ -76,71 +88,112 @@ export default function JwtVerifyView() {
     }
   });
 
-  // Conditional header rendering
-  const renderHeader = () => {
-    if (referrer === paths.auth.register) {
-      return (
-        <Typography variant="h5" mt={1} mb={3} fontWeight="bold" color="#4B684C">
-          {' '}
-          {t('Pages.Auth.create_new_account')}
-        </Typography>
-      );
-    }
-
-    // Default header (login)
-    return (
-      <>
-        <Typography variant="h5" mt={1} mb={3} fontWeight="bold" color="#4B684C">
-          {' '}
-          {t('Pages.Auth.login_title')}
-        </Typography>
-      </>
-    );
-  };
-
   return (
     <Box
       sx={{
         width: '100%',
-        height: '100%',
-        backgroundImage: 'url("/assets/background/bgColor-sinwan-auth.png")',
-        backgroundColor: '#a2b5a3',
-        backgroundRepeat: 'repeat',
-        backgroundSize: 'cover',
+        height: '100vh',
         display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        minHeight: '100vh',
+        flexDirection: 'row',
+        backgroundColor: '#fff',
       }}
     >
-      <Container maxWidth="sm" sx={{ mt: 10, mb: 4 }}>
-        <Box
-          sx={{
-            bgcolor: 'background.paper',
-            borderRadius: 3,
-            boxShadow: 3,
-            p: 4,
-            textAlign: 'center',
-          }}
-        >
-          <Image
-            src="/logo/logo_single.png"
-            alt="Logo"
-            width={240}
-            height={180}
-            style={{ margin: 'auto' }}
-          />
-          {renderHeader()}
+      {/* === RIGHT SIDE FORM (65%) === */}
+      <Box
+        sx={{
+          width: { xs: '60%', sm: '65%', md: '65%' },
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          px: { xs: 2, sm: 4 },
+        }}
+      >
+        <Container maxWidth="sm" sx={{textAlign:'center'}}>
+          <Box sx={{ textAlign: 'center', mb: 4 ,justifyContent:'center'}}>
+            <Image
+              src="/logo/black_icon.svg"
+              alt="Logo"
+              width={180}
+              height={120}
+              style={{ margin: 'auto' }}
+            />
+          </Box>
 
-          <Typography variant="body2" mt={1} mb={2} color="text.secondary">
-            أدخل الرمز التأكيدي الذي تم إرساله إلى الرقم {phoneNumber || '...'}
+          <Typography
+            variant="h5"
+            fontWeight="bold"
+            color="#4B4B4B"
+            sx={{ mb: 1 }}
+          >
+            التحقق من الكود
           </Typography>
 
+          {/* <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+            لقد أرسلنا رمز التحقق إلى
+            <br />
+            <Link href={paths.auth.login} underline="hover" color="primary">
+              {phoneNumber || '...'}{' '} <Link
+                href={paths.auth.login}
+                underline="hover"
+                sx={{
+                  color: '#59A0F2',
+                  fontWeight: 700,
+                  fontSize: 16,
+                  fontFamily: `'Frutiger LT Arabic', sans-serif`,
+                  ml: 0.5,
+                }}
+              >
+                ليس أنت؟
+              </Link>
+            </Link>
+          </Typography> */}
+          <Typography
+  variant="body2"
+  color="text.secondary"
+  sx={{
+
+  }}
+>
+  لقد أرسلنا رمز التحقق إلى&nbsp;
+  <br/>
+  <Box display={'flex'} flexDirection={'row'} alignItems={'center'}>
+    <Typography variant='body2' sx={{pb:3,fontWeight: 700,
+    fontSize: 14,}}>
+  {phoneNumber || '966XXXXXXXXX'}،&nbsp;
+
+    </Typography>
+  <Link
+    component={NextLink}
+    href={paths.auth.login}
+    underline="hover"
+    sx={{
+     mb: 3,
+    width: 327,
+    height: 62,
+    fontFamily: `'Frutiger LT Arabic', sans-serif`,
+    fontWeight: 700,
+    fontSize: 16,
+    lineHeight: '31px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlign: 'center',
+    letterSpacing: '0.5px',
+    color: '#59A0F2',
+    mx: 'auto',
+    }}
+  >
+    ليس أنت؟
+  </Link>
+  </Box>
+</Typography>
+
           <FormProvider methods={methods} onSubmit={onSubmit}>
-            <Stack spacing={2}>
+            <Stack spacing={3} alignItems={'center'} textAlign="center" justifyContent={'center'}>
               <RHFOTP name="otp" />
+
               {errorMsg && (
-                <Typography color="error" variant="body2" sx={{ mt: 1 }}>
+                <Typography color="error" variant="body2">
                   {errorMsg}
                 </Typography>
               )}
@@ -151,20 +204,60 @@ export default function JwtVerifyView() {
                 variant="contained"
                 size="large"
                 sx={{
-                  bgcolor: '#4B684C',
-                  '&:hover': { bgcolor: '#3a523c' },
-                  color: '#fff',
-                  borderRadius: 1,
-                  mt: 2,
+                  height: 50,
+                  borderRadius: 2,
+                  fontWeight: 'bold',
+                  fontSize: '1rem',
+                  backgroundColor: '#1A1A1A',
+                  '&:hover': { backgroundColor: '#000000' },
                 }}
                 disabled={isSubmitting}
               >
-                تأكيد
+                دخول
               </Button>
+
+              <Typography variant="body2" color="text.secondary">
+                لم تتلق الرمز؟{' '}
+                {timer > 0 ? (
+                  <span style={{ color: '#4B4B4B' }}>
+                    إعادة إرسال الرمز ({timer})
+                  </span>
+                ) : (
+                  <Link
+                    component="button"
+                    underline="hover"
+                    color="#1A1A1A"
+                    onClick={() => setTimer(30)}
+                  >
+                    إعادة إرسال الرمز
+                  </Link>
+                )}
+              </Typography>
             </Stack>
           </FormProvider>
-        </Box>
-      </Container>
+        </Container>
+      </Box>
+
+      {/* === LEFT SIDE IMAGE (35%) === */}
+      <Box
+        sx={{
+          position: 'relative',
+          width: { xs: '40%', sm: '35%', md: '35%' },
+          minWidth: 150,
+          height: '100%',
+        }}
+      >
+        <Image
+          src="/assets/auth/bgolor-auth.png"
+          alt="auth background"
+          fill
+          style={{
+            objectFit: 'contain',
+            objectPosition: 'center',
+          }}
+          priority
+        />
+      </Box>
     </Box>
   );
 }

@@ -14,7 +14,7 @@ export const endpoints = {
     setAddress: '/clients/profile/set-address',
     Register: {
       send_unregistered_otp: '/auth/send-unregistered-otp',
-      verify_new_number_otp: 'auth/verify-unregistered-phone',
+      verify_new_number_otp: '/auth/verify-unregistered-phone',
       register:'/auth/register'
     },
     Login:{

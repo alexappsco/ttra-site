@@ -1,7 +1,13 @@
 import SvgColor from './components/svg-color';
 
-const icon = (name: string) => (
-  <SvgColor src={`/assets/icons/${name}.svg`} sx={{ width: '1em', height: '1em' }} />
+// const icon = (name: string) => (
+//   <SvgColor src={`/assets/icons/${name}.svg`} sx={{ width: '1em', height: '1em' }} />
+// );
+const icon = (name: string, color?: string) => (
+  <SvgColor
+    src={`/assets/icons/${name}.svg`}
+    sx={{ width: '1em', height: '1em', color }}
+  />
 );
 
 export const ICONS = {
@@ -39,6 +45,15 @@ export const ICONS = {
     trendingDown: icon('global/ic_trending_down'),
     trendingUp: icon('global/ic_trending_up'),
     drivers: icon('global/ic_drivers'),
+  },
+  menu_list:{
+    home: icon('navbar/main_.svg'),
+    project: icon('navbar/projects.svg'),
+    apps: icon('navbar/app.svg'),
+    blog: icon('navbar/note.svg'),
+
+
+
   },
   SocialIcons:{
     gmail:icon('social-icons/ic_gmail'),
