@@ -137,7 +137,7 @@ export default function Navbar({ isHome = false, isAuth = false, isLanding = fal
 
   // Determine background colors
   const getBackgroundColor = () => {
-    if (isHome && isAuth) return '#fff';
+    if (isAuth ) return 'Transparent';
     if (isHome) return '#367ce5';
     if (isLanding) return '#fff'; // White background for landing page
     return '#fff';
