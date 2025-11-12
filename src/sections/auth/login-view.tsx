@@ -75,7 +75,7 @@ export default function JwtLoginView() {
         height: '100vh',
         display: 'flex',
         flexDirection: 'row',
-        backgroundColor: '#fff',
+
       }}
     >
 
@@ -187,25 +187,46 @@ export default function JwtLoginView() {
         </Container>
       </Box>
       {/* === LEFT SIDE IMAGE (25%) === */}
-      <Box
+      {/* <Box
         sx={{
           position: 'relative',
           width: { xs: '40%', sm: '35%', md: '35%' }, // ثابت في كل المقاسات
           minWidth: 150, // لتجنب الانهيار في شاشات صغيرة جدًا
           height: '100%',
         }}
+      > */}
+      {/* <Image
+          src="/assets/auth/bgolor-auth.png"
+          alt="auth background"
+          fill
+          style={{
+      objectFit: { xs: 'cover', md: 'contain' }, // responsive
+            objectPosition: 'center',
+          }}
+          priority
+        /> */}
+      <Box
+        sx={{
+          position: 'relative',
+          width: { xs: '40%', sm: '35%', md: '35%' },
+          minWidth: 150,
+          height: '100%',
+          '& img': {
+            objectFit: { xs: 'contain', md: 'none' }, // responsive
+            objectPosition: 'center',
+            position:'absolute',
+            zIndex:10
+          },
+        }}
       >
         <Image
           src="/assets/auth/bgolor-auth.png"
           alt="auth background"
           fill
-          style={{
-            objectFit: 'contain',
-            objectPosition: 'center',
-          }}
           priority
         />
       </Box>
+      {/* </Box> */}
 
     </Box>
   );

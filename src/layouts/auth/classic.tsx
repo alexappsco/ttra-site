@@ -23,10 +23,11 @@ export default function AuthClassicLayout({ children, image, title }: Props) {
       sx={{
         width:'100%',
         height:'100%',
+
       }}
       justifyContent="center"
       alignItems="center"
-    >
+          >
       <Navbar isAuth={true} />
       {children}
     </Stack>
