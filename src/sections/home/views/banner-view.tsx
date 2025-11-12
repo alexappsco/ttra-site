@@ -63,7 +63,7 @@
 //         justifyContent: 'center',
 //       }}
 //     >
-//       {/* ✅ الخلفية */}
+//       {/*  الخلفية */}
 //       {staticBanners.map((banner, index) => (
 //         <Box
 //           key={banner.id}
@@ -87,11 +87,11 @@
 //       ))}
 
 
-//       {/* ✅ الكروت الأمامية في اليمين */}
+//       {/*  الكروت الأمامية في اليمين */}
 //       <Box
 //         sx={{
 //           position: 'absolute',
-//           right: { xs: '26%', md: '10%' }, // ✅ moved from left → right
+//           right: { xs: '26%', md: '10%' }, //  moved from left → right
 //           bottom: { xs: 80, md: 120 },
 //           display: 'flex',
 //           justifyContent: 'center',
@@ -171,8 +171,8 @@
 //             fontWeight: 400,
 //             fontSize: { xs: 12, md: 18 },
 //             width: {
-//               md: "330px", // ✅ يبدأ من 900px
-//               lg: "auto",  // ✅ يرجع للوضع الطبيعي بعد 1200px (يمكن تغييره)
+//               md: "330px", //  يبدأ من 900px
+//               lg: "auto",  //  يرجع للوضع الطبيعي بعد 1200px (يمكن تغييره)
 //             },          }}
 //         >
 //           اكتشف، قيّم، وتفاوض لشراء أو بيع الأعمال التجارية بسهولة عبر منصة "استحواذ".

@@ -41,7 +41,7 @@ export default function OfficeSection() {
         justifyContent="space-between"
         direction={{ xs: 'column', md: 'row' }}
       >
-        {/* ✅ Image Column - upper on mobile, right on desktop */}
+        {/*  Image Column - upper on mobile, right on desktop */}
         <Grid2
           size={{ xs: 12, md: 6 }}
           sx={{ order: { xs: 1, md: 2 } }}
@@ -61,7 +61,7 @@ export default function OfficeSection() {
           />
         </Grid2>
 
-        {/* ✅ Text Column - lower on mobile, left on desktop */}
+        {/*  Text Column - lower on mobile, left on desktop */}
         <Grid2
           size={{ xs: 12, md: 6 }}
           sx={{ order: { xs: 2, md: 1 } }}

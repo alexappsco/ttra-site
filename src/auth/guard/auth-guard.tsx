@@ -23,7 +23,7 @@
 //   const check = useCallback(() => {
 //     const isGuest = localStorage.getItem('isGuest') === 'true';
 
-//     // ✅ لو المستخدم مش داخل ولا Guest
+//     //  لو المستخدم مش داخل ولا Guest
 //     if (!authenticated && !isGuest) {
 //       // لو الصفحة الحالية مش الصفحة الرئيسية فقط نحوله
 //       if (pathname !== paths.controlPanel.main) {
@@ -31,7 +31,7 @@
 //       }
 //     }
 
-//     // ✅ في كل الحالات نعرض الصفحة بعد التحقق
+//     //  في كل الحالات نعرض الصفحة بعد التحقق
 //     setChecked(true);
 //   }, [authenticated, router, pathname]);
 
@@ -62,7 +62,7 @@ export default function AuthGuard({ children }: Props) {
     return <SplashScreen />;
   }
 
-  // ✅ No restrictions at all
+  //  No restrictions at all
   return <>{children}</>;
 }
 
