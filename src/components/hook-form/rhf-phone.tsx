@@ -1,11 +1,8 @@
 
-'use client';
 
 import Yup from 'yup';
-import Iconify from 'src/components/iconify';
 import { RHFTextField } from 'src/components/hook-form';
-import { useCurrentLocale } from 'src/utils/locale-utils';
-import { Stack, Typography, BoxProps } from '@mui/material';
+import { Stack, BoxProps, Typography } from '@mui/material';
 
 export default function RHFPhone({
   name,
@@ -14,40 +11,10 @@ export default function RHFPhone({
   name: string;
   label?: string;
 } & BoxProps) {
-  const { dir } = useCurrentLocale();
 
   return (
     <Stack direction="row" spacing={1} alignItems="center" sx={{ width: '100%' }}>
 
-      {/* Phone input */}
-      {/* <RHFTextField
-        name={name}
-        label={label}
-        placeholder="رقم الهاتف"
-        variant="outlined"
-        sx={{
-          flex: 1,
-          '& .MuiInputBase-root': {
-            height: 55,
-            borderRadius: '12px',
-            bgcolor: '#f7f7f7',
-          },
-          '& .MuiInputBase-input': {
-            fontSize: '16px',
-            textAlign: dir === 'rtl' ? 'right' : 'left',
-            padding: '0 14px',
-            direction: 'ltr',
-          },
-        }}
-        slotProps={{
-          input: {
-            inputProps: {
-              inputMode: 'numeric',
-              maxLength: 9,
-            },
-          },
-        }}
-      /> */}
       <RHFTextField
         name={name}
         label={label}
