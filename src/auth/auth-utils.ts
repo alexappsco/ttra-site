@@ -6,30 +6,50 @@ import { UserSession } from './types';
 import { USER, ACCESS_TOKEN, REFRESH_TOKEN } from './config';
 
 export async function saveSession({ user, accessToken, refreshToken }: UserSession) {
-  const cookiesStore = await cookies();
+  try {
+    const cookiesStore = await cookies();
 
-  // Cookie options compatible with iOS Safari
-  const cookieOptions = {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax' as const, // Critical for iOS Safari
-    path: '/',
-  };
+    // Validate required values
+    if (!accessToken?.value || !refreshToken?.value || !user) {
+      throw new Error('Invalid session data: missing required fields');
+    }
 
-  cookiesStore.set(ACCESS_TOKEN, accessToken.value, {
-    ...cookieOptions,
-    expires: new Date(refreshToken.expire), // remove with Refresh Token because the old accessToken is needed to get new accessToken
-  });
+    // Safely convert expire date
+    let expireDate: Date;
+    try {
+      expireDate = refreshToken.expire instanceof Date
+        ? refreshToken.expire
+        : new Date(refreshToken.expire);
 
-  cookiesStore.set(REFRESH_TOKEN, refreshToken.value, {
-    ...cookieOptions,
-    expires: new Date(refreshToken.expire),
-  });
+      // Validate the date is valid
+      if (isNaN(expireDate.getTime())) {
+        // Fallback to 30 days from now if date is invalid
+        expireDate = new Date();
+        expireDate.setDate(expireDate.getDate() + 30);
+      }
+    } catch (error) {
+      // Fallback to 30 days from now if date parsing fails
+      expireDate = new Date();
+      expireDate.setDate(expireDate.getDate() + 30);
+    }
 
-  cookiesStore.set(USER, JSON.stringify(user), {
-    ...cookieOptions,
-    expires: new Date(refreshToken.expire),
-  });
+    // Cookie options compatible with iOS Safari
+    const cookieOptions = {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax' as const, // Critical for iOS Safari
+      path: '/',
+      expires: expireDate,
+    };
+
+    // Set cookies with error handling
+    cookiesStore.set(ACCESS_TOKEN, accessToken.value, cookieOptions);
+    cookiesStore.set(REFRESH_TOKEN, refreshToken.value, cookieOptions);
+    cookiesStore.set(USER, JSON.stringify(user), cookieOptions);
+  } catch (error) {
+    console.error('Error saving session:', error);
+    throw error;
+  }
 }
 
 export async function removeSession() {
