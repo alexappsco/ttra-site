@@ -79,12 +79,26 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
 
       const referrer = localStorage.getItem('verifyReferrer') || '';
 
+      // Call verify OTP API
       const { accessToken, refreshToken, user } = await verifyOtpApi({
         phoneNumber: storedPhoneNumber,
         otp,
       });
 
-      await saveSession({ accessToken, refreshToken, user });
+      // Validate response before saving
+      if (!accessToken?.value || !refreshToken?.value || !user) {
+        return { error: 'Invalid response from server' };
+      }
+
+      // Save session - ensure this completes before redirecting
+      try {
+        await saveSession({ accessToken, refreshToken, user });
+      } catch (sessionError: any) {
+        console.error('Failed to save session:', sessionError);
+        return { error: sessionError?.message || 'Failed to save session' };
+      }
+
+      // Update Zustand store
       set({
         authenticated: true,
         user,
@@ -101,7 +115,8 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
 
       // return { redirectTo };
     } catch (error: any) {
-      return { error: error.message };
+      console.error('Login OTP verification error:', error);
+      return { error: error?.message || 'فشل التحقق من رمز OTP' };
     }
   },
 
