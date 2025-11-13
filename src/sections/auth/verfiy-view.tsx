@@ -122,41 +122,24 @@ export default function JwtVerifyView() {
             التحقق من الكود
           </Typography>
 
-          {/* <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-            لقد أرسلنا رمز التحقق إلى
-            <br />
-            <Link href={paths.auth.login} underline="hover" color="primary">
-              {phoneNumber || '...'}{' '} <Link
-                href={paths.auth.login}
-                underline="hover"
-                sx={{
-                  color: '#59A0F2',
-                  fontWeight: 700,
-                  fontSize: 16,
-                  fontFamily: `'Frutiger LT Arabic', sans-serif`,
-                  ml: 0.5,
-                }}
-              >
-                ليس أنت؟
-              </Link>
-            </Link>
-          </Typography> */}
           <Typography
+            component="div"
             variant="body2"
             color="text.secondary"
-            sx={{
-
-            }}
           >
             لقد أرسلنا رمز التحقق إلى&nbsp;
+            {phoneNumber || '966XXXXXXXXX'}،&nbsp;
             <br />
             <Box display={'flex'} flexDirection={'row'} alignItems={'center'}>
-              <Typography variant='body2' sx={{
-                pb: 3, fontWeight: 700,
-                fontSize: 14,
-              }}>
-                {phoneNumber || '966XXXXXXXXX'}،&nbsp;
-
+              <Typography
+                component="span"
+                variant='body2'
+                sx={{
+                  pb: 3,
+                  fontWeight: 700,
+                  fontSize: 14,
+                }}
+              >
               </Typography>
               <Link
                 component={NextLink}
@@ -164,8 +147,6 @@ export default function JwtVerifyView() {
                 underline="hover"
                 sx={{
                   mb: 3,
-                  width: 327,
-                  height: 62,
                   fontFamily: `'Frutiger LT Arabic', sans-serif`,
                   fontWeight: 700,
                   fontSize: 16,
@@ -241,16 +222,18 @@ export default function JwtVerifyView() {
           width: { xs: '40%', sm: '35%', md: '35%' },
           minWidth: 150,
           height: '100%',
+          '& img': {
+            objectFit: { xs: 'contain', md: 'none' }, // responsive
+            objectPosition: 'center',
+            position: 'absolute',
+            zIndex: 10
+          },
         }}
       >
         <Image
           src="/assets/auth/bgolor-auth.png"
           alt="auth background"
           fill
-          style={{
-            objectFit: 'contain',
-            objectPosition: 'center',
-          }}
           priority
         />
       </Box>
