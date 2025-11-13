@@ -7,7 +7,7 @@ import NextLink from 'next/link';
 import { paths } from 'src/routes/paths';
 import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
-import { useTranslations, useLocale } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { useRouter } from 'src/routes/hooks';
 import { useAuthStore } from 'src/auth/auth-store';
 import FormProvider from 'src/components/hook-form';
@@ -29,7 +29,6 @@ type VerifyFormValues = {
 
 export default function JwtVerifyView() {
   const t = useTranslations();
-  const locale = useLocale();
   const router = useRouter();
   const [errorMsg, setErrorMsg] = useState('');
   const [timer, setTimer] = useState(30);
@@ -76,17 +75,7 @@ export default function JwtVerifyView() {
         reset();
         setErrorMsg(res.error);
       } else if ('redirectTo' in res) {
-        // Use window.location.href for full page reload to ensure cookies are available
-        // This is important for Server Components that need to access cookies on first render
-        // Preserve locale in the redirect path
-        if (typeof window !== 'undefined') {
-          const redirectPath = res.redirectTo.startsWith('/')
-            ? `/${locale}${res.redirectTo === '/' ? '' : res.redirectTo}`
-            : res.redirectTo;
-          window.location.href = redirectPath;
-        } else {
-          router.push(res.redirectTo);
-        }
+        router.push(res.redirectTo);
       }
     } catch (err: any) {
       setErrorMsg(err.message);

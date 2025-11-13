@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { Profile } from 'src/types/prof';
 import { paths } from 'src/routes/paths';
 
-import { login, Register, verifyOtpApi, refreshSession } from './auth-actions';
+import { login as loginApi, Register, verifyOtpApi, refreshSession } from './auth-actions';
 import { LoginCretentials, RegiterCretentials, LoginVerifyCretentials } from './types';
 import { saveSession, removeSession, restoreSession, updateUserSession } from './auth-utils';
 
@@ -36,7 +36,7 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
   // -------------------- LOGIN --------------------
   login: async ({ phoneNumber }) => {
     try {
-      await login({ phoneNumber });
+      await loginApi({ phoneNumber });
       set({ authenticated: false });
 
       if (typeof window !== 'undefined') {
@@ -46,7 +46,8 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
 
       return { redirectTo: '/auth/verify' };
     } catch (error: any) {
-      return { error: error.message };
+      const errorMessage = error?.message || 'Login failed. Please try again.';
+      return { error: errorMessage };
     }
   },
 
@@ -63,7 +64,8 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
 
       return { redirectTo: '/auth/verify' };
     } catch (error: any) {
-      return { error: error.message };
+      const errorMessage = error?.message || 'Registration failed. Please try again.';
+      return { error: errorMessage };
     }
   },
 
@@ -79,26 +81,12 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
 
       const referrer = localStorage.getItem('verifyReferrer') || '';
 
-      // Call verify OTP API
       const { accessToken, refreshToken, user } = await verifyOtpApi({
         phoneNumber: storedPhoneNumber,
         otp,
       });
 
-      // Validate response before saving
-      if (!accessToken?.value || !refreshToken?.value || !user) {
-        return { error: 'Invalid response from server' };
-      }
-
-      // Save session - ensure this completes before redirecting
-      try {
-        await saveSession({ accessToken, refreshToken, user });
-      } catch (sessionError: any) {
-        console.error('Failed to save session:', sessionError);
-        return { error: sessionError?.message || 'Failed to save session' };
-      }
-
-      // Update Zustand store
+      await saveSession({ accessToken, refreshToken, user });
       set({
         authenticated: true,
         user,
@@ -115,8 +103,8 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
 
       // return { redirectTo };
     } catch (error: any) {
-      console.error('Login OTP verification error:', error);
-      return { error: error?.message || 'فشل التحقق من رمز OTP' };
+      const errorMessage = error?.message || 'OTP verification failed. Please try again.';
+      return { error: errorMessage };
     }
   },
 

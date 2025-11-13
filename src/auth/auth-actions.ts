@@ -27,7 +27,12 @@ export async function login(credentials: LoginCretentials): Promise<UserSession>
       refreshToken: { value: refreshToken, expire: refreshTokenExpireAt },
     };
   } catch (error: any) {
-    throw new Error(error?.message || 'Login failed');
+    const errorMessage =
+      error?.message ||
+      error?.response?.data?.message ||
+      error?.response?.data?.error ||
+      'Login failed. Please try again.';
+    throw new Error(errorMessage);
   }
 }
 export async function Register(credentials: RegiterCretentials): Promise<UserSession> {
@@ -36,34 +41,24 @@ export async function Register(credentials: RegiterCretentials): Promise<UserSes
 
       const { accessToken, refreshToken, accessTokenExpireAt, refreshTokenExpireAt, ...user } =
         res as unknown as LoginRes;
-
-      // Ensure dates are properly converted to Date objects
-      const accessTokenExpire = accessTokenExpireAt instanceof Date
-        ? accessTokenExpireAt
-        : new Date(accessTokenExpireAt);
-
-      const refreshTokenExpire = refreshTokenExpireAt instanceof Date
-        ? refreshTokenExpireAt
-        : new Date(refreshTokenExpireAt);
-
-      // Validate dates
-      if (isNaN(accessTokenExpire.getTime()) || isNaN(refreshTokenExpire.getTime())) {
-        throw new Error('Invalid date format in response');
-      }
-
       return {
         user,
         accessToken: {
           value: accessToken,
-          expire: accessTokenExpire,
+          expire: accessTokenExpireAt,
         },
         refreshToken: {
           value: refreshToken,
-          expire: refreshTokenExpire,
+          expire: refreshTokenExpireAt,
         },
       };
     } catch (error: any) {
-      throw new Error(error?.message || 'Registration failed');
+      const errorMessage =
+        error?.message ||
+        error?.response?.data?.message ||
+        error?.response?.data?.error ||
+        'Registration failed. Please try again.';
+      throw new Error(errorMessage);
     }
   }
 export async function verifyOtpApi(credentials: LoginVerifyCretentials): Promise<UserSession> {
@@ -72,27 +67,18 @@ export async function verifyOtpApi(credentials: LoginVerifyCretentials): Promise
     const { accessToken, refreshToken, accessTokenExpireAt, refreshTokenExpireAt, ...user } =
       res as unknown as LoginRes;
 
-    // Ensure dates are properly converted to Date objects
-    const accessTokenExpire = accessTokenExpireAt instanceof Date
-      ? accessTokenExpireAt
-      : new Date(accessTokenExpireAt);
-
-    const refreshTokenExpire = refreshTokenExpireAt instanceof Date
-      ? refreshTokenExpireAt
-      : new Date(refreshTokenExpireAt);
-
-    // Validate dates
-    if (isNaN(accessTokenExpire.getTime()) || isNaN(refreshTokenExpire.getTime())) {
-      throw new Error('Invalid date format in response');
-    }
-
     return {
       user,
-      accessToken: { value: accessToken, expire: accessTokenExpire },
-      refreshToken: { value: refreshToken, expire: refreshTokenExpire },
+      accessToken: { value: accessToken, expire: accessTokenExpireAt },
+      refreshToken: { value: refreshToken, expire: refreshTokenExpireAt },
     };
   } catch (error: any) {
-    throw new Error(error?.message || 'OTP verification failed');
+    const errorMessage =
+      error?.message ||
+      error?.response?.data?.message ||
+      error?.response?.data?.error ||
+      'OTP verification failed. Please try again.';
+    throw new Error(errorMessage);
   }
 }
 export async function refreshSession(): Promise<UserSession> {
@@ -120,29 +106,15 @@ export async function refreshSession(): Promise<UserSession> {
     const { accessToken, refreshToken, accessTokenExpireAt, refreshTokenExpireAt, ...user } =
       res as unknown as LoginRes;
 
-    // Ensure dates are properly converted to Date objects
-    const accessTokenExpire = accessTokenExpireAt instanceof Date
-      ? accessTokenExpireAt
-      : new Date(accessTokenExpireAt);
-
-    const refreshTokenExpire = refreshTokenExpireAt instanceof Date
-      ? refreshTokenExpireAt
-      : new Date(refreshTokenExpireAt);
-
-    // Validate dates
-    if (isNaN(accessTokenExpire.getTime()) || isNaN(refreshTokenExpire.getTime())) {
-      throw new Error('Invalid date format in response');
-    }
-
     return {
       user,
       accessToken: {
         value: accessToken,
-        expire: accessTokenExpire,
+        expire: accessTokenExpireAt,
       },
       refreshToken: {
         value: refreshToken,
-        expire: refreshTokenExpire,
+        expire: refreshTokenExpireAt,
       },
     };
   } catch (error) {
