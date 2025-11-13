@@ -38,8 +38,11 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
     try {
       await login({ phoneNumber });
       set({ authenticated: false });
-      localStorage.setItem('phoneNumber', phoneNumber);
-      localStorage.setItem('verifyReferrer', paths.auth.login);
+
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('phoneNumber', phoneNumber);
+        localStorage.setItem('verifyReferrer', paths.auth.login);
+      }
 
       return { redirectTo: '/auth/verify' };
     } catch (error: any) {
@@ -52,8 +55,11 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
     try {
       await Register({ name, phoneNumber });
       set({ authenticated: false });
-      localStorage.setItem('phoneNumber', phoneNumber);
-      localStorage.setItem('verifyReferrer', paths.auth.register);
+
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('phoneNumber', phoneNumber);
+        localStorage.setItem('verifyReferrer', paths.auth.register);
+      }
 
       return { redirectTo: '/auth/verify' };
     } catch (error: any) {
@@ -64,6 +70,10 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
   // -------------------- VERIFY OTP --------------------
    verifyLoginOtp: async ({ phoneNumber, otp }: LoginVerifyCretentials) => {
     try {
+      if (typeof window === 'undefined') {
+        return { error: 'المتصفح غير متاح' };
+      }
+
       const storedPhoneNumber = localStorage.getItem('phoneNumber');
       if (!storedPhoneNumber) return { error: 'رقم الهاتف غير موجود' };
 
@@ -82,9 +92,12 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
         refreshToken: refreshToken.value,
       });
 
-      // const redirectTo = user?.isHasLocation ? '/' : '/auth/set-address';
-          return { redirectTo: '/' };
+      // Clean up localStorage after successful verification
+      localStorage.removeItem('phoneNumber');
+      localStorage.removeItem('verifyReferrer');
 
+      // const redirectTo = user?.isHasLocation ? '/' : '/auth/set-address';
+      return { redirectTo: '/' };
 
       // return { redirectTo };
     } catch (error: any) {
@@ -94,45 +107,56 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
 
   // -------------------- INIT --------------------
   init: async () => {
-    const isGuest = localStorage.getItem('isGuest');
-    if (isGuest) {
-      set({
-        loading: false,
-        authenticated: false,
-        user: { name: 'Guest User', role: 'guest' },
-      });
+    // Check if we're in browser environment
+    if (typeof window === 'undefined') {
+      set({ loading: false });
       return;
     }
 
-    const errorFunc = async () => {
-      await removeSession();
-      set({ loading: false });
-    };
-
-    const refreshToken = await restoreSession();
-    if (refreshToken) {
-      try {
-        const session = await refreshSession();
-        const { user, accessToken, refreshToken } = session;
-
-        await saveSession({ user, accessToken, refreshToken });
+    try {
+      const isGuest = localStorage.getItem('isGuest');
+      if (isGuest) {
         set({
           loading: false,
-          authenticated: true,
-          user,
-          accessToken: accessToken.value,
-          refreshToken: refreshToken.value,
+          authenticated: false,
+          user: { name: 'Guest User', role: 'guest' },
         });
+        return;
+      }
 
-        return {
-          accessTokenExp: new Date(accessToken.expire).getTime() - new Date().getTime() - 60 * 1000,
-        };
-      } catch (error) {
-        console.log(error);
+      const errorFunc = async () => {
+        await removeSession();
+        set({ loading: false });
+      };
+
+      const refreshToken = await restoreSession();
+      if (refreshToken) {
+        try {
+          const session = await refreshSession();
+          const { user, accessToken, refreshToken } = session;
+
+          await saveSession({ user, accessToken, refreshToken });
+          set({
+            loading: false,
+            authenticated: true,
+            user,
+            accessToken: accessToken.value,
+            refreshToken: refreshToken.value,
+          });
+
+          return {
+            accessTokenExp: new Date(accessToken.expire).getTime() - new Date().getTime() - 60 * 1000,
+          };
+        } catch (error) {
+          console.log(error);
+          errorFunc();
+        }
+      } else {
         errorFunc();
       }
-    } else {
-      errorFunc();
+    } catch (error) {
+      console.error('Error initializing auth:', error);
+      set({ loading: false });
     }
   },
 
@@ -145,7 +169,13 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
     }
 
     await removeSession();
-    localStorage.removeItem('isGuest');
+
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('isGuest');
+      localStorage.removeItem('phoneNumber');
+      localStorage.removeItem('verifyReferrer');
+    }
+
     set({
       authenticated: false,
       user: null,
@@ -181,7 +211,10 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
 
   // -------------------- LOGIN AS GUEST --------------------
   loginAsGuest: async () => {
-    localStorage.setItem('isGuest', 'true');
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('isGuest', 'true');
+    }
+
     set({
       authenticated: false,
       user: { name: 'Guest User', role: 'guest' },
