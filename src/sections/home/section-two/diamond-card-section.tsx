@@ -34,11 +34,47 @@ const DiamondCardRoot = styled(Box)(({ theme }) => ({
     boxShadow: theme.shadows[8],
   },
 
+  // من 0 إلى 600px
   [theme.breakpoints.down('sm')]: {
     width: 95,
     height: 95,
     '&:hover': {
-      transform: 'rotate(45deg)', //  منع Hover على الموبايل
+      transform: 'rotate(45deg)', // منع Hover على الموبايل
+      boxShadow: 'none',
+    },
+  },
+
+  // من 600px إلى 960px
+  [theme.breakpoints.between('sm', 'md')]: {
+    width: 150,
+    height: 150,
+    '&:hover': {
+      transform: 'rotate(45deg) scale(1.05)',
+      boxShadow: theme.shadows[6],
+    },
+  },
+
+  // من 960px إلى 1280px
+  [theme.breakpoints.between('md', 'lg')]: {
+    width: 200,
+    height: 200,
+    // '&:hover': {
+    //   transform: 'rotate(45deg) scale(1.06)',
+    //   boxShadow: theme.shadows[7],
+    // },
+        '&:hover': {
+      transform: 'rotate(45deg) scale(1.08)',
+      boxShadow: theme.shadows[8],
+    },
+  },
+
+  // أكبر من 1280px (xl)
+  [theme.breakpoints.up('lg')]: {
+    width: 260,
+    height: 260,
+    '&:hover': {
+      transform: 'rotate(45deg) scale(1.08)',
+      boxShadow: theme.shadows[8],
     },
   },
 }));
