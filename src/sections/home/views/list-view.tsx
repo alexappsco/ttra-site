@@ -3,9 +3,9 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import { Box, Typography } from '@mui/material';
+import Navbar from 'src/layouts/dashboard/navbar';
 
 import BannerSlider from './banner-view';
-import Navbar from 'src/layouts/dashboard/navbar';
 
 // Lazy-load below-the-fold sections to reduce initial JS and improve LCP/TBT
 const InteractiveCardSection = dynamic(() => import('../section-two/interactive-card-section'), {
