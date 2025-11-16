@@ -167,7 +167,7 @@ export const ProjectShowcaseSection: React.FC = () => {
                 alt={project.title}
                 sx={{
                   width: '100%',
-                  height: 'auto',
+                  height: '100%',  // Change from 'auto'
                   display: 'block',
                   objectFit: 'cover',
                 }}
