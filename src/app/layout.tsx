@@ -134,6 +134,7 @@ export default function Layout({
   auth: React.ReactNode;
 }) {
   return (
+<<<<<<< HEAD
     <html lang="ar" dir="rtl">
       <head>
         {/* Improve performance: Preconnect to fonts */}
@@ -152,6 +153,26 @@ export default function Layout({
         />
       </head>
 
+=======
+    <html>
+      <head>
+        {/* Preload critical Arabic fonts to reduce LCP */}
+        <link
+          rel="preload"
+          href="/fonts/DINNextLTArabic-Regular.ttf"
+          as="font"
+          type="font/ttf"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/DINNextLTArabic-Bold.ttf"
+          as="font"
+          type="font/ttf"
+          crossOrigin="anonymous"
+        />
+      </head>
+>>>>>>> 3103fd366f07a32bd91e983c7482ba84f8919fcb
       <body>
         {children}
         {auth}

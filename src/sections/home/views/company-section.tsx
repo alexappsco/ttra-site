@@ -47,14 +47,17 @@ export default function CompanySection() {
             component="img"
             src="/assets/company.svg"
             alt="Office Illustration"
-            sx={{
+           sx={{
               width: '100%',
               height: 'auto',
               maxWidth: 500,
               objectFit: 'contain',
               display: 'block',
-              mx: 'auto'
+              mx: 'auto',
+              aspectRatio: '1 / 1',  // Add this
             }}
+            width={500}  // Add this
+            height={500}  // Add this
           />
         </Grid2>
         {/* Text Column - Now on the LEFT side */}
