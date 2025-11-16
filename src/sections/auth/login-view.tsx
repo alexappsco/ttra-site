@@ -51,25 +51,20 @@ export default function JwtLoginView() {
 
   const onSubmit = handleSubmit(async (data: LoginCretentials) => {
     try {
-      setErrorMsg('');
       const res = await login({
         phoneNumber: `966${data.phoneNumber}`,
       });
 
       if ('error' in res) {
-        setErrorMsg(res.error || 'Login failed. Please try again.');
+        reset();
+        setErrorMsg(res.error);
       } else if ('redirectTo' in res) {
+
         router.push(res.redirectTo);
       }
     } catch (error) {
-      const errorMessage =
-        error instanceof Error
-          ? error.message
-          : typeof error === 'string'
-          ? error
-          : 'An unexpected error occurred. Please try again.';
-      setErrorMsg(errorMessage);
-      console.error('Login error:', error);
+      reset();
+      setErrorMsg(typeof error === 'string' ? error : (error as Error).message);
     }
   });
 

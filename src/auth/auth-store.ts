@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { Profile } from 'src/types/prof';
 import { paths } from 'src/routes/paths';
 
-import { login as loginApi, Register, verifyOtpApi, refreshSession } from './auth-actions';
+import { login, Register, verifyOtpApi, refreshSession } from './auth-actions';
 import { LoginCretentials, RegiterCretentials, LoginVerifyCretentials } from './types';
 import { saveSession, removeSession, restoreSession, updateUserSession } from './auth-utils';
 
@@ -36,7 +36,7 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
   // -------------------- LOGIN --------------------
   login: async ({ phoneNumber }) => {
     try {
-      await loginApi({ phoneNumber });
+      await login({ phoneNumber });
       set({ authenticated: false });
 
       if (typeof window !== 'undefined') {
@@ -46,8 +46,7 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
 
       return { redirectTo: '/auth/verify' };
     } catch (error: any) {
-      const errorMessage = error?.message || 'Login failed. Please try again.';
-      return { error: errorMessage };
+      return { error: error.message };
     }
   },
 
@@ -64,8 +63,7 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
 
       return { redirectTo: '/auth/verify' };
     } catch (error: any) {
-      const errorMessage = error?.message || 'Registration failed. Please try again.';
-      return { error: errorMessage };
+      return { error: error.message };
     }
   },
 
@@ -103,8 +101,7 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
 
       // return { redirectTo };
     } catch (error: any) {
-      const errorMessage = error?.message || 'OTP verification failed. Please try again.';
-      return { error: errorMessage };
+      return { error: error.message };
     }
   },
 
