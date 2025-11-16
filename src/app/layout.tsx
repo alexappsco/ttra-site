@@ -87,6 +87,23 @@ export default function Layout({
 }) {
   return (
     <html>
+      <head>
+        {/* Preload critical Arabic fonts to reduce LCP */}
+        <link
+          rel="preload"
+          href="/fonts/DINNextLTArabic-Regular.ttf"
+          as="font"
+          type="font/ttf"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/DINNextLTArabic-Bold.ttf"
+          as="font"
+          type="font/ttf"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body>
         {children}
         {auth}
