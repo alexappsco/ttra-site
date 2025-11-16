@@ -30,9 +30,9 @@ export async function login(credentials: LoginCretentials): Promise<UserSession>
     throw new Error(error?.message || 'Login failed');
   }
 }
-export async function Register(credentials: RegiterCretentials): Promise<UserSession> {
+export async function RegisterNewNumber(credentials: RegiterCretentials): Promise<UserSession> {
     try {
-      const res = await axiosInstance.post(endpoints.auth.register, credentials);
+      const res = await axiosInstance.post(endpoints.auth.Register.send_unregistered_otp, credentials);
 
       const { accessToken, refreshToken, accessTokenExpireAt, refreshTokenExpireAt, ...user } =
         res as unknown as LoginRes;

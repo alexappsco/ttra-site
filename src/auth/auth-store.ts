@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { Profile } from 'src/types/prof';
 import { paths } from 'src/routes/paths';
 
-import { login, Register, verifyOtpApi, refreshSession } from './auth-actions';
+import { login, RegisterNewNumber, verifyOtpApi, refreshSession } from './auth-actions';
 import { LoginCretentials, RegiterCretentials, LoginVerifyCretentials } from './types';
 import { saveSession, removeSession, restoreSession, updateUserSession } from './auth-utils';
 
@@ -15,7 +15,7 @@ type AuthStore = {
 
   // Actions
   login: (credentials: LoginCretentials) => Promise<{ redirectTo: string } | { error: string }>;
-  registerUser: (
+  registerNewPhonenumber: (
     credentials: RegiterCretentials
   ) => Promise<{ redirectTo: string } | { error: string }>;
   verifyLoginOtp: (credentials:LoginVerifyCretentials) => Promise<{ redirectTo: string } | { error: string }>;
@@ -51,9 +51,9 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
   },
 
   // -------------------- REGISTER --------------------
-  registerUser: async ({ name, phoneNumber }) => {
+  registerNewPhonenumber: async ({  phoneNumber }) => {
     try {
-      await Register({ name, phoneNumber });
+      await RegisterNewNumber({  phoneNumber });
       set({ authenticated: false });
 
       if (typeof window !== 'undefined') {
@@ -61,7 +61,7 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
         localStorage.setItem('verifyReferrer', paths.auth.register);
       }
 
-      return { redirectTo: '/auth/verify' };
+      return { redirectTo: '/auth/new-verify' };
     } catch (error: any) {
       return { error: error.message };
     }

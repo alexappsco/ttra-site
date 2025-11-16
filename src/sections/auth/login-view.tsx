@@ -21,7 +21,10 @@ import {
   Typography,
 } from '@mui/material';
 
-export default function JwtLoginView() {
+interface props{
+  isNewphonenumber?:boolean
+}
+export default function JwtLoginView({isNewphonenumber:_}:props) {
   const t = useTranslations();
   const router = useRouter();
   const { login } = useAuthStore();
