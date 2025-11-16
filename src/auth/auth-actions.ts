@@ -27,12 +27,7 @@ export async function login(credentials: LoginCretentials): Promise<UserSession>
       refreshToken: { value: refreshToken, expire: refreshTokenExpireAt },
     };
   } catch (error: any) {
-    const errorMessage =
-      error?.message ||
-      error?.response?.data?.message ||
-      error?.response?.data?.error ||
-      'Login failed. Please try again.';
-    throw new Error(errorMessage);
+    throw new Error(error?.message || 'Login failed');
   }
 }
 export async function Register(credentials: RegiterCretentials): Promise<UserSession> {
@@ -52,13 +47,8 @@ export async function Register(credentials: RegiterCretentials): Promise<UserSes
           expire: refreshTokenExpireAt,
         },
       };
-    } catch (error: any) {
-      const errorMessage =
-        error?.message ||
-        error?.response?.data?.message ||
-        error?.response?.data?.error ||
-        'Registration failed. Please try again.';
-      throw new Error(errorMessage);
+    } catch (error) {
+      throw new Error(error.message);
     }
   }
 export async function verifyOtpApi(credentials: LoginVerifyCretentials): Promise<UserSession> {
@@ -73,12 +63,7 @@ export async function verifyOtpApi(credentials: LoginVerifyCretentials): Promise
       refreshToken: { value: refreshToken, expire: refreshTokenExpireAt },
     };
   } catch (error: any) {
-    const errorMessage =
-      error?.message ||
-      error?.response?.data?.message ||
-      error?.response?.data?.error ||
-      'OTP verification failed. Please try again.';
-    throw new Error(errorMessage);
+    throw new Error(error?.message || 'OTP verification failed');
   }
 }
 export async function refreshSession(): Promise<UserSession> {
