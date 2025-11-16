@@ -24,7 +24,7 @@ import {
 interface props{
   isNewphonenumber?:boolean
 }
-export default function JwtLoginView({isNewphonenumber}:props) {
+export default function JwtLoginView({isNewphonenumber:_}:props) {
   const t = useTranslations();
   const router = useRouter();
   const { login } = useAuthStore();

@@ -30,7 +30,7 @@ interface Props{
   isnewphone?:boolean
 }
 
-export default function JwtVerifyView({isnewphone}:Props) {
+export default function JwtVerifyView({isnewphone:_}:Props) {
   const t = useTranslations();
   const router = useRouter();
   const [errorMsg, setErrorMsg] = useState('');
