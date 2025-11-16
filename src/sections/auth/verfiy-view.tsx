@@ -26,8 +26,11 @@ import RHFOTP from './rhf-otp-view';
 type VerifyFormValues = {
   otp: string;
 };
+interface Props{
+  isnewphone?:boolean
+}
 
-export default function JwtVerifyView() {
+export default function JwtVerifyView({isnewphone}:Props) {
   const t = useTranslations();
   const router = useRouter();
   const [errorMsg, setErrorMsg] = useState('');

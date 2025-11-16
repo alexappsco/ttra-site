@@ -25,7 +25,6 @@ export interface LoginVerifyCretentials {
     otp:string
 }
 export interface RegiterCretentials{
-  name: string;
   phoneNumber: string;
 }
 export interface SetLocationCretentials{
