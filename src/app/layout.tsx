@@ -134,26 +134,6 @@ export default function Layout({
   auth: React.ReactNode;
 }) {
   return (
-<<<<<<< HEAD
-    <html lang="ar" dir="rtl">
-      <head>
-        {/* Improve performance: Preconnect to fonts */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-
-        {/* Fix render-blocking CSS reported in PageSpeed */}
-        <link
-          rel="preload"
-          href="/_next/static/css/485939b0664968b0.css"
-          as="style"
-        />
-        <link
-          rel="stylesheet"
-          href="/_next/static/css/485939b0664968b0.css"
-        />
-      </head>
-
-=======
     <html>
       <head>
         {/* Preload critical Arabic fonts to reduce LCP */}
@@ -172,7 +152,6 @@ export default function Layout({
           crossOrigin="anonymous"
         />
       </head>
->>>>>>> 3103fd366f07a32bd91e983c7482ba84f8919fcb
       <body>
         {children}
         {auth}

@@ -350,19 +350,10 @@ export const ProjectShowcaseSection: React.FC = () => {
               <Image
                 src={project.imagePath}
                 alt={project.title}
-<<<<<<< HEAD
                 width={350}
                 height={200}
                 style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'cover' }}
                 priority={false} // lazy-load تلقائي
-=======
-                sx={{
-                  width: '100%',
-                  height: '100%',  // Change from 'auto'
-                  display: 'block',
-                  objectFit: 'cover',
-                }}
->>>>>>> 3103fd366f07a32bd91e983c7482ba84f8919fcb
               />
             </Box>
           ))}
