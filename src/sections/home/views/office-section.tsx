@@ -56,8 +56,11 @@ export default function OfficeSection() {
               maxWidth: 500,
               objectFit: 'contain',
               display: 'block',
-              mx: 'auto'
+              mx: 'auto',
+              aspectRatio: '1 / 1',  // Add this
             }}
+            width={500}  // Add this
+            height={500}  // Add this
           />
         </Grid2>
 

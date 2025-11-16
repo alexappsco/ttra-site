@@ -22,7 +22,7 @@ export default function JwtRegisterView() {
   const t = useTranslations();
   const router = useRouter();
   const [errorMsg, setErrorMsg] = useState('');
-  const { registerUser } = useAuthStore();
+  const { registerNewPhonenumber } = useAuthStore();
 
   const RegisterSchema = yup.object().shape({
     name: yup
@@ -52,7 +52,7 @@ export default function JwtRegisterView() {
 
   const onSubmit = handleSubmit(async (data: RegisterFormValues) => {
     try {
-      const res = await registerUser({ ...data, phoneNumber: `+966${data.phoneNumber}` });
+      const res = await registerNewPhonenumber({ ...data, phoneNumber: `+966${data.phoneNumber}` });
       if ('error' in res) {
         setErrorMsg(res.error);
       } else if ('redirectTo' in res) {

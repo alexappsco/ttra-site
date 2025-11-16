@@ -9,6 +9,8 @@ const nextConfig: NextConfig = {
     serverActions: {
       bodySizeLimit: '10mb',
     },
+    // Enable optimized font loading
+    optimizePackageImports: ['@mui/material', '@mui/icons-material', '@mui/lab'],
   },
   trailingSlash: true,
   eslint: {
@@ -24,6 +26,14 @@ const nextConfig: NextConfig = {
     '@mui/lab': {
       transform: '@mui/lab/{{member}}',
     },
+  },
+  // Enable compression for CSS and JS
+  compress: true,
+  // Optimize images
+  images: {
+    formats: ['image/avif', 'image/webp'],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
   webpack(config) {
     config.module.rules.push({

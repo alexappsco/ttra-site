@@ -134,7 +134,7 @@ export default function Footer() {
                 order: { xs: 1, md: 2 }
               }}
             >
-              <Link
+              {/* <Link
                 href="#"
                 target="_blank"
                 rel="noopener"
@@ -170,6 +170,51 @@ export default function Footer() {
                     borderRadius: 1.5,
                     boxShadow: theme.shadows[1],
                     objectFit: 'contain'
+                  }}
+                />
+              </Link> */}
+                            <Link
+                href="#"
+                target="_blank"
+                rel="noopener"
+                sx={{ display: 'inline-block' }}
+              >
+                <Box
+                  component="img"
+                  src={googleAppImgPath}
+                  alt="Google Play App Download"
+                  width={150}
+                  height={50}
+                  sx={{
+                    height: { xs: 45, md: 50 },
+                    width: 'auto',
+                    borderRadius: 1.5,
+                    boxShadow: theme.shadows[1],
+                    objectFit: 'contain',
+                    aspectRatio: '3 / 1'
+                  }}
+                />
+              </Link>
+
+              <Link
+                href="#"
+                target="_blank"
+                rel="noopener"
+                sx={{ display: 'inline-block' }}
+              >
+                <Box
+                  component="img"
+                  src={appleAppImgPath}
+                  alt="App Store App Download"
+                  width={150}
+                  height={50}
+                  sx={{
+                    height: { xs: 45, md: 50 },
+                    width: 'auto',
+                    borderRadius: 1.5,
+                    boxShadow: theme.shadows[1],
+                    objectFit: 'contain',
+                    aspectRatio: '3 / 1'
                   }}
                 />
               </Link>

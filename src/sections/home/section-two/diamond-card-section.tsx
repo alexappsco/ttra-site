@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
+// import Image from 'next/image';
 import { Box, styled, useTheme, Typography } from '@mui/material';
 
 interface DiamondCardProps {
@@ -14,6 +14,36 @@ interface DiamondCardProps {
   onToggle?: () => void;
   isSmallScreen?: boolean;
 }
+
+// const DiamondCardRoot = styled(Box)(({ theme }) => ({
+
+//   width: 260,
+//   height: 260,
+//   backgroundColor: '#0D6EFD',
+//   borderRadius: theme.shape.borderRadius * 2,
+//   display: 'flex',
+//   alignItems: 'center',
+//   justifyContent: 'center',
+//   position: 'relative',
+//   transform: 'rotate(45deg)',
+//   boxShadow: theme.shadows[5],
+//   cursor: 'pointer',
+//   flexShrink: 0,
+//   transition: 'all 0.4s ease',
+//   '&:hover': {
+//     transform: 'rotate(45deg) scale(1.08)',
+//     boxShadow: theme.shadows[8],
+//   },
+
+//   [theme.breakpoints.down('sm')]: {
+//     width: 95,
+//     height: 95,
+//     '&:hover': {
+//       transform: 'rotate(45deg)', //  منع Hover على الموبايل
+//     },
+//   },
+// }));
+
 
 const DiamondCardRoot = styled(Box)(({ theme }) => ({
   width: 260,
@@ -124,7 +154,7 @@ export const DiamondCard: React.FC<DiamondCardProps> = ({
               zIndex: 2,
             }}
           >
-            <Image
+            <img
               src={finalHoverIconPath}
               alt={`${title} icon`}
               width={90}
@@ -141,6 +171,7 @@ export const DiamondCard: React.FC<DiamondCardProps> = ({
             mt: 1,
             fontSize: { xs: 10, sm: 15 },
           }}
+
         >
           {title}
         </Typography>
