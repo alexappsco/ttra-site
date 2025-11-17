@@ -24,8 +24,22 @@ export interface LoginVerifyCretentials {
     phoneNumber: string;
     otp:string
 }
+export interface BusinessType {
+  id: string;
+  nameAr: string;
+  nameEn: string;
+  name: string;
+  imageUrl: string;
+  companySalesCount: number;
+}
+
 export interface RegiterCretentials{
-  phoneNumber: string;
+Name:string;
+PhoneNumber:string;
+Email:string;
+BusinessTypeIds:BusinessType[];
+AgreeToTerms:boolean;
+OfficialName:string;
 }
 export interface SetLocationCretentials{
   name: string;

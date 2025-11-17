@@ -202,7 +202,8 @@
       "change_password": "Change Password",
       "my_products": "My Products",
       "our_branches": "Our Branches",
-      "order_date":"Order Date"
+      "order_date":"Order Date",
+      "official_name":"OfficialName"
     },
     "Helper": {
       "drop_or_select": "Drop files here or click <browse>browse</browse> through your machine",

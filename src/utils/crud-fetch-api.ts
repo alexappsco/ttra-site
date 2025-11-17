@@ -113,7 +113,6 @@ export async function getData<TResponse>(
 ): Promise<ApiResponse<TResponse>> {
   return apiRequest<TResponse>(endpoint, 'GET', undefined, options);
 }
-
 export async function postData<TResponse, TBody>(
   endpoint: string,
   data: TBody,

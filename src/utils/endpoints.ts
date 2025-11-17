@@ -20,6 +20,9 @@ export const endpoints = {
     Login:{
       send_otp:'/auth/send-otp',
       verify_otp:'/auth/verify-otp'
-    }
+    },
   },
+  Business_Type:{
+    list:'/business-types'
+  }
 };

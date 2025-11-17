@@ -26,19 +26,21 @@ import RHFOTP from './rhf-otp-view';
 type VerifyFormValues = {
   otp: string;
 };
-interface Props{
-  isnewphone?:boolean
+interface Props {
+  isnewphone?: boolean
 }
 
-export default function JwtVerifyView({isnewphone:_}:Props) {
+export default function JwtVerifyView({ isnewphone: _ }: Props) {
   const t = useTranslations();
   const router = useRouter();
   const [errorMsg, setErrorMsg] = useState('');
   const [timer, setTimer] = useState(30);
-  const { verifyLoginOtp } = useAuthStore();
+  const { verifyLoginOtp, verifyRegisterOtp } = useAuthStore();
 
   const phoneNumber =
     typeof window !== 'undefined' ? localStorage.getItem('phoneNumber') : '';
+
+
 
   useEffect(() => {
     if (timer > 0) {
@@ -64,26 +66,35 @@ export default function JwtVerifyView({isnewphone:_}:Props) {
 
   const onSubmit = handleSubmit(async (data: VerifyFormValues) => {
     try {
-      const storedPhoneNumber = localStorage.getItem('phoneNumber');
+      const storedPhoneNumber = localStorage.getItem("phoneNumber");
+      const mode = localStorage.getItem("otpMode");
+
       if (!storedPhoneNumber) {
-        setErrorMsg('رقم الهاتف غير موجود');
+        setErrorMsg("رقم الهاتف غير موجود");
         return;
       }
 
-      const res = await verifyLoginOtp({
+      const payload = {
         phoneNumber: storedPhoneNumber,
         otp: data.otp,
-      });
-      if ('error' in res) {
+      };
+
+      const res =
+        mode === "register"
+          ? await verifyRegisterOtp(payload)
+          : await verifyLoginOtp(payload);
+
+      if ("error" in res) {
         reset();
         setErrorMsg(res.error);
-      } else if ('redirectTo' in res) {
+      } else if ("redirectTo" in res) {
         router.push(res.redirectTo);
       }
     } catch (err: any) {
       setErrorMsg(err.message);
     }
   });
+
 
   return (
     <Box

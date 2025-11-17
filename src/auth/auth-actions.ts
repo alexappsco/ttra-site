@@ -30,9 +30,24 @@ export async function login(credentials: LoginCretentials): Promise<UserSession>
     throw new Error(error?.message || 'Login failed');
   }
 }
-export async function RegisterNewNumber(credentials: RegiterCretentials): Promise<UserSession> {
+export async function new_login_action(credentials: LoginCretentials): Promise<UserSession> {
+  try {
+    const res = await axiosInstance.post(endpoints.auth.Register.send_unregistered_otp, credentials);
+    const { accessToken, refreshToken, accessTokenExpireAt, refreshTokenExpireAt, ...user } =
+      res as unknown as LoginRes;
+
+    return {
+      user,
+      accessToken: { value: accessToken, expire: accessTokenExpireAt },
+      refreshToken: { value: refreshToken, expire: refreshTokenExpireAt },
+    };
+  } catch (error: any) {
+    throw new Error(error?.message || 'Login failed');
+  }
+}
+export async function Register(credentials: RegiterCretentials): Promise<UserSession> {
     try {
-      const res = await axiosInstance.post(endpoints.auth.Register.send_unregistered_otp, credentials);
+      const res = await axiosInstance.post(endpoints.auth.register, credentials);
 
       const { accessToken, refreshToken, accessTokenExpireAt, refreshTokenExpireAt, ...user } =
         res as unknown as LoginRes;
@@ -54,6 +69,21 @@ export async function RegisterNewNumber(credentials: RegiterCretentials): Promis
 export async function verifyOtpApi(credentials: LoginVerifyCretentials): Promise<UserSession> {
   try {
     const res = await axiosInstance.post(endpoints.auth.Login.verify_otp, credentials);
+    const { accessToken, refreshToken, accessTokenExpireAt, refreshTokenExpireAt, ...user } =
+      res as unknown as LoginRes;
+
+    return {
+      user,
+      accessToken: { value: accessToken, expire: accessTokenExpireAt },
+      refreshToken: { value: refreshToken, expire: refreshTokenExpireAt },
+    };
+  } catch (error: any) {
+    throw new Error(error?.message || 'OTP verification failed');
+  }
+}
+export async function verifyRegiterOtp(credentials: LoginVerifyCretentials): Promise<UserSession> {
+  try {
+    const res = await axiosInstance.post(endpoints.auth.Register.verify_new_number_otp, credentials);
     const { accessToken, refreshToken, accessTokenExpireAt, refreshTokenExpireAt, ...user } =
       res as unknown as LoginRes;
 

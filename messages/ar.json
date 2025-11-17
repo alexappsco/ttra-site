@@ -200,7 +200,9 @@
       "change_password": "تغيير كلمة المرور",
       "my_products": " منتجاتي",
       "our_branches": "فروعنا",
-      "order_date":"تاريخ الطلب"
+      "order_date":"تاريخ الطلب",
+      "official_name":"اسم العرض"
+
     },
     "Helper": {
       "drop_or_select": "قم بإسقاط الملفات هنا أو انقر <browse>تصفح</browse> من جهازك",
