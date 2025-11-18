@@ -6,6 +6,7 @@ import { endpoints } from 'src/utils/endpoints';
 
 import { ACCESS_TOKEN, REFRESH_TOKEN } from './config';
 import { User, UserSession, LoginCretentials, RegiterCretentials, LoginVerifyCretentials } from './types';
+import { getData, postData } from 'src/utils/crud-fetch-api';
 
 export interface LoginRes extends User {
   accessToken: string;
@@ -45,27 +46,43 @@ export async function new_login_action(credentials: LoginCretentials): Promise<U
     throw new Error(error?.message || 'Login failed');
   }
 }
+// In your auth-actions.ts
 export async function Register(credentials: RegiterCretentials): Promise<UserSession> {
-    try {
-      const res = await axiosInstance.post(endpoints.auth.register, credentials);
+  try {
+    const formData = new FormData();
 
-      const { accessToken, refreshToken, accessTokenExpireAt, refreshTokenExpireAt, ...user } =
-        res as unknown as LoginRes;
-      return {
-        user,
-        accessToken: {
-          value: accessToken,
-          expire: accessTokenExpireAt,
-        },
-        refreshToken: {
-          value: refreshToken,
-          expire: refreshTokenExpireAt,
-        },
-      };
-    } catch (error) {
-      throw new Error(error.message);
-    }
+    // Append all fields to FormData
+    formData.append('Name', credentials.Name);
+    formData.append('PhoneNumber', credentials.PhoneNumber);
+    formData.append('Email', credentials.Email);
+    formData.append('OfficialName', credentials.OfficialName);
+    formData.append('AgreeToTerms', credentials.AgreeToTerms.toString());
+
+    // Append BusinessTypeIds as array
+    credentials.BusinessTypeIds.forEach((id: any) => {
+      formData.append('BusinessTypeIds', id);
+    });
+
+    const res = await postData(endpoints.auth.Register.register, formData);
+
+    const { accessToken, refreshToken, accessTokenExpireAt, refreshTokenExpireAt, ...user } =
+      res as unknown as LoginRes;
+
+    return {
+      user,
+      accessToken: {
+        value: accessToken,
+        expire: accessTokenExpireAt,
+      },
+      refreshToken: {
+        value: refreshToken,
+        expire: refreshTokenExpireAt,
+      },
+    };
+  } catch (error: any) {
+    throw new Error(error?.message || 'Registration failed');
   }
+}
 export async function verifyOtpApi(credentials: LoginVerifyCretentials): Promise<UserSession> {
   try {
     const res = await axiosInstance.post(endpoints.auth.Login.verify_otp, credentials);

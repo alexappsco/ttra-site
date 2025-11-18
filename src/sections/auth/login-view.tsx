@@ -56,7 +56,7 @@ export default function JwtLoginView({ isNewphonenumber }: Props) {
 
   const onSubmit = handleSubmit(async (data: LoginCretentials) => {
     try {
-      const payload = { phoneNumber: `+966${data.phoneNumber}` };
+      const payload = { phoneNumber: `966${data.phoneNumber}` };
 
       const res = isNewphonenumber
         ? await new_login(payload)
@@ -129,7 +129,7 @@ export default function JwtLoginView({ isNewphonenumber }: Props) {
                 }}
               >
                 <Image
-                  src="/assets/auth/new_register_step1.png"
+                  src="/assets/images/auth/new_register_step1.png"
                   alt="steps"
                   width={400}
                   height={90}

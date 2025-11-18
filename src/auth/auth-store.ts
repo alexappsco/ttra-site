@@ -131,8 +131,8 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
       });
 
       // Clean up localStorage after successful verification
-      localStorage.removeItem('phoneNumber');
-      localStorage.removeItem('verifyReferrer');
+      // localStorage.removeItem('phoneNumber');
+      // localStorage.removeItem('verifyReferrer');
 
       // const redirectTo = user?.isHasLocation ? '/' : '/auth/set-address';
       return { redirectTo: '/auth/register' };
@@ -143,55 +143,42 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
     }
   },
 
-  // -------------------- REGISTER ==>step=>3--------------------
-  // registerUser: async ({ Name,Email,BusinessTypeIds,AgreeToTerms,OfficialName}:RegiterCretentials) => {
-  //   try {
-  //     const phone= localStorage.getItem('phoneNumber');
-  //     await Register({ Name,PhoneNumber:phone,Email,BusinessTypeIds,AgreeToTerms,OfficialName });
-  //     set({ authenticated: false });
-  //     localStorage.setItem('verifyReferrer', paths.auth.register);
 
-  //     return { redirectTo: '/auth/login' };
-  //   } catch (error: any) {
-  //     return { error: error.message };
-  //   }
-  // },
+  // In your auth-store.ts - fix the registerUser function
+  registerUser: async ({
+    Name,
+    Email,
+    BusinessTypeIds,
+    AgreeToTerms,
+    OfficialName,
+  }: any) => {
+    try {
+      const phone = localStorage.getItem("phoneNumber");
 
-registerUser: async ({
-  Name,
-  Email,
-  BusinessTypeIds,
-  AgreeToTerms,
-  OfficialName,
-}: any) => {
-  try {
-    const phone = localStorage.getItem("phoneNumber");
+      if (!phone) {
+        return { error: "Phone number not found in localStorage" };
+      }
 
-    if (!phone) {
-      return { error: "Phone number not found in localStorage" };
+      // Send request to backend with proper data structure
+      await Register({
+        Name,
+        PhoneNumber: phone,
+        Email,
+        BusinessTypeIds: Array.isArray(BusinessTypeIds) ? BusinessTypeIds : [BusinessTypeIds],
+        AgreeToTerms: Boolean(AgreeToTerms),
+        OfficialName,
+      });
+      // Clear the phone number from localStorage after successful registration
+      localStorage.removeItem('phoneNumber');
+
+      // Update auth state if needed
+      set({ authenticated: false });
+
+      return { redirectTo: "/auth/login" };
+    } catch (error: any) {
+      return { error: error?.message || "Registration failed" };
     }
-
-    // Send request to backend
-    await Register({
-      Name,
-      PhoneNumber: phone, // backend expects PascalCase
-      Email,
-      BusinessTypeIds,
-      AgreeToTerms,
-      OfficialName,
-    });
-
-    // Update auth state
-    set({ authenticated: false });
-
-    // Save referrer to know user is coming from register
-    localStorage.setItem("verifyReferrer", paths.auth.register);
-
-    return { redirectTo: "/auth/login" };
-  } catch (error: any) {
-    return { error: error?.message || "Something went wrong" };
-  }
-},
+  },
 
 
   // -------------------- INIT --------------------
