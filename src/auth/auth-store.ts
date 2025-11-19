@@ -4,7 +4,14 @@ import { paths } from 'src/routes/paths';
 
 import { LoginCretentials, RegiterCretentials, LoginVerifyCretentials } from './types';
 import { saveSession, removeSession, restoreSession, updateUserSession } from './auth-utils';
-import { login, verifyOtpApi, refreshSession, new_login_action, verifyRegiterOtp, Register } from './auth-actions';
+import {
+  login,
+  verifyOtpApi,
+  refreshSession,
+  new_login_action,
+  verifyRegiterOtp,
+  Register,
+} from './auth-actions';
 
 type AuthStore = {
   loading: boolean;
@@ -19,8 +26,12 @@ type AuthStore = {
   registerUser: (
     credentials: RegiterCretentials
   ) => Promise<{ redirectTo: string } | { error: string }>;
-  verifyLoginOtp: (credentials: LoginVerifyCretentials) => Promise<{ redirectTo: string } | { error: string }>;
-  verifyRegisterOtp: (credentials: LoginVerifyCretentials) => Promise<{ redirectTo: string } | { error: string }>;
+  verifyLoginOtp: (
+    credentials: LoginVerifyCretentials
+  ) => Promise<{ redirectTo: string } | { error: string }>;
+  verifyRegisterOtp: (
+    credentials: LoginVerifyCretentials
+  ) => Promise<{ redirectTo: string } | { error: string }>;
   init: () => Promise<void | { accessTokenExp: number }>;
   logout: () => Promise<void>;
   updateProfile: (updates: Partial<Profile>) => void;
@@ -37,6 +48,7 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
 
   // -------------------- LOGIN --------------------
   login: async ({ phoneNumber }) => {
+    console.log(phoneNumber);
     try {
       await login({ phoneNumber });
       set({ authenticated: false });
@@ -117,7 +129,7 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
 
       const referrer = localStorage.getItem('verifyReferrer') || '';
 
-     await verifyRegiterOtp({
+      await verifyRegiterOtp({
         phoneNumber: storedPhoneNumber,
         otp,
       });
@@ -142,7 +154,6 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
       return { error: error.message };
     }
   },
-
 
   // In your auth-store.ts - fix the registerUser function
   // registerUser: async ({
@@ -179,62 +190,55 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
   //     return { error: error?.message || "Registration failed" };
   //   }
   // },
-//   registerUser: async ({ Name, Email, BusinessTypeIds, AgreeToTerms, OfficialName }) => {
-//   try {
-//     const phone = localStorage.getItem("phoneNumber");
+  //   registerUser: async ({ Name, Email, BusinessTypeIds, AgreeToTerms, OfficialName }) => {
+  //   try {
+  //     const phone = localStorage.getItem("phoneNumber");
 
-//     if (!phone) return { error: "Phone number not found in localStorage" };
+  //     if (!phone) return { error: "Phone number not found in localStorage" };
 
-//     const response = await Register({
-//       Name,
-//       PhoneNumber: phone,
-//       Email,
-//       BusinessTypeIds: BusinessTypeIds,
-//       AgreeToTerms: Boolean(AgreeToTerms),
-//       OfficialName,
-//     });
+  //     const response = await Register({
+  //       Name,
+  //       PhoneNumber: phone,
+  //       Email,
+  //       BusinessTypeIds: BusinessTypeIds,
+  //       AgreeToTerms: Boolean(AgreeToTerms),
+  //       OfficialName,
+  //     });
 
-//     console.log("Register success:", response);
+  //     console.log("Register success:", response);
 
-//     localStorage.removeItem('phoneNumber');
-//     set({ authenticated: false });
+  //     localStorage.removeItem('phoneNumber');
+  //     set({ authenticated: false });
 
-//     return { redirectTo: "/auth/login" };
-//   } catch (error: any) {
+  //     return { redirectTo: "/auth/login" };
+  //   } catch (error: any) {
 
-//     return { error: error?.message || "Registration failed" };
-//   }
-// },
-registerUser: async ({ Name, Email, BusinessTypeIds, AgreeToTerms, OfficialName }) => {
-  try {
-    const phone = localStorage.getItem("phoneNumber");
+  //     return { error: error?.message || "Registration failed" };
+  //   }
+  // },
+  registerUser: async ({ Name, Email, BusinessTypeIds, AgreeToTerms, OfficialName }) => {
+    try {
+      const phone = localStorage.getItem('phoneNumber');
 
-    if (!phone) {
-      return { error: "Phone number not found in localStorage" };
+      if (!phone) {
+        return { error: 'Phone number not found in localStorage' };
+      }
+      const response = await Register({
+        Name,
+        PhoneNumber: phone,
+        Email,
+        BusinessTypeIds: Array.isArray(BusinessTypeIds) ? BusinessTypeIds : [BusinessTypeIds], // Always send as array
+        AgreeToTerms: Boolean(AgreeToTerms),
+        OfficialName,
+      });
+      localStorage.removeItem('phoneNumber');
+      // set({ authenticated: false });
+
+      return { redirectTo: '/auth/login' };
+    } catch (error: any) {
+      return { error: error?.message || 'Registration failed' };
     }
-
-    const response = await Register({
-      Name,
-      PhoneNumber: phone,
-      Email,
-      BusinessTypeIds: Array.isArray(BusinessTypeIds) ? BusinessTypeIds[0] : BusinessTypeIds, // 👈 FIX
-      AgreeToTerms: Boolean(AgreeToTerms),
-      OfficialName,
-    });
-
-    console.log("Register success:", response);
-
-    localStorage.removeItem('phoneNumber');
-    // set({ authenticated: false });
-
-    return { redirectTo: "/auth/login" };
-  } catch (error: any) {
-    return { error: error?.message || "Registration failed" };
-  }
-},
-
-
-
+  },
 
   // -------------------- INIT --------------------
   init: async () => {
@@ -276,7 +280,8 @@ registerUser: async ({ Name, Email, BusinessTypeIds, AgreeToTerms, OfficialName 
           });
 
           return {
-            accessTokenExp: new Date(accessToken.expire).getTime() - new Date().getTime() - 60 * 1000,
+            accessTokenExp:
+              new Date(accessToken.expire).getTime() - new Date().getTime() - 60 * 1000,
           };
         } catch (error) {
           console.log(error);

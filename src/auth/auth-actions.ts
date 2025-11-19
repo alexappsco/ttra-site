@@ -6,7 +6,13 @@ import { endpoints } from 'src/utils/endpoints';
 import { postData } from 'src/utils/crud-fetch-api';
 
 import { ACCESS_TOKEN, REFRESH_TOKEN } from './config';
-import { User, UserSession, LoginCretentials, RegiterCretentials, LoginVerifyCretentials } from './types';
+import {
+  User,
+  UserSession,
+  LoginCretentials,
+  RegiterCretentials,
+  LoginVerifyCretentials,
+} from './types';
 
 export interface LoginRes extends User {
   accessToken: string;
@@ -33,10 +39,12 @@ export async function login(credentials: LoginCretentials): Promise<UserSession>
 }
 export async function new_login_action(credentials: LoginCretentials) {
   try {
-    const res = await axiosInstance.post(endpoints.auth.Register.send_unregistered_otp, credentials);
+    const res = await axiosInstance.post(
+      endpoints.auth.Register.send_unregistered_otp,
+      credentials
+    );
     // const { accessToken, refreshToken, accessTokenExpireAt, refreshTokenExpireAt, ...user } =
     //   res as unknown as LoginRes;
-    console.log("res in success new_login_action",res)
 
     // return {
     //   user,
@@ -44,7 +52,6 @@ export async function new_login_action(credentials: LoginCretentials) {
     //   refreshToken: { value: refreshToken, expire: refreshTokenExpireAt },
     // };
   } catch (error: any) {
-    console.log("res in error ",error)
     throw new Error(error?.message || 'Login failed');
   }
 }
@@ -214,37 +221,25 @@ export async function Register(credentials: RegiterCretentials) {
     formData.append('PhoneNumber', credentials.PhoneNumber);
     formData.append('Email', credentials.Email);
     formData.append('OfficialName', credentials.OfficialName);
+    formData.append('AgreeToTerms', credentials.AgreeToTerms ? 'true' : 'false');
+    const businessTypeIdsArray = Array.isArray(credentials.BusinessTypeIds)
+      ? credentials.BusinessTypeIds
+      : [credentials.BusinessTypeIds];
 
-    // ✔ Send as capitalized boolean
-    formData.append('AgreeToTerms', credentials.AgreeToTerms ? 'True' : 'False');
+    // Append each ID separately with the same key name - server will parse as array
+    businessTypeIdsArray.forEach((id) => {
+      formData.append('BusinessTypeIds', id);
+    });
 
-    // ✔ Send correctly based on API requirement
-    if (Array.isArray(credentials.BusinessTypeIds)) {
-      credentials.BusinessTypeIds.forEach((id) => formData.append('BusinessTypeIds', id));
-    } else {
-      formData.append('BusinessTypeIds', credentials.BusinessTypeIds);
-    }
-
-    // 🧪 Console log for testing
-    for (const p of formData.entries()) {
-      console.log(p[0] + ': ' + p[1]);
-    }
-
- const response = await postData(
-  endpoints.auth.Register.register,
-  formData,
-
-);
-
+    const response = await axiosInstance.post(endpoints.auth.Register.register, formData);
 
     return response;
   } catch (error: any) {
-    console.error('Registration error:', error);
-    // throw new Error(error?.response?.data || error?.message);
+    console.log(error);
+
+    throw new Error(error?.response?.data || error?.message);
   }
 }
-
-
 
 export async function verifyOtpApi(credentials: LoginVerifyCretentials): Promise<UserSession> {
   try {
@@ -263,11 +258,14 @@ export async function verifyOtpApi(credentials: LoginVerifyCretentials): Promise
 }
 export async function verifyRegiterOtp(credentials: LoginVerifyCretentials) {
   try {
-    const res = await axiosInstance.post(endpoints.auth.Register.verify_new_number_otp, credentials);
+    const res = await axiosInstance.post(
+      endpoints.auth.Register.verify_new_number_otp,
+      credentials
+    );
     // const { accessToken, refreshToken, accessTokenExpireAt, refreshTokenExpireAt, ...user } =
-      // res as unknown as LoginRes;
+    // res as unknown as LoginRes;
 
-    return {res}
+    return { res };
     //   user,
     //   accessToken: { value: accessToken, expire: accessTokenExpireAt },
     //   refreshToken: { value: refreshToken, expire: refreshTokenExpireAt },

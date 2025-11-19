@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as yup from 'yup';
@@ -13,14 +12,7 @@ import { useAuthStore } from 'src/auth/auth-store';
 import FormProvider from 'src/components/hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import RHFPhone from 'src/components/hook-form/rhf-phone';
-import {
-  Box,
-  Link,
-  Stack,
-  Button,
-  Container,
-  Typography,
-} from '@mui/material';
+import { Box, Link, Stack, Button, Container, Typography } from '@mui/material';
 
 interface Props {
   isNewphonenumber?: boolean;
@@ -58,23 +50,15 @@ export default function JwtLoginView({ isNewphonenumber }: Props) {
     try {
       const payload = { phoneNumber: `966${data.phoneNumber}` };
 
-      const res = isNewphonenumber
-        ? await new_login(payload)
-        : await login(payload);
+      const res = isNewphonenumber ? await new_login(payload) : await login(payload);
 
-      if ("error" in res) {
-        console.log("res in error",res)
+      if ('error' in res) {
         reset();
         setErrorMsg(res.error);
-      } else if ("redirectTo" in res) {
-                console.log("res in success",res)
-
+      } else if ('redirectTo' in res) {
         // Save phone & mode
-        localStorage.setItem("phoneNumber", payload.phoneNumber);
-        localStorage.setItem(
-          "otpMode",
-          isNewphonenumber ? "register" : "login"
-        );
+        localStorage.setItem('phoneNumber', payload.phoneNumber);
+        localStorage.setItem('otpMode', isNewphonenumber ? 'register' : 'login');
 
         router.push(res.redirectTo);
       }
@@ -142,7 +126,6 @@ export default function JwtLoginView({ isNewphonenumber }: Props) {
                 />
               </Box>
 
-
               {/* Subtitle */}
               <Typography
                 sx={{
@@ -161,12 +144,7 @@ export default function JwtLoginView({ isNewphonenumber }: Props) {
           {/* Title */}
           {!isNewphonenumber && (
             <>
-              <Typography
-                variant="h5"
-                fontWeight="bold"
-                color="#4B4B4B"
-                sx={{ mb: 1 }}
-              >
+              <Typography variant="h5" fontWeight="bold" color="#4B4B4B" sx={{ mb: 1 }}>
                 {t('Pages.Auth.login_title')}
               </Typography>
 
@@ -231,12 +209,7 @@ export default function JwtLoginView({ isNewphonenumber }: Props) {
           {!isNewphonenumber && (
             <Typography variant="body2" sx={{ mt: 3 }}>
               {t('Pages.Auth.not_have_account')}{' '}
-              <Link
-                href={paths.auth.register}
-                underline="hover"
-                fontWeight="bold"
-                color="#1A1A1A"
-              >
+              <Link href={paths.auth.register} underline="hover" fontWeight="bold" color="#1A1A1A">
                 {t('Pages.Auth.create_new_account')}
               </Link>
             </Typography>
@@ -269,12 +242,7 @@ export default function JwtLoginView({ isNewphonenumber }: Props) {
           },
         }}
       >
-        <Image
-          src="/assets/auth/bgolor-auth.png"
-          alt="auth background"
-          fill
-          priority
-        />
+        <Image src="/assets/auth/bgolor-auth.png" alt="auth background" fill priority />
       </Box>
     </Box>
   );
