@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as yup from 'yup';
@@ -21,13 +22,14 @@ import {
   Typography,
 } from '@mui/material';
 
-interface props{
-  isNewphonenumber?:boolean
+interface Props {
+  isNewphonenumber?: boolean;
 }
-export default function JwtLoginView({isNewphonenumber:_}:props) {
+
+export default function JwtLoginView({ isNewphonenumber }: Props) {
   const t = useTranslations();
   const router = useRouter();
-  const { login } = useAuthStore();
+  const { login, new_login } = useAuthStore();
 
   const [errorMsg, setErrorMsg] = useState('');
 
@@ -54,14 +56,25 @@ export default function JwtLoginView({isNewphonenumber:_}:props) {
 
   const onSubmit = handleSubmit(async (data: LoginCretentials) => {
     try {
-      const res = await login({
-        phoneNumber: `966${data.phoneNumber}`,
-      });
+      const payload = { phoneNumber: `966${data.phoneNumber}` };
 
-      if ('error' in res) {
+      const res = isNewphonenumber
+        ? await new_login(payload)
+        : await login(payload);
+
+      if ("error" in res) {
+        console.log("res in error",res)
         reset();
         setErrorMsg(res.error);
-      } else if ('redirectTo' in res) {
+      } else if ("redirectTo" in res) {
+                console.log("res in success",res)
+
+        // Save phone & mode
+        localStorage.setItem("phoneNumber", payload.phoneNumber);
+        localStorage.setItem(
+          "otpMode",
+          isNewphonenumber ? "register" : "login"
+        );
 
         router.push(res.redirectTo);
       }
@@ -78,11 +91,9 @@ export default function JwtLoginView({isNewphonenumber:_}:props) {
         height: '100vh',
         display: 'flex',
         flexDirection: 'row',
-
       }}
     >
-
-      {/* === RIGHT SIDE FORM (75%) === */}
+      {/* ==== RIGHT SIDE (FORM) ==== */}
       <Box
         sx={{
           width: { xs: '60%', sm: '65%', md: '65%' },
@@ -93,6 +104,7 @@ export default function JwtLoginView({isNewphonenumber:_}:props) {
         }}
       >
         <Container maxWidth="sm" sx={{ textAlign: 'center' }}>
+          {/* Logo */}
           <Box sx={{ textAlign: 'center', mb: 4 }}>
             <Image
               src="/logo/logo_istihwaz.svg"
@@ -103,39 +115,84 @@ export default function JwtLoginView({isNewphonenumber:_}:props) {
             />
           </Box>
 
-          <Typography
-            variant="h5"
-            fontWeight="bold"
-            color="#4B4B4B"
-            sx={{ mb: 1 }}
-          >
-            {t('Pages.Auth.login_title')}
-          </Typography>
-          <Typography sx={{
-            width: 338,
-            height: 29,
-            fontFamily: `'Frutiger LT Arabic', sans-serif`,
-            fontStyle: 'normal',
-            fontWeight: 300,
-            fontSize: 16,
-            lineHeight: '180%',
-            display: 'flex',
-            alignItems: 'center',
-            color: '#797979',
-            textAlign: 'center',
-            mx: 'auto', // center it horizontally
-            '@media (max-width:600px)': {
-              width: '100%', // make it flexible on mobile
-              fontSize: 14, // slightly smaller for smaller screens
-            },
-          }}>
-            من فضلك قم بتسجيل الدخول برقم الهاتف المسجل
-          </Typography>
+          {/* ==== If New Phone Number → Show Steps UI ==== */}
+          {isNewphonenumber && (
+            <>
+              <Typography variant="h5" fontWeight="bold" sx={{ mb: 3 }}>
+                تسجيل جديد
+              </Typography>
 
+              {/* Steps */}
+              <Box
+                sx={{
+                  mb: 4,
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <Image
+                  src="/assets/images/auth/new_register_step1.png"
+                  alt="steps"
+                  width={400}
+                  height={90}
+                  style={{
+                    objectFit: 'contain',
+                  }}
+                />
+              </Box>
+
+
+              {/* Subtitle */}
+              <Typography
+                sx={{
+                  width: '100%',
+                  fontSize: 15,
+                  color: '#797979',
+                  textAlign: 'center',
+                  mb: 3,
+                }}
+              >
+                يجب أن يتم التحقق من الهاتف قبل إكمال باقي التسجيل
+              </Typography>
+            </>
+          )}
+
+          {/* Title */}
+          {!isNewphonenumber && (
+            <>
+              <Typography
+                variant="h5"
+                fontWeight="bold"
+                color="#4B4B4B"
+                sx={{ mb: 1 }}
+              >
+                {t('Pages.Auth.login_title')}
+              </Typography>
+
+              <Typography
+                sx={{
+                  width: 338,
+                  fontWeight: 300,
+                  fontSize: 16,
+                  lineHeight: '180%',
+                  color: '#797979',
+                  mx: 'auto',
+                  mb: 2,
+                  '@media (max-width:600px)': { width: '100%', fontSize: 14 },
+                }}
+              >
+                من فضلك قم بتسجيل الدخول برقم الهاتف المسجل
+              </Typography>
+            </>
+          )}
+
+          {/* Phone label */}
           <Typography variant="body2" color="text.secondary" sx={{ mb: 3, textAlign: 'left' }}>
             {t('Pages.Auth.enter_phone_number')}
           </Typography>
 
+          {/* FORM */}
           <FormProvider methods={methods} onSubmit={onSubmit}>
             <Stack spacing={2.5}>
               <RHFPhone
@@ -165,22 +222,25 @@ export default function JwtLoginView({isNewphonenumber:_}:props) {
                 }}
                 disabled={isSubmitting}
               >
-                {t('Pages.Auth.login_title')}
+                التالي
               </Button>
             </Stack>
           </FormProvider>
 
-          <Typography variant="body2" sx={{ mt: 3 }}>
-            {t('Pages.Auth.not_have_account')}{' '}
-            <Link
-              href={paths.auth.register}
-              underline="hover"
-              fontWeight="bold"
-              color="#1A1A1A"
-            >
-              {t('Pages.Auth.create_new_account')}
-            </Link>
-          </Typography>
+          {/* Links */}
+          {!isNewphonenumber && (
+            <Typography variant="body2" sx={{ mt: 3 }}>
+              {t('Pages.Auth.not_have_account')}{' '}
+              <Link
+                href={paths.auth.register}
+                underline="hover"
+                fontWeight="bold"
+                color="#1A1A1A"
+              >
+                {t('Pages.Auth.create_new_account')}
+              </Link>
+            </Typography>
+          )}
 
           {errorMsg && (
             <Typography color="error" sx={{ mt: 2 }}>
@@ -189,17 +249,23 @@ export default function JwtLoginView({isNewphonenumber:_}:props) {
           )}
         </Container>
       </Box>
+
+      {/* ==== LEFT IMAGE (Always same UI on mobile & desktop) ==== */}
       <Box
         sx={{
           position: 'relative',
           width: { xs: '40%', sm: '35%', md: '35%' },
           minWidth: 150,
           height: '100%',
+          overflow: 'hidden',
           '& img': {
-            objectFit: { xs: 'contain', md: 'none' }, // responsive
+            objectFit: 'cover',
             objectPosition: 'center',
             position: 'absolute',
-            zIndex: 10
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            zIndex: 10,
           },
         }}
       >
@@ -210,7 +276,6 @@ export default function JwtLoginView({isNewphonenumber:_}:props) {
           priority
         />
       </Box>
-
     </Box>
   );
 }

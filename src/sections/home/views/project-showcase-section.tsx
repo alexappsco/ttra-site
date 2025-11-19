@@ -214,9 +214,9 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
 import SearchIcon from '@mui/icons-material/Search';
 import { Box, Stack, Button, useTheme, Container, TextField, Typography } from '@mui/material';
 
