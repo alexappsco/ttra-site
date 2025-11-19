@@ -117,18 +117,18 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
 
       const referrer = localStorage.getItem('verifyReferrer') || '';
 
-      const { accessToken, refreshToken, user } = await verifyRegiterOtp({
+     await verifyRegiterOtp({
         phoneNumber: storedPhoneNumber,
         otp,
       });
 
-      await saveSession({ accessToken, refreshToken, user });
-      set({
-        authenticated: true,
-        user,
-        accessToken: accessToken.value,
-        refreshToken: refreshToken.value,
-      });
+      // await saveSession({ accessToken, refreshToken, user });
+      // set({
+      //   authenticated: true,
+      //   user,
+      //   accessToken: accessToken.value,
+      //   refreshToken: refreshToken.value,
+      // });
 
       // Clean up localStorage after successful verification
       // localStorage.removeItem('phoneNumber');
@@ -145,40 +145,95 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
 
 
   // In your auth-store.ts - fix the registerUser function
-  registerUser: async ({
-    Name,
-    Email,
-    BusinessTypeIds,
-    AgreeToTerms,
-    OfficialName,
-  }: any) => {
-    try {
-      const phone = localStorage.getItem("phoneNumber");
+  // registerUser: async ({
+  //   Name,
+  //   Email,
+  //   BusinessTypeIds,
+  //   AgreeToTerms,
+  //   OfficialName,
+  // }: any) => {
+  //   try {
+  //     const phone = localStorage.getItem("phoneNumber");
 
-      if (!phone) {
-        return { error: "Phone number not found in localStorage" };
-      }
+  //     if (!phone) {
+  //       return { error: "Phone number not found in localStorage" };
+  //     }
 
-      // Send request to backend with proper data structure
-      await Register({
-        Name,
-        PhoneNumber: phone,
-        Email,
-        BusinessTypeIds: Array.isArray(BusinessTypeIds) ? BusinessTypeIds : [BusinessTypeIds],
-        AgreeToTerms: Boolean(AgreeToTerms),
-        OfficialName,
-      });
-      // Clear the phone number from localStorage after successful registration
-      localStorage.removeItem('phoneNumber');
+  //     // Send request to backend with proper data structure
+  //     await Register({
+  //       Name,
+  //       PhoneNumber: phone,
+  //       Email,
+  //       BusinessTypeIds: Array.isArray(BusinessTypeIds) ? BusinessTypeIds : [BusinessTypeIds],
+  //       AgreeToTerms: Boolean(AgreeToTerms),
+  //       OfficialName,
+  //     });
+  //     // Clear the phone number from localStorage after successful registration
+  //     localStorage.removeItem('phoneNumber');
 
-      // Update auth state if needed
-      set({ authenticated: false });
+  //     // Update auth state if needed
+  //     set({ authenticated: false });
 
-      return { redirectTo: "/auth/login" };
-    } catch (error: any) {
-      return { error: error?.message || "Registration failed" };
+  //     return { redirectTo: "/auth/login" };
+  //   } catch (error: any) {
+  //     return { error: error?.message || "Registration failed" };
+  //   }
+  // },
+//   registerUser: async ({ Name, Email, BusinessTypeIds, AgreeToTerms, OfficialName }) => {
+//   try {
+//     const phone = localStorage.getItem("phoneNumber");
+
+//     if (!phone) return { error: "Phone number not found in localStorage" };
+
+//     const response = await Register({
+//       Name,
+//       PhoneNumber: phone,
+//       Email,
+//       BusinessTypeIds: BusinessTypeIds,
+//       AgreeToTerms: Boolean(AgreeToTerms),
+//       OfficialName,
+//     });
+
+//     console.log("Register success:", response);
+
+//     localStorage.removeItem('phoneNumber');
+//     set({ authenticated: false });
+
+//     return { redirectTo: "/auth/login" };
+//   } catch (error: any) {
+
+//     return { error: error?.message || "Registration failed" };
+//   }
+// },
+registerUser: async ({ Name, Email, BusinessTypeIds, AgreeToTerms, OfficialName }) => {
+  try {
+    const phone = localStorage.getItem("phoneNumber");
+
+    if (!phone) {
+      return { error: "Phone number not found in localStorage" };
     }
-  },
+
+    const response = await Register({
+      Name,
+      PhoneNumber: phone,
+      Email,
+      BusinessTypeIds: Array.isArray(BusinessTypeIds) ? BusinessTypeIds[0] : BusinessTypeIds, // 👈 FIX
+      AgreeToTerms: Boolean(AgreeToTerms),
+      OfficialName,
+    });
+
+    console.log("Register success:", response);
+
+    localStorage.removeItem('phoneNumber');
+    // set({ authenticated: false });
+
+    return { redirectTo: "/auth/login" };
+  } catch (error: any) {
+    return { error: error?.message || "Registration failed" };
+  }
+},
+
+
 
 
   // -------------------- INIT --------------------

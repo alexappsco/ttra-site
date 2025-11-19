@@ -33,14 +33,23 @@ export interface BusinessType {
   companySalesCount: number;
 }
 
-export interface RegiterCretentials{
-Name:string;
-PhoneNumber:string;
-Email:string;
-BusinessTypeIds:BusinessType[];
-AgreeToTerms:boolean;
-OfficialName:string;
+// export interface RegiterCretentials{
+// Name:string;
+// PhoneNumber:string;
+// Email:string;
+// BusinessTypeIds:BusinessType[];
+// AgreeToTerms:boolean;
+// OfficialName:string;
+// }
+export interface RegiterCretentials {
+  Name: string;
+  PhoneNumber: string;
+  Email: string;
+  BusinessTypeIds: string | string[];   // FIXED
+  AgreeToTerms: boolean;
+  OfficialName: string;                 // FIXED
 }
+
 export interface SetLocationCretentials{
   name: string;
   latitude: number;

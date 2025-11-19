@@ -63,9 +63,12 @@ export default function JwtLoginView({ isNewphonenumber }: Props) {
         : await login(payload);
 
       if ("error" in res) {
+        console.log("res in error",res)
         reset();
         setErrorMsg(res.error);
       } else if ("redirectTo" in res) {
+                console.log("res in success",res)
+
         // Save phone & mode
         localStorage.setItem("phoneNumber", payload.phoneNumber);
         localStorage.setItem(

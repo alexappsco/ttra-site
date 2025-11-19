@@ -13,9 +13,6 @@ export default async function LoginPage() {
     // Parse if the response is a string
     const data =
       typeof response.data === 'string' ? JSON.parse(response.data) : response.data;
-
-    console.log('Business list:', data);
-
     // Assign the items to bussiness
     bussiness = data.items || [];
   } catch (err) {

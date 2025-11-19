@@ -3,10 +3,10 @@
 import { cookies } from 'next/headers';
 import axiosInstance from 'src/utils/axios';
 import { endpoints } from 'src/utils/endpoints';
+import { postData } from 'src/utils/crud-fetch-api';
 
 import { ACCESS_TOKEN, REFRESH_TOKEN } from './config';
 import { User, UserSession, LoginCretentials, RegiterCretentials, LoginVerifyCretentials } from './types';
-import { getData, postData } from 'src/utils/crud-fetch-api';
 
 export interface LoginRes extends User {
   accessToken: string;
@@ -31,58 +31,221 @@ export async function login(credentials: LoginCretentials): Promise<UserSession>
     throw new Error(error?.message || 'Login failed');
   }
 }
-export async function new_login_action(credentials: LoginCretentials): Promise<UserSession> {
+export async function new_login_action(credentials: LoginCretentials) {
   try {
     const res = await axiosInstance.post(endpoints.auth.Register.send_unregistered_otp, credentials);
-    const { accessToken, refreshToken, accessTokenExpireAt, refreshTokenExpireAt, ...user } =
-      res as unknown as LoginRes;
+    // const { accessToken, refreshToken, accessTokenExpireAt, refreshTokenExpireAt, ...user } =
+    //   res as unknown as LoginRes;
+    console.log("res in success new_login_action",res)
 
-    return {
-      user,
-      accessToken: { value: accessToken, expire: accessTokenExpireAt },
-      refreshToken: { value: refreshToken, expire: refreshTokenExpireAt },
-    };
+    // return {
+    //   user,
+    //   accessToken: { value: accessToken, expire: accessTokenExpireAt },
+    //   refreshToken: { value: refreshToken, expire: refreshTokenExpireAt },
+    // };
   } catch (error: any) {
+    console.log("res in error ",error)
     throw new Error(error?.message || 'Login failed');
   }
 }
 // In your auth-actions.ts
-export async function Register(credentials: RegiterCretentials): Promise<UserSession> {
+// export async function Register(credentials: RegiterCretentials): Promise<UserSession> {
+//   try {
+//     const formData = new FormData();
+
+//     // Append all fields to FormData
+//     formData.append('Name', credentials.Name);
+//     formData.append('PhoneNumber', credentials.PhoneNumber);
+//     formData.append('Email', credentials.Email);
+//     formData.append('OfficialName', credentials.OfficialName);
+//     formData.append('AgreeToTerms', credentials.AgreeToTerms.toString());
+
+//     // Append BusinessTypeIds as array
+//     credentials.BusinessTypeIds.forEach((id: any) => {
+//       formData.append('BusinessTypeIds', id);
+//     });
+
+//     const res = await postData(endpoints.auth.Register.register, formData);
+
+//     const { accessToken, refreshToken, accessTokenExpireAt, refreshTokenExpireAt, ...user } =
+//       res as unknown as LoginRes;
+
+//     return {
+//       user,
+//       accessToken: {
+//         value: accessToken,
+//         expire: accessTokenExpireAt,
+//       },
+//       refreshToken: {
+//         value: refreshToken,
+//         expire: refreshTokenExpireAt,
+//       },
+//     };
+//   } catch (error: any) {
+//     throw new Error(error?.message || 'Registration failed');
+//   }
+// }
+// export async function Register(credentials: RegiterCretentials) {
+//   try {
+//     const formData = new FormData();
+
+//     formData.append('Name', credentials.Name);
+//     formData.append('PhoneNumber', credentials.PhoneNumber);
+//     formData.append('Email', credentials.Email);
+//     formData.append('OfficialName', credentials.OfficialName);
+//     formData.append('AgreeToTerms', credentials.AgreeToTerms.toString());
+
+//     credentials.BusinessTypeIds.forEach((id: any) => {
+//       formData.append('BusinessTypeIds', id);
+//     });
+
+//     // THIS returns:
+//     // { id, phoneNumber, role, phoneCodeExpireAt }
+//    const response = await axios.post('https://api.isthwath.com/api/v1/auth/register',formData, {
+//       headers: { accept: 'text/plain' },
+//     });
+//     return response; // <-- return raw backend response
+//   } catch (error: any) {
+//     throw new Error(error?.message || 'Registration failed');
+//   }
+// }
+// export async function Register(credentials: RegiterCretentials) {
+//   try {
+//     const formData = new FormData();
+
+//     formData.append('Name', credentials.Name);
+//     formData.append('PhoneNumber', credentials.PhoneNumber);
+//     formData.append('Email', credentials.Email);
+//     formData.append('OfficialName', credentials.OfficialName);
+//     formData.append('AgreeToTerms', credentials.AgreeToTerms.toString());
+
+//     // Assuming only one selection
+//     const selectedBusinessId = Array.isArray(credentials.BusinessTypeIds)
+//       ? credentials.BusinessTypeIds[0]
+//       : credentials.BusinessTypeIds;
+
+//     formData.append('BusinessTypeIds', selectedBusinessId as any);
+
+//     const response = await axiosInstance.post(
+//       endpoints.auth.Register.register
+//       formData,
+//       {
+//         headers: {
+//            accept: 'text/plain',
+//            Content-Type: 'multipart/form-data',
+//          }, // Don't manually set Content-Type (axios handles it)
+//       }
+//     );
+
+//     return response;
+//   } catch (error: any) {
+//     throw new Error(error?.message || 'Registration failed');
+//   }
+// }
+// export async function Register(credentials: RegiterCretentials) {
+//   try {
+//     const formData = new FormData();
+
+//     formData.append('Name', credentials.Name);
+//     formData.append('PhoneNumber', credentials.PhoneNumber);
+//     formData.append('Email', credentials.Email);
+//     formData.append('OfficialName', credentials.OfficialName);
+//     formData.append('AgreeToTerms', credentials.AgreeToTerms.toString());
+
+//     // Correct: Only one ID is expected
+//     const selectedBusinessId = Array.isArray(credentials.BusinessTypeIds)
+//       ? credentials.BusinessTypeIds[0]
+//       : credentials.BusinessTypeIds;
+
+//     formData.append('BusinessTypeIds', selectedBusinessId);
+
+//     const response = await axiosInstance.post(
+//       endpoints.auth.Register.register,
+//       formData,
+//       {
+//         headers: {
+//           accept: 'text/plain',
+//           'Content-Type': 'multipart/form-data', // 👈 Explicitly set like cURL
+//         },
+//       }
+//     );
+
+//     return response;
+//   } catch (error: any) {
+//     throw new Error(error?.response?.data || error?.message || 'Registration failed');
+//   }
+// }
+
+// export async function Register(credentials: RegiterCretentials) {
+//   try {
+//     const formData = new FormData();
+
+//     formData.append('Name', credentials.Name);
+//     formData.append('PhoneNumber', credentials.PhoneNumber);
+//     formData.append('Email', credentials.Email);
+//     formData.append('OfficialName', credentials.OfficialName);
+
+//     // Convert boolean to string exactly as expected
+//     formData.append('AgreeToTerms', credentials.AgreeToTerms ? 'true' : 'true');
+
+//     formData.append('BusinessTypeIds', String(credentials.BusinessTypeIds));
+
+//     const response = await axiosInstance.post(
+//       endpoints.auth.Register.register,
+//       formData,
+//       {
+//         headers: {
+//           accept: 'text/plain',
+//           'Content-Type': 'multipart/form-data', // required
+//         },
+//       }
+//     );
+
+//     return response;
+//   } catch (error: any) {
+//     throw new Error(error?.response?.data || error?.message);
+//   }
+// }
+export async function Register(credentials: RegiterCretentials) {
   try {
     const formData = new FormData();
 
-    // Append all fields to FormData
     formData.append('Name', credentials.Name);
     formData.append('PhoneNumber', credentials.PhoneNumber);
     formData.append('Email', credentials.Email);
     formData.append('OfficialName', credentials.OfficialName);
-    formData.append('AgreeToTerms', credentials.AgreeToTerms.toString());
 
-    // Append BusinessTypeIds as array
-    credentials.BusinessTypeIds.forEach((id: any) => {
-      formData.append('BusinessTypeIds', id);
-    });
+    // ✔ Send as capitalized boolean
+    formData.append('AgreeToTerms', credentials.AgreeToTerms ? 'True' : 'False');
 
-    const res = await postData(endpoints.auth.Register.register, formData);
+    // ✔ Send correctly based on API requirement
+    if (Array.isArray(credentials.BusinessTypeIds)) {
+      credentials.BusinessTypeIds.forEach((id) => formData.append('BusinessTypeIds', id));
+    } else {
+      formData.append('BusinessTypeIds', credentials.BusinessTypeIds);
+    }
 
-    const { accessToken, refreshToken, accessTokenExpireAt, refreshTokenExpireAt, ...user } =
-      res as unknown as LoginRes;
+    // 🧪 Console log for testing
+    for (const p of formData.entries()) {
+      console.log(p[0] + ': ' + p[1]);
+    }
 
-    return {
-      user,
-      accessToken: {
-        value: accessToken,
-        expire: accessTokenExpireAt,
-      },
-      refreshToken: {
-        value: refreshToken,
-        expire: refreshTokenExpireAt,
-      },
-    };
+ const response = await postData(
+  endpoints.auth.Register.register,
+  formData,
+
+);
+
+
+    return response;
   } catch (error: any) {
-    throw new Error(error?.message || 'Registration failed');
+    console.error('Registration error:', error);
+    // throw new Error(error?.response?.data || error?.message);
   }
 }
+
+
+
 export async function verifyOtpApi(credentials: LoginVerifyCretentials): Promise<UserSession> {
   try {
     const res = await axiosInstance.post(endpoints.auth.Login.verify_otp, credentials);
@@ -98,17 +261,17 @@ export async function verifyOtpApi(credentials: LoginVerifyCretentials): Promise
     throw new Error(error?.message || 'OTP verification failed');
   }
 }
-export async function verifyRegiterOtp(credentials: LoginVerifyCretentials): Promise<UserSession> {
+export async function verifyRegiterOtp(credentials: LoginVerifyCretentials) {
   try {
     const res = await axiosInstance.post(endpoints.auth.Register.verify_new_number_otp, credentials);
-    const { accessToken, refreshToken, accessTokenExpireAt, refreshTokenExpireAt, ...user } =
-      res as unknown as LoginRes;
+    // const { accessToken, refreshToken, accessTokenExpireAt, refreshTokenExpireAt, ...user } =
+      // res as unknown as LoginRes;
 
-    return {
-      user,
-      accessToken: { value: accessToken, expire: accessTokenExpireAt },
-      refreshToken: { value: refreshToken, expire: refreshTokenExpireAt },
-    };
+    return {res}
+    //   user,
+    //   accessToken: { value: accessToken, expire: accessTokenExpireAt },
+    //   refreshToken: { value: refreshToken, expire: refreshTokenExpireAt },
+    // };
   } catch (error: any) {
     throw new Error(error?.message || 'OTP verification failed');
   }

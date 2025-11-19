@@ -204,9 +204,10 @@ export default function JwtRegisterView({ bussiness }: Props) {
 
     if ('redirectTo' in res) {
       router.push(res.redirectTo);
+      console.log("res in success",res)
     } else if ('error' in res) {
       // Handle error - you might want to show a toast or error message
-      console.error('Registration error:', res.error);
+      console.error('Registration error:', res);
     }
   });
   const acceptTerms = watch('acceptTerms');
