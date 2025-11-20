@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'src/routes/hooks';
 import { useAuthStore } from 'src/auth/auth-store';
+import { BusinessType } from 'src/types/bussiness';
 import { yupResolver } from '@hookform/resolvers/yup';
 import FormProvider, { RHFTextField } from 'src/components/hook-form';
 import {
@@ -22,7 +23,6 @@ import {
 } from '@mui/material';
 
 import BusinessCard from '../bussiness-card/view';
-import { BusinessType } from 'src/types/bussiness';
 
 // --------------------------------------------------
 // Types
@@ -78,7 +78,15 @@ export default function JwtRegisterView({ bussiness }: Props) {
   const { registerUser } = useAuthStore();
 
   const [currentTab, setCurrentTab] = useState(0);
-  const [selectedBusiness, setSelectedBusiness] = useState<BusinessType | null>(null);
+  const handleSelectBusiness = (business: BusinessType) => {
+    setSelectedBusiness((prev) =>
+      prev.find((b) => b.id === business.id)
+        ? prev.filter((b) => b.id !== business.id) // remove if already selected
+        : [...prev, business] // add if not selected
+    );
+  };
+
+  const [selectedBusiness, setSelectedBusiness] = useState<BusinessType[]>([]);
 
   // Validation Schema
   const RegisterSchema = yup.object().shape({
@@ -91,7 +99,6 @@ export default function JwtRegisterView({ bussiness }: Props) {
       ),
     officialName: yup.string().required(t('Global.Validation.var_required', { var: t('Global.Label.official_name') })),
     email: yup.string().email(t('Global.Validation.var_invalid', { var: t('Global.Label.email') })).required(),
-    // phoneNumber: yup.string().matches(/^5\d*$/, t('Global.Validation.phone_must_start_5')).required(),
     acceptTerms: yup.boolean(),
   });
 
@@ -131,7 +138,9 @@ export default function JwtRegisterView({ bussiness }: Props) {
       Name: data.name,
       Email: data.email,
       OfficialName: data.officialName,
-      BusinessTypeIds: selectedBusiness ? [selectedBusiness.id] : [],
+      // BusinessTypeIds: selectedBusiness ? [selectedBusiness.id] : [],
+      BusinessTypeIds: selectedBusiness.map((b) => b.id),
+
       AgreeToTerms: data.acceptTerms,
     };
 
@@ -140,6 +149,7 @@ export default function JwtRegisterView({ bussiness }: Props) {
     if ('redirectTo' in res) {
       router.push(res.redirectTo);
     } else if ('error' in res) {
+      console.log(res)
       if (res.error === 'username_already_exist') {
         setCurrentTab(0); // Return to step 1
 
@@ -147,7 +157,17 @@ export default function JwtRegisterView({ bussiness }: Props) {
         setTimeout(() => {
           setError('name', {
             type: 'server',
-            message: t('Global.Validation.username_already_exist', { var: t('Pages.Auth.user_name') }),
+            message: t('Global.Validation.var_exists', { var: t('Global.Label.name') }),
+          });
+        }, 50);
+      } else if (res.error === 'Email already exists') {
+        setCurrentTab(0); // Return to step 1
+
+        // بعد تغيير الخطوة نضيف خطأ تحت الحقل
+        setTimeout(() => {
+          setError('email', {
+            type: 'server',
+            message: t('Global.Validation.var_exists', { var: t('Global.Label.email') }),
           });
         }, 50);
       }
@@ -241,9 +261,10 @@ export default function JwtRegisterView({ bussiness }: Props) {
                       <Grid2 key={b.id} size={{ xs: 4 }} display="flex" justifyContent="center">
                         <BusinessCard
                           business={b}
-                          isSelected={selectedBusiness?.id === b.id}
-                          onSelect={(b) => setSelectedBusiness(b)}
+                          isSelected={selectedBusiness.some((sb) => sb.id === b.id)}
+                          onSelect={handleSelectBusiness}
                         />
+
                       </Grid2>
                     ))}
                   </Grid2>

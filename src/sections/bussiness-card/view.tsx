@@ -9,8 +9,7 @@ interface Props {
   isSelected: boolean;
   onSelect: (business: BusinessType) => void;
 }
-
-const BusinessCard = ({ business, isSelected, onSelect }: Props) => (
+  const BusinessCard = ({ business, isSelected, onSelect }: Props) => (
   <Box
     onClick={() => onSelect(business)}
     sx={{
@@ -24,32 +23,18 @@ const BusinessCard = ({ business, isSelected, onSelect }: Props) => (
       width: { xs: '120px', sm: '176.67px' },
       height: { xs: '48px', sm: '66px' },
       border: isSelected ? '2px solid #1976d2' : '1px solid #CECECE',
+      backgroundColor: isSelected ? '#EBF3FF' : 'white',
       borderRadius: '91px',
       transition: '0.2s',
-      backgroundColor: isSelected ? '#EBF3FF' : 'white',
-      '&:hover': {
-        boxShadow: '0px 4px 15px rgba(0,0,0,0.1)',
-        transform: 'translateY(-2px)',
-      },
+      '&:hover': { transform: 'translateY(-2px)' },
     }}
   >
-    <Image
-      src={business.imageUrl}
-      alt={business.nameAr}
-      width={34}
-      height={34}
-      style={{ objectFit: 'contain' }}
-    />
-
-    <Typography
-      sx={{
-        fontWeight: 600,
-        fontSize: { xs: '10px', sm: '16px' }, // responsive font size
-      }}
-    >
+    <Image src={business.imageUrl} alt={business.nameAr} width={34} height={34} />
+    <Typography sx={{ fontWeight: 600, fontSize: { xs: '10px', sm: '16px' } }}>
       {business.nameAr}
     </Typography>
   </Box>
 );
+
 
 export default BusinessCard;
