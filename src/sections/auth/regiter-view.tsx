@@ -220,12 +220,11 @@ const onSubmit = handleSubmit(async (data) => {
 
   const res = await registerUser(registerData as any);
 
-  console.log('Register response:', res); // Debug in production
 
   if ('redirectTo' in res) {
     router.push(res.redirectTo);
   } else if ('error' in res) {
-    console.error('Register error:', res.error);
+    // console.error('Register error:', res.error);
 
     // Normalize error message - handle different error formats
     let errorMsg = String(res.error || '').trim().toLowerCase();
@@ -254,9 +253,6 @@ const onSubmit = handleSubmit(async (data) => {
           message: t('Global.Validation.var_exists', { var: t('Global.Label.email') }),
         });
       });
-    } else {
-      // Generic error fallback
-      console.error('Unhandled registration error:', res.error);
     }
   }
 });
