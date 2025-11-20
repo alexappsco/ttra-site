@@ -274,7 +274,7 @@
       "password_required": "كلمة المرور مطلوبة",
       "code_required": "الكود مطلوب",
       "username_invalid": "اسم المستخدم يجب أن يكون لم يستخدم من قبل ويحتوى على 3 أحرف على الأقل ويحتوي فقط على حروف إنجليزية، أرقام، نقط أو شرطات سفلية",
-"username_already_exist":"الاسم موجود بالفعل"
+      "username_already_exist":"الاسم موجود بالفعل"
     },
     "Sections": {
       "DeleteDialog": {
