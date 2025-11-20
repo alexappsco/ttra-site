@@ -47,6 +47,31 @@ export async function new_register_action(credentials: LoginCretentials) {
     throw new Error(error?.message || 'Login failed');
   }
 }
+// export async function Register(credentials: RegiterCretentials) {
+//   try {
+//     const formData = new FormData();
+
+//     formData.append('Name', credentials.Name);
+//     formData.append('PhoneNumber', credentials.PhoneNumber);
+//     formData.append('Email', credentials.Email);
+//     formData.append('OfficialName', credentials.OfficialName);
+//     formData.append('AgreeToTerms', credentials.AgreeToTerms ? 'true' : 'false');
+//     const businessTypeIdsArray = Array.isArray(credentials.BusinessTypeIds)
+//       ? credentials.BusinessTypeIds
+//       : [credentials.BusinessTypeIds];
+
+//     // Append each ID separately with the same key name - server will parse as array
+//     businessTypeIdsArray.forEach((id) => {
+//       formData.append('BusinessTypeIds', id);
+//     });
+
+//     const response = await axiosInstance.post(endpoints.auth.Register.register, formData);
+
+//     return response;
+//   } catch (error: any) {
+//     throw new Error(error?.response?.data || error?.message);
+//   }
+// }
 export async function Register(credentials: RegiterCretentials) {
   try {
     const formData = new FormData();
@@ -55,21 +80,26 @@ export async function Register(credentials: RegiterCretentials) {
     formData.append('PhoneNumber', credentials.PhoneNumber);
     formData.append('Email', credentials.Email);
     formData.append('OfficialName', credentials.OfficialName);
-    formData.append('AgreeToTerms', credentials.AgreeToTerms ? 'true' : 'false');
-    const businessTypeIdsArray = Array.isArray(credentials.BusinessTypeIds)
-      ? credentials.BusinessTypeIds
-      : [credentials.BusinessTypeIds];
+    formData.append('AgreeToTerms', String(credentials.AgreeToTerms));
 
-    // Append each ID separately with the same key name - server will parse as array
-    businessTypeIdsArray.forEach((id) => {
-      formData.append('BusinessTypeIds', id);
-    });
+    if (Array.isArray(credentials.BusinessTypeIds)) {
+      credentials.BusinessTypeIds.forEach((id) => {
+        formData.append('BusinessTypeIds', String(id));
+      });
+    }
 
-    const response = await axiosInstance.post(endpoints.auth.Register.register, formData);
-
-    return response;
+   const res = await axiosInstance.post(endpoints.auth.Register.register, formData);
+    return res;
   } catch (error: any) {
-    throw new Error(error?.response?.data || error?.message);
+    // Normalize error message from backend
+    const errorMsg =
+      error?.response?.data?.message ||
+      error?.response?.data?.error ||
+      error?.message ||
+      'Registration failed';
+
+    console.error('Register API error:', errorMsg);
+    throw new Error(errorMsg);
   }
 }
 
