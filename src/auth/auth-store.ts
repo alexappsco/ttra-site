@@ -6,11 +6,11 @@ import { LoginCretentials, RegiterCretentials, LoginVerifyCretentials } from './
 import { saveSession, removeSession, restoreSession, updateUserSession } from './auth-utils';
 import {
   login,
+  Register,
   verifyOtpApi,
   refreshSession,
-  new_login_action,
   verifyRegiterOtp,
-  Register,
+  new_register_action,
 } from './auth-actions';
 
 type AuthStore = {
@@ -22,7 +22,7 @@ type AuthStore = {
 
   // Actions
   login: (credentials: LoginCretentials) => Promise<{ redirectTo: string } | { error: string }>;
-  new_login: (credentials: LoginCretentials) => Promise<{ redirectTo: string } | { error: string }>;
+  new_register: (credentials: LoginCretentials) => Promise<{ redirectTo: string } | { error: string }>;
   registerUser: (
     credentials: RegiterCretentials
   ) => Promise<{ redirectTo: string } | { error: string }>;
@@ -48,7 +48,6 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
 
   // -------------------- LOGIN --------------------
   login: async ({ phoneNumber }) => {
-    console.log(phoneNumber);
     try {
       await login({ phoneNumber });
       set({ authenticated: false });
@@ -64,7 +63,7 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
     }
   },
   // -------------------- VERIFY OTP --------------------
-  verifyLoginOtp: async ({ phoneNumber, otp }: LoginVerifyCretentials) => {
+  verifyLoginOtp: async ({ phoneNumber: _, otp }: LoginVerifyCretentials) => {
     try {
       if (typeof window === 'undefined') {
         return { error: 'المتصفح غير متاح' };
@@ -73,7 +72,6 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
       const storedPhoneNumber = localStorage.getItem('phoneNumber');
       if (!storedPhoneNumber) return { error: 'رقم الهاتف غير موجود' };
 
-      const referrer = localStorage.getItem('verifyReferrer') || '';
 
       const { accessToken, refreshToken, user } = await verifyOtpApi({
         phoneNumber: storedPhoneNumber,
@@ -102,9 +100,9 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
   },
 
   // -------------------- Regiter ==>Step=>1 --------------------
-  new_login: async ({ phoneNumber }) => {
+  new_register: async ({ phoneNumber }) => {
     try {
-      await new_login_action({ phoneNumber });
+      await new_register_action({ phoneNumber });
       set({ authenticated: false });
 
       if (typeof window !== 'undefined') {
@@ -118,7 +116,7 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
     }
   },
   // -------------------- Regiter ==>Step=>2 --------------------
-  verifyRegisterOtp: async ({ phoneNumber, otp }: LoginVerifyCretentials) => {
+  verifyRegisterOtp: async ({ phoneNumber: _, otp }: LoginVerifyCretentials) => {
     try {
       if (typeof window === 'undefined') {
         return { error: 'المتصفح غير متاح' };
@@ -127,95 +125,15 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
       const storedPhoneNumber = localStorage.getItem('phoneNumber');
       if (!storedPhoneNumber) return { error: 'رقم الهاتف غير موجود' };
 
-      const referrer = localStorage.getItem('verifyReferrer') || '';
-
       await verifyRegiterOtp({
         phoneNumber: storedPhoneNumber,
         otp,
       });
-
-      // await saveSession({ accessToken, refreshToken, user });
-      // set({
-      //   authenticated: true,
-      //   user,
-      //   accessToken: accessToken.value,
-      //   refreshToken: refreshToken.value,
-      // });
-
-      // Clean up localStorage after successful verification
-      // localStorage.removeItem('phoneNumber');
-      // localStorage.removeItem('verifyReferrer');
-
-      // const redirectTo = user?.isHasLocation ? '/' : '/auth/set-address';
       return { redirectTo: '/auth/register' };
-
-      // return { redirectTo };
     } catch (error: any) {
       return { error: error.message };
     }
   },
-
-  // In your auth-store.ts - fix the registerUser function
-  // registerUser: async ({
-  //   Name,
-  //   Email,
-  //   BusinessTypeIds,
-  //   AgreeToTerms,
-  //   OfficialName,
-  // }: any) => {
-  //   try {
-  //     const phone = localStorage.getItem("phoneNumber");
-
-  //     if (!phone) {
-  //       return { error: "Phone number not found in localStorage" };
-  //     }
-
-  //     // Send request to backend with proper data structure
-  //     await Register({
-  //       Name,
-  //       PhoneNumber: phone,
-  //       Email,
-  //       BusinessTypeIds: Array.isArray(BusinessTypeIds) ? BusinessTypeIds : [BusinessTypeIds],
-  //       AgreeToTerms: Boolean(AgreeToTerms),
-  //       OfficialName,
-  //     });
-  //     // Clear the phone number from localStorage after successful registration
-  //     localStorage.removeItem('phoneNumber');
-
-  //     // Update auth state if needed
-  //     set({ authenticated: false });
-
-  //     return { redirectTo: "/auth/login" };
-  //   } catch (error: any) {
-  //     return { error: error?.message || "Registration failed" };
-  //   }
-  // },
-  //   registerUser: async ({ Name, Email, BusinessTypeIds, AgreeToTerms, OfficialName }) => {
-  //   try {
-  //     const phone = localStorage.getItem("phoneNumber");
-
-  //     if (!phone) return { error: "Phone number not found in localStorage" };
-
-  //     const response = await Register({
-  //       Name,
-  //       PhoneNumber: phone,
-  //       Email,
-  //       BusinessTypeIds: BusinessTypeIds,
-  //       AgreeToTerms: Boolean(AgreeToTerms),
-  //       OfficialName,
-  //     });
-
-  //     console.log("Register success:", response);
-
-  //     localStorage.removeItem('phoneNumber');
-  //     set({ authenticated: false });
-
-  //     return { redirectTo: "/auth/login" };
-  //   } catch (error: any) {
-
-  //     return { error: error?.message || "Registration failed" };
-  //   }
-  // },
   registerUser: async ({ Name, Email, BusinessTypeIds, AgreeToTerms, OfficialName }) => {
     try {
       const phone = localStorage.getItem('phoneNumber');
@@ -284,14 +202,12 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
               new Date(accessToken.expire).getTime() - new Date().getTime() - 60 * 1000,
           };
         } catch (error) {
-          console.log(error);
           errorFunc();
         }
       } else {
         errorFunc();
       }
     } catch (error) {
-      console.error('Error initializing auth:', error);
       set({ loading: false });
     }
   },

@@ -21,6 +21,9 @@ import {
   FormControlLabel,
 } from '@mui/material';
 
+import BusinessCard from '../bussiness-card/view';
+import { BusinessType } from 'src/types/bussiness';
+
 // --------------------------------------------------
 // Types
 // --------------------------------------------------
@@ -32,14 +35,7 @@ interface RegisterFormValues {
   acceptTerms: boolean;
 }
 
-interface BusinessType {
-  id: string;
-  nameAr: string;
-  nameEn: string;
-  name: string;
-  imageUrl: string;
-  companySalesCount: number;
-}
+
 
 const FieldLabel = ({ children }: { children: string }) => (
   <Typography
@@ -69,60 +65,6 @@ const termsContent = `
 ظهور راض النشر الإلكتروني مثل "الروس باج مارك" (siglaia)
 (PageMake) واتلى حيث أيضاً على اسم عن نص لوريم إيسموم.
   `.trim();
-
-// --------------------------------------------------
-// Business Card Component
-// --------------------------------------------------
-
-const BusinessCard = ({
-  business,
-  isSelected,
-  onSelect,
-}: {
-  business: BusinessType;
-  isSelected: boolean;
-  onSelect: (business: BusinessType) => void;
-}) => (
-  <Box
-    onClick={() => onSelect(business)}
-    sx={{
-      cursor: 'pointer',
-      display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'flex-start', // RTL
-      padding: '16px',
-      gap: '8px',
-      width: '176.67px',
-      height: '66px',
-      border: isSelected ? '2px solid #1976d2' : '1px solid #CECECE',
-      borderRadius: '91px',
-      transition: '0.2s',
-      backgroundColor: isSelected ? '#EBF3FF' : 'white',
-      '&:hover': {
-        boxShadow: '0px 4px 15px rgba(0,0,0,0.1)',
-        transform: 'translateY(-2px)',
-      },
-    }}
-  >
-
-    {/* الأيقونة */}
-    <Image
-      src={business.imageUrl}
-      alt={business.nameAr}
-      width={34}
-      height={34}
-      style={{ objectFit: 'contain' }}
-    />
-    {/* النص */}
-    <Typography sx={{ fontWeight: 600, fontSize: '16px' }}>
-      {business.nameAr}
-    </Typography>
-
-  </Box>
-);
-
-
 // --------------------------------------------------
 // Main Component
 // --------------------------------------------------
@@ -140,12 +82,19 @@ export default function JwtRegisterView({ bussiness }: Props) {
 
   // Validation Schema
   const RegisterSchema = yup.object().shape({
-    name: yup.string().required(t('Global.Validation.var_required', { var: t('Pages.Auth.user_name') })),
+    name: yup
+      .string()
+      .required(t('Global.Validation.var_required', { var: t('Pages.Auth.user_name') }))
+      .matches(
+        /^[a-zA-Z0-9._]{3,}$/,
+        t('Global.Validation.username_invalid') // create this translation if needed
+      ),
     officialName: yup.string().required(t('Global.Validation.var_required', { var: t('Global.Label.official_name') })),
     email: yup.string().email(t('Global.Validation.var_invalid', { var: t('Global.Label.email') })).required(),
     // phoneNumber: yup.string().matches(/^5\d*$/, t('Global.Validation.phone_must_start_5')).required(),
     acceptTerms: yup.boolean(),
   });
+
 
   const methods = useForm<RegisterFormValues>({
     mode: 'onTouched',
@@ -158,6 +107,7 @@ export default function JwtRegisterView({ bussiness }: Props) {
       acceptTerms: false,
     },
   });
+  const { setError } = methods;
 
   const { watch, trigger, handleSubmit, setValue, formState: { isValid, isSubmitting } } = methods;
 
@@ -175,20 +125,6 @@ export default function JwtRegisterView({ bussiness }: Props) {
 
   const handleBack = () => setCurrentTab((p) => p - 1);
 
-  // const onSubmit = handleSubmit(async (data) => {
-  //   const registerData = {
-  //     Name: data.name,
-  //     Email: data.email,
-  //     OfficialName: data.officialName,
-  //     BusinessTypeIds: selectedBusiness ? [selectedBusiness.id] : [],
-  //     AgreeToTerms: data.acceptTerms,
-  //     PhoneNumber: data.phoneNumber,
-  //   };
-
-  //   const res = await registerUser(registerData as any);
-  //   if ('redirectTo' in res) router.push(res.redirectTo);
-  // });
-
   // In your register-view component - fix the onSubmit function
   const onSubmit = handleSubmit(async (data) => {
     const registerData = {
@@ -197,101 +133,98 @@ export default function JwtRegisterView({ bussiness }: Props) {
       OfficialName: data.officialName,
       BusinessTypeIds: selectedBusiness ? [selectedBusiness.id] : [],
       AgreeToTerms: data.acceptTerms,
-      // PhoneNumber will be taken from localStorage in the store
     };
 
     const res = await registerUser(registerData as any);
 
     if ('redirectTo' in res) {
       router.push(res.redirectTo);
-      console.log("res in success",res)
     } else if ('error' in res) {
-      // Handle error - you might want to show a toast or error message
-      console.error('Registration error:', res);
+      if (res.error === 'username_already_exist') {
+        setCurrentTab(0); // Return to step 1
+
+        // بعد تغيير الخطوة نضيف خطأ تحت الحقل
+        setTimeout(() => {
+          setError('name', {
+            type: 'server',
+            message: t('Global.Validation.username_already_exist', { var: t('Pages.Auth.user_name') }),
+          });
+        }, 50);
+      }
     }
   });
   const acceptTerms = watch('acceptTerms');
 
   return (
-    <Box sx={{ width: '100%', height: '120vh', display: 'flex' }}>
-      <Box sx={{ width: { xs: '100%', md: '60%' }, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <Container maxWidth="sm" >
-          <Box sx={{ textAlign: 'center', mt: currentTab === 2 ? 8 : 2, mb: 2 }} >
-            <Image src="/logo/logo_istihwaz.svg" alt="logo" width={160} height={90} />
+    <Box sx={{ width: '100%', height: { xs: '100vh', lg: '120vh' }, display: 'flex', flexDirection: { xs: 'column', md: 'row-reverse' } }}>
 
-            <Typography variant="h4" fontWeight="bold" mb={1}>
+      {/* ===== RIGHT SIDE: FORM ===== */}
+      <Box
+        sx={{
+          width: { xs: '100%', md: '60%' },
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          px: { xs: 2, sm: 4 },
+          py: { xs: 4, md: 0 },
+          mt: { xs: 9, md: 8 },
+          order: { xs: 2, md: 1 },
+        }}
+      >
+        <Container maxWidth="sm" sx={{ textAlign: 'center' }}>
+          <Box sx={{ textAlign: 'center', mb: 4 }}>
+            <Image src="/logo/logo_istihwaz.svg" alt="logo" width={160} height={90} />
+            <Typography variant="h4" fontWeight="bold" mb={2}>
               {t('Pages.Auth.create_new_account')}
             </Typography>
-            {currentTab == 0 &&
-              <>
-                <Image
-                  src="/assets/images/auth/new_resgister_step_2.svg"
-                  alt="step-2 logo"
-                  width={400}
-                  height={83}
-                  style={{ margin: 'auto' }}
-                />
-              </>
-            }
-            {currentTab == 2 &&
-              <Image
-                src="/assets/images/auth/new_register_step2_completed.svg"
-                alt="Step-3 logo"
-                width={400}
-                height={83}
-                style={{ margin: 'auto' }}
-              />}
-
           </Box>
+
 
           <FormProvider methods={methods} onSubmit={onSubmit}>
             {/* STEP 1 */}
             {currentTab === 0 && (
-              <Stack gap={1.5}>
-                <FieldLabel>{t('Global.Label.name')}</FieldLabel>
-                <RHFTextField name="name" placeholder={t('Pages.Auth.user_name')} />
+              <>
+                <Image src="/assets/images/auth/new_register_step1_completed.svg" alt="step-2" width={400} height={83} />
+                <Stack spacing={2}>
+                  <FieldLabel>{t('Global.Label.name')}</FieldLabel>
+                  <RHFTextField name="name" placeholder={t('Pages.Auth.user_name')} />
 
-                <FieldLabel>{t('Global.Label.official_name')}</FieldLabel>
-                <RHFTextField name="officialName" placeholder={t('Global.Label.official_name')} />
+                  <FieldLabel>{t('Global.Label.official_name')}</FieldLabel>
+                  <RHFTextField name="officialName" placeholder={t('Global.Label.official_name')} />
 
-                <FieldLabel>{t('Global.Label.email')}</FieldLabel>
-                <RHFTextField name="email" placeholder={t('Global.Label.email')} />
+                  <FieldLabel>{t('Global.Label.email')}</FieldLabel>
+                  <RHFTextField name="email" placeholder={t('Global.Label.email')} />
 
-                <FormControlLabel
-                  control={<Checkbox checked={acceptTerms} onChange={(e) => setValue('acceptTerms', e.target.checked)} />}
-                  label="أوافق على الشروط والأحكام"
-                />
+                  <FormControlLabel
+                    control={<Checkbox checked={acceptTerms} onChange={(e) => setValue('acceptTerms', e.target.checked)} />}
+                    label="أوافق على الشروط والأحكام"
+                  />
 
-                <Button
-                  fullWidth
-                  variant="contained"
-                  disabled={!isValid || isSubmitting}
-                  onClick={handleNext}
-                  sx={{ p: 1.5 }}
-                >
-                  التالي
-                </Button>
-              </Stack>
+                  <Button fullWidth variant="contained" disabled={!isValid || isSubmitting} onClick={handleNext} sx={{ py: 1.5 }}>
+                    التالي
+                  </Button>
+                </Stack>
+              </>
             )}
 
             {/* STEP 2 */}
             {currentTab === 1 && (
-              <Stack gap={1.5}>
+              <Stack spacing={2}>
                 <Typography variant="h6">الشروط والأحكام</Typography>
-                <Typography sx={{ p: 1, border: '1px solid #ccc', borderRadius: 2, maxHeight: 250, overflow: 'auto' }}>
+                <Typography sx={{ p: 2, border: '1px solid #ccc', borderRadius: 2, maxHeight: 250, overflow: 'auto' }}>
                   {/* محتوى الشروط */}
                   {termsContent}
                 </Typography>
+
                 <FormControlLabel
                   control={<Checkbox checked={acceptTerms} onChange={(e) => setValue('acceptTerms', e.target.checked)} />}
                   label="أوافق على الشروط والأحكام"
                 />
 
-                <Button fullWidth variant="contained" disabled={!acceptTerms} onClick={() => setCurrentTab(2)} sx={{ p: 1.5 }}>
+                <Button fullWidth variant="contained" disabled={!acceptTerms} onClick={() => setCurrentTab(2)} sx={{ py: 1.5 }}>
                   التالي
                 </Button>
-
-                <Button fullWidth variant="outlined" onClick={handleBack} sx={{ p: 1.5 }}>
+                <Button fullWidth variant="outlined" onClick={handleBack} sx={{ py: 1.5 }}>
                   رجوع
                 </Button>
               </Stack>
@@ -300,11 +233,12 @@ export default function JwtRegisterView({ bussiness }: Props) {
             {/* STEP 3 */}
             {currentTab === 2 && (
               <>
-                <Grid2 container spacing={0.6} justifyContent="center">
+                <Image src="/assets/images/auth/new_resgister_step_2.svg" alt="step-2" width={400} height={83} />
 
-                  <Grid2 container spacing={1} justifyContent="center" sx={{ my: 3 }}>
+                <Stack spacing={2}>
+                  <Grid2 container spacing={1} justifyContent="center">
                     {bussiness.map((b) => (
-                      <Grid2 key={b.id} size={{ xs: 4 }} display="flex" justifyContent="center" sx={{ my: 0.5 }}>
+                      <Grid2 key={b.id} size={{ xs: 4 }} display="flex" justifyContent="center">
                         <BusinessCard
                           business={b}
                           isSelected={selectedBusiness?.id === b.id}
@@ -314,13 +248,10 @@ export default function JwtRegisterView({ bussiness }: Props) {
                     ))}
                   </Grid2>
 
-                </Grid2>
-
-                <Stack mt={1} gap={2}>
-                  <Button fullWidth type="submit" variant="contained" disabled={!selectedBusiness || isSubmitting} sx={{ p: 1.5 }}>
+                  <Button fullWidth type="submit" variant="contained" disabled={!selectedBusiness || isSubmitting} sx={{ py: 1.5 }}>
                     {t('Pages.Auth.create_new_account')}
                   </Button>
-                  <Button fullWidth variant="outlined" onClick={handleBack} sx={{ p: 1.5 }}>
+                  <Button fullWidth variant="outlined" onClick={handleBack} sx={{ py: 1.5 }}>
                     رجوع
                   </Button>
                 </Stack>
@@ -330,9 +261,25 @@ export default function JwtRegisterView({ bussiness }: Props) {
         </Container>
       </Box>
 
-      {/* Left Side */}
-      <Box sx={{ width: '40%', display: { xs: 'none', md: 'block' }, position: 'relative' }}>
-        <Image src="/assets/auth/bgolor-auth.png" alt="background" fill style={{ objectFit: 'cover' }} />
+      {/* ===== LEFT SIDE: BACKGROUND IMAGE ===== */}
+      <Box
+        sx={{
+          position: { xs: 'absolute', md: 'relative' },
+          top: 0,
+          left: 0,
+          width: { xs: '100%', md: '40%' },
+          height: { xs: '100vh' },
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          overflow: 'hidden',
+          zIndex: { xs: -1, md: 0 },
+          bgcolor: { xs: '#F9F9F9', md: 'transparent' },
+          filter: { xs: 'blur(4px)', md: 'none' },
+          opacity: { xs: 0.35, md: 1 },
+        }}
+      >
+        <Image src="/assets/auth/bgolor-auth.png" alt="background" fill style={{ objectFit: 'cover', objectPosition: 'center' }} />
       </Box>
     </Box>
   );

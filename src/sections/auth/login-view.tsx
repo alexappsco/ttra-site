@@ -21,7 +21,7 @@ interface Props {
 export default function JwtLoginView({ isNewphonenumber }: Props) {
   const t = useTranslations();
   const router = useRouter();
-  const { login, new_login } = useAuthStore();
+  const { login, new_register } = useAuthStore();
 
   const [errorMsg, setErrorMsg] = useState('');
 
@@ -50,7 +50,7 @@ export default function JwtLoginView({ isNewphonenumber }: Props) {
     try {
       const payload = { phoneNumber: `966${data.phoneNumber}` };
 
-      const res = isNewphonenumber ? await new_login(payload) : await login(payload);
+      const res = isNewphonenumber ? await new_register(payload) : await login(payload);
 
       if ('error' in res) {
         reset();
@@ -69,181 +69,184 @@ export default function JwtLoginView({ isNewphonenumber }: Props) {
   });
 
   return (
-    <Box
-      sx={{
-        width: '100%',
-        height: '100vh',
-        display: 'flex',
-        flexDirection: 'row',
-      }}
-    >
-      {/* ==== RIGHT SIDE (FORM) ==== */}
+
+    <>
       <Box
         sx={{
-          width: { xs: '60%', sm: '65%', md: '65%' },
+          width: '100%',
+          height: {xs:"100vh"},
           display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          px: { xs: 0, sm: 4 },
+          flexDirection: { xs: 'column', md: 'row-reverse' }, // Stack on mobile
         }}
       >
-        <Container maxWidth="sm" sx={{ textAlign: 'center' }}>
-          {/* Logo */}
-          <Box sx={{ textAlign: 'center', mb: 4 }}>
-            <Image
-              src="/logo/logo_istihwaz.svg"
-              alt="Acquisitions logo"
-              width={160}
-              height={120}
-              style={{ margin: 'auto' }}
-            />
-          </Box>
+        {/* ==== RIGHT SIDE (FORM) ==== */}
+        <Box
+          sx={{
+            width: { xs: '100%', md: '50%' },
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            px: { xs: 2, sm: 4 },
+            py: { xs: 4, md: 0 }, // Add vertical padding on mobile
+            order: { xs: 2, md: 1 }, // Make form come after image on mobile
+          }}
+        >
+          <Container maxWidth="sm" sx={{ textAlign: 'center', mt: { xs: 9 } }}>
+            {/* Logo */}
+            <Box sx={{ textAlign: 'center', mb: 1 }}>
+              <Image
+                src="/logo/logo_istihwaz.svg"
+                alt="Acquisitions logo"
+                width={160}
+                height={120}
+                style={{ margin: 'auto' }}
+              />
+            </Box>
 
-          {/* ==== If New Phone Number → Show Steps UI ==== */}
-          {isNewphonenumber && (
-            <>
-              <Typography variant="h5" fontWeight="bold" sx={{ mb: 3 }}>
-                تسجيل جديد
-              </Typography>
+            {/* NEW PHONE NUMBER MODE */}
+            {isNewphonenumber && (
+              <>
+                <Typography variant="h5" fontWeight="bold" sx={{ mb: 3 }}>
+                  تسجيل جديد
+                </Typography>
 
-              {/* Steps */}
-              <Box
-                sx={{
-                  mb: 4,
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              >
-                <Image
-                  src="/assets/images/auth/new_register_step1.png"
-                  alt="steps"
-                  width={400}
-                  height={90}
-                  style={{
-                    objectFit: 'contain',
+                <Box
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                  <Image
+                    src="/assets/images/auth/new_register_step1.png"
+                    alt="steps"
+                    width={400}
+                    height={90}
+                    style={{ objectFit: 'contain', maxWidth: '100%' }}
+
+                  />
+                </Box>
+
+                <Typography
+                  sx={{
+                    fontSize: { xs: 20, sm: 15 },
+                    color: '#797979',
+                    textAlign: 'center',
+                    px: 2,
+                    my:1
+                  }}
+                >
+                  يجب أن يتم التحقق من الهاتف قبل إكمال باقي التسجيل
+                </Typography>
+              </>
+            )}
+
+            {/* LOGIN MODE */}
+            {!isNewphonenumber && (
+              <>
+                <Typography variant="h5" fontWeight="bold" color="#4B4B4B" sx={{ mb: 1 }}>
+                  {t('Pages.Auth.login_title')}
+                </Typography>
+
+                <Typography
+                  sx={{
+                    width: { xs: '100%', sm: 338 },
+                    mx: 'auto',
+                    fontSize: { xs: 14, sm: 16 },
+                    lineHeight: '180%',
+                    color: '#797979',
+                    mb: 2,
+                  }}
+                >
+                  من فضلك قم بتسجيل الدخول برقم الهاتف المسجل
+                </Typography>
+              </>
+            )}
+
+            {/* Label */}
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 2, textAlign: 'left' }}>
+              {t('Pages.Auth.enter_phone_number')}
+            </Typography>
+
+            {/* FORM */}
+            <FormProvider methods={methods} onSubmit={onSubmit}>
+              <Stack spacing={2.5}>
+                <RHFPhone
+                  name="phoneNumber"
+                  sx={{
+                    '& .MuiInputBase-root': {
+                      height: 50,
+                      bgcolor: '#F9F9F9',
+                      borderRadius: 2,
+                      px: 2,
+                    },
                   }}
                 />
-              </Box>
 
-              {/* Subtitle */}
-              <Typography
-                sx={{
-                  width: '100%',
-                  fontSize: 15,
-                  color: '#797979',
-                  textAlign: 'center',
-                  mb: 3,
-                }}
-              >
-                يجب أن يتم التحقق من الهاتف قبل إكمال باقي التسجيل
-              </Typography>
-            </>
-          )}
-
-          {/* Title */}
-          {!isNewphonenumber && (
-            <>
-              <Typography variant="h5" fontWeight="bold" color="#4B4B4B" sx={{ mb: 1 }}>
-                {t('Pages.Auth.login_title')}
-              </Typography>
-
-              <Typography
-                sx={{
-                  width: 338,
-                  fontWeight: 300,
-                  fontSize: 16,
-                  lineHeight: '180%',
-                  color: '#797979',
-                  mx: 'auto',
-                  mb: 2,
-                  '@media (max-width:600px)': { width: '100%', fontSize: 14 },
-                }}
-              >
-                من فضلك قم بتسجيل الدخول برقم الهاتف المسجل
-              </Typography>
-            </>
-          )}
-
-          {/* Phone label */}
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 3, textAlign: 'left' }}>
-            {t('Pages.Auth.enter_phone_number')}
-          </Typography>
-
-          {/* FORM */}
-          <FormProvider methods={methods} onSubmit={onSubmit}>
-            <Stack spacing={2.5}>
-              <RHFPhone
-                name="phoneNumber"
-                sx={{
-                  '& .MuiInputBase-root': {
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  size="large"
+                  sx={{
                     height: 50,
-                    bgcolor: '#F9F9F9',
                     borderRadius: 2,
-                    px: 2,
-                  },
-                }}
-              />
+                    fontWeight: 'bold',
+                    fontSize: '1rem',
+                    backgroundColor: '#1A1A1A',
+                    '&:hover': { backgroundColor: '#000000' },
+                  }}
+                  disabled={isSubmitting}
+                >
+                  التالي
+                </Button>
+              </Stack>
+            </FormProvider>
 
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                size="large"
-                sx={{
-                  height: 50,
-                  borderRadius: 2,
-                  fontWeight: 'bold',
-                  fontSize: '1rem',
-                  backgroundColor: '#1A1A1A',
-                  '&:hover': { backgroundColor: '#000000' },
-                }}
-                disabled={isSubmitting}
-              >
-                التالي
-              </Button>
-            </Stack>
-          </FormProvider>
+            {!isNewphonenumber && (
+              <Typography variant="body2" sx={{ mt: 3 }}>
+                {t('Pages.Auth.not_have_account')}{' '}
+                <Link href={paths.auth.register} underline="hover" fontWeight="bold" color="#1A1A1A">
+                  {t('Pages.Auth.create_new_account')}
+                </Link>
+              </Typography>
+            )}
 
-          {/* Links */}
-          {!isNewphonenumber && (
-            <Typography variant="body2" sx={{ mt: 3 }}>
-              {t('Pages.Auth.not_have_account')}{' '}
-              <Link href={paths.auth.register} underline="hover" fontWeight="bold" color="#1A1A1A">
-                {t('Pages.Auth.create_new_account')}
-              </Link>
-            </Typography>
-          )}
+            {errorMsg && (
+              <Typography color="error" sx={{ mt: 2 }}>
+                {errorMsg}
+              </Typography>
+            )}
+          </Container>
+        </Box>
+        {/* ==== LEFT IMAGE (Desktop + Beautiful Mobile) ==== */}
+        <Box
+          sx={{
+            position: { xs: 'absolute', md: 'relative' },
+            top: 0,
+            left: 0,
+            width: { xs: '100%', md: '50%' },
+            height: { xs: '100vh' }, // ارتفاع 40% من الشاشة فقط على الموبايل
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            overflow: 'hidden',
+            zIndex: { xs: -1, md: 0 }, // خلف المحتوى على الموبايل
+            bgcolor: { xs: '#F9F9F9', md: 'transparent' }, // خلفية فاتحة عند عدم وضوح الصورة
+            filter: { xs: 'blur(4px)', md: 'none' }, // الصورة باهتة على الموبايل
+            opacity: { xs: 0.35, md: 1 }, // تعتيم الصورة على الموبايل
+          }}
+        >
+          <Image
+            src="/assets/auth/bgolor-auth.png"
+            alt="auth background"
+            fill
+            priority
+            style={{ objectFit: 'cover', objectPosition: 'center' }}
+          />
+        </Box>
 
-          {errorMsg && (
-            <Typography color="error" sx={{ mt: 2 }}>
-              {errorMsg}
-            </Typography>
-          )}
-        </Container>
       </Box>
-
-      {/* ==== LEFT IMAGE (Always same UI on mobile & desktop) ==== */}
-      <Box
-        sx={{
-          position: 'relative',
-          width: { xs: '40%', sm: '35%', md: '35%' },
-          minWidth: 150,
-          height: '100%',
-          overflow: 'hidden',
-          '& img': {
-            objectFit: 'cover',
-            objectPosition: 'center',
-            position: 'absolute',
-            inset: 0,
-            width: '100%',
-            height: '100%',
-            zIndex: 10,
-          },
-        }}
-      >
-        <Image src="/assets/auth/bgolor-auth.png" alt="auth background" fill priority />
-      </Box>
-    </Box>
+    </>
   );
 }

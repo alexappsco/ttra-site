@@ -4,8 +4,10 @@ export const paths = {
   auth: {
     login: '/auth/login',
     forgotPassword: '/auth/forgot-password',
+    new_register:'/auth/new-register',
     register: '/auth/register',
     verify: '/auth/verify',
+    new_verify:'auth/new-verify',
     resetPassword: '/auth/reset-password',
     setlocation: '/auth/set-address'
   },

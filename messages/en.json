@@ -3,6 +3,11 @@
     "title": "Isthwath",
     "description": "Isthwathe description",
     "language": "Language",
+      "Jwt":{
+      "register":"Register",
+      "verify": "Verify Code",
+      "login":"Login"
+    },
     "Categories": {
       "title": "Categories | Isthwath"
     },
@@ -267,7 +272,10 @@
       "var1_after_var2": "{var1} must be after {var2}",
       "password_validate": "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character",
       "password_required": "Password is Required",
-      "code_required": "Code is Required"
+      "code_required": "Code is Required",
+      "username_invalid": "Username must be not used before and at least 3 characters and contain only English letters, numbers, dots, or underscores",
+      "username_already_exist":"User Name Already Exist"
+
     },
     "Sections": {
       "DeleteDialog": {
