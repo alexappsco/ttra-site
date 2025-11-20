@@ -151,32 +151,32 @@ export default function JwtRegisterView({ bussiness }: Props) {
     } else if ('error' in res) {
       console.log(res)
       if (res.error === 'username_already_exist') {
-        setCurrentTab(0); // Return to step 1
+        setCurrentTab(0);
 
-        // بعد تغيير الخطوة نضيف خطأ تحت الحقل
-        setTimeout(() => {
+        requestAnimationFrame(() => {
           setError('name', {
             type: 'server',
             message: t('Global.Validation.var_exists', { var: t('Global.Label.name') }),
           });
-        }, 50);
-      } else if (res.error === 'Email already exists') {
-        setCurrentTab(0); // Return to step 1
+        });
+      }
+      else if (res.error === 'Email already exists') {
+        setCurrentTab(0);
 
-        // بعد تغيير الخطوة نضيف خطأ تحت الحقل
-        setTimeout(() => {
+        requestAnimationFrame(() => {
           setError('email', {
             type: 'server',
             message: t('Global.Validation.var_exists', { var: t('Global.Label.email') }),
           });
-        }, 50);
+        });
       }
+
     }
   });
   const acceptTerms = watch('acceptTerms');
 
   return (
-    <Box sx={{ width: '100%', height: { xs: '100vh', lg: '120vh' }, display: 'flex', flexDirection: { xs: 'column', md: 'row-reverse' } }}>
+    <Box sx={{ width: '100%', height: { xs: '100vh' }, display: 'flex', flexDirection: { xs: 'column', md: 'row-reverse' } }}>
 
       {/* ===== RIGHT SIDE: FORM ===== */}
       <Box
