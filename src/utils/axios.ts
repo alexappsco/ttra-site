@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 import { HOST_API } from 'src/config-global';
 import { useAuthStore } from 'src/auth/auth-store';
@@ -11,7 +10,11 @@ const axiosInstance = axios.create({ baseURL: HOST_API });
 //  Request Interceptor
 axiosInstance.interceptors.request.use(
   (config) => {
-    config.headers['Content-Type'] = 'application/json';
+    // Only set Content-Type to application/json if it's not FormData
+    // FormData needs to set its own Content-Type with boundary
+    if (!(config.data instanceof FormData)) {
+      config.headers['Content-Type'] = 'application/json';
+    }
 
     // Optionally attach access token from store
     const token = useAuthStore.getState().accessToken;
@@ -92,7 +95,7 @@ export default axiosInstance;
 export const getErrorMessage = (error: unknown): string => {
   let message: string;
   if (error instanceof Error) {
-   // eslint-disable-next-line prefer-destructuring
+    // eslint-disable-next-line prefer-destructuring
     message = error.message;
   } else if (error && typeof error === 'object' && 'message' in error) {
     message = String((error as any).message);

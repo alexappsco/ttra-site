@@ -3,6 +3,12 @@
     "title": " استحواذ ",
     "description": "وصف موقع استحواذ",
     "language": "اللغة",
+    "Jwt":{
+      "register":"تسجيل جديد",
+       "verify": "التحقق من الكود",
+       "login":"تسجيل الدخول"
+
+    },
     "Categories": {
       "title": "الأقسام | أستحواذ"
     },
@@ -201,7 +207,7 @@
       "my_products": " منتجاتي",
       "our_branches": "فروعنا",
       "order_date":"تاريخ الطلب",
-      "official_name":"اسم العرض"
+      "official_name":"الاسم التجارى "
 
     },
     "Helper": {
@@ -266,7 +272,9 @@
       "var1_after_var2": "{var1} يجب أن يكون بعد {var2}",
       "password_validate": "يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل، حرف كبير وصغير، رقم، ورمز خاص",
       "password_required": "كلمة المرور مطلوبة",
-      "code_required": "الكود مطلوب"
+      "code_required": "الكود مطلوب",
+      "username_invalid": "اسم المستخدم يجب أن يكون لم يستخدم من قبل ويحتوى على 3 أحرف على الأقل ويحتوي فقط على حروف إنجليزية، أرقام، نقط أو شرطات سفلية",
+"username_already_exist":"الاسم موجود بالفعل"
     },
     "Sections": {
       "DeleteDialog": {
