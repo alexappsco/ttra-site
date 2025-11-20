@@ -177,6 +177,7 @@ export default function JwtRegisterView({ bussiness }: Props) {
 //     Name: data.name,
 //     Email: data.email,
 //     OfficialName: data.officialName,
+
 //     BusinessTypeIds: selectedBusiness.map((b) => b.id),
 //     AgreeToTerms: data.acceptTerms,
 //   };
@@ -209,6 +210,119 @@ export default function JwtRegisterView({ bussiness }: Props) {
 //     }
 //   }
 // });
+// const onSubmit = handleSubmit(async (data) => {
+//   const registerData = {
+//     Name: data.name,
+//     Email: data.email,
+//     OfficialName: data.officialName,
+//     BusinessTypeIds: selectedBusiness.map((b) => b.id),
+//     AgreeToTerms: data.acceptTerms,
+//   };
+
+//   const res = await registerUser(registerData as any);
+
+
+//   if ('redirectTo' in res) {
+//     router.push(res.redirectTo);
+//   } else if ('error' in res) {
+//     // console.error('Register error:', res.error);
+
+//     // Normalize error message - handle different error formats
+//     let errorMsg = String(res.error || '').trim().toLowerCase();
+
+//     // Check for common error patterns
+//     if (
+//       errorMsg.includes('username') ||
+//       errorMsg.includes('user_name') ||
+//       errorMsg.includes('already_exist')
+//     ) {
+//       setCurrentTab(0);
+//       requestAnimationFrame(() => {
+//         setError('name', {
+//           type: 'server',
+//           message: t('Global.Validation.var_exists', { var: t('Global.Label.name') }),
+//         });
+//       });
+//     } else if (
+//       errorMsg.includes('email') ||
+//       errorMsg.includes('email_already_exists')
+//     ) {
+//       setCurrentTab(0);
+//       requestAnimationFrame(() => {
+//         setError('email', {
+//           type: 'server',
+//           message: t('Global.Validation.var_exists', { var: t('Global.Label.email') }),
+//         });
+//       });
+//     }
+//   }
+// });
+// const onSubmit = handleSubmit(async (data) => {
+//   const registerData = {
+//     Name: data.name,
+//     Email: data.email,
+//     OfficialName: data.officialName,
+//     BusinessTypeIds: selectedBusiness.map((b) => b.id),
+//     AgreeToTerms: data.acceptTerms,
+//   };
+
+//   const res = await registerUser(registerData as any);
+
+
+//   if ('redirectTo' in res) {
+//     router.push(res.redirectTo);
+//   } else if ('error' in res) {
+//     console.error('Register error details:', {
+//       rawError: res.error,
+//       stringified: String(res.error),
+//       type: typeof res.error,
+//       includesUsername: String(res.error).includes('username'),
+//       includesEmail: String(res.error).includes('email')
+//     });
+
+//     // Normalize error message - handle different error formats
+//     let errorMsg = String(res.error || '').trim().toLowerCase();
+
+//     // Check for common error patterns
+//     if (
+//       errorMsg.includes('username') ||
+//       errorMsg.includes('user_name') ||
+//       errorMsg.includes('already_exist') ||
+//       errorMsg.includes('already exists') ||
+//       errorMsg.includes('taken')
+//     ) {
+//       setCurrentTab(0);
+//       requestAnimationFrame(() => {
+//         setError('name', {
+//           type: 'server',
+//           message: t('Global.Validation.var_exists', { var: t('Global.Label.name') }),
+//         });
+//       });
+//     } else if (
+//       errorMsg.includes('email') ||
+//       errorMsg.includes('email_already_exists') ||
+//       errorMsg.includes('already exists') ||
+//       errorMsg.includes('taken')
+//     ) {
+//       setCurrentTab(0);
+//       requestAnimationFrame(() => {
+//         setError('email', {
+//           type: 'server',
+//           message: t('Global.Validation.var_exists', { var: t('Global.Label.email') }),
+//         });
+//       });
+//     } else {
+//       // Handle other errors - set a generic error
+//       setCurrentTab(0);
+//       requestAnimationFrame(() => {
+//         setError('root', {
+//           type: 'server',
+//           message: errorMsg || t('Global.Validation.something_went_wrong'),
+//         });
+//       });
+//     }
+//   }
+// });
 const onSubmit = handleSubmit(async (data) => {
   const registerData = {
     Name: data.name,
@@ -218,42 +332,41 @@ const onSubmit = handleSubmit(async (data) => {
     AgreeToTerms: data.acceptTerms,
   };
 
+  console.log('Sending registration data:', registerData);
+
   const res = await registerUser(registerData as any);
 
+  console.log('Registration response:', res);
 
   if ('redirectTo' in res) {
     router.push(res.redirectTo);
   } else if ('error' in res) {
-    // console.error('Register error:', res.error);
+    const errorMsg = String(res.error).toLowerCase().trim();
+    console.log('Processing error:', errorMsg);
 
-    // Normalize error message - handle different error formats
-    let errorMsg = String(res.error || '').trim().toLowerCase();
+    // Set tab to 0 first to ensure form fields are visible
+    setCurrentTab(0);
 
-    // Check for common error patterns
-    if (
-      errorMsg.includes('username') ||
-      errorMsg.includes('user_name') ||
-      errorMsg.includes('already_exist')
-    ) {
-      setCurrentTab(0);
-      requestAnimationFrame(() => {
+    // Use setTimeout to ensure the tab change has completed
+    setTimeout(() => {
+      if (errorMsg.includes('username') || errorMsg.includes('user_name') || errorMsg.includes('already_exist')) {
         setError('name', {
           type: 'server',
           message: t('Global.Validation.var_exists', { var: t('Global.Label.name') }),
         });
-      });
-    } else if (
-      errorMsg.includes('email') ||
-      errorMsg.includes('email_already_exists')
-    ) {
-      setCurrentTab(0);
-      requestAnimationFrame(() => {
+      } else if (errorMsg.includes('email') || errorMsg.includes('email_already_exists') || errorMsg.includes('already exists')) {
         setError('email', {
           type: 'server',
           message: t('Global.Validation.var_exists', { var: t('Global.Label.email') }),
         });
-      });
-    }
+      } else {
+        // Generic error fallback
+        setError('root', {
+          type: 'server',
+          message: errorMsg || 'Registration failed. Please try again.'
+        });
+      }
+    }, 100);
   }
 });
   const acceptTerms = watch('acceptTerms');
@@ -281,87 +394,91 @@ const onSubmit = handleSubmit(async (data) => {
               {t('Pages.Auth.create_new_account')}
             </Typography>
           </Box>
-
-
           <FormProvider methods={methods} onSubmit={onSubmit}>
-            {/* STEP 1 */}
-            {currentTab === 0 && (
-              <>
-                <Image src="/assets/images/auth/new_register_step1_completed.svg" alt="step-2" width={400} height={83} />
-                <Stack spacing={2}>
-                  <FieldLabel>{t('Global.Label.name')}</FieldLabel>
-                  <RHFTextField name="name" placeholder={t('Pages.Auth.user_name')} />
+  {/* Add root error display HERE - visible on all steps */}
+  {methods.formState.errors.root && (
+    <Typography color="error" sx={{ mb: 2, textAlign: 'center' }}>
+      {methods.formState.errors.root.message}
+    </Typography>
+  )}
 
-                  <FieldLabel>{t('Global.Label.official_name')}</FieldLabel>
-                  <RHFTextField name="officialName" placeholder={t('Global.Label.official_name')} />
+  {/* STEP 1 */}
+  {currentTab === 0 && (
+    <>
+      <Image src="/assets/images/auth/new_register_step1_completed.svg" alt="step-2" width={400} height={83} />
+      <Stack spacing={2}>
+        <FieldLabel>{t('Global.Label.name')}</FieldLabel>
+        <RHFTextField name="name" placeholder={t('Pages.Auth.user_name')} />
 
-                  <FieldLabel>{t('Global.Label.email')}</FieldLabel>
-                  <RHFTextField name="email" placeholder={t('Global.Label.email')} />
+        <FieldLabel>{t('Global.Label.official_name')}</FieldLabel>
+        <RHFTextField name="officialName" placeholder={t('Global.Label.official_name')} />
 
-                  <FormControlLabel
-                    control={<Checkbox checked={acceptTerms} onChange={(e) => setValue('acceptTerms', e.target.checked)} />}
-                    label="أوافق على الشروط والأحكام"
-                  />
+        <FieldLabel>{t('Global.Label.email')}</FieldLabel>
+        <RHFTextField name="email" placeholder={t('Global.Label.email')} />
 
-                  <Button fullWidth variant="contained" disabled={!isValid || isSubmitting} onClick={handleNext} sx={{ py: 1.5 }}>
-                    التالي
-                  </Button>
-                </Stack>
-              </>
-            )}
+        <FormControlLabel
+          control={<Checkbox checked={acceptTerms} onChange={(e) => setValue('acceptTerms', e.target.checked)} />}
+          label="أوافق على الشروط والأحكام"
+        />
 
-            {/* STEP 2 */}
-            {currentTab === 1 && (
-              <Stack spacing={2}>
-                <Typography variant="h6">الشروط والأحكام</Typography>
-                <Typography sx={{ p: 2, border: '1px solid #ccc', borderRadius: 2, maxHeight: 250, overflow: 'auto' }}>
-                  {/* محتوى الشروط */}
-                  {termsContent}
-                </Typography>
+        <Button fullWidth variant="contained" disabled={!isValid || isSubmitting} onClick={handleNext} sx={{ py: 1.5 }}>
+          التالي
+        </Button>
+      </Stack>
+    </>
+  )}
 
-                <FormControlLabel
-                  control={<Checkbox checked={acceptTerms} onChange={(e) => setValue('acceptTerms', e.target.checked)} />}
-                  label="أوافق على الشروط والأحكام"
-                />
+  {/* STEP 2 */}
+  {currentTab === 1 && (
+    <Stack spacing={2}>
+      <Typography variant="h6">الشروط والأحكام</Typography>
+      <Typography sx={{ p: 2, border: '1px solid #ccc', borderRadius: 2, maxHeight: 250, overflow: 'auto' }}>
+        {/* محتوى الشروط */}
+        {termsContent}
+      </Typography>
 
-                <Button fullWidth variant="contained" disabled={!acceptTerms} onClick={() => setCurrentTab(2)} sx={{ py: 1.5 }}>
-                  التالي
-                </Button>
-                <Button fullWidth variant="outlined" onClick={handleBack} sx={{ py: 1.5 }}>
-                  رجوع
-                </Button>
-              </Stack>
-            )}
+      <FormControlLabel
+        control={<Checkbox checked={acceptTerms} onChange={(e) => setValue('acceptTerms', e.target.checked)} />}
+        label="أوافق على الشروط والأحكام"
+      />
 
-            {/* STEP 3 */}
-            {currentTab === 2 && (
-              <>
-                <Image src="/assets/images/auth/new_resgister_step_2.svg" alt="step-2" width={400} height={83} />
+      <Button fullWidth variant="contained" disabled={!acceptTerms} onClick={() => setCurrentTab(2)} sx={{ py: 1.5 }}>
+        التالي
+      </Button>
+      <Button fullWidth variant="outlined" onClick={handleBack} sx={{ py: 1.5 }}>
+        رجوع
+      </Button>
+    </Stack>
+  )}
 
-                <Stack spacing={2}>
-                  <Grid2 container spacing={1} justifyContent="center">
-                    {bussiness.map((b) => (
-                      <Grid2 key={b.id} size={{ xs: 4 }} display="flex" justifyContent="center">
-                        <BusinessCard
-                          business={b}
-                          isSelected={selectedBusiness.some((sb) => sb.id === b.id)}
-                          onSelect={handleSelectBusiness}
-                        />
+  {/* STEP 3 */}
+  {currentTab === 2 && (
+    <>
+      <Image src="/assets/images/auth/new_resgister_step_2.svg" alt="step-2" width={400} height={83} />
 
-                      </Grid2>
-                    ))}
-                  </Grid2>
+      <Stack spacing={2}>
+        <Grid2 container spacing={1} justifyContent="center">
+          {bussiness.map((b) => (
+            <Grid2 key={b.id} size={{ xs: 4 }} display="flex" justifyContent="center">
+              <BusinessCard
+                business={b}
+                isSelected={selectedBusiness.some((sb) => sb.id === b.id)}
+                onSelect={handleSelectBusiness}
+              />
+            </Grid2>
+          ))}
+        </Grid2>
 
-                  <Button fullWidth type="submit" variant="contained" disabled={!selectedBusiness || isSubmitting} sx={{ py: 1.5 }}>
-                    {t('Pages.Auth.create_new_account')}
-                  </Button>
-                  <Button fullWidth variant="outlined" onClick={handleBack} sx={{ py: 1.5 }}>
-                    رجوع
-                  </Button>
-                </Stack>
-              </>
-            )}
-          </FormProvider>
+        <Button fullWidth type="submit" variant="contained" disabled={!selectedBusiness || isSubmitting} sx={{ py: 1.5 }}>
+          {t('Pages.Auth.create_new_account')}
+        </Button>
+        <Button fullWidth variant="outlined" onClick={handleBack} sx={{ py: 1.5 }}>
+          رجوع
+        </Button>
+      </Stack>
+    </>
+  )}
+</FormProvider>
         </Container>
       </Box>
 
@@ -390,3 +507,83 @@ const onSubmit = handleSubmit(async (data) => {
     </Box>
   );
 }
+
+          // <FormProvider methods={methods} onSubmit={onSubmit}>
+          //   {/* STEP 1 */}
+          //   {currentTab === 0 && (
+          //     <>
+          //       <Image src="/assets/images/auth/new_register_step1_completed.svg" alt="step-2" width={400} height={83} />
+          //       <Stack spacing={2}>
+          //         <FieldLabel>{t('Global.Label.name')}</FieldLabel>
+          //         <RHFTextField name="name" placeholder={t('Pages.Auth.user_name')} />
+
+          //         <FieldLabel>{t('Global.Label.official_name')}</FieldLabel>
+          //         <RHFTextField name="officialName" placeholder={t('Global.Label.official_name')} />
+
+          //         <FieldLabel>{t('Global.Label.email')}</FieldLabel>
+          //         <RHFTextField name="email" placeholder={t('Global.Label.email')} />
+
+          //         <FormControlLabel
+          //           control={<Checkbox checked={acceptTerms} onChange={(e) => setValue('acceptTerms', e.target.checked)} />}
+          //           label="أوافق على الشروط والأحكام"
+          //         />
+
+          //         <Button fullWidth variant="contained" disabled={!isValid || isSubmitting} onClick={handleNext} sx={{ py: 1.5 }}>
+          //           التالي
+          //         </Button>
+          //       </Stack>
+          //     </>
+          //   )}
+
+          //   {/* STEP 2 */}
+          //   {currentTab === 1 && (
+          //     <Stack spacing={2}>
+          //       <Typography variant="h6">الشروط والأحكام</Typography>
+          //       <Typography sx={{ p: 2, border: '1px solid #ccc', borderRadius: 2, maxHeight: 250, overflow: 'auto' }}>
+          //         {/* محتوى الشروط */}
+          //         {termsContent}
+          //       </Typography>
+
+          //       <FormControlLabel
+          //         control={<Checkbox checked={acceptTerms} onChange={(e) => setValue('acceptTerms', e.target.checked)} />}
+          //         label="أوافق على الشروط والأحكام"
+          //       />
+
+          //       <Button fullWidth variant="contained" disabled={!acceptTerms} onClick={() => setCurrentTab(2)} sx={{ py: 1.5 }}>
+          //         التالي
+          //       </Button>
+          //       <Button fullWidth variant="outlined" onClick={handleBack} sx={{ py: 1.5 }}>
+          //         رجوع
+          //       </Button>
+          //     </Stack>
+          //   )}
+
+          //   {/* STEP 3 */}
+          //   {currentTab === 2 && (
+          //     <>
+          //       <Image src="/assets/images/auth/new_resgister_step_2.svg" alt="step-2" width={400} height={83} />
+
+          //       <Stack spacing={2}>
+          //         <Grid2 container spacing={1} justifyContent="center">
+          //           {bussiness.map((b) => (
+          //             <Grid2 key={b.id} size={{ xs: 4 }} display="flex" justifyContent="center">
+          //               <BusinessCard
+          //                 business={b}
+          //                 isSelected={selectedBusiness.some((sb) => sb.id === b.id)}
+          //                 onSelect={handleSelectBusiness}
+          //               />
+
+          //             </Grid2>
+          //           ))}
+          //         </Grid2>
+
+          //         <Button fullWidth type="submit" variant="contained" disabled={!selectedBusiness || isSubmitting} sx={{ py: 1.5 }}>
+          //           {t('Pages.Auth.create_new_account')}
+          //         </Button>
+          //         <Button fullWidth variant="outlined" onClick={handleBack} sx={{ py: 1.5 }}>
+          //           رجوع
+          //         </Button>
+          //       </Stack>
+          //     </>
+          //   )}
+          // </FormProvider>

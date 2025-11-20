@@ -134,29 +134,118 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
       return { error: error.message };
     }
   },
+
   registerUser: async ({ Name, Email, BusinessTypeIds, AgreeToTerms, OfficialName }) => {
-    try {
-      const phone = localStorage.getItem('phoneNumber');
+  try {
+    const phone = localStorage.getItem('phoneNumber');
 
-      if (!phone) {
-        return { error: 'Phone number not found in localStorage' };
-      }
-      const response = await Register({
-        Name,
-        PhoneNumber: phone,
-        Email,
-        BusinessTypeIds: Array.isArray(BusinessTypeIds) ? BusinessTypeIds : [BusinessTypeIds], // Always send as array
-        AgreeToTerms: Boolean(AgreeToTerms),
-        OfficialName,
-      });
-      localStorage.removeItem('phoneNumber');
-      // set({ authenticated: false });
-
-      return { redirectTo: '/auth/login' };
-    } catch (error: any) {
-      return { error: error?.message || 'Registration failed' };
+    if (!phone) {
+      return { error: 'Phone number not found in localStorage' };
     }
-  },
+
+    const response = await Register({
+      Name,
+      PhoneNumber: phone,
+      Email,
+      BusinessTypeIds: Array.isArray(BusinessTypeIds) ? BusinessTypeIds : [BusinessTypeIds],
+      AgreeToTerms: Boolean(AgreeToTerms),
+      OfficialName,
+    });
+
+    localStorage.removeItem('phoneNumber');
+    return { redirectTo: '/auth/login' };
+
+  } catch (error: any) {
+    // PRODUCTION FIX: Better error extraction for different environments
+    console.log('Raw error object:', error);
+
+    let errorMessage = 'Registration failed';
+
+    // Handle different error formats between local and production
+    if (typeof error === 'string') {
+      errorMessage = error;
+    } else if (error?.message) {
+      errorMessage = error.message;
+    } else if (error?.response?.data) {
+      // Handle Axios response format
+      const data = error.response.data;
+
+      if (typeof data === 'string') {
+        errorMessage = data;
+      } else if (data.message) {
+        errorMessage = data.message;
+      } else if (data.error) {
+        errorMessage = data.error;
+      } else if (data.errors) {
+        // Handle validation errors
+        errorMessage = Object.values(data.errors).flat().join(', ');
+      }
+    }
+
+    console.error('Registration error extracted:', errorMessage);
+    return { error: errorMessage };
+  }
+},
+  // auth-store
+// registerUser: async ({ Name, Email, BusinessTypeIds, AgreeToTerms, OfficialName }) => {
+//   try {
+//     const phone = localStorage.getItem('phoneNumber');
+
+//     if (!phone) {
+//       return { error: 'Phone number not found in localStorage' };
+//     }
+
+//     const response = await Register({
+//       Name,
+//       PhoneNumber: phone,
+//       Email,
+//       BusinessTypeIds: Array.isArray(BusinessTypeIds) ? BusinessTypeIds : [BusinessTypeIds],
+//       AgreeToTerms: Boolean(AgreeToTerms),
+//       OfficialName,
+//     });
+
+//     localStorage.removeItem('phoneNumber');
+//     return { redirectTo: '/auth/login' };
+
+//   } catch (error: any) {
+//     // Better error extraction
+//     const errorMessage =
+//       error?.response?.data?.message ||
+//       error?.response?.data?.error ||
+//       error?.message ||
+//       'Registration failed';
+
+//     console.error('Registration error details:', {
+//       fullError: error,
+//       responseData: error?.response?.data,
+//       extractedMessage: errorMessage
+//     });
+
+//     return { error: errorMessage };
+//   }
+// },
+  //   try {
+  //     const phone = localStorage.getItem('phoneNumber');
+
+  //     if (!phone) {
+  //       return { error: 'Phone number not found in localStorage' };
+  //     }
+  //     const response = await Register({
+  //       Name,
+  //       PhoneNumber: phone,
+  //       Email,
+  //       BusinessTypeIds: Array.isArray(BusinessTypeIds) ? BusinessTypeIds : [BusinessTypeIds], // Always send as array
+  //       AgreeToTerms: Boolean(AgreeToTerms),
+  //       OfficialName,
+  //     });
+  //     localStorage.removeItem('phoneNumber');
+  //     // set({ authenticated: false });
+
+  //     return { redirectTo: '/auth/login' };
+  //   } catch (error: any) {
+  //     return { error: error?.message || 'Registration failed' };
+  //   }
+  // },
 
   // -------------------- INIT --------------------
   init: async () => {
