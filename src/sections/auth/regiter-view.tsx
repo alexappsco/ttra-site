@@ -172,7 +172,44 @@ export default function JwtRegisterView({ bussiness }: Props) {
 
   //   }
   // });
-  const onSubmit = handleSubmit(async (data) => {
+//   const onSubmit = handleSubmit(async (data) => {
+//   const registerData = {
+//     Name: data.name,
+//     Email: data.email,
+//     OfficialName: data.officialName,
+//     BusinessTypeIds: selectedBusiness.map((b) => b.id),
+//     AgreeToTerms: data.acceptTerms,
+//   };
+
+//   const res = await registerUser(registerData as any);
+
+//   if ('redirectTo' in res) {
+//     router.push(res.redirectTo);
+//   } else if ('error' in res) {
+//     console.log('Register error:', res.error);
+
+//     const error = String(res.error).trim().toLowerCase();
+
+//     if (error === 'username_already_exist') {
+//       setCurrentTab(0);
+//       requestAnimationFrame(() => {
+//         setError('name', {
+//           type: 'server',
+//           message: t('Global.Validation.var_exists', { var: t('Global.Label.name') }),
+//         });
+//       });
+//     } else if (error === 'email already exists') {
+//       setCurrentTab(0);
+//       requestAnimationFrame(() => {
+//         setError('email', {
+//           type: 'server',
+//           message: t('Global.Validation.var_exists', { var: t('Global.Label.email') }),
+//         });
+//       });
+//     }
+//   }
+// });
+const onSubmit = handleSubmit(async (data) => {
   const registerData = {
     Name: data.name,
     Email: data.email,
@@ -183,14 +220,22 @@ export default function JwtRegisterView({ bussiness }: Props) {
 
   const res = await registerUser(registerData as any);
 
+  console.log('Register response:', res); // Debug in production
+
   if ('redirectTo' in res) {
     router.push(res.redirectTo);
   } else if ('error' in res) {
-    console.log('Register error:', res.error);
+    console.error('Register error:', res.error);
 
-    const error = String(res.error).trim().toLowerCase();
+    // Normalize error message - handle different error formats
+    let errorMsg = String(res.error || '').trim().toLowerCase();
 
-    if (error === 'username_already_exist') {
+    // Check for common error patterns
+    if (
+      errorMsg.includes('username') ||
+      errorMsg.includes('user_name') ||
+      errorMsg.includes('already_exist')
+    ) {
       setCurrentTab(0);
       requestAnimationFrame(() => {
         setError('name', {
@@ -198,7 +243,10 @@ export default function JwtRegisterView({ bussiness }: Props) {
           message: t('Global.Validation.var_exists', { var: t('Global.Label.name') }),
         });
       });
-    } else if (error === 'email already exists') {
+    } else if (
+      errorMsg.includes('email') ||
+      errorMsg.includes('email_already_exists')
+    ) {
       setCurrentTab(0);
       requestAnimationFrame(() => {
         setError('email', {
@@ -206,10 +254,12 @@ export default function JwtRegisterView({ bussiness }: Props) {
           message: t('Global.Validation.var_exists', { var: t('Global.Label.email') }),
         });
       });
+    } else {
+      // Generic error fallback
+      console.error('Unhandled registration error:', res.error);
     }
   }
 });
-
   const acceptTerms = watch('acceptTerms');
 
   return (
