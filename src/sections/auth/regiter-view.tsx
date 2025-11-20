@@ -133,46 +133,83 @@ export default function JwtRegisterView({ bussiness }: Props) {
   const handleBack = () => setCurrentTab((p) => p - 1);
 
   // In your register-view component - fix the onSubmit function
+  // const onSubmit = handleSubmit(async (data) => {
+  //   const registerData = {
+  //     Name: data.name,
+  //     Email: data.email,
+  //     OfficialName: data.officialName,
+  //     // BusinessTypeIds: selectedBusiness ? [selectedBusiness.id] : [],
+  //     BusinessTypeIds: selectedBusiness.map((b) => b.id),
+
+  //     AgreeToTerms: data.acceptTerms,
+  //   };
+
+  //   const res = await registerUser(registerData as any);
+
+  //   if ('redirectTo' in res) {
+  //     router.push(res.redirectTo);
+  //   } else if ('error' in res) {
+  //     console.log(res)
+  //     if (res.error === 'username_already_exist') {
+  //       setCurrentTab(0);
+  //       requestAnimationFrame(() => {
+  //         setError('name', {
+  //           type: 'server',
+  //           message: t('Global.Validation.var_exists', { var: t('Global.Label.name') }),
+  //         });
+  //       });
+  //     }
+  //     else if (res.error === 'Email already exists') {
+  //       setCurrentTab(0);
+
+  //       requestAnimationFrame(() => {
+  //         setError('email', {
+  //           type: 'server',
+  //           message: t('Global.Validation.var_exists', { var: t('Global.Label.email') }),
+  //         });
+  //       });
+  //     }
+
+  //   }
+  // });
   const onSubmit = handleSubmit(async (data) => {
-    const registerData = {
-      Name: data.name,
-      Email: data.email,
-      OfficialName: data.officialName,
-      // BusinessTypeIds: selectedBusiness ? [selectedBusiness.id] : [],
-      BusinessTypeIds: selectedBusiness.map((b) => b.id),
+  const registerData = {
+    Name: data.name,
+    Email: data.email,
+    OfficialName: data.officialName,
+    BusinessTypeIds: selectedBusiness.map((b) => b.id),
+    AgreeToTerms: data.acceptTerms,
+  };
 
-      AgreeToTerms: data.acceptTerms,
-    };
+  const res = await registerUser(registerData as any);
 
-    const res = await registerUser(registerData as any);
+  if ('redirectTo' in res) {
+    router.push(res.redirectTo);
+  } else if ('error' in res) {
+    console.log('Register error:', res.error);
 
-    if ('redirectTo' in res) {
-      router.push(res.redirectTo);
-    } else if ('error' in res) {
-      console.log(res)
-      if (res.error === 'username_already_exist') {
-        setCurrentTab(0);
+    const error = String(res.error).trim().toLowerCase();
 
-        requestAnimationFrame(() => {
-          setError('name', {
-            type: 'server',
-            message: t('Global.Validation.var_exists', { var: t('Global.Label.name') }),
-          });
+    if (error === 'username_already_exist') {
+      setCurrentTab(0);
+      requestAnimationFrame(() => {
+        setError('name', {
+          type: 'server',
+          message: t('Global.Validation.var_exists', { var: t('Global.Label.name') }),
         });
-      }
-      else if (res.error === 'Email already exists') {
-        setCurrentTab(0);
-
-        requestAnimationFrame(() => {
-          setError('email', {
-            type: 'server',
-            message: t('Global.Validation.var_exists', { var: t('Global.Label.email') }),
-          });
+      });
+    } else if (error === 'email already exists') {
+      setCurrentTab(0);
+      requestAnimationFrame(() => {
+        setError('email', {
+          type: 'server',
+          message: t('Global.Validation.var_exists', { var: t('Global.Label.email') }),
         });
-      }
-
+      });
     }
-  });
+  }
+});
+
   const acceptTerms = watch('acceptTerms');
 
   return (
@@ -300,7 +337,9 @@ export default function JwtRegisterView({ bussiness }: Props) {
           opacity: { xs: 0.35, md: 1 },
         }}
       >
-        <Image src="/assets/auth/bgolor-auth.png" alt="background" fill style={{ objectFit: 'cover', objectPosition: 'center' }} />
+        <Image
+         src="/assets/auth/bgolor-auth.png" alt="background" fill style={{ objectFit: 'cover', objectPosition: 'center' }}
+          />
       </Box>
     </Box>
   );
