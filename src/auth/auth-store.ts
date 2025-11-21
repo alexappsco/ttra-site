@@ -135,57 +135,57 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
     }
   },
 
-  registerUser: async ({ Name, Email, BusinessTypeIds, AgreeToTerms, OfficialName }) => {
-  try {
-    const phone = localStorage.getItem('phoneNumber');
+//   registerUser: async ({ Name, Email, BusinessTypeIds, AgreeToTerms, OfficialName }) => {
+//   try {
+//     const phone = localStorage.getItem('phoneNumber');
 
-    if (!phone) {
-      return { error: 'Phone number not found in localStorage' };
-    }
+//     if (!phone) {
+//       return { error: 'Phone number not found in localStorage' };
+//     }
 
-    const response = await Register({
-      Name,
-      PhoneNumber: phone,
-      Email,
-      BusinessTypeIds: Array.isArray(BusinessTypeIds) ? BusinessTypeIds : [BusinessTypeIds],
-      AgreeToTerms: Boolean(AgreeToTerms),
-      OfficialName,
-    });
+//     const response = await Register({
+//       Name,
+//       PhoneNumber: phone,
+//       Email,
+//       BusinessTypeIds: Array.isArray(BusinessTypeIds) ? BusinessTypeIds : [BusinessTypeIds],
+//       AgreeToTerms: Boolean(AgreeToTerms),
+//       OfficialName,
+//     });
 
-    localStorage.removeItem('phoneNumber');
-    return { redirectTo: '/auth/login' };
+//     localStorage.removeItem('phoneNumber');
+//     return { redirectTo: '/auth/login' };
 
-  } catch (error: any) {
-    // PRODUCTION FIX: Better error extraction for different environments
-    console.log('Raw error object:', error);
+//   } catch (error: any) {
+//     // PRODUCTION FIX: Better error extraction for different environments
+//     console.log('Raw error object:', error);
 
-    let errorMessage = 'Registration failed';
+//     let errorMessage = 'Registration failed';
 
-    // Handle different error formats between local and production
-    if (typeof error === 'string') {
-      errorMessage = error;
-    } else if (error?.message) {
-      errorMessage = error.message;
-    } else if (error?.response?.data) {
-      // Handle Axios response format
-      const data = error.response.data;
+//     // Handle different error formats between local and production
+//     if (typeof error === 'string') {
+//       errorMessage = error;
+//     } else if (error?.message) {
+//       errorMessage = error.message;
+//     } else if (error?.response?.data) {
+//       // Handle Axios response format
+//       const data = error.response.data;
 
-      if (typeof data === 'string') {
-        errorMessage = data;
-      } else if (data.message) {
-        errorMessage = data.message;
-      } else if (data.error) {
-        errorMessage = data.error;
-      } else if (data.errors) {
-        // Handle validation errors
-        errorMessage = Object.values(data.errors).flat().join(', ');
-      }
-    }
+//       if (typeof data === 'string') {
+//         errorMessage = data;
+//       } else if (data.message) {
+//         errorMessage = data.message;
+//       } else if (data.error) {
+//         errorMessage = data.error;
+//       } else if (data.errors) {
+//         // Handle validation errors
+//         errorMessage = Object.values(data.errors).flat().join(', ');
+//       }
+//     }
 
-    console.error('Registration error extracted:', errorMessage);
-    return { error: errorMessage };
-  }
-},
+//     console.error('Registration error extracted:', errorMessage);
+//     return { error: errorMessage };
+//   }
+// },
   // auth-store
 // registerUser: async ({ Name, Email, BusinessTypeIds, AgreeToTerms, OfficialName }) => {
 //   try {
@@ -248,6 +248,59 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
   // },
 
   // -------------------- INIT --------------------
+//   registerUser: async ({ Name, Email, BusinessTypeIds, AgreeToTerms, OfficialName }) => {
+//   const phone = localStorage.getItem('phoneNumber');
+
+//   if (!phone) {
+//     return { error: 'Phone number not found in localStorage' };
+//   }
+
+//   const response = await Register({
+//     Name,
+//     PhoneNumber: phone,
+//     Email,
+//     BusinessTypeIds: Array.isArray(BusinessTypeIds) ? BusinessTypeIds : [BusinessTypeIds],
+//     AgreeToTerms: Boolean(AgreeToTerms),
+//     OfficialName,
+//   });
+
+//   if (!response.success) {
+//     // ❌ return error directly
+//     return { error: response.message };
+//   }
+
+//   // 🎯 Success
+//   localStorage.removeItem('phoneNumber');
+//   return { redirectTo: '/auth/login' };
+// },
+
+registerUser: async ({ Name, Email, BusinessTypeIds, AgreeToTerms, OfficialName }) => {
+  const phone = localStorage.getItem('phoneNumber');
+  if (!phone) return { error: 'phone_not_found' };
+
+  const response = await Register({
+    Name,
+    PhoneNumber: phone,
+    Email,
+    BusinessTypeIds: Array.isArray(BusinessTypeIds) ? BusinessTypeIds : [BusinessTypeIds],
+    AgreeToTerms: Boolean(AgreeToTerms),
+    OfficialName,
+  });
+
+  if (!response.success) {
+    let errorKey = response.message?.toLowerCase();
+
+    if (errorKey?.includes('username')) errorKey = 'username_already_exist';
+    else if (errorKey?.includes('email')) errorKey = 'email_already_exist';
+    else errorKey = 'unknown_error';
+
+    return { error: errorKey, message: response.message };
+  }
+
+  localStorage.removeItem('phoneNumber');
+  return { redirectTo: '/auth/login' };
+},
+
   init: async () => {
     // Check if we're in browser environment
     if (typeof window === 'undefined') {
