@@ -145,17 +145,10 @@ export default function JwtRegisterView({ bussiness }: Props) {
     };
 
     const res = await registerUser(registerData as any);
-    console.log("res before success and failed in view", res)
-
     if ('redirectTo' in res) {
       router.push(res.redirectTo);
-      console.log("res after success ", res)
-
     } else if ('error' in res) {
-      console.log("res after failed in view", res)
-
       setCurrentTab(0);
-
       requestAnimationFrame(() => {
         if (res.error === 'username_already_exist') {
           setError('name', {
