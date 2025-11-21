@@ -145,14 +145,14 @@ export default function JwtRegisterView({ bussiness }: Props) {
     };
 
     const res = await registerUser(registerData as any);
-    console.log("res before success and failed in view",res)
+    console.log("res before success and failed in view", res)
 
     if ('redirectTo' in res) {
       router.push(res.redirectTo);
-        console.log("res after success ",res)
+      console.log("res after success ", res)
 
     } else if ('error' in res) {
-          console.log("res after failed in view",res)
+      console.log("res after failed in view", res)
 
       setCurrentTab(0);
 
@@ -310,7 +310,7 @@ export default function JwtRegisterView({ bussiness }: Props) {
           top: 0,
           left: 0,
           width: { xs: '100%', md: '40%' },
-          height: { xs: '100vh' },
+          height: { xs: '100vh', md: '100%' },
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -319,15 +319,25 @@ export default function JwtRegisterView({ bussiness }: Props) {
           bgcolor: { xs: '#F9F9F9', md: 'transparent' },
           filter: { xs: 'blur(4px)', md: 'none' },
           opacity: { xs: 0.35, md: 1 },
+          '& img': {
+            objectFit: {
+              xs: 'cover',
+              md: 'contain',
+              lg: 'cover',
+            },
+            objectPosition: 'center',
+          },
         }}
       >
         <Image
           src="/assets/auth/bgolor-auth.png"
           alt="background"
           fill
-          style={{ objectFit: 'cover', objectPosition: 'center' }}
+          priority
+          quality={100}
         />
       </Box>
+
     </Box>
   );
 }
