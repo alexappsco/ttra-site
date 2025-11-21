@@ -89,6 +89,7 @@ export async function new_register_action(credentials: LoginCretentials) {
 //     }
 
 //    const res = await axiosInstance.post(endpoints.auth.Register.register, formData);
+//    console.log("res my register action",res)
 //     return res;
 //   } catch (error: any) {
 //     // Normalize error message from backend
@@ -175,63 +176,31 @@ export async function Register(credentials: RegiterCretentials) {
       });
     }
 
-    const res = await axiosInstance.post(endpoints.auth.Register.register, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-      // Add timeout for production
-      timeout: 30000,
-    });
+    const res = await axiosInstance.post(endpoints.auth.Register.register, formData);
 
-    return res.data;
+    console.log("res my register action", res);
 
+    return {
+      success: true,
+      data: res.data, // return only useful data
+    };
   } catch (error: any) {
-    // PRODUCTION FIX: Comprehensive error handling
-    console.log('Full error in auth-actions:', error);
+    console.error('Register API error:', error);
 
-    let errorMsg = 'Registration failed';
+    const errorMsg =
+      error?.response?.data?.message ||
+      error?.response?.data?.error ||
+      error?.message ||
+      'Registration failed';
 
-    // Direct error message
-    if (error?.message) {
-      errorMsg = error.message;
-    }
-
-    // Axios response error
-    if (error?.response?.data) {
-      const data = error.response.data;
-
-      // Handle different backend response formats
-      if (typeof data === 'string') {
-        errorMsg = data;
-      } else if (data.message) {
-        errorMsg = data.message;
-      } else if (data.error) {
-        errorMsg = data.error;
-      } else if (data.errors && Array.isArray(data.errors)) {
-        errorMsg = data.errors.join(', ');
-      } else if (typeof data === 'object') {
-        // Try to extract any string value from the object
-        const stringValues = Object.values(data).filter(val => typeof val === 'string');
-        if (stringValues.length > 0) {
-          errorMsg = stringValues.join(', ');
-        }
-      }
-    }
-
-    // Network errors
-    if (error?.code === 'NETWORK_ERROR' || error?.code === 'ECONNREFUSED') {
-      errorMsg = 'Network error: Cannot connect to server';
-    }
-
-    // Timeout errors
-    if (error?.code === 'ECONNABORTED') {
-      errorMsg = 'Request timeout: Server took too long to respond';
-    }
-
-    console.error('Register API final error:', errorMsg);
-    throw new Error(errorMsg);
+    return {
+      success: false,
+      message: errorMsg,
+      status: error?.response?.status ?? 500,
+    };
   }
 }
+
 export async function verifyOtpApi(credentials: LoginVerifyCretentials): Promise<UserSession> {
   try {
     const res = await axiosInstance.post(endpoints.auth.Login.verify_otp, credentials);
