@@ -74,7 +74,7 @@ export default function JwtLoginView({ isNewphonenumber }: Props) {
       <Box
         sx={{
           width: '100%',
-          height: {xs:"100vh"},
+          height: { xs: "100vh" },
           display: 'flex',
           flexDirection: { xs: 'column', md: 'row-reverse' }, // Stack on mobile
         }}
@@ -133,7 +133,7 @@ export default function JwtLoginView({ isNewphonenumber }: Props) {
                     color: '#797979',
                     textAlign: 'center',
                     px: 2,
-                    my:1
+                    my: 1
                   }}
                 >
                   يجب أن يتم التحقق من الهاتف قبل إكمال باقي التسجيل
@@ -220,29 +220,38 @@ export default function JwtLoginView({ isNewphonenumber }: Props) {
           </Container>
         </Box>
         {/* ==== LEFT IMAGE (Desktop + Beautiful Mobile) ==== */}
+
         <Box
           sx={{
             position: { xs: 'absolute', md: 'relative' },
             top: 0,
             left: 0,
-            width: { xs: '100%', md: '50%' },
-            height: { xs: '100vh' }, // ارتفاع 40% من الشاشة فقط على الموبايل
+            width: { xs: '100%', md: '40%' },
+            height: { xs: '100vh', md: '100%' },
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             overflow: 'hidden',
-            zIndex: { xs: -1, md: 0 }, // خلف المحتوى على الموبايل
-            bgcolor: { xs: '#F9F9F9', md: 'transparent' }, // خلفية فاتحة عند عدم وضوح الصورة
-            filter: { xs: 'blur(4px)', md: 'none' }, // الصورة باهتة على الموبايل
-            opacity: { xs: 0.35, md: 1 }, // تعتيم الصورة على الموبايل
+            zIndex: { xs: -1, md: 0 },
+            bgcolor: { xs: '#F9F9F9', md: 'transparent' },
+            filter: { xs: 'blur(4px)', md: 'none' },
+            opacity: { xs: 0.35, md: 1 },
+            '& img': {
+              objectFit: {
+                xs: 'cover',
+                md: 'contain',
+                lg: 'cover',
+              },
+              objectPosition: 'center',
+            },
           }}
         >
           <Image
             src="/assets/auth/bgolor-auth.png"
-            alt="auth background"
+            alt="background"
             fill
             priority
-            style={{ objectFit: 'cover', objectPosition: 'center' }}
+            quality={100}
           />
         </Box>
 
