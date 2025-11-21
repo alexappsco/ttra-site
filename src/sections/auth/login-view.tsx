@@ -220,7 +220,6 @@ export default function JwtLoginView({ isNewphonenumber }: Props) {
           </Container>
         </Box>
         {/* ==== LEFT IMAGE (Desktop + Beautiful Mobile) ==== */}
-
         <Box
           sx={{
             position: { xs: 'absolute', md: 'relative' },
@@ -236,11 +235,13 @@ export default function JwtLoginView({ isNewphonenumber }: Props) {
             bgcolor: { xs: '#F9F9F9', md: 'transparent' },
             filter: { xs: 'blur(4px)', md: 'none' },
             opacity: { xs: 0.35, md: 1 },
+
             '& img': {
               objectFit: {
                 xs: 'cover',
                 md: 'contain',
                 lg: 'cover',
+                xl: 'cover',
               },
               objectPosition: 'center',
             },
