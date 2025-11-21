@@ -297,6 +297,7 @@ export default function JwtRegisterView({ bussiness }: Props) {
       </Box>
 
       {/* ===== LEFT SIDE: BACKGROUND IMAGE ===== */}
+
       <Box
         sx={{
           position: { xs: 'absolute', md: 'relative' },
@@ -312,11 +313,13 @@ export default function JwtRegisterView({ bussiness }: Props) {
           bgcolor: { xs: '#F9F9F9', md: 'transparent' },
           filter: { xs: 'blur(4px)', md: 'none' },
           opacity: { xs: 0.35, md: 1 },
+
           '& img': {
             objectFit: {
               xs: 'cover',
               md: 'contain',
               lg: 'cover',
+              xl: 'cover',
             },
             objectPosition: 'center',
           },
@@ -330,6 +333,7 @@ export default function JwtRegisterView({ bussiness }: Props) {
           quality={100}
         />
       </Box>
+
 
     </Box>
   );
