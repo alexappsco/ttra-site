@@ -143,7 +143,7 @@ export default function JwtVerifyView({ isnewphone }: Props) {
           </Box>
 
           {/* Accessible page title */}
-          <Typography variant="h5" fontWeight="bold" sx={{ mb: 1 }} component="h1">
+          <Typography variant="h5" fontWeight="bold" sx={{ mb: 1,color:'#575B6E'}} component="h1">
             {t('Pages.Auth.verify_otp')}
           </Typography>
 
@@ -152,7 +152,7 @@ export default function JwtVerifyView({ isnewphone }: Props) {
             <strong>{phoneNumber || '966XXXXXXXXX'}</strong>
           </Typography>
 
-          <Box display="flex" justifyContent="center">
+          <Box display="flex" justifyContent="center" sx={{mb:2}}>
             <Link
               component={NextLink}
               href={isnewphone ? paths.auth.new_register : paths.auth.login}
