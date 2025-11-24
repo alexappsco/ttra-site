@@ -1,5 +1,5 @@
-import { getTranslations } from 'next-intl/server';
 import { LoginView } from 'src/sections/auth';
+import { getTranslations } from 'next-intl/server';
 
 // ----------------------------------------------------------------------
 

@@ -105,22 +105,39 @@ export default function JwtLoginView({ isNewphonenumber }: Props) {
           >
             {isNewphonenumber ? 'تسجيل جديد' : t('Pages.Auth.login_title')}
           </Typography>
+                      {/*image in register Step-1  */}
+                         <Box
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                  <Image
+                    src="/assets/images/auth/new_register_step1.png"
+                    alt="steps"
+                    width={400}
+                    height={90}
+                    style={{ objectFit: 'contain', maxWidth: '100%' }}
+
+                  />
+                </Box>
 
           {/* Subtitle */}
-          {!isNewphonenumber && (
-            <Typography
-              sx={{
-                width: { xs: '100%', sm: 338 },
-                mx: 'auto',
-                fontSize: { xs: 14, sm: 16 },
-                lineHeight: '180%',
-                color: '#797979',
-                mb: 2,
-              }}
-            >
-              من فضلك قم بتسجيل الدخول برقم الهاتف المسجل
-            </Typography>
-          )}
+          <Typography
+            sx={{
+              width: { xs: '100%', sm: 338 },
+              mx: 'auto',
+              fontSize: { xs: 14, sm: 16 },
+              lineHeight: '180%',
+              color: '#797979',
+              mb: 2,
+            }}
+          >
+            {isNewphonenumber ?
+              "يجب ان يتم التحقق من الهاتف قبل اكمال باقي التسجيل" : "من فضلك قم بتسجيل الدخول برقم الهاتف المسجل"
+            }
+          </Typography>
 
           {/* Error Message */}
           {errorMsg && (
@@ -136,6 +153,27 @@ export default function JwtLoginView({ isNewphonenumber }: Props) {
           {/* FORM */}
           <FormProvider methods={methods} onSubmit={onSubmit}>
             <Stack spacing={2.5}>
+
+              {/* Label */}
+              <Typography
+                variant="body2"
+                color="#575B6E"
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'flex-end',
+                  padding: 0,
+                  gap: '10px',
+                  width: '95px',
+                  height: '21px',
+                  flexGrow: 0,
+                  textAlign: 'left',
+                  fontWeight:'bold'
+                }}
+              >
+                {t('Pages.Auth.enter_phone_number')}
+              </Typography>
+
               <RHFPhone
                 name="phoneNumber"
                 aria-label="رقم الهاتف" // 👈 تحسين الوصول
