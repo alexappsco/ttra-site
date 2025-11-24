@@ -341,10 +341,11 @@
     },
     "Auth": {
       "login_title": "تسجيل الدخول",
+      "new_login":"تسجيل جديد",
       "enter_phone_number": "ادخل رقم الهاتف",
       "create_new_account": " انشاء حساب جديد",
       "not_have_account": "ليس لديك حساب؟",
-      "have_account_already": "لديك حساب بالفعل؟ ",
+      "have_account_already": "لديك حساب بالفعل؟",
       "log": "دخول",
       "create_account": "إنشاء حساب",
       "user_name": "اسم المستخدم",
