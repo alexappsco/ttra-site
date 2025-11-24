@@ -620,7 +620,13 @@ export default function Navbar({ isHome = false, isAuth = false, isLanding = fal
                           color: isHome ? '#fff' : '#000',
                         }}
                       >
-                        <Iconify icon="eva:menu-2-fill" width={24} />
+                      <Iconify
+                        icon="eva:menu-2-fill"
+                        width={24}
+                        role="img"
+                        aria-label="فتح القائمة"
+                        title="فتح القائمة"
+                      />
                       </IconButton>
                     )}
 
@@ -679,7 +685,15 @@ export default function Navbar({ isHome = false, isAuth = false, isLanding = fal
                           '&:hover': { bgcolor: isHome && isAuth ? '#f5f5f5' : 'rgba(255,255,255,0.3)' },
                         }}
                       >
-                        <Iconify icon="mdi:bell-outline" width={20} color={isHome && isAuth ? '#367ce5' : '#fff'} />
+                        {/* <Iconify icon="mdi:bell-outline" width={20} color={isHome && isAuth ? '#367ce5' : '#fff'} /> */}
+                        <Iconify
+                          icon="mdi:bell-outline"
+                          width={20}
+                          role="img"
+                          aria-label="الإشعارات"
+                          title="الإشعارات"
+                          color={isHome && isAuth ? '#367ce5' : '#fff'}
+/>
                       </IconButton>
                       <Divider
                         orientation="vertical"
