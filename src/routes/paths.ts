@@ -9,7 +9,6 @@ export const paths = {
     verify: '/auth/verify',
     new_verify:'auth/new-verify',
     resetPassword: '/auth/reset-password',
-    setlocation: '/auth/set-address'
   },
   // Control Panel
   controlPanel: {
