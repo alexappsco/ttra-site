@@ -1,6 +1,6 @@
 import { create } from 'zustand';
-import { Profile } from 'src/types/prof';
 import { paths } from 'src/routes/paths';
+import { Profile } from 'src/types/prof';
 
 import { LoginCretentials, RegiterCretentials, LoginVerifyCretentials } from './types';
 import { saveSession, removeSession, restoreSession, updateUserSession } from './auth-utils';
@@ -52,7 +52,6 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
 
 
   if (!res.success) {
-    console.log("my res",res)
     return { error: 'الهاتف المحمول لم يتم به التسجيل به من قبل', message: res.message };
   }
       set({ authenticated: false });
@@ -93,10 +92,7 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
       localStorage.removeItem('phoneNumber');
       localStorage.removeItem('verifyReferrer');
 
-      // const redirectTo = user?.isHasLocation ? '/' : '/auth/set-address';
       return { redirectTo: '/' };
-
-      // return { redirectTo };
     } catch (error: any) {
       return { error: error.message };
     }
