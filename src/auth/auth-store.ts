@@ -48,8 +48,13 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
 
   // -------------------- LOGIN --------------------
   login: async ({ phoneNumber }) => {
-    try {
-      await login({ phoneNumber });
+    const res=  await login({ phoneNumber });
+
+
+  if (!res.success) {
+    console.log("my res",res)
+    return { error: 'الهاتف المحمول لم يتم به التسجيل به من قبل', message: res.message };
+  }
       set({ authenticated: false });
 
       if (typeof window !== 'undefined') {
@@ -58,9 +63,7 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
       }
 
       return { redirectTo: '/auth/verify' };
-    } catch (error: any) {
-      return { error: error.message };
-    }
+
   },
   // -------------------- VERIFY OTP --------------------
   verifyLoginOtp: async ({ phoneNumber: _, otp }: LoginVerifyCretentials) => {
@@ -101,19 +104,19 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
 
   // -------------------- Regiter ==>Step=>1 --------------------
   new_register: async ({ phoneNumber }) => {
-    try {
-      await new_register_action({ phoneNumber });
+   const  res=  await new_register_action({ phoneNumber });
       set({ authenticated: false });
+
+  if (!res.success) {
+    console.log("my res",res)
+    return { error: 'الهاتف المحمول مستخدم بالقعل', message: res.message };
+  }
 
       if (typeof window !== 'undefined') {
         localStorage.setItem('phoneNumber', phoneNumber);
         localStorage.setItem('verifyReferrer', paths.auth.login);
       }
-
       return { redirectTo: '/auth/new-verify' };
-    } catch (error: any) {
-      return { error: error.message };
-    }
   },
   // -------------------- Regiter ==>Step=>2 --------------------
   verifyRegisterOtp: async ({ phoneNumber: _, otp }: LoginVerifyCretentials) => {
@@ -135,148 +138,9 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
     }
   },
 
-//   registerUser: async ({ Name, Email, BusinessTypeIds, AgreeToTerms, OfficialName }) => {
-//   try {
-//     const phone = localStorage.getItem('phoneNumber');
-
-//     if (!phone) {
-//       return { error: 'Phone number not found in localStorage' };
-//     }
-
-//     const response = await Register({
-//       Name,
-//       PhoneNumber: phone,
-//       Email,
-//       BusinessTypeIds: Array.isArray(BusinessTypeIds) ? BusinessTypeIds : [BusinessTypeIds],
-//       AgreeToTerms: Boolean(AgreeToTerms),
-//       OfficialName,
-//     });
-
-//     localStorage.removeItem('phoneNumber');
-//     return { redirectTo: '/auth/login' };
-
-//   } catch (error: any) {
-//     // PRODUCTION FIX: Better error extraction for different environments
-//     console.log('Raw error object:', error);
-
-//     let errorMessage = 'Registration failed';
-
-//     // Handle different error formats between local and production
-//     if (typeof error === 'string') {
-//       errorMessage = error;
-//     } else if (error?.message) {
-//       errorMessage = error.message;
-//     } else if (error?.response?.data) {
-//       // Handle Axios response format
-//       const data = error.response.data;
-
-//       if (typeof data === 'string') {
-//         errorMessage = data;
-//       } else if (data.message) {
-//         errorMessage = data.message;
-//       } else if (data.error) {
-//         errorMessage = data.error;
-//       } else if (data.errors) {
-//         // Handle validation errors
-//         errorMessage = Object.values(data.errors).flat().join(', ');
-//       }
-//     }
-
-//     console.error('Registration error extracted:', errorMessage);
-//     return { error: errorMessage };
-//   }
-// },
-  // auth-store
-// registerUser: async ({ Name, Email, BusinessTypeIds, AgreeToTerms, OfficialName }) => {
-//   try {
-//     const phone = localStorage.getItem('phoneNumber');
-
-//     if (!phone) {
-//       return { error: 'Phone number not found in localStorage' };
-//     }
-
-//     const response = await Register({
-//       Name,
-//       PhoneNumber: phone,
-//       Email,
-//       BusinessTypeIds: Array.isArray(BusinessTypeIds) ? BusinessTypeIds : [BusinessTypeIds],
-//       AgreeToTerms: Boolean(AgreeToTerms),
-//       OfficialName,
-//     });
-
-//     localStorage.removeItem('phoneNumber');
-//     return { redirectTo: '/auth/login' };
-
-//   } catch (error: any) {
-//     // Better error extraction
-//     const errorMessage =
-//       error?.response?.data?.message ||
-//       error?.response?.data?.error ||
-//       error?.message ||
-//       'Registration failed';
-
-//     console.error('Registration error details:', {
-//       fullError: error,
-//       responseData: error?.response?.data,
-//       extractedMessage: errorMessage
-//     });
-
-//     return { error: errorMessage };
-//   }
-// },
-  //   try {
-  //     const phone = localStorage.getItem('phoneNumber');
-
-  //     if (!phone) {
-  //       return { error: 'Phone number not found in localStorage' };
-  //     }
-  //     const response = await Register({
-  //       Name,
-  //       PhoneNumber: phone,
-  //       Email,
-  //       BusinessTypeIds: Array.isArray(BusinessTypeIds) ? BusinessTypeIds : [BusinessTypeIds], // Always send as array
-  //       AgreeToTerms: Boolean(AgreeToTerms),
-  //       OfficialName,
-  //     });
-  //     localStorage.removeItem('phoneNumber');
-  //     // set({ authenticated: false });
-
-  //     return { redirectTo: '/auth/login' };
-  //   } catch (error: any) {
-  //     return { error: error?.message || 'Registration failed' };
-  //   }
-  // },
-
-  // -------------------- INIT --------------------
-//   registerUser: async ({ Name, Email, BusinessTypeIds, AgreeToTerms, OfficialName }) => {
-//   const phone = localStorage.getItem('phoneNumber');
-
-//   if (!phone) {
-//     return { error: 'Phone number not found in localStorage' };
-//   }
-
-//   const response = await Register({
-//     Name,
-//     PhoneNumber: phone,
-//     Email,
-//     BusinessTypeIds: Array.isArray(BusinessTypeIds) ? BusinessTypeIds : [BusinessTypeIds],
-//     AgreeToTerms: Boolean(AgreeToTerms),
-//     OfficialName,
-//   });
-
-//   if (!response.success) {
-//     // ❌ return error directly
-//     return { error: response.message };
-//   }
-
-//   // 🎯 Success
-//   localStorage.removeItem('phoneNumber');
-//   return { redirectTo: '/auth/login' };
-// },
-
 registerUser: async ({ Name, Email, BusinessTypeIds, AgreeToTerms, OfficialName }) => {
   const phone = localStorage.getItem('phoneNumber');
-  if (!phone) return { error: 'phone_not_found' };
+  if (!phone) return { error: 'please enter phone first' };
 
   const response = await Register({
     Name,

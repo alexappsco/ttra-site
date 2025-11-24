@@ -54,12 +54,13 @@ export default function JwtLoginView({ isNewphonenumber }: Props) {
 
       if ('error' in res) {
         reset();
+        console.log("res new_register in view failed ",res)
         setErrorMsg(res.error);
       } else if ('redirectTo' in res) {
+       console.log("res new_register in view success",res)
         // Save phone & mode
         localStorage.setItem('phoneNumber', payload.phoneNumber);
         localStorage.setItem('otpMode', isNewphonenumber ? 'register' : 'login');
-
         router.push(res.redirectTo);
       }
     } catch (error) {
