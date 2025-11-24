@@ -21,20 +21,26 @@ export interface LoginRes extends User {
 }
 
 // Login API Call
-export async function login(credentials: LoginCretentials): Promise<UserSession> {
+export async function login(credentials: LoginCretentials) {
   try {
     const res = await axiosInstance.post(endpoints.auth.Login.send_otp, credentials);
-    const { accessToken, refreshToken, accessTokenExpireAt, refreshTokenExpireAt, ...user } =
-      res as unknown as LoginRes;
 
     return {
-      user,
-      accessToken: { value: accessToken, expire: accessTokenExpireAt },
-      refreshToken: { value: refreshToken, expire: refreshTokenExpireAt },
+      success: true,
+      data: res.data, // return only useful data
     };
   } catch (error: any) {
-    throw new Error(error?.message || 'Login failed');
-  }
+  const errorMsg =
+      error?.response?.data?.message ||
+      error?.response?.data?.error ||
+      error?.message ||
+      'Login failed';
+
+ return {
+      success: false,
+      message: errorMsg,
+      status: error?.response?.status ?? 500,
+    };  }
 }
 export async function new_register_action(credentials: LoginCretentials) {
   try {
@@ -42,124 +48,25 @@ export async function new_register_action(credentials: LoginCretentials) {
       endpoints.auth.Register.send_unregistered_otp,
       credentials
     );
-
+    console.log("res new register action",res)
+     return {
+      success: true,
+      data: res.data, // return only useful data
+    };
   } catch (error: any) {
-    throw new Error(error?.message || 'Login failed');
-  }
+    console.log("error in  new register action",error);
+        const errorMsg =
+      error?.response?.data?.message ||
+      error?.response?.data?.error ||
+      error?.message ||
+      'Registration failed';
+
+ return {
+      success: false,
+      message: errorMsg,
+      status: error?.response?.status ?? 500,
+    };  }
 }
-// export async function Register(credentials: RegiterCretentials) {
-//   try {
-//     const formData = new FormData();
-
-//     formData.append('Name', credentials.Name);
-//     formData.append('PhoneNumber', credentials.PhoneNumber);
-//     formData.append('Email', credentials.Email);
-//     formData.append('OfficialName', credentials.OfficialName);
-//     formData.append('AgreeToTerms', credentials.AgreeToTerms ? 'true' : 'false');
-//     const businessTypeIdsArray = Array.isArray(credentials.BusinessTypeIds)
-//       ? credentials.BusinessTypeIds
-//       : [credentials.BusinessTypeIds];
-
-//     // Append each ID separately with the same key name - server will parse as array
-//     businessTypeIdsArray.forEach((id) => {
-//       formData.append('BusinessTypeIds', id);
-//     });
-
-//     const response = await axiosInstance.post(endpoints.auth.Register.register, formData);
-
-//     return response;
-//   } catch (error: any) {
-//     throw new Error(error?.response?.data || error?.message);
-//   }
-// }
-// export async function Register(credentials: RegiterCretentials) {
-//   try {
-//     const formData = new FormData();
-
-//     formData.append('Name', credentials.Name);
-//     formData.append('PhoneNumber', credentials.PhoneNumber);
-//     formData.append('Email', credentials.Email);
-//     formData.append('OfficialName', credentials.OfficialName);
-//     formData.append('AgreeToTerms', String(credentials.AgreeToTerms));
-
-//     if (Array.isArray(credentials.BusinessTypeIds)) {
-//       credentials.BusinessTypeIds.forEach((id) => {
-//         formData.append('BusinessTypeIds', String(id));
-//       });
-//     }
-
-//    const res = await axiosInstance.post(endpoints.auth.Register.register, formData);
-//    console.log("res my register action",res)
-//     return res;
-//   } catch (error: any) {
-//     // Normalize error message from backend
-//     const errorMsg =
-//       error?.response?.data?.message ||
-//       error?.response?.data?.error ||
-//       error?.message ||
-//       'Registration failed';
-
-//     console.error('Register API error:', errorMsg);
-//     throw new Error(errorMsg);
-//   }
-// }
-// auth-actions
-// export async function Register(credentials: RegiterCretentials) {
-//   try {
-//     const formData = new FormData();
-
-//     formData.append('Name', credentials.Name);
-//     formData.append('PhoneNumber', credentials.PhoneNumber);
-//     formData.append('Email', credentials.Email);
-//     formData.append('OfficialName', credentials.OfficialName);
-//     formData.append('AgreeToTerms', String(credentials.AgreeToTerms));
-
-//     if (Array.isArray(credentials.BusinessTypeIds)) {
-//       credentials.BusinessTypeIds.forEach((id) => {
-//         formData.append('BusinessTypeIds', String(id));
-//       });
-//     }
-
-//     const res = await axiosInstance.post(endpoints.auth.Register.register, formData, {
-//       headers: {
-//         'Content-Type': 'multipart/form-data',
-//       },
-//     });
-
-//     return res.data;
-
-//   } catch (error: any) {
-//     // Comprehensive error extraction
-//     let errorMsg = 'Registration failed';
-
-//     if (error?.response?.data) {
-//       const data = error.response.data;
-
-//       // Handle different backend error formats
-//       if (typeof data === 'string') {
-//         errorMsg = data;
-//       } else if (data.message) {
-//         errorMsg = data.message;
-//       } else if (data.error) {
-//         errorMsg = data.error;
-//       } else if (data.errors) {
-//         // Handle validation errors array
-//         errorMsg = Object.values(data.errors).flat().join(', ');
-//       }
-//     } else if (error?.message) {
-//       errorMsg = error.message;
-//     }
-
-//     console.error('Register API error details:', {
-//       status: error?.response?.status,
-//       statusText: error?.response?.statusText,
-//       data: error?.response?.data,
-//       message: errorMsg
-//     });
-
-//     throw new Error(errorMsg);
-//   }
-// }
 export async function Register(credentials: RegiterCretentials) {
   try {
     const formData = new FormData();
@@ -177,16 +84,11 @@ export async function Register(credentials: RegiterCretentials) {
     }
 
     const res = await axiosInstance.post(endpoints.auth.Register.register, formData);
-
-    console.log("res my register action", res);
-
     return {
       success: true,
       data: res.data, // return only useful data
     };
   } catch (error: any) {
-    console.error('Register API error:', error);
-
     const errorMsg =
       error?.response?.data?.message ||
       error?.response?.data?.error ||

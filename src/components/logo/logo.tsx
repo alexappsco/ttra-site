@@ -20,12 +20,12 @@ const Logo = ({ disabledLink = false, enableText = false, sx, textProps }: LogoP
   const logo = (
     <Box component="div" sx={{ display: 'flex', width: 'auto', height: 'auto', cursor: 'pointer' }}>
       <SvgColor
-        src="/logo/logo_single.svg"
+        src="/logo/logo_blue.svg"
         sx={{
           width: 40,
           height: 40,
           cursor: 'pointer',
-          color: 'primary.main',
+          color: '#367ce5',
           ...sx,
         }}
       />
