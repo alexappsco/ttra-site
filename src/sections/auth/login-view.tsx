@@ -105,7 +105,7 @@ export default function JwtLoginView({ isNewphonenumber }: Props) {
           >
             {isNewphonenumber ? 'تسجيل جديد' : t('Pages.Auth.login_title')}
           </Typography>
-
+{isNewphonenumber&&<>
           <Box
             sx={{
               display: 'flex',
@@ -115,17 +115,18 @@ export default function JwtLoginView({ isNewphonenumber }: Props) {
           >
             <Image
               src="/assets/images/auth/new_register_step1.png"
-              alt="Registration Step 1" // ✅ descriptive alt for accessibility
+              alt="Registration Step 1"
               width={400}
               height={90}
               style={{
                 objectFit: 'contain',
-                maxWidth: '100%', // responsive
-                height: 'auto',   // maintains aspect ratio
+                maxWidth: '100%',
+                height: 'auto',
               }}
-              priority // ✅ improves Largest Contentful Paint (LCP) for critical images
+              priority
             />
           </Box>
+          </>}
           {/* Subtitle */}
           <Typography
             sx={{
