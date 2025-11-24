@@ -258,6 +258,52 @@ export const ProjectShowcaseSection: React.FC = () => {
             type="submit"
             variant="contained"
             sx={{
+              minWidth: { xs: '100%', sm: 120 }, // زودنا العرض قليلاً
+              height: { xs: 50, sm: 56 }, // أصبح ≥48px
+              borderRadius: '65px',
+              px: { xs: 3, sm: 4 },
+              fontWeight: 'bold',
+              fontSize: { xs: '1rem', sm: '1.05rem' }, // خط أوضح
+              bgcolor: '#0095FA',
+              mt: { xs: 1, sm: 0 }, // مسافة عمودية إذا كان التصميم عمودي
+              ml: { sm: 1 }, // مساحة بينه وبين حقل البحث في الشاشات الكبيرة
+              '&:hover': {
+                bgcolor: '#0085E0',
+                boxShadow: '0px 4px 28px rgba(112, 79, 56, 0.18)',
+              },
+            }}
+          >
+            بحث
+          </Button>
+
+          <TextField
+            fullWidth
+            placeholder="البحث عن الشركات"
+            variant="outlined"
+            size="medium"
+            aria-label="البحث عن الشركات"
+            InputProps={{
+              startAdornment: <SearchIcon sx={{ color: theme.palette.grey[500], mr: 1 }} />,
+              sx: {
+                borderRadius: 99,
+                backgroundColor: '#fff',
+                height: { xs: 50, sm: 56 }, // ≥48px
+                pr: '14px !important',
+              },
+            }}
+            sx={{
+              mr: { sm: 1 }, // مسافة عن الأزرار الأخرى
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': { borderColor: theme.palette.grey[300] },
+                '&:hover fieldset': { borderColor: theme.palette.primary.main },
+              },
+            }}
+          />
+
+          {/* <Button
+            type="submit"
+            variant="contained"
+            sx={{
               minWidth: { xs: '100%', sm: 100 },
               height: { xs: 48, sm: 54 },
               borderRadius: '65px',
@@ -293,7 +339,7 @@ export const ProjectShowcaseSection: React.FC = () => {
                 '&:hover fieldset': { borderColor: theme.palette.primary.main },
               },
             }}
-          />
+          /> */}
         </Stack>
 
         {/* عرض المشاريع */}
@@ -312,35 +358,40 @@ export const ProjectShowcaseSection: React.FC = () => {
             <Box
               component="li"
               key={project.id}
-              tabIndex={0}
-              role="link"
-              aria-label={`عرض مشروع: ${project.title}`}
-              onClick={() => router.push(paths.controlPanel.landing.view)}
-              onKeyDown={(e) => e.key === 'Enter' && router.push(paths.controlPanel.landing.view)}
-              sx={{
-                position: 'relative',
-                width: { xs: '100%', sm: 320, md: 350 },
-                borderRadius: 3,
-                overflow: 'hidden',
-                boxShadow: '0px 4px 12px rgba(0,0,0,0.1)',
-                transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-                cursor: 'pointer',
-                '&:hover, &:focus': {
-                  transform: 'translateY(-4px)',
-                  boxShadow: '0px 8px 20px rgba(0,0,0,0.15)',
-                  outline: 'none',
-                },
-              }}
+              sx={{ listStyle: 'none' }}
             >
-              <Image
-                src={project.imagePath}
-                alt={project.title}
-                width={350}
-                height={200}
-                style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'cover' }}
-                priority={false}
-              />
+              <Box
+                component="a"
+                href={paths.controlPanel.landing.view}
+                tabIndex={0}
+                aria-label={`عرض مشروع: ${project.title}`}
+                sx={{
+                  display: 'block',
+                  position: 'relative',
+                  width: { xs: '100%', sm: 320, md: 350 },
+                  cursor: 'pointer',
+                  borderRadius: 3,
+                  overflow: 'hidden',
+                  boxShadow: '0px 4px 12px rgba(0,0,0,0.1)',
+                  transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                  textDecoration: 'none',
+                  '&:hover, &:focus': {
+                    transform: 'translateY(-4px)',
+                    boxShadow: '0px 8px 20px rgba(0,0,0,0.15)',
+                    outline: 'none',
+                  },
+                }}
+              >
+                <Image
+                  src={project.imagePath}
+                  alt={project.title}
+                  width={350}
+                  height={200}
+                  style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'cover' }}
+                />
+              </Box>
             </Box>
+
           ))}
         </Stack>
 
