@@ -207,11 +207,20 @@ export default function JwtLoginView({ isNewphonenumber }: Props) {
             {!isNewphonenumber && (
               <Typography variant="body2" sx={{ mt: 3 }}>
                 {t('Pages.Auth.not_have_account')}{' '}
-                <Link href={paths.auth.register} underline="hover" fontWeight="bold" color="#1A1A1A">
-                  {t('Pages.Auth.create_new_account')}
+                <Link href={paths.auth.new_register} underline="hover" fontWeight="bold" color="#2B6DDD">
+                  {t('Pages.Auth.new_login')}
                 </Link>
               </Typography>
             )}
+                        {isNewphonenumber && (
+
+            <Typography variant="body2" sx={{ mt: 3 }}>
+                {t('Pages.Auth.have_account_already')}{' '}
+                <Link href={paths.auth.login} underline="hover" fontWeight="bold" color="#2B6DDD">
+                  {t('Pages.Auth.login_title')}
+                </Link>
+              </Typography>
+                        )}
 
             {errorMsg && (
               <Typography color="error" sx={{ mt: 2 }}>

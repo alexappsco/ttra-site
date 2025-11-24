@@ -343,6 +343,7 @@
     },
     "Auth": {
       "login_title": "Sign In",
+      "new_login":"New Login",
       "enter_phone_number": "Enter Phone Number",
       "create_new_account": "Create New Account",
       "create_account": "Create Account",
