@@ -105,24 +105,27 @@ export default function JwtLoginView({ isNewphonenumber }: Props) {
           >
             {isNewphonenumber ? 'تسجيل جديد' : t('Pages.Auth.login_title')}
           </Typography>
-                      {/*image in register Step-1  */}
-                         <Box
-                  sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                >
-                  <Image
-                    src="/assets/images/auth/new_register_step1.png"
-                    alt="steps"
-                    width={400}
-                    height={90}
-                    style={{ objectFit: 'contain', maxWidth: '100%' }}
 
-                  />
-                </Box>
-
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Image
+              src="/assets/images/auth/new_register_step1.png"
+              alt="Registration Step 1" // ✅ descriptive alt for accessibility
+              width={400}
+              height={90}
+              style={{
+                objectFit: 'contain',
+                maxWidth: '100%', // responsive
+                height: 'auto',   // maintains aspect ratio
+              }}
+              priority // ✅ improves Largest Contentful Paint (LCP) for critical images
+            />
+          </Box>
           {/* Subtitle */}
           <Typography
             sx={{
@@ -131,7 +134,7 @@ export default function JwtLoginView({ isNewphonenumber }: Props) {
               fontSize: { xs: 14, sm: 16 },
               lineHeight: '180%',
               color: '#797979',
-              mb: 2,
+              my: 2,
             }}
           >
             {isNewphonenumber ?
@@ -168,7 +171,7 @@ export default function JwtLoginView({ isNewphonenumber }: Props) {
                   height: '21px',
                   flexGrow: 0,
                   textAlign: 'left',
-                  fontWeight:'bold'
+                  fontWeight: 'bold'
                 }}
               >
                 {t('Pages.Auth.enter_phone_number')}
@@ -176,7 +179,7 @@ export default function JwtLoginView({ isNewphonenumber }: Props) {
 
               <RHFPhone
                 name="phoneNumber"
-                aria-label="رقم الهاتف" // 👈 تحسين الوصول
+                aria-label="رقم الهاتف"
                 sx={{
                   '& .MuiInputBase-root': {
                     height: 50,
