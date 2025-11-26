@@ -6,6 +6,9 @@ import 'simplebar-react/dist/simplebar.min.css'; // تحميل بدون render-b
 
 import '../global.css';
 
+const SITE_TITLE = 'منصة استحواذ | Isthwath';
+const SITE_DESCRIPTION = 'منصة استحواذ هي منصتك الذكية لبيع وشراء الأنشطة التجارية والمشاريع الصغيرة بكل سلاسة.';
+
 export const viewport = {
   themeColor: '#000000',
   width: 'device-width',
@@ -13,13 +16,23 @@ export const viewport = {
 };
 
 export const metadata = {
-  title: 'Isthwath | منصة استحواذ',
-  description: `استحواذ هي منصة سعودية رائدة تمكّنك من بيع وشراء الأنشطة التجارية والمشاريع الصغيرة بكل سهولة وشفافية.
-تم تصميم المنصة لتكون نقطة التقاء بين رواد الأعمال، المستثمرين، وأصحاب المشاريع الباحثين عن فرص جاهزة للانطلاق أو التوسع داخل السوق السعودي.`,
+  title: SITE_TITLE,
+  description: SITE_DESCRIPTION,
+  metadataBase: new URL('https://isthwath.com/'),
+  alternates: {
+    canonical: '/',
+    languages: {
+      ar: '/ar/',
+      en: '/en/',
+    },
+  },
   openGraph: {
-    url: 'https://isthwath.com/ar/',
-    title: 'Isthwath | منصة استحواذ',
-    description: `استحواذ هي منصة سعودية رائدة تمكّنك من بيع وشراء الأنشطة التجارية والمشاريع الصغيرة بكل سهولة وشفافية.`,
+    url: 'https://isthwath.com/',
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    siteName: 'منصة استحواذ',
+    type: 'website',
+    locale: 'ar_SA',
   },
   manifest: '/manifest.json',
   icons: {

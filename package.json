@@ -1,8 +1,8 @@
 {
-  "name": "isthwaz",
+  "name": "isthwaz website",
   "author": "Alex-Apps",
   "version": "1.0.0",
-  "description": "Istihwaz website application",
+  "description": "منصة استحواذ هي منصتك الذكية لبيع وشراء الأنشطة التجارية",
   "private": true,
   "scripts": {
     "dev": "next dev -p 8083",
