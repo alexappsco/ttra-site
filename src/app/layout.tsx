@@ -7,7 +7,9 @@ import 'simplebar-react/dist/simplebar.min.css'; // تحميل بدون render-b
 import '../global.css';
 
 const SITE_TITLE = 'منصة استحواذ | Isthwath';
-const SITE_DESCRIPTION = 'منصة استحواذ هي منصتك الذكية لبيع وشراء الأنشطة التجارية والمشاريع الصغيرة بكل سلاسة.';
+const SITE_DESCRIPTION = `استحواذ هي منصة سعودية رائدة تمكّنك من بيع وشراء الأنشطة التجارية والمشاريع الصغيرة بكل سهولة وشفافية.
+تم تصميم المنصة لتكون نقطة التقاء بين رواد الأعمال، المستثمرين، وأصحاب المشاريع الباحثين عن فرص جاهزة للانطلاق أو التوسع داخل السوق السعودي.
+`;
 
 export const viewport = {
   themeColor: '#000000',
@@ -15,35 +17,71 @@ export const viewport = {
   initialScale: 1,
 };
 
+// export const metadata = {
+//   title: SITE_TITLE,
+//   description: SITE_DESCRIPTION,
+//   // metadataBase: new URL('https://isthwath.com/'),
+//   // alternates: {
+//   //   canonical: '/',
+//   //   languages: {
+//   //     ar: '/ar/',
+//   //     en: '/en/',
+//   //   },
+//   // },
+//   // openGraph: {
+//   //   url: 'https://isthwath.com/',
+//   //   title: SITE_TITLE,
+//   //   description: SITE_DESCRIPTION,
+//   //   siteName: 'منصة استحواذ',
+//   //   type: 'website',
+//   //   locale: 'ar_SA',
+//   // },
+//   manifest: '/manifest.json',
+//   icons: {
+//     icon: [
+//       { rel: 'icon', type: 'image/png',sizes:'96x96', url: '/favicon-96x96.png' },
+
+//       { rel: 'icon', type: 'image/png', sizes: '16x16', url: '/favicon/favicon-96x96.png' },
+//       { rel: 'apple-touch-icon', sizes: '32x12', url: '/favicon/apple-touch-icon.png' },
+//       { rel: 'apple-touch-icon', sizes: '180x180', url: '/apple-touch-icon.png' },
+//     ],
+//     apple:
+//     shortcut: { url: '/logo/logo_blue.svg' },
+//   },
+// };
 export const metadata = {
-  title: SITE_TITLE,
-  description: SITE_DESCRIPTION,
-  metadataBase: new URL('https://isthwath.com/'),
-  alternates: {
-    canonical: '/',
-    languages: {
-      ar: '/ar/',
-      en: '/en/',
-    },
+  title: {
+    default: SITE_TITLE,
+    template: "%s | Isthwath"
   },
+  description: SITE_DESCRIPTION,
+
   openGraph: {
-    url: 'https://isthwath.com/',
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
-    siteName: 'منصة استحواذ',
-    type: 'website',
-    locale: 'ar_SA',
+    url: "https://isthwath.com/ar/",
+    siteName: SITE_TITLE,
+    images: [
+      {
+        url: "/web-app-manifest-512x512.png",
+        width: 512,
+        height: 512,
+      },
+    ],
+    locale: "ar_SA",
+    type: "website",
   },
-  manifest: '/manifest.json',
   icons: {
     icon: [
-      { rel: 'icon', type: 'image/svg+xml', url: '/logo/logo_blue.svg' },
-      { rel: 'icon', type: 'image/png', sizes: '16x16', url: '/favicon/favicon-96x96.png' },
-      { rel: 'apple-touch-icon', sizes: '32x12', url: '/favicon/apple-touch-icon.png' },
-      { rel: 'apple-touch-icon', sizes: '180x180', url: '/logo/logo_blue.svg' },
+      { url: "/favicon.ico" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" }
     ],
-    shortcut: { url: '/logo/logo_blue.svg' },
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180" }
+    ]
   },
+  manifest: "/site.webmanifest"
 };
 
 export default function Layout({
