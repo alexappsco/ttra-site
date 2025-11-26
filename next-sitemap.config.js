@@ -13,7 +13,7 @@ module.exports = {
     subtitle: SITE_SUBTITLE,
   },
   alternateRefs: [
-    { href: 'https://isthwath.com/en/', hreflang: 'en' },
     { href: 'https://isthwath.com/ar/', hreflang: 'ar' },
+    { href: 'https://isthwath.com/en/', hreflang: 'en' },
   ],
 };
