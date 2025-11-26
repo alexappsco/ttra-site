@@ -1,7 +1,8 @@
 
 {
-  "name": "Isthwath",
+  "name": "منصة استحواذ",
   "short_name": "Isthwath",
+  "description": "منصة استحواذ هي منصتك الذكية لبيع وشراء الأنشطة التجارية",
   "display": "standalone",
   "start_url": "/",
   "theme_color": "#000000",
