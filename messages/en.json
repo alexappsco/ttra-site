@@ -3,79 +3,16 @@
     "title": "Isthwath",
     "description": "Isthwathe description",
     "language": "Language",
-      "Jwt":{
-      "register":"Register",
+    "Jwt": {
+      "register": "Register",
       "verify": "Verify Code",
-      "login":"Login"
+      "login": "Login"
     },
-    "Categories": {
-      "title": "Categories | Isthwath"
+    "Blog": {
+      "title": "Blog | Isthwath"
     },
-      "landing": {
+    "landing": {
       "title": "Landing Page | Isthwath"
-    },
-    "SubCategories": {
-      "title": "Subcategories | Isthwath"
-    },
-    "Orders": {
-      "title": "Orders | Isthwath"
-    },
-    "Products": {
-      "title": "Products | Isthwath"
-    },
-    "Units": {
-      "title": "Units | Isthwath"
-    },
-    "ReturnedOrder": {
-      "title": "Returned Orders | Isthwath"
-    },
-    "Banners": {
-      "title": "Banners"
-    },
-    "Coupons": {
-      "title": "Discount codes"
-    },
-    "Offers": {
-      "title": "Offers | Isthwath"
-    },
-    "Notifications": {
-      "title": "Notifications | Isthwath"
-    },
-    "Drivers": {
-      "title": "Drivers | Isthwath"
-    },
-    "ReturnPolicy": {
-      "title": "Return Policy | Isthwath"
-    },
-    "PrivacyPolicy": {
-      "title": "Privacy Policy | Isthwath"
-    },
-    "ContactUs": {
-      "title": "Contact Us | Isthwath"
-    },
-    "Carts": {
-      "title": "Carts | Isthwath"
-    },
-    "Location": {
-      "title": "Locations | Isthwath"
-    },
-    "Reports": {
-      "title": "Reports | Isthwath"
-    },
-    "Favorite": {
-      "title": "Favorites | Isthwath"
-    },
-    "Pay": {
-      "title": "Pay | Isthwath"
-    },
-    "ProductDetails": {
-      "title": "Product Details | Isthwath"
-    },
-    "MyOrder": {
-      "title": "My Orders"
-    },
-    "Settings": {
-      "title": "Settings | Isthwath"
     }
   },
   "Nav": {
@@ -92,19 +29,7 @@
       "banners": "Banners",
       "coupons": "Discount codes",
       "notifications": "Notifications"
-    },
-    "Users": {
-      "title": "Users",
-      "drivers": "Drivers",
-      "clients": "Clients",
-      "employees": "Employees"
-    },
-    "clients": "Clients",
-    "reports": "Reports",
-    "return-policy": "Return Policy",
-    "privacy-policy": "Privacy Policy",
-    "contact-us": "Contact Us",
-    "Work-area": "Works Area"
+    }
   },
   "Global": {
     "title": "Isthwath",
@@ -198,8 +123,8 @@
       "page": "Page",
       "save_data": "Save Data",
       "profile_image": "Profile Image",
-      "selected_file":"Selected File ",
-      "new_image_selected":" ✓ New image selected",
+      "selected_file": "Selected File ",
+      "new_image_selected": " ✓ New image selected",
       "current_password": " Current Password",
       "new_password": "New Password",
       "confirm_new_password": "Confirm New Password",
@@ -207,8 +132,8 @@
       "change_password": "Change Password",
       "my_products": "My Products",
       "our_branches": "Our Branches",
-      "order_date":"Order Date",
-      "official_name":"OfficialName"
+      "order_date": "Order Date",
+      "official_name": "OfficialName"
     },
     "Helper": {
       "drop_or_select": "Drop files here or click <browse>browse</browse> through your machine",
@@ -239,7 +164,7 @@
       "finish": "Finish",
       "register": "Register",
       "send": "Send",
-      "skip":"Skip"
+      "skip": "Skip"
     },
     "Validation": {
       "var_required": "{var} is Required",
@@ -274,8 +199,7 @@
       "password_required": "Password is Required",
       "code_required": "Code is Required",
       "username_invalid": "Username must be not used before and at least 3 characters and contain only English letters, numbers, dots, or underscores",
-      "username_already_exist":"User Name Already Exist"
-
+      "username_already_exist": "User Name Already Exist"
     },
     "Sections": {
       "DeleteDialog": {
@@ -301,9 +225,9 @@
     "Account-Popover": {
       "update_profile": "Update Profile",
       "logout": "Logout",
-      "no_phone":"No Phone",
-      "as_guset":"Guest",
-      "no_name":"لا اسم"
+      "no_phone": "No Phone",
+      "as_guset": "Guest",
+      "no_name": "لا اسم"
     },
     "Message": {
       "Added_To_wishlist_success": "Added to wishlist successfully",
@@ -316,8 +240,7 @@
       "returned_order_success": "The Order has been returned successfully",
       "canceled_order_success": "The Order has been canceled successfully",
       "rating_submitted_successfully": "Rating submitted successfully",
-      "landing_page_title":"We are now in the experimental launch phase!"
-
+      "landing_page_title": "We are now in the experimental launch phase!"
     }
   },
   "Pages": {
@@ -343,7 +266,7 @@
     },
     "Auth": {
       "login_title": "Sign In",
-      "new_login":"New Login",
+      "new_login": "New Login",
       "enter_phone_number": "Enter Phone Number",
       "create_new_account": "Create New Account",
       "create_account": "Create Account",
@@ -379,170 +302,12 @@
       "category": "Category :",
       "no_favorite_items": "You don’t have any favorite items yet"
     },
-"SetLocation": {
-  "title": "Set Your Location",
-  "title1": "Locations",
-  "search_location": "Search Location",
-  "details_address": "Address Details",
-  "ex_address": "Riyadh, Street Name...",
-  "set_default": "Set this location as default",
-  "choose_location": "Choose location",
-  "add_new_location": "Add New Location",
-  "location_name": "Location Name",
-  "location_details": "Location Details is required",
-  "latitude": "Latitude",
-  "longitude": "Longitude",
-  "update_location_success": "Location updated successfully",
-  "no_description": "No Description",
-  "default": "Default",
-  "at_least_one_default": "At least one location must be set as default",
-  "edit_title": "Edit Address",
-  "update_location":"Update Location"
-}
-,
-    "ProductDetails": {
-      "add_to_cart": " Add to Cart",
-      "description": "Product Description"
-    },
     "Currency": {
       "symbol": "SAR"
     },
-    "offers": {
-      "display_all": " Display All",
-      "No_offers": "No offers available yet",
-      "featured_offers": "Featured Offers"
-    },
-    "favorite": {
-      "title": "Favorite",
-      "no_favorite": "No favorite products yet",
-      "total_favorite": "Total Favorite Products",
-      "remove_all": "Remove All",
-      "empty_favorite": "Favorite List is Empty",
-      "explore_products": "Explore Products",
-      "no_items": "No Items"
-    },
 
-    "Order": {
-      "resend_order": "Order Again",
-      "Status": {
-        "Pending": "Pending",
-        "Processing": "Processing",
-        "Shipped": "Shipped",
-        "Delivered": "Delivered",
-        "Canceled": "Canceled",
-        "Returned": "Returned",
-        "all": "All",
-        "Accepted": "Accepted",
-        "Rejected": "Rejected",
-        "InProgress": "In Progress",
-        "PartiallyReturned":"Partially Returned"
-      },
-      "order_number": "Order Number",
-      "display_order": "Display Order",
-      "no_items": "No Notes",
-      "driver_name": "Driver Name",
-      "reorder": "Reorder",
-      "return": "Return",
-      "this_order": "This Order",
-      "return_reason": "Return Reason",
-      "cancel_reason": "Canceled Reason",
-      "reason": "Reason",
-      "note": "Note",
-      "confirm_return": "Confirm return",
-      "confirm_canceled": "Confirm Canceled",
-      "are_you_sure_return": "Are you sure you want to return this order?",
-      "are_you_sure_cancel": "Are you sure you want to Cancel this order?",
-      "order_updates": "Order Updates",
-      "time": "Time",
-      "track_order": "Track Order",
-      "arrives_in": "Arrives in {minutes} minutes",
-      "address": "Address",
-      "add_rating": "Add Rating",
-      "delivery_time": "Delivery Time",
-      "packaging": "Packaging",
-      "communication": "Communication",
-      "add_comment": "Add Comment",
-      "select_items_to_return":"Select Items To Return",
-      "select_all":"Select All",
-      "vat_rate": "VAT {var}%",
-      "delivery_fee_with_shipping_cost": "Delivery Fee (Including VAT)"
-
-
-    },
-    "Return_Order": {
-      "title": "Returns",
-      "title2": "Return Orders",
-      "display_return_order": "Display Return Order",
-      "returned_on": "Returned on",
-      "deliver_at": "Delivered at",
-      "refused_reason": "Refused Reason",
-      "no_reason_provided": "No reason provided",
-      "return_order_number": "Return Order Number"
-    },
-    "Carts": {
-      "title": "Cart",
-      "summary": {
-        "subtotal": "Subtotal",
-        "vat": "VAT",
-        "discount": "Discount",
-        "shipping": "Shipping Fee",
-        "total": "Total",
-        "pay": "Pay",
-        "total_items":"Total",
-        "purchasesvalue": "Purchases Value"
-
-      },
-      "discountCoupon": "Discount Coupon",
-      "enter_coupon": "Enter coupon code",
-      "apply": "Apply",
-      "no_items_in_cart":"No Items In Cart"
-    },
-    "Pay": {
-      "title": "Pay",
-      "notes": "Notes",
-      "add_notes_for_order": "Added Notes To Order",
-      "send_order_success": "Your request has been sent successfully",
-      "is_copy": "The link has been copied",
-      "pay_type": "Payment method",
-      "go_to_payment": "Go To Payment Page",
-      "payment_fee":"Payment Fee"
-    },
-    "MyProfile": {
-      "title": "My Profile",
-      "name": "Name",
-      "phone": "Phone Number",
-      "email": "Email",
-      "gender": "Gender",
-      "birthDate": "Date of Birth",
-      "edit_profile":"Edit Profile",
-      "new_profile_preview": "New Profile Preview",
-      "current_profile_image": "Current Profile Image",
-      "supported_formats": "Supported formats: JPG, PNG, GIF. Max size: 5MB",
-        "phone_unchangeable": "Phone number cannot be changed"
-
-
-},
- "Notifications": {
-  "title": "Notifications",
-  "mark_all": "Mark all as read",
-  "empty": "No notifications yet",
-  "order_ready": "Your order has been prepared and is on its way!",
-  "view_offer": "View offers",
-  "track_order": "Track Order",
-  "order_number": "Order No: {orderNumber}",
-  "today": "Today",
-  "yesterday": "Yesterday"
-},
-"Search":{
-"title":"Search",
-"no_results":"No Results",
-"try_different_keywords": "Try using different keywords."
-
-},
-"Common":{
-  "loading":"Loading"
-}
-
-
+    "Common": {
+      "loading": "Loading"
+    }
   }
 }

@@ -1,5 +1,6 @@
 
 import axios from 'axios';
+import { getTranslations } from 'next-intl/server';
 import JwtRegiterView from 'src/sections/auth/regiter-view';
 
 export default async function LoginPage() {
@@ -21,4 +22,12 @@ export default async function LoginPage() {
 
   // Pass the array safely to the component
   return <JwtRegiterView bussiness={bussiness} />;
+}
+export async function generateMetadata({ params }: { params: Promise<any> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Metadata.Jwt' });
+
+  return {
+    title: t('register'),
+  };
 }

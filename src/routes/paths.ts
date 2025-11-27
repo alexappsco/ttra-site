@@ -21,6 +21,10 @@ export const paths = {
     },
     privacy:{
       view:'/privacy-policy'
+    },
+    blog:{
+      view:'/blog',
+      details:(id:string)=>`/blog/${id}`
     }
   },
 };
