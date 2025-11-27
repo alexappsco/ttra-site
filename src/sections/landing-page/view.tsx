@@ -111,7 +111,8 @@ export default function LandingView() {
               >
                 <Button
                   component="a"
-                  href="#"
+                  href="https://play.google.com/store/apps/details?id=com.isthwath.isthwath_app"
+                  target="_blank"
                   sx={{
                     p: 0,
                     minWidth: 'auto',
@@ -133,7 +134,8 @@ export default function LandingView() {
 
                 <Button
                   component="a"
-                  href="#"
+                  href="https://apps.apple.com/us/app/%D9%85%D9%86%D8%B5%D8%A9-%D8%A7%D8%B3%D8%AA%D8%AD%D9%88%D8%A7%D8%B0/id6755191696"
+                  target="_blank"
                   sx={{
                     p: 0,
                     minWidth: 'auto',
