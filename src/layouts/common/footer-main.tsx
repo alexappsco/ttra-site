@@ -55,13 +55,12 @@ const SocialIcon = ({
 export default function Footer() {
   const theme = useTheme();
   const pathname = usePathname();
-
-  const isHomePage =
-    pathname === '/' ||
-    pathname === '/ar' ||
-    pathname === '/ar/' ||
-    pathname === '/en' ||
-    pathname === '/en/';
+const isLanding =
+  pathname === '/landing-page' ||
+  pathname === '/ar/landing-page' ||
+  pathname === '/ar/landing-page/' ||
+  pathname === '/en/landing-page' ||
+  pathname === '/en/landing-page/';
 
   // Quick Links
   const quickLinks = [
@@ -86,7 +85,7 @@ export default function Footer() {
     >
       <Container maxWidth="lg">
         {/* ===== Upper Section ===== */}
-        {isHomePage && (
+        {!isLanding && (
           <Stack
             direction={{ xs: 'column', md: 'row' }}
             justifyContent="space-between"
