@@ -23,5 +23,12 @@ export const endpoints = {
   },
   Business_Type:{
     list:'/business-types'
+  },
+  Blog:{
+    list:'/blog-posts',
+    details:(id: string) =>`/blog-posts/${id}`,
+  },
+  blog_category:{
+    list:'/blog-categories'
   }
 };

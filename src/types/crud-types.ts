@@ -5,6 +5,8 @@ export type ApiSuccessResponse<T> = {
   meta: any | undefined;
   message: string;
   status: number;
+    totalCount?:unknown;
+  items?:unknown;
 };
 
 export type ApiErrorResponse = {
@@ -13,7 +15,8 @@ export type ApiErrorResponse = {
   status: number | string;
   code: unknown;
   details: unknown;
-  data: unknown;
+  data?: unknown;
+
   validationErrors: unknown;
 };
 

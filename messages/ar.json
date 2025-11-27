@@ -3,77 +3,16 @@
     "title": "منصة استحواذ هى منصتك الذكية لبيع وشراء الأنشطة التجارية ",
     "description": "وصف موقع استحواذ",
     "language": "اللغة",
-    "Jwt":{
-      "register":"تسجيل جديد",
-       "verify": "التحقق من الكود",
-       "login":"تسجيل الدخول"
-
+    "Jwt": {
+      "register": "تسجيل جديد",
+      "verify": "التحقق من الكود",
+      "login": "تسجيل الدخول"
     },
-    "Categories": {
-      "title": "الأقسام | أستحواذ"
+    "Blog": {
+      "title": "المدونة | أستحواذ"
     },
     "landing": {
       "title": "الصفحة الرئيسية | أستحواذ"
-    },
-    "SubCategories": {
-      "title": "الأقسام الفرعية | استحواذ"
-    },
-    "Orders": {
-      "title": "الطلبات"
-    },
-    "Units": {
-      "title": "الوحدات | استحواذ"
-    },
-    "ReturnedOrder": {
-      "title": "الطلبات المرتجعة | استحواذ"
-    },
-    "Banners": {
-      "title": "البانرات الاعلانية | استحواذ"
-    },
-    "Coupons": {
-      "title": " أكواد الخصم | استحواذ"
-    },
-    "ReturnPolicy": {
-      "title": "سياسة الاسترجاع | استحواذ"
-    },
-    "Notifications": {
-      "title": " الاشعارات  | استحواذ"
-    },
-    "PrivacyPolicy": {
-      "title": "سياسة الخصوصية | استحواذ"
-    },
-    "ContactUs": {
-      "title": "تواصل معنا | استحواذ"
-    },
-    "Offers": {
-      "title": "العروض | استحواذ"
-    },
-    "Drivers": {
-      "title": "السائقين | استحواذ"
-    },
-    "Carts": {
-      "title": "السلة | استحواذ"
-    },
-    "Location": {
-      "title": "  العناوين | استحواذ"
-    },
-    "Reports": {
-      "title": " التقارير | استحواذ"
-    },
-    "Favorite": {
-      "title": " المفضلة | استحواذ"
-    },
-    "Pay": {
-      "title": "  الدفع | استحواذ"
-    },
-    "ProductDetails": {
-      "title": "  تفاصيل المنتج | استحواذ"
-    },
-    "MyOrder": {
-      "title": "طلباتى"
-    },
-    "Settings": {
-      "title": "الإعدادات | استحواذ"
     }
   },
   "Nav": {
@@ -91,19 +30,7 @@
       "banners": "بانارات الاعلان",
       "coupons": "أكواد الخصم",
       "notifications": "الاشعارات"
-    },
-    "Users": {
-      "title": " المستخدمين",
-      "drivers": "السائقين",
-      "clients": "العملاء",
-      "employees": "الموظفين"
-    },
-    "clients": "العملاء",
-    "reports": "التقارير",
-    "return-policy": "سياسة الاسترجاع ",
-    "privacy-policy": "سياسة الخصوصية",
-    "contact-us": "تواصل معنا",
-    "Work-area": " مناطق العمل"
+    }
   },
   "Global": {
     "title": "استحواذ",
@@ -197,8 +124,8 @@
       "page": "الصفحة",
       "save_data": "حفظ البيانات",
       "profile_image": "الصورة الشخصية",
-      "new_image_selected":"تم اختيار صورة صحيحة ✓",
-      "selected_file":" أختيار ملف",
+      "new_image_selected": "تم اختيار صورة صحيحة ✓",
+      "selected_file": " أختيار ملف",
       "current_password": "كلمة المرور الحالية",
       "new_password": "كلمة المرور الجديدة",
       "confirm_new_password": "تاكيد كلمة المرور الجديدة",
@@ -206,9 +133,8 @@
       "change_password": "تغيير كلمة المرور",
       "my_products": " منتجاتي",
       "our_branches": "فروعنا",
-      "order_date":"تاريخ الطلب",
-      "official_name":"الاسم التجارى "
-
+      "order_date": "تاريخ الطلب",
+      "official_name": "الاسم التجارى "
     },
     "Helper": {
       "drop_or_select": "قم بإسقاط الملفات هنا أو انقر <browse>تصفح</browse> من جهازك",
@@ -239,7 +165,7 @@
       "finish": "اكتمال",
       "register": "تسجيل",
       "send": "إرسال",
-      "skip":"تخطي"
+      "skip": "تخطي"
     },
     "Validation": {
       "var_required": "{var} مطلوب",
@@ -274,7 +200,7 @@
       "password_required": "كلمة المرور مطلوبة",
       "code_required": "الكود مطلوب",
       "username_invalid": "اسم المستخدم يجب أن يكون لم يستخدم من قبل ويحتوى على 3 أحرف على الأقل ويحتوي فقط على حروف إنجليزية، أرقام، نقط أو شرطات سفلية",
-      "username_already_exist":"الاسم موجود بالفعل"
+      "username_already_exist": "الاسم موجود بالفعل"
     },
     "Sections": {
       "DeleteDialog": {
@@ -300,9 +226,9 @@
     "Account-Popover": {
       "update_profile": "تحديث  الحساب",
       "logout": "تسجيل الخروج",
-      "no_phone":"لا يوجد هاتف",
-      "as_guset":"زائر",
-      "no_name":"لأ اسم"
+      "no_phone": "لا يوجد هاتف",
+      "as_guset": "زائر",
+      "no_name": "لأ اسم"
     },
     "Message": {
       "Added_To_wishlist_success": "تمت الإضافة إلى قائمة المفضلات بنجاح",
@@ -315,7 +241,7 @@
       "returned_order_success": "تم أرجاع الطلب بنجاح",
       "canceled_order_success": "تم الغاء الطلب بنجاح",
       "rating_submitted_successfully": "تم إرسال التقييم بنجاح",
-      "landing_page_title":"! نحن الآن في مرحلة الإطلاق التجريبي"
+      "landing_page_title": "! نحن الآن في مرحلة الإطلاق التجريبي"
     }
   },
   "Pages": {
@@ -341,7 +267,7 @@
     },
     "Auth": {
       "login_title": "تسجيل الدخول",
-      "new_login":"تسجيل جديد",
+      "new_login": "تسجيل جديد",
       "enter_phone_number": "ادخل رقم الهاتف",
       "create_new_account": " انشاء حساب جديد",
       "not_have_account": "ليس لديك حساب؟",
@@ -381,166 +307,11 @@
       "category": "الفئة:",
       "no_favorite_items": "ا توجد عناصر مفضلة لديك بعد"
     },
-  "SetLocation": {
-  "title": "تحديد موقعك",
-  "title1": "العناوين",
-  "search_location": "بحث عن الموقع",
-  "details_address": "تفاصيل العنوان",
-  "ex_address": "الرياض، اسم الشارع...",
-  "set_default": "اجعل هذا الموقع الافتراضي",
-  "choose_location": "اختيار الموقع",
-  "add_new_location": "إضافة عنوان جديد",
-  "location_name": "اسم الموقع",
-  "location_details": "تفاصيل العنوان مطلوبة",
-  "latitude": "خط العرض",
-  "longitude": "خط الطول",
-  "update_location_success": "تم تحديث الموقع بنجاح",
-  "no_description": "لا يوجد وصف",
-  "default": "افتراضي",
-  "at_least_one_default": "يجب أن يكون هناك موقع افتراضي واحد على الأقل",
-  "edit_title": "تعديل العنوان",
-  "update_location":"تعديل الموقع"
-},
-
-    "ProductDetails": {
-      "add_to_cart": "إضافة للسلة",
-      "description": "وصف المنتج"
-    },
     "Currency": {
       "symbol": "ر.س"
     },
-    "offers": {
-      "display_all": " عرض الكل",
-      "No_offers": "لا توجد عروض متاحة بعد",
-      "featured_offers": "أبرز العروض"
-    },
-    "favorite": {
-      "title": "المفضلة",
-      "no_favorite": "لا توجد منتجات مفضلة بعد",
-      "total_favorite": "إجمالي المنتجات المفضلة",
-      "remove_all": "إزالة الكل",
-      "empty_favorite": "قائمة المفضلات فارغة",
-      "explore_products": "استكشف المنتجات",
-      "no_items": "لا توجد عناصر بعد"
-    },
-    "Order": {
-      "resend_order": "إعادة الطلب",
-      "Status": {
-        "Pending": "جديد",
-        "Processing": "قيد التجهيز",
-        "Shipped": "جاري التوصيل",
-        "Delivered": "مكتمل",
-        "Canceled": "ملغي",
-        "all": "الكل",
-        "Returned": "مرتجع",
-        "Accepted": "مقبول",
-        "Rejected": "مرفوض",
-        "InProgress": "قيد المراجعة",
-        "PartiallyReturned":"تمت إعادته جزئيًا"
-      },
-      "order_number": " رقم الطلب",
-      "display_order": "عرض الطلب",
-      "no_items": "لا توجد ملاحظات",
-      "driver_name": "أسم السائق",
-      "reorder": "إعادة الطلب",
-      "return": "إرجاع",
-      "this_order": "هذا الطلب",
-      "return_reason": "سبب الارجاع",
-      "cancel_reason": "سبب الالغاء",
-      "reason": "السبب",
-      "note": "الملاحظة",
-      "confirm_return": "تأكيد الإرجاع",
-      "confirm_canceled": "تأكيد الالغاء",
-      "are_you_sure_return": "هل أنت متأكد أنك تريد إرجاع هذا الطلب؟",
-      "are_you_sure_cancel": "هل أنت متأكد أنك تريد الغاء هذا الطلب؟",
-      "order_updates": "تحديثات الطلب",
-      "time": "الوقت",
-      "track_order": "تتبع الطلب",
-      "arrives_in": "يصل في غضون {minutes} دقيقة",
-      "address": "العنوان",
-      "add_rating": "إضافة تقييم",
-      "delivery_time": "وقت التوصيل",
-      "packaging": "التعبئة",
-      "communication": "التواصل",
-      "add_comment": "إضافة تعليق",
-      "select_items_to_return":"اختر العناصر المراد إرجاعها",
-      "select_all":"اختيار الكل",
-      "vat_rate": "ضريبة القيمة المضافة {var}%",
-      "delivery_fee_with_shipping_cost": "رسوم التوصيل(شامل ضريبة القيمة المضافة)"
-
-    },
-    "Return_Order": {
-      "title": "الارجاع",
-      "title2": "طلبات الارجاع",
-      "display_return_order": "عرض الطلب المرتجع",
-      "returned_on": "تم الارجاع في",
-      "deliver_at": "تم التوصيل في",
-      "refused_reason": "سبب الرفض",
-      "no_reason_provided": "لم يتم تقديم سبب",
-      "return_order_number": "رقم طلب الارجاع"
-    },
-    "Carts": {
-      "title": "سلة المشتريات",
-      "summary": {
-        "subtotal": "الإجمالي قبل الضريبة والشحن",
-        "vat": "ضريبة القيمة المضافة",
-        "discount": "الخصم",
-        "shipping": "قيمة التوصيل",
-        "total": "الإجمالي النهائي",
-        "pay": "الدفع",
-        "total_items":"الإجمالي",
-        "purchasesvalue": "قيمة المشتريات"
-
-      },
-      "discountCoupon": "كوبون خصم",
-      "enter_coupon": "أدخل كود الخصم",
-      "apply": "تطبيق",
-      "no_items_in_cart":"لا يوجد عناصر في السلة"
-    },
-    "Pay": {
-      "title": "الدفع",
-      "notes": "ملاحظات",
-      "add_notes_for_order": "اضافة ملاحظات على الطلب",
-      "send_order_success": "تم ارسال طلبك بنجاح",
-      "is_copy": "تم نسخ الرابط",
-      "pay_type": "وسيلة الدفع",
-      "go_to_payment": "الانتقال إلى صفحة الدفع",
-      "payment_fee":"رسوم الدفع"
-    },
- "MyProfile": {
-    "title": "الملف الشخصي",
-    "name": "الاسم",
-    "phone": "رقم الهاتف",
-    "email": "البريد الإلكتروني",
-    "gender": "النوع",
-    "birthDate": "تاريخ الميلاد",
-    "edit_profile":"تعديل الحساب",
-     "new_profile_preview": "معاينة الصورة الجديدة",
-  "current_profile_image": "الصورة الحالية",
-    "supported_formats": "الصيغ المدعومة: JPG، PNG، GIF. الحد الأقصى للحجم: 5 ميجابايت",
-      "phone_unchangeable": "لا يمكن تغيير رقم الهاتف"
-
-
-  },
-"Notifications": {
-  "title": "الإشعارات",
-  "mark_all": "تمييز الكل كمقروء",
-  "empty": "لا توجد إشعارات",
-  "order_ready": "تم تجهيز طلبك وهو في طريقه إليك!",
-  "view_offer": "مشاهدة العروض",
-  "track_order": "تتبع الطلب",
-  "order_number": "رقم الطلب: {orderNumber}",
-  "today": "اليوم",
-  "yesterday": "الأمس"
-},
-"Search":{
-  "title":"البحث",
-  "no_results":"لا نتائج",
-  "try_different_keywords":"جرّب كلمات مفتاحية مختلفة."
-},
-"Common":{
-  "loading":"تحميل"
-}
-
+    "Common": {
+      "loading": "تحميل"
+    }
   }
 }
