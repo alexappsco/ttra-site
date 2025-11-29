@@ -120,7 +120,7 @@ export default function BlogDetailsView({ blog_details }: Props) {
               sx={{
                 height: { xs: 220, sm: 320, md: 420 },
                 width: '100%',
-                objectFit: 'cover'
+                objectFit: 'contain'
               }}
               onError={(e) => {
                 const target = e.target as HTMLImageElement;
@@ -134,7 +134,7 @@ export default function BlogDetailsView({ blog_details }: Props) {
             sx={{
               mb: 4,
               display: 'flex',
-              flexDirection: isMobile ? 'column' : 'row',
+              flexDirection: 'row',
               justifyContent: 'space-between',
               alignItems: isMobile ? 'flex-start' : 'center',
               gap: 2
