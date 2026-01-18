@@ -28,7 +28,7 @@ export default function AuthClassicLayout({ children, image, title }: Props) {
       justifyContent="center"
       alignItems="center"
           >
-      <Navbar isAuth={true} />
+      <Navbar /> {/**isAuth={true}  */}
       {children}
     </Stack>
   );

@@ -1,19 +1,19 @@
 /** next-sitemap.config.js */
-const SITE_SUBTITLE = 'منصة استحواذ هي منصتك الذكية لبيع وشراء الأنشطة التجارية';
+const SITE_SUBTITLE = 'سكين كير';
 
 module.exports = {
-  siteUrl: 'https://isthwath.com',
+  siteUrl: '',
   generateRobotsTxt: false, // لأنك تملك robots.txt بالفعل
   sitemapSize: 7000,
   changefreq: 'daily',
   priority: 0.7,
   exclude: ['/admin/*'], // أمثلة على صفحات لا تريد فهرستها
   siteMetadata: {
-    title: 'منصة استحواذ',
+    title: '',
     subtitle: SITE_SUBTITLE,
   },
   alternateRefs: [
-    { href: 'https://isthwath.com/ar/', hreflang: 'ar' },
-    { href: 'https://isthwath.com/en/', hreflang: 'en' },
+    { href: '/', hreflang: 'ar' },
+    { href: '/', hreflang: 'en' },
   ],
 };

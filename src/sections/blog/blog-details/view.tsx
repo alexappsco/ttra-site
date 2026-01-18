@@ -88,7 +88,7 @@ export default function BlogDetailsView({ blog_details }: Props) {
   if (!blog_details) {
     return (
       <>
-        <Navbar isHome />
+        <Navbar  />
         <Container maxWidth="lg" sx={{ py: 4 }} dir="rtl">
           <Typography variant="h6" textAlign="center">
             لا توجد بيانات للمقال
@@ -100,160 +100,9 @@ export default function BlogDetailsView({ blog_details }: Props) {
 
   return (
     <>
-      <Navbar isHome />
+      <Navbar  />
 
-      <Container maxWidth="lg" sx={{ py: { xs: 3, md: 4 } }} dir="rtl">
-        <Paper elevation={0} sx={{ p: { xs: 2, md: 4 }, background: 'transparent' }}>
-          {/* IMAGE */}
-          <Card
-            sx={{
-              mb: 4,
-              borderRadius: 3,
-              overflow: 'hidden',
-              boxShadow: '0px 4px 20px rgba(0,0,0,0.08)'
-            }}
-          >
-            <CardMedia
-              component="img"
-              src={blog_details.attachmentUrl}
-              alt={blog_details.title}
-              sx={{
-                height: { xs: 220, sm: 320, md: 420 },
-                width: '100%',
-                objectFit: 'contain'
-              }}
-              onError={(e) => {
-                const target = e.target as HTMLImageElement;
-                target.src = 'https://via.placeholder.com/800x400/4a90e2/ffffff?text=Blog+Image';
-              }}
-            />
-          </Card>
-
-          {/* TITLE AND CATEGORY */}
-          <Box
-            sx={{
-              mb: 4,
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: isMobile ? 'flex-start' : 'center',
-              gap: 2
-            }}
-          >
-            <Typography
-              variant="h1"
-              sx={{
-                fontSize: { xs: '1.8rem', sm: '2.2rem', md: '2.6rem' },
-                fontWeight: 700,
-                lineHeight: 1.3,
-                flex: 1,
-                color: 'text.primary'
-              }}
-            >
-              {blog_details.title}
-            </Typography>
-
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, alignItems: isMobile ? 'flex-start' : 'flex-end' }}>
-              <Chip
-                label={blog_details.blogCategoryName}
-                color="primary"
-                size="small"
-                sx={{
-                  fontWeight: 600,
-                  fontSize: '0.85rem',
-                  bgcolor:'#367ce5'
-                }}
-              />
-              {formatDate && (
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                  sx={{ fontSize: '0.9rem' }}
-                >
-                  {formatDate}
-                </Typography>
-              )}
-            </Box>
-          </Box>
-
-          {/* CONTENT */}
-          <Box sx={{ maxWidth: '1150px' }}>
-            {/* INTRO */}
-            {processedContent.intro && (
-              <Box sx={{ mb: 4 }}>
-                {splitContent(processedContent.intro).map((paragraph: string, i: number) => (
-                  <Typography
-                    key={i}
-                    sx={{
-                      fontSize: '1.1rem',
-                      lineHeight: 2,
-                      color: 'text.secondary',
-                      mb: 2,
-                      textAlign: 'justify'
-                    }}
-                  >
-                    {paragraph}
-                  </Typography>
-                ))}
-              </Box>
-            )}
-
-            {/* SECTIONS */}
-            {processedContent.sections.map((section: ProcessedSection, index: number) => (
-              <Box key={index} sx={{ mb: 4 }}>
-                {section.title && (
-                  <Typography
-                    sx={{
-                      fontSize: '1.4rem',
-                      fontWeight: 700,
-                      color: 'text.primary',
-                      display: 'flex',
-                      gap: 1,
-                      alignItems: 'center',
-                      mb: 2
-                    }}
-                  >
-                    <Box
-                      sx={{
-                        width: 32,
-                        height: 32,
-                        borderRadius: '50%',
-                        bgcolor: 'primary.main',
-                        color: '#fff',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        fontSize: '1rem',
-                        fontWeight: 600
-                      }}
-                    >
-                      {index + 1}
-                    </Box>
-                    {section.title}
-                  </Typography>
-                )}
-
-                {section.content && splitContent(section.content).map((content: string, i: number) => (
-                  <Typography
-                    key={i}
-                    sx={{
-                      fontSize: '1rem',
-                      lineHeight: 1.8,
-                      mb: 1.5,
-                      color: 'text.secondary',
-                      pr: section.title ? 4 : 0,
-                      textAlign: 'right'
-                    }}
-                  >
-                    {content}
-                  </Typography>
-                ))}
-              </Box>
-            ))}
-
-          </Box>
-        </Paper>
-      </Container>
+      
     </>
   );
 }

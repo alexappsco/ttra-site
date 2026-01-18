@@ -39,7 +39,7 @@ export default function BlogView({ blog, blog_category, initialCategory = 'all' 
 
   return (
     <>
-      <Navbar isHome={true} />
+      <Navbar  />
 
       <Container sx={{ py: 4, direction: 'ltr' }}>
         <CustomBreadcrumbs links={[]} heading={'المدونة'} sx={{ color: '#1D1D1D' }} />

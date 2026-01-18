@@ -6,10 +6,8 @@ import 'simplebar-react/dist/simplebar.min.css'; // تحميل بدون render-b
 
 import '../global.css';
 
-const SITE_TITLE = 'منصة استحواذ | Isthwath';
-const SITE_DESCRIPTION = `استحواذ هي منصة سعودية رائدة تمكّنك من بيع وشراء الأنشطة التجارية والمشاريع الصغيرة بكل سهولة وشفافية.
-تم تصميم المنصة لتكون نقطة التقاء بين رواد الأعمال، المستثمرين، وأصحاب المشاريع الباحثين عن فرص جاهزة للانطلاق أو التوسع داخل السوق السعودي.
-`;
+const SITE_TITLE = ' سكين كير';
+const SITE_DESCRIPTION = 'سكين كير'
 
 export const viewport = {
   themeColor: '#000000',
@@ -17,71 +15,40 @@ export const viewport = {
   initialScale: 1,
 };
 
-// export const metadata = {
-//   title: SITE_TITLE,
-//   description: SITE_DESCRIPTION,
-//   // metadataBase: new URL('https://isthwath.com/'),
-//   // alternates: {
-//   //   canonical: '/',
-//   //   languages: {
-//   //     ar: '/ar/',
-//   //     en: '/en/',
-//   //   },
-//   // },
-//   // openGraph: {
-//   //   url: 'https://isthwath.com/',
-//   //   title: SITE_TITLE,
-//   //   description: SITE_DESCRIPTION,
-//   //   siteName: 'منصة استحواذ',
-//   //   type: 'website',
-//   //   locale: 'ar_SA',
-//   // },
-//   manifest: '/manifest.json',
-//   icons: {
-//     icon: [
-//       { rel: 'icon', type: 'image/png',sizes:'96x96', url: '/favicon-96x96.png' },
 
-//       { rel: 'icon', type: 'image/png', sizes: '16x16', url: '/favicon/favicon-96x96.png' },
-//       { rel: 'apple-touch-icon', sizes: '32x12', url: '/favicon/apple-touch-icon.png' },
-//       { rel: 'apple-touch-icon', sizes: '180x180', url: '/apple-touch-icon.png' },
-//     ],
-//     apple:
-//     shortcut: { url: '/logo/logo_blue.svg' },
-//   },
-// };
 export const metadata = {
   title: {
     default: SITE_TITLE,
-    template: "%s | Isthwath"
+    template: "%s | سكين كير"
   },
   description: SITE_DESCRIPTION,
 
-  openGraph: {
-    title: SITE_TITLE,
-    description: SITE_DESCRIPTION,
-    url: "https://isthwath.com/ar/",
-    siteName: SITE_TITLE,
-    images: [
-      {
-        url: "/web-app-manifest-512x512.png",
-        width: 512,
-        height: 512,
-      },
-    ],
-    locale: "ar_SA",
-    type: "website",
-  },
+  // openGraph: {
+  //   title: SITE_TITLE,
+  //   description: SITE_DESCRIPTION,
+  //   url: "",
+  //   siteName: SITE_TITLE,
+  //   images: [
+  //     {
+  //       url: "/a",
+  //       width: 512,
+  //       height: 512,
+  //     },
+  //   ],
+  //   locale: "ar_SA",
+  //   type: "website",
+  // },
   icons: {
     icon: [
-      { url: "/favicon.ico" },
-      { url: "/favicon.svg", type: "image/svg+xml" },
-      { url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" }
+      { url: "/logo/logo-scen.svg" },
+      { url: "/logo/logo-scen.svg", type: "/logo/logo-scen.svg" },
+      { url: "/logo/logo-scen.svg", sizes: "96x96", type: "image/png" }
     ],
     apple: [
-      { url: "/apple-touch-icon.png", sizes: "180x180" }
+      { url: "/logo/logo-scen.svg", sizes: "180x180" }
     ]
   },
-  manifest: "/site.webmanifest"
+  manifest: "/logo/logo-scen.svg"
 };
 
 export default function Layout({
@@ -101,89 +68,3 @@ export default function Layout({
   );
 }
 
-///
-// import React from 'react';
-
-// export const viewport = {
-//   themeColor: '#000000',
-//   width: 'device-width',
-//   initialScale: 1,
-//   maximumScale: 5, // اختياري — أو احذفها لتحسين أكثر
-// };
-
-
-// export const metadata = {
-//   title: 'Isthwath | منصة استحواذ',
-//   description: `استحواذ هي منصة سعودية رائدة تمكّنك من بيع وشراء الأنشطة التجارية والمشاريع الصغيرة بكل سهولة وشفافية.
-// تم تصميم المنصة لتكون نقطة التقاء بين رواد الأعمال، المستثمرين، وأصحاب المشاريع الباحثين عن فرص جاهزة للانطلاق أو التوسع داخل السوق السعودي.
-
-// من خلال تطبيق استحواذ - Isthwath، يمكنك إدارة عملية البيع أو الشراء بشكل متكامل داخل بيئة رقمية مرنة وآمنة.`,
-//   openGraph: {
-//     url: 'https://isthwath.com/ar/',
-//     title: 'Isthwath | منصة استحواذ',
-//     description: `استحواذ هي منصة سعودية رائدة تمكّنك من بيع وشراء الأنشطة التجارية والمشاريع الصغيرة بكل سهولة وشفافية.`,
-//   },
-//   manifest: '/manifest.json',
-//   icons: {
-//     icon: [
-//       { rel: 'icon', type: 'image/svg+xml', url: '/logo/logo_blue.svg' },
-//       { rel: 'icon', type: 'image/png', sizes: '16x16', url: '/favicon/favicon-96x96.png' },
-//       { rel: 'apple-touch-icon', sizes: '32x12', url: '/favicon/apple-touch-icon.png' },
-//       { rel: 'apple-touch-icon', sizes: '180x180', url: '/logo/logo_blue.svg' },
-//     ],
-//     shortcut: { url: '/logo/logo_blue.svg' },
-//   },
-// };
-
-
-// export default function Layout({ children, auth }: { children: React.ReactNode; auth: React.ReactNode }) {
-//   return (
-//     <html>
-//       <head>
-//         {/* تحسين LCP عبر تحميل الخطوط مسبقًا */}
-//         <link
-//           rel="preload"
-//           href="/fonts/DINNextLTArabic-Regular.ttf"
-//           as="font"
-//           type="font/ttf"
-//           crossOrigin="anonymous"
-//         />
-//         <link
-//           rel="preload"
-//           href="/fonts/DINNextLTArabic-Bold.ttf"
-//           as="font"
-//           type="font/ttf"
-//           crossOrigin="anonymous"
-//         />
-//       </head>
-//       <body>
-//         {children}
-//         {auth}
-//       </body>
-//     </html>
-//   );
-// }
-// export const metadata = {
-//   title: 'Isthwath | منصة استحواذ',
-//  description: `استحواذ هي منصة سعودية رائدة تمكّنك من بيع وشراء الأنشطة التجارية والمشاريع الصغيرة بكل سهولة وشفافية.
-// تم تصميم المنصة لتكون نقطة التقاء بين رواد الأعمال، المستثمرين، وأصحاب المشاريع الباحثين عن فرص جاهزة للانطلاق أو التوسع داخل السوق السعودي.
-
-// من خلال تطبيق استحواذ - Isthwath، يمكنك إدارة عملية البيع أو الشراء بشكل متكامل داخل بيئة رقمية مرنة وآمنة.`,
-//   openGraph: {
-//     url: 'https://isthwath.com/ar/',
-//     title: 'Isthwath | منصة استحواذ',
-//  description: `استحواذ هي منصة سعودية رائدة تمكّنك من بيع وشراء الأنشطة التجارية والمشاريع الصغيرة بكل سهولة وشفافية.
-// تم تصميم المنصة لتكون نقطة التقاء بين رواد الأعمال، المستثمرين، وأصحاب المشاريع الباحثين عن فرص جاهزة للانطلاق أو التوسع داخل السوق السعودي.
-
-// من خلال تطبيق استحواذ - Isthwath، يمكنك إدارة عملية البيع أو الشراء بشكل متكامل داخل بيئة رقمية مرنة وآمنة.`,
-//   },
-//   manifest: '/manifest.json',
-//   icons: {
-//     icon: [
-//       { rel: 'icon', url: '/logo/logo_blue.svg' },
-//       { rel: 'icon', type: 'image/png', sizes: '16x16', url: '/favicon/favicon-96x96.png' },
-//       { rel: 'apple-touch-icon', sizes: '32x12', url: '/favicon/apple-touch-icon.png' },
-//     ],
-//     shortcut: { url: '/logo/logo_blue.svg' },
-//   },
-// // };

@@ -1,8 +1,8 @@
 {
-  "name": "isthwaz website",
+  "name": "skincare",
   "author": "Alex-Apps",
   "version": "1.0.0",
-  "description": "منصة استحواذ هي منصتك الذكية لبيع وشراء الأنشطة التجارية",
+  "description": "سكين كير  جلسات  تشخيصية مع أفضل الأطباء",
   "private": true,
   "scripts": {
     "dev": "next dev -p 8083",
@@ -42,6 +42,7 @@
     "notistack": "^3.0.1",
     "nprogress": "^0.2.0",
     "react": "^19.0.1",
+    "react-countup": "^6.5.3",
     "react-dom": "^19.0.1",
     "react-dropzone": "^14.3.5",
     "react-hook-form": "^7.54.1",

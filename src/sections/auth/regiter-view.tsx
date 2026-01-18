@@ -22,7 +22,6 @@ import {
   FormControlLabel,
 } from '@mui/material';
 
-import BusinessCard from '../bussiness-card/view';
 
 // --------------------------------------------------
 // Types
@@ -193,8 +192,8 @@ export default function JwtRegisterView({ bussiness }: Props) {
         <Container maxWidth="sm" sx={{ textAlign: 'center' }}>
           <Box sx={{ textAlign: 'center', mb: 4 }}>
             <Image
-              src="/logo/logo_istihwaz.svg"
-              alt="شعار منصة استحواذ"
+              src=""
+              alt=""
               width={160}
               height={90}
               priority
@@ -307,11 +306,11 @@ export default function JwtRegisterView({ bussiness }: Props) {
                   <Grid2 container spacing={1} justifyContent="center">
                     {bussiness.map((b) => (
                       <Grid2 key={b.id} size={{ xs: 4 }} display="flex" justifyContent="center">
-                        <BusinessCard
+                        {/* <BusinessCard
                           business={b}
                           isSelected={selectedBusiness.some((sb) => sb.id === b.id)}
                           onSelect={handleSelectBusiness}
-                        />
+                        /> */}
                       </Grid2>
                     ))}
                   </Grid2>
