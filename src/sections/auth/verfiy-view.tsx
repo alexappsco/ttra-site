@@ -134,7 +134,7 @@ export default function JwtVerifyView({ isnewphone }: Props) {
           <Box sx={{ textAlign: 'center' }}>
             <Image
               src="/logo/black_icon.svg"
-              alt="شعار منصة استحواذ"
+              alt="شعار منصة سكين كير"
               width={180}
               height={120}
               style={{ margin: 'auto' }}

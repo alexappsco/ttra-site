@@ -1,234 +1,243 @@
-
 'use client';
 
 import React from 'react';
-import { usePathname } from 'next/navigation';
-import {
-  Box,
-  Link,
-  Stack,
-  useTheme,
-  Container,
-  Typography
-} from '@mui/material';
+import { Box, Grid, Stack, Typography } from '@mui/material';
+import Image from 'next/image';
+import LayoutContainer from '../../sections/home/views/LayoutContainer';
 
-// ===== Social Media Icons (SVGs) =====
-const InstagramIcon = () => (
-  <img src="/assets/icons/social-icons/insta.svg" alt="" width="24" height="24" aria-hidden="true" />
-);
-
-const TikTokIcon = () => (
-  <img src="/assets/icons/social-icons/tiktok.svg" alt="" width="24" height="24" aria-hidden="true" />
-);
-
-const X_Icon = () => (
-  <img src="/assets/icons/social-icons/x.svg" alt="" width="24" height="24" aria-hidden="true" />
-);
-
-// ===== Generic Social Icon Component =====
-const SocialIcon = ({
-  IconComponent,
-  href,
-  ariaLabel
-}: {
-  IconComponent: React.ElementType;
-  href: string;
-  ariaLabel: string;
-}) => {
-  return (
-    <Link
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label={ariaLabel}
-      sx={{
-        transition: 'opacity 0.2s',
-        '&:hover': { opacity: 0.7 }
-      }}
-    >
-      <IconComponent />
-    </Link>
-  );
+const linkStyle = {
+  fontSize: 14,
+  cursor: 'pointer',
+  transition: 'color 0.3s',
+  '&:hover': {
+    color: '#F1A68E',
+  },
 };
 
-// ===== Footer Component =====
 export default function Footer() {
-  const theme = useTheme();
-  const pathname = usePathname();
-const isLanding =
-  pathname === '/landing-page' ||
-  pathname === '/ar/landing-page' ||
-  pathname === '/ar/landing-page/' ||
-  pathname === '/en/landing-page' ||
-  pathname === '/en/landing-page/';
-
-  // Quick Links
-  const quickLinks = [
-    { name: 'الشروط والأحكام', href: '/privacy-policy' },
-    { name: 'الأسئلة الشائعة', href: '/landing-page' },
-    { name: 'تواصل معنا', href: '/landing-page' }
-  ];
-
-  // App Store Images
-  const googleAppImgPath = '/assets/footer/GoogleApp.png';
-  const appleAppImgPath = '/assets/footer/AppleApp.png';
-
   return (
     <Box
-      component="footer"
       sx={{
-        bgcolor: '#fff',
-        py: { xs: 4, md: 6 },
-        borderTop: `1px solid ${theme.palette.divider}`,
-        direction: 'rtl'
+        pt: 8,
+        pb: 3,
+        backgroundColor: '#fff',
+        boxShadow: '0 -8px 20px -10px rgba(0,0,0,0.1)',
+        overflowX: 'hidden', // ✅ يمنع أي سكرول أفقي
+        width: '100%',
       }}
     >
-      <Container maxWidth="lg">
-        {/* ===== Upper Section ===== */}
-        {!isLanding && (
-          <Stack
-            direction={{ xs: 'column', md: 'row' }}
-            justifyContent="space-between"
-            alignItems={{ xs: 'center', md: 'flex-start' }}
-            spacing={{ xs: 4, md: 0 }}
-            sx={{
-              pb: 3,
-              mb: 3,
-              borderBottom: `1px solid ${theme.palette.divider}`
-            }}
-          >
-            {/* Quick Links */}
-            <Stack
-              direction="row"
-              spacing={{ xs: 2, md: 4 }}
-              justifyContent={{ xs: 'center', md: 'flex-start' }}
-              sx={{
-                width: { xs: '100%', md: 'auto' },
-                order: { xs: 2, md: 1 }
-              }}
-            >
-              {quickLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  color="text.primary"
-                  underline="none"
-                  sx={{
-                    fontWeight: 'bold',
-                    fontSize: { xs: '0.85rem', md: '1rem' },
-                    '&:hover': { color: theme.palette.primary.main }
-                  }}
+      <LayoutContainer>
+        <Grid container spacing={4}>
+          {/* Column 1 - Logo + Name */}
+          <Grid item xs={12} sm={12} md={2.4}>
+            <Stack spacing={2}>
+              <Stack direction="row" spacing={1} alignItems="center">
+                <Image
+                  src="/logo/logo-scen.svg"
+                  alt="logo"
+                  width={50}
+                  height={50}
+                  style={{ display: 'block' }}
+                />
+                <Typography
+                  fontWeight={600}
+                  fontSize={24}
+                  whiteSpace="nowrap"
                 >
-                  {link.name}
-                </Link>
-              ))}
-            </Stack>
+                  سكين كير
+                </Typography>
+              </Stack>
 
-            {/* App Store Buttons */}
+              <Typography fontSize={16} color="text.secondary">
+                تطبيقك الأول للعناية بالبشرة مع أفضل الأطباء الموجودين في الإمارات
+              </Typography>
+            </Stack>
+          </Grid>
+
+          {/* Column 2 - Quick Links */}
+          <Grid item xs={12} sm={6} md={2.4}>
+            <Typography fontWeight={700} mb={2}>
+              روابط سريعة
+            </Typography>
+
+            {[
+              'الرئيسية',
+              'خدماتنا',
+              'من نحن',
+              'كيف يعمل',
+              'الأسئلة',
+              'آراء العملاء',
+            ].map((item) => (
+              <Stack
+                key={item}
+                direction="row"
+                spacing={1}
+                alignItems="center"
+                mb={1}
+              >
+                <Image
+                  src="/assets/Vector-row-right.svg"
+                  alt=""
+                  width={12}
+                  height={12}
+                  style={{ display: 'block' }}
+                />
+                <Typography sx={linkStyle}>{item}</Typography>
+              </Stack>
+            ))}
+          </Grid>
+
+          {/* Column 3 - Legal */}
+          <Grid item xs={12} sm={6} md={2.4}>
+            <Typography fontWeight={600} mb={2}>
+              معلومات قانونية
+            </Typography>
+
+            {['سياسة الخصوصية', 'الشروط والأحكام', 'الأسئلة الشائعة'].map(
+              (item) => (
+                <Stack
+                  key={item}
+                  direction="row"
+                  spacing={1}
+                  alignItems="center"
+                  mb={1}
+                >
+                  <Image
+                    src="/assets/Vector-row-right.svg"
+                    alt=""
+                    width={12}
+                    height={12}
+                    style={{ display: 'block' }}
+                  />
+                  <Typography sx={linkStyle}>{item}</Typography>
+                </Stack>
+              )
+            )}
+          </Grid>
+
+          {/* Column 4 - Contact */}
+          <Grid item xs={12} sm={6} md={2.4}>
+            <Typography fontWeight={600} mb={2}>
+              تواصل معنا
+            </Typography>
+
+            <Stack spacing={1.5}>
+              <Stack direction="row" spacing={1} alignItems="center">
+                <Image
+                  src="/assets/Vector-call.svg"
+                  alt=""
+                  width={16}
+                  height={16}
+                  style={{ display: 'block' }}
+                />
+                <Typography sx={linkStyle}>971567328923+</Typography>
+              </Stack>
+
+              <Stack direction="row" spacing={1} alignItems="center">
+                <Image
+                  src="/assets/Vector-mail.svg"
+                  alt=""
+                  width={16}
+                  height={16}
+                  style={{ display: 'block' }}
+                />
+                <Typography sx={linkStyle}>info@skincare.com</Typography>
+              </Stack>
+
+              <Stack direction="row" spacing={1} alignItems="center">
+                <Image
+                  src="/assets/Vector-position.svg"
+                  alt=""
+                  width={16}
+                  height={16}
+                  style={{ display: 'block' }}
+                />
+                <Typography sx={linkStyle}>الإمارات</Typography>
+              </Stack>
+
+              {/* Social Icons */}
+              <Stack direction="row" spacing={2} mt={1} alignItems="center">
+                <Image
+                  src="/assets/Vector-linkedin.svg"
+                  alt=""
+                  width={18}
+                  height={18}
+                />
+                <Image
+                  src="/assets/Vector-insta.svg"
+                  alt=""
+                  width={18}
+                  height={18}
+                />
+                <Image
+                  src="/assets/Vector-facebook.svg"
+                  alt=""
+                  width={18}
+                  height={18}
+                />
+              </Stack>
+            </Stack>
+          </Grid>
+
+          {/* Column 5 - App Download */}
+          <Grid item xs={12} sm={6} md={2.4}>
+            <Typography fontWeight={600} mb={2}>
+              حمّل تطبيقنا الآن
+            </Typography>
+
+            <Typography fontSize={14} color="#153A52" mb={2}>
+              ابدأ رحلة العناية ببشرتك مع أفضل أطباء الجلدية الدوليين في الإمارات.
+              <br />
+              كل خدمات التشخيص، التحاليل، والمتابعة في تطبيق واحد سهل وآمن.
+              <br />
+              <br />
+              حمّل التطبيق الآن وابدأ أول جلسة مجانية
+            </Typography>
+
+            {/* Download Buttons */}
             <Stack
               direction="row"
               spacing={2}
-              justifyContent={{ xs: 'center', md: 'flex-end' }}
-              sx={{
-                width: { xs: '100%', md: 'auto' },
-                order: { xs: 1, md: 2 }
-              }}
+              alignItems="center"
+              justifyContent="flex-start"
+              sx={{ width: '100%' }}
             >
-              <Link
-                href="https://play.google.com/store/apps/details?id=com.isthwath.isthwath_app"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="تحميل تطبيق Google Play"
-                sx={{ display: 'inline-block' }}
-              >
-                <Box
-                  component="img"
-                  src={googleAppImgPath}
-                  alt="تحميل تطبيق Google Play"
-                  width={150}
-                  height={50}
-                  sx={{
-                    height: { xs: 45, md: 50 },
-                    width: 'auto',
-                    borderRadius: 1.5,
-                    boxShadow: theme.shadows[1],
-                    objectFit: 'contain',
-                    aspectRatio: '3 / 1'
-                  }}
+              <Box>
+                <Image
+                  src="/assets/Button 1.svg"
+                  alt="app-store"
+                  width={140}
+                  height={45}
+                  style={{ maxWidth: '100%', height: 'auto' }}
                 />
-              </Link>
-
-              <Link
-                href="https://apps.apple.com/us/app/%D9%85%D9%86%D8%B5%D8%A9-%D8%A7%D8%B3%D8%AA%D8%AD%D9%88%D8%A7%D8%B0/id6755191696"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="تحميل تطبيق App Store"
-                sx={{ display: 'inline-block' }}
-              >
-                <Box
-                  component="img"
-                  src={appleAppImgPath}
-                  alt="تحميل تطبيق App Store"
-                  width={150}
-                  height={50}
-                  sx={{
-                    height: { xs: 45, md: 50 },
-                    width: 'auto',
-                    borderRadius: 1.5,
-                    boxShadow: theme.shadows[1],
-                    objectFit: 'contain',
-                    aspectRatio: '3 / 1'
-                  }}
+              </Box>
+              <Box>
+                <Image
+                  src="/assets/Button 2.svg"
+                  alt="google-play"
+                  width={140}
+                  height={45}
+                  style={{ maxWidth: '100%', height: 'auto' }}
                 />
-              </Link>
+              </Box>
             </Stack>
-          </Stack>
-        )}
+          </Grid>
+        </Grid>
 
-        {/* ===== Lower Section ===== */}
-        <Stack
-          direction={{ xs: 'column', md: 'row' }}
-          justifyContent="space-between"
-          alignItems="center"
-          spacing={{ xs: 3, md: 0 }}
+        {/* Bottom */}
+        <Box
+          sx={{
+            borderTop: '1px solid #eee',
+            mt: 6,
+            pt: 2,
+            textAlign: 'center',
+          }}
         >
-          {/* Copyright */}
-          <Typography
-            variant="body2"
-            color="text.secondary"
-            sx={{
-              fontSize: { xs: '0.75rem', md: '0.9rem' },
-              textAlign: { xs: 'center', md: 'right' },
-              order: { xs: 1, md: 2 },
-              maxWidth: { xs: '100%', md: '50%' },
-              color: '#4B5563'
-            }}
-          >
-            كل الحقوق محفوظة لصالح شركة منصة استحواذ للتقنية
-            <br />
-            المسجلة برقم: 7051862113
+          <Typography fontSize={13} color="text.secondary">
+            Copyright © skincare 2025. All Rights Reserved
           </Typography>
-
-          {/* Social Media Icons */}
-          <Stack direction="row" spacing={2} order={{ xs: 2, md: 1 }}>
-            <SocialIcon
-              IconComponent={InstagramIcon}
-              href="https://www.instagram.com/isthwath"
-              ariaLabel="Instagram منصة استحواذ"
-            />
-            <SocialIcon
-              IconComponent={TikTokIcon}
-              href="https://www.tiktok.com/@isthwath"
-              ariaLabel="TikTok منصة استحواذ"
-            />
-            <SocialIcon
-              IconComponent={X_Icon}
-              href="https://x.com/isthwath"
-              ariaLabel="X (Twitter) منصة استحواذ"
-            />
-          </Stack>
-        </Stack>
-      </Container>
+        </Box>
+      </LayoutContainer>
     </Box>
   );
 }

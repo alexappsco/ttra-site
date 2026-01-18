@@ -88,8 +88,8 @@ export default function JwtLoginView({ isNewphonenumber }: Props) {
           {/* Logo */}
           <Box sx={{ textAlign: 'center', mb: 2 }}>
             <Image
-              src="/logo/logo_istihwaz.svg"
-              alt="شعار منصة استحواذ"   // 👈 وصف دقيق
+              src="/logo/logo-scen.svg"
+              alt=""
               width={160}
               height={120}
               priority

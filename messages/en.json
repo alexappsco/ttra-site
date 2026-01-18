@@ -1,7 +1,7 @@
 {
   "Metadata": {
-    "title": "Isthwath",
-    "description": "Isthwathe description",
+    "title": "scin-care",
+    "description": "scin-caree description",
     "language": "Language",
     "Jwt": {
       "register": "Register",
@@ -9,10 +9,10 @@
       "login": "Login"
     },
     "Blog": {
-      "title": "Blog | Isthwath"
+      "title": "Blog | scin-care"
     },
     "landing": {
-      "title": "Landing Page | Isthwath"
+      "title": "Landing Page | scin-care"
     }
   },
   "Nav": {
@@ -32,7 +32,7 @@
     }
   },
   "Global": {
-    "title": "Isthwath",
+    "title": "scin-care",
     "comma": ",",
     "Date": {
       "sunday": "Sunday",
