@@ -7,7 +7,7 @@ import StatisticsOverlay from './statistics-overlay';
 
 export default function HeroWithStats() {
   return (
-    <Box sx={{ position: 'relative' }}>
+    <Box id='hero-section' sx={{ position: 'relative' }}>
       <HeroSection />
       
       <StatisticsOverlay/>

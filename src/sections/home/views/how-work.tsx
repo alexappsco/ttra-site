@@ -31,7 +31,7 @@ const lineMotion = (index: number) => ({
 
 export default function OurServices() {
   return (
-    <Box sx={{ backgroundColor: '#FFF6F1', py: { xs: 6, md: 14 }, px: { xs: 2, md: 6 } }}>
+    <Box id='how-it-works' sx={{ backgroundColor: '#FFF6F1', py: { xs: 6, md: 14 }, px: { xs: 2, md: 6 } }}>
       {/* ===== Title ===== */}
       <Box textAlign="center" mb={{ xs: 5, md: 8 }}>
         <Typography sx={{ fontSize: { xs: 26, md: 40 }, fontWeight: 500, color: '#3A2B25', lineHeight: 1 }}>

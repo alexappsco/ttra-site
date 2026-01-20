@@ -3,15 +3,15 @@
 import { Card, Typography, Stack, Box } from '@mui/material';
 import Image from 'next/image';
 import { m } from 'framer-motion';
-
 type BlogCardProps = {
+  id: string
   image: string;
   title: string;
   description: string;
   date: string;
 };
 
-export default function BlogCard({ image, title, description, date }: BlogCardProps) {
+export default function BlogCard({id, image, title, description, date }: BlogCardProps) {
   return (
     <m.div
       initial={{ opacity: 0, y: 30 }}          
@@ -48,7 +48,11 @@ export default function BlogCard({ image, title, description, date }: BlogCardPr
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 <Image src="/assets/Vector.svg" alt="arrow" width={12} height={12} />
               </Box>
-              <Typography sx={{ fontSize: 12, fontWeight: 400, lineHeight: 1 }}>اقرأ المزيد</Typography>
+                <Typography
+                  sx={{ fontSize: 12, fontWeight: 400, lineHeight: 1, cursor: 'pointer',  }}
+                >
+                  اقرأ المزيد
+                </Typography>
             </Stack>
           </Stack>
         </Stack>

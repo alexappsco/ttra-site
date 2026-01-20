@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 export default function NewBlog() {
   return (
-    <Box sx={{ py: { xs: 6, md: 12 }, px: { xs: 2, md: 6 }, textAlign: 'center' }}>
+    <Box id='articles' sx={{ py: { xs: 6, md: 12 }, px: { xs: 2, md: 6 }, textAlign: 'center' }}>
     <Box
       sx={{
         textAlign: 'center',

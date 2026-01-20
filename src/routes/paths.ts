@@ -25,6 +25,11 @@ export const paths = {
     blog:{
       view:'/blog',
       details:(id:string)=>`/blog/${id}`
-    }
+    },
+    legal: {
+    privacy: '/legal/privacy',
+    terms: '/legal/terms',
+    faq: '/legal/faq',
+  },
   },
 };
