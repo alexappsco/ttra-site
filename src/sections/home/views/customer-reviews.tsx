@@ -59,6 +59,7 @@ const itemMotion = {
 export default function CustomerReviews() {
   return (
     <Box
+    id='reviews'
       component={m.div}
       variants={containerMotion}
       initial="hidden"

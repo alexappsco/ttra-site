@@ -21,7 +21,7 @@ function WhoWeAre() {
   });
 
   return (
-    <Box sx={{ width: '100%', overflowX: 'hidden' }}>
+    <Box id='who-we-are' sx={{ width: '100%', overflowX: 'hidden' }}>
       {/* Title */}
       <Box sx={{ textAlign: 'center', mb: { xs: 4, md: 6 } }}>
         <Typography sx={{ fontWeight: 500, fontSize: { xs: 28, md: 40 }, lineHeight: 1.2, mb: 1 }}>

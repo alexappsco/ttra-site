@@ -1,6 +1,9 @@
+
+
+
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Navbar from 'src/layouts/dashboard/navbar';
 import HeroWithStats from './hero-with-stats';
 import OurServices from './our-services';
@@ -8,7 +11,23 @@ import WhoWeAre from './who-we-are';
 import HowWork from './how-work';
 import BlogSection from './blog-section';
 import CustomerReviews from './customer-reviews';
-export default function HomeView() {
+import { BLOGS } from 'src/_mock/data';
+interface HomeViewProps {
+  scrollTo?: string | null;
+}
+
+export default function HomeView({ scrollTo }: HomeViewProps) {
+  useEffect(() => {
+  if (scrollTo) {
+    const section = document.getElementById(scrollTo);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+      window.history.replaceState({}, '', '/'); 
+    }
+  }
+}, [scrollTo]);
+
+
   return (
     <>
       <Navbar />
@@ -16,7 +35,7 @@ export default function HomeView() {
       <OurServices />
       <WhoWeAre />
       <HowWork />
-      <BlogSection />
+      <BlogSection  blogs={BLOGS} />
       <CustomerReviews />
     </>
   );
