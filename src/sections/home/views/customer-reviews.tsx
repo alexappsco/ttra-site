@@ -1,11 +1,10 @@
 'use client';
 
-import React from 'react';
-import { Box, Grid, Stack, Typography } from '@mui/material';
+import React, { useState } from 'react';
+import { Box, Stack, Typography, useTheme, useMediaQuery } from '@mui/material';
 import LayoutContainer from './LayoutContainer';
 import CustomerReviewCard from './customer-review-card';
 import Image from 'next/image';
-import { m } from 'framer-motion';
 
 const REVIEWS = [
   {
@@ -17,61 +16,58 @@ const REVIEWS = [
   },
   {
     avatar: '/assets/Frame 1171275583.svg',
-    name: 'مي محمد',
+    name: 'أحمد علي',
     review:
-      'تجربة رائعة مع العيادة، بشرتي أصبحت أفضل كثير بعد الجلسات والمنتجات الموصوفة. أنصح كل صديقاتي بالتعامل معهم.',
+      'خدمة ممتازة وسريعة، الأنشطة التجميلية كانت احترافية للغاية. أنصح الجميع بتجربتها.',
+    rating: 4,
+  },
+  {
+    avatar: '/assets/Frame 1171275583.svg',
+    name: 'سارة خالد',
+    review:
+      'أحببت التعامل مع فريق العيادة، كانوا مهتمين بالتفاصيل بشكل رائع. النتائج كانت مذهلة!',
     rating: 5,
   },
   {
     avatar: '/assets/Frame 1171275583.svg',
-    name: 'مي محمد',
+    name: 'محمد سمير',
     review:
-      'تجربة رائعة مع العيادة، بشرتي أصبحت أفضل كثير بعد الجلسات والمنتجات الموصوفة. أنصح كل صديقاتي بالتعامل معهم.',
+      'كل شيء كان ممتاز! الموظفون لطفاء والخدمة سريعة، أنصح بهذه العيادة بشدة.',
     rating: 5,
+  },
+  {
+    avatar: '/assets/Frame 1171275583.svg',
+    name: 'ليلى حسن',
+    review:
+      'تجربة رائعة، النتائج فاقت توقعاتي. كل شيء مرتب واحترافي.',
+    rating: 4,
   },
 ];
 
-// ===== Animations =====
-const containerMotion = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.15,
-    },
-  },
-};
-
-const itemMotion = {
-  hidden: {
-    opacity: 0,
-    y: 60,
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.7,
-      ease: 'easeOut',
-    },
-  },
-};
-
 export default function CustomerReviews() {
+  const theme = useTheme();
+  const isLarge = useMediaQuery(theme.breakpoints.up('lg'));
+  const visibleCount = isLarge ? 3 : 1; 
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handleNext = () => {
+    if (currentIndex < REVIEWS.length - visibleCount) {
+      setCurrentIndex(currentIndex + 1);
+    }
+  };
+
+  const handlePrev = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+    }
+  };
+
   return (
-    <Box
-    id='reviews'
-      component={m.div}
-      variants={containerMotion}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.25 }}
-      sx={{ py: { xs: 6, md: 12 } }}
-    >
+    <Box id="reviews" sx={{ py: { xs: 6, md: 12 } }}>
       <LayoutContainer>
         {/* Title */}
         <Box
-          component={m.div}
-          variants={itemMotion}
           sx={{
             display: 'flex',
             flexDirection: 'column',
@@ -98,63 +94,55 @@ export default function CustomerReviews() {
           />
         </Box>
 
-        {/* Cards */}
-        <Grid container spacing={3}>
-          {REVIEWS.map((review, index) => (
-            <Grid
-              component={m.div}
-              variants={itemMotion}
-              item
-              key={index}
-              xs={12}
-              lg={4}
-              sx={{
-                display: {
-                  xs: index === 0 ? 'block' : 'none',
-                  sm: index === 0 ? 'block' : 'none',
-                  md: index === 0 ? 'block' : 'none',
-                  lg: 'block',
-                },
-              }}
-            >
-              <CustomerReviewCard {...review} />
-            </Grid>
-          ))}
-        </Grid>
+        {/* Cards Container */}
+        <Box sx={{ overflow: 'hidden', position: 'relative' }}>
+          <Box
+            sx={{
+              display: 'flex',
+              transition: 'transform 0.8s ease-in-out',
+              width: `${REVIEWS.length * (100 / visibleCount)}%`, 
+              transform: `translateX(-${(100 / REVIEWS.length) * currentIndex}%)`, 
+            }}
+          >
+            {REVIEWS.map((review, idx) => (
+              <Box
+                key={idx}
+                sx={{
+                  flex: `0 0 ${100 / REVIEWS.length}%`, 
+                  px: 1,
+                }}
+              >
+                <CustomerReviewCard {...review} />
+              </Box>
+            ))}
+          </Box>
+        </Box>
 
         {/* Pagination */}
-        <Stack
-          component={m.div}
-          variants={itemMotion}
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
-          mt={6}
-        >
+        <Stack direction="row" justifyContent="space-between" alignItems="center" mt={6}>
           {/* Arrows */}
           <Stack direction="row" spacing={2}>
+            
             <Box
+              onClick={handleNext}
               sx={{
                 width: 44,
                 height: 44,
                 borderRadius: '8px',
-                backgroundColor: '#F6B18A',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                cursor: 'pointer',
+                cursor:
+                  currentIndex >= REVIEWS.length - visibleCount ? 'not-allowed' : 'pointer',
+                backgroundColor:
+                  currentIndex >= REVIEWS.length - visibleCount ? '#E0E0E0' : '#F6B18A',
                 boxShadow: '-4px 4px 20px 0px #20B4861F',
               }}
             >
-              <Image
-                src="/assets/Vector-right.svg"
-                alt="next"
-                width={15}
-                height={15}
-              />
+              <Image src="/assets/Vector-right.svg" alt="next" width={15} height={15} />
             </Box>
-
             <Box
+              onClick={handlePrev}
               sx={{
                 width: 44,
                 height: 44,
@@ -163,45 +151,31 @@ export default function CustomerReviews() {
                 alignItems: 'center',
                 justifyContent: 'center',
                 padding: '10px',
-                cursor: 'pointer',
+                cursor: currentIndex === 0 ? 'not-allowed' : 'pointer',
+                backgroundColor: currentIndex === 0 ? '#E0E0E0' : '#F6B18A',
                 boxShadow: '-4px 4px 20px 0px #20B4861F',
               }}
             >
-              <Image
-                src="/assets/Vector-left.svg"
-                alt="prev"
-                width={15}
-                height={15}
-              />
+              <Image src="/assets/Vector-left.svg" alt="prev" width={15} height={15} />
             </Box>
           </Stack>
 
           {/* Dots */}
           <Stack direction="row" spacing={1}>
-            <Box
-              sx={{
-                width: 10,
-                height: 10,
-                borderRadius: '50%',
-                backgroundColor: '#F6B18A',
-              }}
-            />
-            <Box
-              sx={{
-                width: 10,
-                height: 10,
-                borderRadius: '50%',
-                backgroundColor: '#E0E0E0',
-              }}
-            />
-            <Box
-              sx={{
-                width: 10,
-                height: 10,
-                borderRadius: '50%',
-                backgroundColor: '#E0E0E0',
-              }}
-            />
+            {REVIEWS.map((_, index) => (
+              <Box
+                key={index}
+                sx={{
+                  width: 10,
+                  height: 10,
+                  borderRadius: '50%',
+                  backgroundColor:
+                    index >= currentIndex && index < currentIndex + visibleCount
+                      ? '#F6B18A'
+                      : '#E0E0E0',
+                }}
+              />
+            ))}
           </Stack>
         </Stack>
       </LayoutContainer>
