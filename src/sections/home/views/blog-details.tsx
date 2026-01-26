@@ -21,7 +21,7 @@ export default function BlogDetails({ blog }: Props) {
     position: 'relative',
     borderRadius: 3,
     overflow: 'hidden',
-    mb: { xs: 3, md: 4 },
+    mb: { xs: 3, md: 4},
   }}
 >
   <Image

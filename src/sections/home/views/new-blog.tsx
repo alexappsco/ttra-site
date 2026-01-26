@@ -9,7 +9,7 @@ export default function NewBlog() {
     <Box
       sx={{
         textAlign: 'center',
-        mb: 5,
+        mb: 3,
       }}
     >
       <Typography

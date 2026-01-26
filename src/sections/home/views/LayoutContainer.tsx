@@ -18,7 +18,7 @@ export default function LayoutContainer({ children }: LayoutContainerProps) {
           xs: 3,             
           sm: 4,
           md: 6,
-          lg: 0,            
+          lg: 4,  
         },
       }}
     >
