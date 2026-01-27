@@ -1,9 +1,9 @@
-name: Deploy to Ubuntu Server
+name: Deploy to Ubuntu Server Staging action
 
 on:
   push:
     branches:
-      - main
+      - staging
 
 jobs:
   deploy:
@@ -16,7 +16,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: '24'
 
       - name: Install dependencies
         run: |
@@ -28,9 +28,9 @@ jobs:
 
       - name: Deploy and Run Post-Build Commands on Server
         env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          SSH_HOST: ${{ secrets.SSH_HOST }}
-          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY_STAGING }}
+          SSH_HOST: ${{ secrets.SSH_HOST_STAGING }}
+          SSH_USER: ${{ secrets.SSH_USER_STAGING }}
         run: |
           # Setup SSH directory and keys
           mkdir -p ~/.ssh
@@ -48,9 +48,10 @@ jobs:
             # Source bashrc and setup SSH agent
             source ~/.bashrc
             eval "$(ssh-agent -s)"
-            cd /var/www/site
+            cd /home/alex/skincare/staging/site
             git reset --hard HEAD
-            git checkout main
+            git fetch
+            git checkout staging
             git pull
             # Install or update NVM
             if ! command -v nvm &> /dev/null; then
@@ -62,7 +63,7 @@ jobs:
 
             # Setup Node.js environment
             echo "Setting up Node.js environment..."
-            nvm use 20
+            nvm use 24
 
             # Install dependencies and build
             echo "Installing dependencies..."
@@ -73,7 +74,7 @@ jobs:
 
             # Restart PM2 service
             echo "Restarting PM2 service..."
-            pm2 restart site
+            pm2 restart skincare-site
 
             echo "Deployment completed successfully!"
           EOF
