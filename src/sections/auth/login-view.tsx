@@ -88,7 +88,7 @@ export default function JwtLoginView({ isNewphonenumber }: Props) {
           {/* Logo */}
           <Box sx={{ textAlign: 'center', mb: 2 }}>
             <Image
-              src="/logo/logo-scen.svg"
+              src="/logo/logo-deira.png"
               alt=""
               width={160}
               height={120}

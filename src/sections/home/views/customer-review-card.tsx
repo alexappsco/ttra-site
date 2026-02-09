@@ -1,60 +1,88 @@
 'use client';
 
-import React from 'react';
 import { Card, Box, Typography, Stack } from '@mui/material';
-import Image from 'next/image';
 
 type CustomerReviewCardProps = {
-  avatar: string;
   name: string;
   review: string;
-  rating: number; 
+  since: string;
 };
 
-export default function CustomerReviewCard({ avatar, name, review, rating }: CustomerReviewCardProps) {
+export default function CustomerReviewCard({
+  name,
+  review,
+  since,
+}: CustomerReviewCardProps) {
   return (
     <Card
       sx={{
-        p: 3,
-        borderRadius: 5,
-        boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
-        height: '100%',
+        height: 170,
+        width: 300,
+        borderRadius: '20px',
+        background: '#FFFFFF',
+        border: '1px solid rgba(232, 221, 208, 1)',
+        boxShadow: '0 10px 25px rgba(0,0,0,0.05)',
+        p: 2.5,
         display: 'flex',
         flexDirection: 'column',
-        textAlign: 'start',
+        justifyContent: 'center',
+        gap: 1.2,
+        flexShrink: 0, // يمنع الانكماش
       }}
     >
-      {/* Header: avatar + name + rating */}
-      <Stack direction="row" spacing={2} alignItems="center" mb={2}>
-        <Image
-          src={avatar}
-          alt={name}
-          width={50}
-          height={50}
-          style={{ borderRadius: '50%' }}
-        />
+      {/* Header */}
+      <Stack direction="row" spacing={1.5} alignItems="center">
+        <Box
+          sx={{
+            width: 36,
+            height: 36,
+            borderRadius: '50%',
+            background: '#F3E8D7',
+            color: '#C79A63',
+            fontWeight: 700,
+            fontSize: 14,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexShrink: 0,
+          }}
+        >
+          {name.charAt(0)}
+        </Box>
 
         <Box>
-          <Typography sx={{ fontWeight: 700, fontSize: 17 }}>{name}</Typography>
+          <Typography
+            sx={{
+              fontSize: 16,
+              fontWeight: 700,
+              color: 'rgba(58, 58, 58, 1)',
+            }}
+          >
+            {name}
+          </Typography>
 
-          {/* Stars */}
-          <Stack direction="row-reverse" spacing={0.5} mt={0.5}>
-            {Array.from({ length: 5 }).map((_, i) => (
-              <Image
-                key={i}
-                src="/assets/Star 12.svg"
-                alt="star"
-                width={12}
-                height={12}
-              />
-            ))}
-          </Stack>
+          <Typography
+            sx={{
+              fontSize: 14,
+              fontWeight: 400,
+              color: 'rgba(139, 115, 85, 1)',
+            }}
+          >
+            عميل منذ {since}
+          </Typography>
         </Box>
       </Stack>
 
-      {/* Review text */}
-      <Typography sx={{ fontSize: 13, color: 'text.secondary', lineHeight: 1.3 }}>
-        {review}
+      {/* Review */}
+      <Typography
+        sx={{
+          fontWeight: 400,
+          fontSize: 16,
+          lineHeight: 1.8,
+          color: '#6F6A65',
+        }}
+      >
+        "{review}"
       </Typography>
     </Card>
   );

@@ -5,7 +5,7 @@ function page() {
   return (
     <LayoutContainer>
       <Typography variant="h3" sx={{ mb: 4 }}>
-       الاسئلة الشائعه
+      مركز المساعدة
       </Typography>
     </LayoutContainer>
   )

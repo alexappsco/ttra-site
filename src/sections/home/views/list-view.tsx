@@ -6,12 +6,17 @@
 import React, { useEffect } from 'react';
 import Navbar from 'src/layouts/dashboard/navbar';
 import HeroWithStats from './hero-with-stats';
-import OurServices from './our-services';
+// import OurServices from './our-services';
 import WhoWeAre from './who-we-are';
-import HowWork from './how-work';
-import BlogSection from './blog-section';
+import ProductSection from './products-section';
 import CustomerReviews from './customer-reviews';
 import { BLOGS } from 'src/_mock/data';
+import WhyChooseUsSection from './WhyChooseUsSection';
+import DownloadAppSection from './DownloadAppSection';
+import HowItWorksSection from './HowItWorksSection';
+import ShopsSection from './shops-section';
+import { Shop } from 'src/_mock/shop';
+
 interface HomeViewProps {
   scrollTo?: string | null;
 }
@@ -32,10 +37,13 @@ export default function HomeView({ scrollTo }: HomeViewProps) {
     <>
       <Navbar />
       <HeroWithStats />
-      <OurServices />
+      {/* <OurServices /> */}
       <WhoWeAre />
-      <HowWork />
-      <BlogSection  blogs={BLOGS} />
+      <WhyChooseUsSection />
+      <HowItWorksSection />
+      <ProductSection  blogs={BLOGS} />
+      <ShopsSection shops={Shop} />
+      <DownloadAppSection />
       <CustomerReviews />
     </>
   );

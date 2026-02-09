@@ -1,274 +1,175 @@
-// 'use client';
 
-// import { Box, Typography, useTheme, useMediaQuery } from '@mui/material';
-// import Image from 'next/image';
-// import LayoutContainer from './LayoutContainer';
-// import { m } from 'framer-motion';
 
-// export default function HeroSection() {
-//   const theme = useTheme();
-//   const isMobile = useMediaQuery(theme.breakpoints.down('md')); 
 
-//   // ===== Motion Variants =====
-//   const textMotion = {
-//     hidden: { opacity: 0, x: isMobile ? 0 : 50, y: isMobile ? 20 : 0 },
-//     visible: { opacity: 1, x: 0, y: 0, transition: { duration: 0.8, ease: 'easeOut' } },
-//   };
-
-//   const imageMotion = {
-//     hidden: { opacity: 0, x: isMobile ? 0 : -50, y: isMobile ? 20 : 0 },
-//     visible: { opacity: 1, x: 0, y: 0, transition: { duration: 0.8, ease: 'easeOut' } },
-//   };
-
-//   return (
-//     <Box
-//       sx={{
-//         width: '100%',
-//         paddingTop: { xs: '40px', md: '80px' },
-//         paddingBottom: { xs: '60px', md: '120px' },
-//         bgcolor: "#f1a78e22",
-//       }}
-//     >
-//       <LayoutContainer>
-//         <Box
-//           sx={{
-//             display: 'flex',
-//             flexDirection: { xs: 'column', md: 'row' },
-//             alignItems: 'center',
-//             justifyContent: 'space-between',
-//             gap: { xs: 6, md: 4 },
-//           }}
-//         >
-//           {/* ===== TEXT ===== */}
-//           <m.div
-//             initial="hidden"
-//             whileInView="visible"
-//             viewport={{ once: true, amount: 0.3 }}
-//             variants={textMotion}
-//             style={{ flex: 1, maxWidth: 520, textAlign: { xs: 'center', md: 'right' } }}
-//           >
-//             <Typography
-//               sx={{
-//                 fontSize: { xs: 25, md: 32 },
-//                 fontWeight: 500,
-//                 lineHeight: 1.5,
-//                 mb: 2,
-//                 textAlign: { xs: 'center', md: 'start' },
-//               }}
-//             >
-//               عالجي بشرتك أونلاين مع أخصائيين دوليين
-//             </Typography>
-
-//             <Typography
-//               sx={{
-//                 fontSize: { xs: 16, md: 20 },
-//                 color: '#60646E',
-//                 marginBottom: 4,
-//                 lineHeight: 1.3,
-//                 textAlign: { xs: 'center', md: 'start' },
-//               }}
-//             >
-//               تطبيقنا يقدّم لك جلسات تشخيصية شات أو فيديو مع أفضل الأطباء الدوليين المتخصصين في الجلد والبشرة، التشخيص، التحاليل، وصول الأدوية لغاية باب بيتك بسهولة وأمان.
-//             </Typography>
-
-//             {/* desktop buttons */}
-//             <Box
-//               sx={{
-//                 display: { xs: 'none', md: 'flex' },
-//                 justifyContent: 'flex-start',
-//                 gap: 2,
-//                 cursor:"pointer"
-//               }}
-//             >
-//               <Image src="/assets/Button 1.svg" alt="app store" width={140} height={45} />
-//               <Image src="/assets/Button 2.svg" alt="google play" width={140} height={45} />
-//             </Box>
-//           </m.div>
-
-//           {/* ===== IMAGE ===== */}
-//           <m.div
-//             initial="hidden"
-//             whileInView="visible"
-//             viewport={{ once: true, amount: 0.3 }}
-//             variants={imageMotion}
-//             style={{ flex: 1, display: 'flex', justifyContent: 'center' }}
-//           >
-//             <Image
-//               src="/assets/background/illus.png"
-//               alt="hero illustration"
-//               width={520}
-//               height={520}
-//               priority
-//               style={{ maxWidth: '100%', height: 'auto' }}
-//             />
-//           </m.div>
-
-//           {/* mobile + ipad buttons */}
-//           <Box
-//             sx={{
-//               display: { xs: 'flex', md: 'none' },
-//               justifyContent: 'center',
-//               gap: 2,
-//               marginTop: 2,
-//               cursor:"pointer"
-//             }}
-//           >
-//             <Image src="/assets/Button 1.svg" alt="app store" width={135} height={40} />
-//             <Image src="/assets/Button 2.svg" alt="google play" width={135} height={40} />
-//           </Box>
-//         </Box>
-//       </LayoutContainer>
-//     </Box>
-//   );
-// }
 
 'use client';
 
-import { Box, Typography, useTheme, useMediaQuery } from '@mui/material';
-import Image from 'next/image';
+import React from 'react';
+import {
+  Box,
+  Typography,
+  Button,
+  Stack,
+  useTheme,
+  useMediaQuery,
+  Card,
+} from '@mui/material';
 import LayoutContainer from './LayoutContainer';
 import { m } from 'framer-motion';
+import DownloadIcon from '@mui/icons-material/Download';
+import CountUp from 'react-countup';
 
 export default function HeroSection() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-  // ===== Motion Variants =====
-  const textMotion = {
-    hidden: {
-      opacity: 0,
-      x: isMobile ? 0 : 50,
-      y: isMobile ? 20 : 0,
-    },
+  const contentMotion = {
+    hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
-      x: 0,
       y: 0,
-      transition: { duration: 0.8, ease: 'easeOut' },
+      transition: { duration: 0.9, ease: 'easeOut' },
     },
   };
 
-  const imageMotion = {
-    hidden: {
-      opacity: 0,
-      x: isMobile ? 0 : -50,
-      y: isMobile ? 20 : 0,
-    },
-    visible: {
-      opacity: 1,
-      x: 0,
-      y: 0,
-      transition: { duration: 0.8, ease: 'easeOut' },
-    },
-  };
+  const stats = [
+    { value: 10, label: 'فئات متنوعة', suffix: '+' },
+    { value: 100, label: 'تاجر موثوق', suffix: '+' },
+    { value: 500, label: 'منتج أصلي', suffix: '+' },
+    
+  ];
 
   return (
     <Box
       sx={{
-        width: '100%',
-        pt: { xs: '40px', md: '80px' },
-        pb: { xs: '60px', md: '120px' },
-        bgcolor: '#f1a78e22',
+        position: 'relative',
+        minHeight: '90vh',
+        display: 'flex',
+        alignItems: 'center',
+        backgroundImage: `
+          linear-gradient(
+            to bottom,
+            rgba(0,0,0,0.55),
+            rgba(0,0,0,0.8)
+          ),
+          url('/assets/background/ImageWithFallback.png')
+        `,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
       }}
     >
       <LayoutContainer>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: { xs: 'column', md: 'row' },
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            gap: { xs: 6, md: 4 },
-          }}
+        <m.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={contentMotion}
         >
-          {/* ===== TEXT ===== */}
-          <m.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            variants={textMotion}
-            style={{
-              flex: 1,
-              maxWidth: 520,
-              textAlign: isMobile ? 'center' : 'right',
-            }}
+          <Stack
+            spacing={4}
+            alignItems="center"
+            textAlign="center"
+            sx={{ color: '#fff', py: { xs: 10, md: 0 } }}
           >
+            {/* ===== TITLE ===== */}
             <Typography
               sx={{
-                fontSize: { xs: 25, md: 32 },
-                fontWeight: 500,
-                lineHeight: 1.5,
-                mb: 2,
-                textAlign: { xs: 'center', md: 'start' },
+                fontSize: { xs: 32, sm: 44, md: 70 },
+                fontWeight: 700,
+                lineHeight: 1.2,
               }}
             >
-              عالجي بشرتك أونلاين مع أخصائيين دوليين
+              <Box component="span" sx={{ color: '#C9A063' }}>
+                سوق الديرة
+              </Box>{' '}
+              يوصل لباب بيتك
             </Typography>
 
+            {/* ===== SUBTITLE ===== */}
             <Typography
               sx={{
-                fontSize: { xs: 16, md: 20 },
-                color: '#60646E',
-                mb: 4,
-                lineHeight: 1.3,
-                textAlign: { xs: 'center', md: 'start' },
+                maxWidth: 680,
+                fontSize: { xs: 12, sm: 14, md: 16 },
+                color: 'rgba(248, 246, 243, 1)',
+                lineHeight: 1.6,
               }}
             >
-              تطبيقنا يقدّم لك جلسات تشخيصية شات أو فيديو مع أفضل الأطباء الدوليين
-              المتخصصين في الجلد والبشرة، التشخيص، التحاليل، وصول الأدوية لغاية باب
-              بيتك بسهولة وأمان.
+              نربط بين أصالة الأسواق التقليدية وسهولة التسوق الرقمي لاكتشاف
+              كنوز الرياض من راحة منزلك
             </Typography>
 
-            {/* desktop buttons */}
-            <Box
+            {/* ===== CTA ===== */}
+            <Button
+              startIcon={<DownloadIcon />}
               sx={{
-                display: { xs: 'none', md: 'flex' },
-                justifyContent: 'flex-start',
-                gap: 2,
-                cursor: 'pointer',
+                backgroundColor: 'rgba(193, 154, 107, 1)',
+                color: '#fff',
+                px: 4,
+                py: 1.5,
+                borderRadius: '32px',
+                fontSize: { xs: 14, md: 16 },
+                fontWeight: 600,
+                '&:hover': {
+                  backgroundColor: '#b18b54',
+                },
               }}
             >
-              <Image src="/assets/Button 1.svg" alt="app store" width={140} height={45} />
-              <Image src="/assets/Button 2.svg" alt="google play" width={140} height={45} />
-            </Box>
-          </m.div>
+              حمل التطبيق الآن
+            </Button>
 
-          {/* ===== IMAGE ===== */}
-          <m.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            variants={imageMotion}
-            style={{
-              flex: 1,
-              display: 'flex',
-              justifyContent: 'center',
-            }}
-          >
-            <Image
-              src="/assets/background/illus.png"
-              alt="hero illustration"
-              width={520}
-              height={520}
-              priority
-              style={{ maxWidth: '100%', height: 'auto' }}
-            />
-          </m.div>
+            {/* ===== STATS ===== */}
+            <Stack
+              direction="row"
+              spacing={{ xs: 1.5, sm: 3, md: 5 }}
+              mt={4}
+              justifyContent="center"
+              alignItems="center"
+              flexWrap="wrap"
+            >
+              {stats.map((item) => (
+                <Card
+                  key={item.label}
+                  sx={{
+                    width: { xs: 100, sm: 150, md: 180 },
+                    py: { xs: 1.5, sm: 2 },
+                    background: 'rgba(255,255,255,0.08)',
+                    backdropFilter: 'blur(15px)',
+                    borderRadius: '16px',
+                    border: '1px solid rgba(201,160,99,0.4)',
+                    textAlign: 'center',
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      fontSize: { xs: 20, sm: 26, md: 36 },
+                      fontWeight: 700,
+                      color: '#C9A063',
+                    }}
+                  >
+                     {item.suffix}
+                    <CountUp
+                      start={0}
+                      end={item.value}
+                      duration={2}
+                      separator=","
+                    />
+                   
+                  </Typography>
 
-          {/* mobile + ipad buttons */}
-          <Box
-            sx={{
-              display: { xs: 'flex', md: 'none' },
-              justifyContent: 'center',
-              gap: 2,
-              mt: 2,
-              cursor: 'pointer',
-            }}
-          >
-            <Image src="/assets/Button 1.svg" alt="app store" width={135} height={40} />
-            <Image src="/assets/Button 2.svg" alt="google play" width={135} height={40} />
-          </Box>
-        </Box>
+                  <Typography
+                    sx={{
+                      fontSize: { xs: 12, sm: 14, md: 16 },
+                      color: '#fff',
+                      mt: 0.5,
+                    }}
+                  >
+                    {item.label}
+                  </Typography>
+                </Card>
+              ))}
+            </Stack>
+          </Stack>
+        </m.div>
       </LayoutContainer>
     </Box>
   );

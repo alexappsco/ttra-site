@@ -2,7 +2,7 @@
   "name": "skincare",
   "author": "Alex-Apps",
   "version": "1.0.0",
-  "description": "سكين كير  جلسات  تشخيصية مع أفضل الأطباء",
+  "description": "الديرة  جلسات  تشخيصية مع أفضل الأطباء",
   "private": true,
   "scripts": {
     "dev": "next dev -p 8083",

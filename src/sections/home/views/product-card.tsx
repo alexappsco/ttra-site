@@ -11,7 +11,7 @@ type BlogCardProps = {
   date: string;
 };
 
-export default function BlogCard({id, image, title, description, date }: BlogCardProps) {
+export default function productCard({id, image, title, description, date }: BlogCardProps) {
   return (
     <m.div
       initial={{ opacity: 0, y: 30 }}          
@@ -31,8 +31,19 @@ export default function BlogCard({id, image, title, description, date }: BlogCar
         }}
       >
         {/* Image */}
-        <Box sx={{ position: 'relative', width: '100%', paddingTop: '65%', borderRadius: 2, overflow: 'hidden' }}>
-          <Image src={image} alt={title} fill style={{ objectFit: 'cover' }} />
+        <Box sx={{ position: 'relative', width: '100%', paddingTop: '80%', borderRadius: 2, overflow: 'hidden' ,  }}>
+          <Image src={image} alt={title} fill style={{ objectFit: 'cover' }}  />
+           <Box
+            sx={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              background: 'linear-gradient(0deg, rgba(26,26,26,0.4) 0%, rgba(26,26,26,0.2) 50%, rgba(0,0,0,0) 100%)',
+
+            }}
+          />
         </Box>
 
         <Stack spacing={1.5} sx={{ mt: 2, flexGrow: 1 }}>
@@ -41,20 +52,6 @@ export default function BlogCard({id, image, title, description, date }: BlogCar
           <Typography sx={{ fontSize: 14, color: 'text.secondary', lineHeight: 1.3, flexGrow: 1 }}>
             {description}
           </Typography>
-
-          <Stack direction="row-reverse" justifyContent="space-between" alignItems="center">
-            <Typography sx={{ fontSize: 13, color: 'text.disabled' }}>{date}</Typography>
-            <Stack direction="row" alignItems="center" spacing={0.75} sx={{ cursor: 'pointer', lineHeight: 1 }}>
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <Image src="/assets/Vector.svg" alt="arrow" width={12} height={12} />
-              </Box>
-                <Typography
-                  sx={{ fontSize: 12, fontWeight: 400, lineHeight: 1, cursor: 'pointer',  }}
-                >
-                  اقرأ المزيد
-                </Typography>
-            </Stack>
-          </Stack>
         </Stack>
       </Card>
     </m.div>

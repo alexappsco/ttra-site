@@ -6,8 +6,8 @@ import 'simplebar-react/dist/simplebar.min.css'; // تحميل بدون render-b
 
 import '../global.css';
 
-const SITE_TITLE = ' سكين كير';
-const SITE_DESCRIPTION = 'سكين كير'
+const SITE_TITLE = ' الديرة';
+const SITE_DESCRIPTION = 'الديرة'
 
 export const viewport = {
   themeColor: '#000000',
@@ -19,7 +19,7 @@ export const viewport = {
 export const metadata = {
   title: {
     default: SITE_TITLE,
-    template: "%s | سكين كير"
+    template: "%s | الديرة"
   },
   description: SITE_DESCRIPTION,
 
@@ -40,15 +40,15 @@ export const metadata = {
   // },
   icons: {
     icon: [
-      { url: "/logo/logo-scen.svg" },
-      { url: "/logo/logo-scen.svg", type: "/logo/logo-scen.svg" },
-      { url: "/logo/logo-scen.svg", sizes: "96x96", type: "image/png" }
+      { url: "/logo/logo-deira.png" },
+      { url: "/logo/logo-deira.png", type: "/logo/logo-deira.png" },
+      { url: "/logo/logo-deira.png", sizes: "96x96", type: "image/png" }
     ],
     apple: [
-      { url: "/logo/logo-scen.svg", sizes: "180x180" }
+      { url: "/logo/logo-deira.png", sizes: "180x180" }
     ]
   },
-  manifest: "/logo/logo-scen.svg"
+  manifest: "/logo/logo-deira.png"
 };
 
 export default function Layout({

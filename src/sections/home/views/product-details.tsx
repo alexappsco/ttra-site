@@ -8,7 +8,7 @@ import LayoutContainer from './LayoutContainer';
 
 type Props = { blog: Blog };
 
-export default function BlogDetails({ blog }: Props) {
+export default function ProductDetails({ blog }: Props) {
   return (
     <LayoutContainer>
       <Box mt={-10}>
@@ -60,17 +60,17 @@ export default function BlogDetails({ blog }: Props) {
 
         {/* Back link */}
         <Box sx={{ mt: 6, mb: 20 }}>
-          <Link href="/blog" style={{ textDecoration: 'none' }}>
+          <Link href="/product" style={{ textDecoration: 'none' }}>
             <Typography
               sx={{
                 fontSize: 14,
                 fontWeight: 500,
-                color: '#F1A68E',
+                color: 'rgba(193, 154, 107, 1)',
                 cursor: 'pointer',
-                '&:hover': { color: '#E99C70' },
+                '&:hover': { color: 'rgba(154, 110, 58, 1)' },
               }}
             >
-              ← العودة لجميع المقالات
+              ← العودة  للمنتجات
             </Typography>
           </Link>
         </Box>

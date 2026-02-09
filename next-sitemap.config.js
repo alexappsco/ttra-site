@@ -1,5 +1,5 @@
 /** next-sitemap.config.js */
-const SITE_SUBTITLE = 'سكين كير';
+const SITE_SUBTITLE = 'الديرة';
 
 module.exports = {
   siteUrl: '',
