@@ -5,6 +5,7 @@ import { Box, Stack, Typography } from '@mui/material';
 import Image from 'next/image';
 import LayoutContainer from '../../sections/home/views/LayoutContainer';
 import { useRouter } from 'next/navigation';
+import Link from 'next/dist/client/link';
 
 export default function Footer() {
   const router = useRouter();
@@ -127,7 +128,16 @@ export default function Footer() {
           {/* Logo + Description + Social */}
           <Box sx={{ flexBasis: { xs: '100%', md: '22%' }, minWidth: { md: 280 } }}>
             <Stack spacing={2}>
-              <Image src="/logo/logo-deira.png" alt="نبيه ديرة" width={132} height={106} />
+               <Link href="/" style={{ display: 'inline-block' }}>
+      <Image
+        src="/logo/logo-deira.png"
+        alt="نبيه ديرة"
+        width={132}
+        height={106}
+        priority
+        style={{ cursor: 'pointer' }}
+      />
+    </Link>
               <Typography fontSize={16} color="rgba(154, 110, 58, 1)" lineHeight={1.6}>
                 نربط بين أصالة الأسواق التقليدية
                 وسهولة التسوق الرقمي، اكتشف

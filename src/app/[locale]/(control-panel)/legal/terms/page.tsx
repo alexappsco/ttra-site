@@ -1,15 +1,13 @@
-import { Typography } from '@mui/material'
-import React from 'react'
-import LayoutContainer from 'src/sections/home/views/LayoutContainer'
+import React from 'react';
+import LayoutContainer from 'src/sections/home/views/LayoutContainer';
+import TermsSection from 'src/sections/terms/terms';
 
-function page() {
+function Page() {
   return (
-     <LayoutContainer>
-      <Typography variant="h3" sx={{ mb: 4 }}>
-        الشروط والاحكام
-      </Typography>
+    <LayoutContainer>
+      <TermsSection />
     </LayoutContainer>
-  )
+  );
 }
 
-export default page
+export default Page;
