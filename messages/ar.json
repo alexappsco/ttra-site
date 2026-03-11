@@ -1,7 +1,7 @@
 {
   "Metadata": {
-    "title": "الديرة",
-    "description": "وصف موقع الديرة",
+    "title": "تترى",
+    "description": "وصف موقع تترى",
     "language": "اللغة",
     "Jwt": {
       "register": "تسجيل جديد",
@@ -33,7 +33,7 @@
     }
   },
   "Global": {
-    "title": "الديرة",
+    "title": "تترى",
     "comma": "،",
     "Date": {
       "sunday": "الأحد",

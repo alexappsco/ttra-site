@@ -2,7 +2,7 @@
   "name": "skincare",
   "author": "Alex-Apps",
   "version": "1.0.0",
-  "description": "الديرة  جلسات  تشخيصية مع أفضل الأطباء",
+  "description": "تترى  جلسات  تشخيصية مع أفضل الأطباء",
   "private": true,
   "scripts": {
     "dev": "next dev -p 8083",
@@ -51,6 +51,7 @@
     "simplebar-react": "^3.3.0",
     "stylis": "^4.3.4",
     "stylis-plugin-rtl": "^2.1.1",
+    "swiper": "^12.1.2",
     "use-debounce": "^10.0.4",
     "yup": "^1.5.0",
     "yup-password": "^0.4.0",

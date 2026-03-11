@@ -1,3 +1,31 @@
+// 'use client';
+
+// import { Box } from '@mui/material';
+// import { ReactNode } from 'react';
+
+// interface LayoutContainerProps {
+//   children: ReactNode;
+// }
+
+// export default function LayoutContainer({ children }: LayoutContainerProps) {
+//   return (
+//     <Box
+//       sx={{
+//         width: '100%',
+//         maxWidth: 1800,     
+//         mx: 'auto',          
+//         px: {
+//           xs: 3,             
+//           sm: 4,
+//           md: 6,
+//           lg: 4,  
+//         },
+//       }}
+//     >
+//       {children}
+//     </Box>
+//   );
+// }
 'use client';
 
 import { Box } from '@mui/material';
@@ -12,13 +40,13 @@ export default function LayoutContainer({ children }: LayoutContainerProps) {
     <Box
       sx={{
         width: '100%',
-        maxWidth: 1800,     
-        mx: 'auto',          
+        maxWidth: 1800, 
+        mx: 'auto',
         px: {
-          xs: 3,             
-          sm: 4,
-          md: 6,
-          lg: 4,  
+          xs: 2,  
+          sm: 3,
+          md: 4,
+          lg: 5,
         },
       }}
     >

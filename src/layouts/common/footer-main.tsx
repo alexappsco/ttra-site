@@ -1,262 +1,239 @@
 'use client';
 
 import React from 'react';
-import { Box, Stack, Typography } from '@mui/material';
 import Image from 'next/image';
+import { Box, Stack, Typography, IconButton, Grid } from '@mui/material';
+
 import LayoutContainer from '../../sections/home/views/LayoutContainer';
-import { useRouter } from 'next/navigation';
-import Link from 'next/dist/client/link';
+import Iconify from 'src/components/iconify';
 
 export default function Footer() {
-  const router = useRouter();
+  const FooterLink = ({ text, active }: { text: string; active?: boolean }) => (
+    <Stack
+      direction="row"
+      spacing={0.5}
+      alignItems="center"
+      sx={{
+        cursor: 'pointer',
+        mb: 1.4,
+        '&:hover span': { color: '#31105D' },
+      }}
+    >
+      <Typography fontSize={13} color={active ? '#31105D' : '#8A8A8A'}>
+        «
+      </Typography>
 
-  const socialIcons = [
-    '/assets/icons/social-icons/Icon (5).svg', // Instagram
-    '/assets/icons/social-icons/Icon (4).svg', // Twitter
-    '/assets/icons/social-icons/Icon (3).svg', // Facebook
+      <Typography
+        fontSize={14}
+        fontWeight={active ? 600 : 400}
+        color={active ? '#31105D' : '#8A8A8A'}
+      >
+        {text}
+      </Typography>
+    </Stack>
+  );
+
+  const social = [
+    { icon: 'mdi:snapchat' },
+    { icon: 'mdi:instagram' },
+    { icon: 'mdi:twitter', active: true },
+    { icon: 'mdi:facebook' },
   ];
 
-  // دالة Scroll للروابط الداخلية بالصفحة
-  const handleScroll = (id: string) => {
-    const section = document.getElementById(id);
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const footerLinks: { label: string; id: string }[] = [
-    { label: 'من نحن', id: 'who-we-are' },
-    { label: 'كيف يعمل', id: 'how-it-works' },
-    { label: 'لماذا نيو ديرة', id: 'why-choose-us' },
-    { label: 'الفئات', id: 'product' },
-  ];
-
-  const supportLinks: { label: string; href: string }[] = [
-    { label: 'مركز المساعدة', href: '/legal/help' },
-    { label: 'سياسة الخصوصية', href: '/legal/privacy' },
-    { label: 'الشروط والأحكام', href: '/legal/terms' },
-    { label: 'سياسة الإرجاع', href: '/legal/return-policy' },
-  ];
-
-  const bottomLinks: { label: string; href: string }[] = [
-    { label: 'سياسة الخصوصية', href: '/legal/privacy' },
-    { label: 'الشروط والأحكام', href: '/legal/terms' },
+  const payments = [
+    '/assets/footer/mada.png',
+    '/assets/footer/paypal.png',
+    '/assets/footer/master.png',
+    '/assets/footer/visa.png',
   ];
 
   return (
-    <Box
-      sx={{
-        backgroundColor: '#FBF7F2',
-        pt: { xs: 6, md: 10 },
-        pb: 3,
-      }}
-    >
-      <LayoutContainer>
-        {/* ================= Newsletter ================= */}
-        <Box textAlign="center" mb={8}>
-          <Typography
-            fontSize={{ xs: 22, md: 26 }}
-            fontWeight={700}
-            color="#3E3A36"
-            mb={1}
-          >
-            اشترك في نشرتنا الإخبارية
-          </Typography>
-
-          <Typography
-            fontWeight={400}
-            fontSize={20}
-            color="rgba(154, 110, 58, 1)"
-            mb={3}
-          >
-            احصل على آخر العروض والمنتجات الجديدة مباشرة في بريدك
-          </Typography>
-
+    <Box  component="footer" sx={{ borderTop: '1px solid #eee', bgcolor: '#fff' }}>
+      
+      {/* ================= Newsletter (Section from Image) ================= */}
+      <Box sx={{ bgcolor: '#FAFAFA', py: 4 }}>
+        <LayoutContainer>
           <Stack
-            direction={{ xs: 'column', sm: 'row' }}
-            spacing={1.5}
-            justifyContent="center"
+            direction={{ xs: 'column', lg: 'row' }}
+            justifyContent="space-between"
             alignItems="center"
+            spacing={{ xs: 3, lg: 2 }}
           >
-            <Box
-              component="input"
-              placeholder="ادخل بريدك الإلكتروني"
-              type="email"
-              sx={{
-                width: { xs: '100%', sm: 'auto' },
-                maxWidth: { xs: '100%', sm: 320 },
-                padding: { xs: '10px 12px', sm: '14px 16px' },
-                borderRadius: 1,
-                border: '1px solid rgba(193, 154, 107, 1)',
-                fontSize: { xs: 14, sm: 14 },
-                outline: 'none',
-                flexGrow: 1,
-              }}
-            />
-            <Box
-              component="button"
-              sx={{
-                backgroundColor: 'rgba(193, 154, 107, 1)',
-                px: { xs: 3, sm: 4 },
-                py: { xs: 1.2, sm: 1.5 },
-                width: { sm: 'auto' },
-                height: { xs: 40, sm: 50 },
-                borderRadius: 1,
-                fontWeight: 600,
-                cursor: 'pointer',
-                border: 'none',
-                fontSize: { xs: 14, sm: 16 },
-                '&:hover': { backgroundColor: '#B8935C' },
-              }}
-            >
-              اشترك الآن
+            {/* 1. القسم الأيمن: الأيقونة + النصوص */}
+            <Stack direction="row" alignItems="center" spacing={2} sx={{ flexShrink: 0 }}>
+              <Box
+                sx={{
+                  width: 70,
+                  height: 70,
+                  borderRadius: '50%',
+                  bgcolor: '#F3E8FF',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <Iconify icon="solar:letter-bold" width={32} color="#31105D" />
+              </Box>
+              <Box sx={{ textAlign: 'right' }}>
+                <Typography fontSize={20} fontWeight={700} color="#222">
+                  الاشتراك فى النشرة البريدية
+                </Typography>
+                <Typography fontSize={14} color="#666">
+                  انضم الآن واحصل على خصم 10% على مشترياتك التالية!
+                </Typography>
+              </Box>
+            </Stack>
+
+            {/* 2. القسم الأوسط: حقل الإدخال */}
+            <Box sx={{ flex: 1, maxWidth: { xs: '100%', md: 500 }, width: '100%', px: { lg: 4 } }}>
+               <Typography fontSize={13} color="#666" mb={1} textAlign="right" sx={{ display: { xs: 'none', md: 'block' } }}>
+                  يمكنك إلغاء الاشتراك في أي لحظة
+                </Typography>
+              <Stack direction="row" sx={{ direction: 'ltr' }}>
+                <Box
+                  component="input"
+                  placeholder="ادخل البريد الالكتروني"
+                  sx={{
+                    flex: 1,
+                    height: 48,
+                    border: '1px solid #E6E6E6',
+                    borderLeft: 'none',
+                    px: 2,
+                    fontSize: 14,
+                    outline: 'none',
+                    borderRadius: '0 4px 4px 0',
+                    textAlign: 'right',
+                    bgcolor: '#fff'
+                  }}
+                />
+                <Box
+                  component="button"
+                  sx={{
+                    bgcolor: '#31105D',
+                    color: '#fff',
+                    border: 'none',
+                    px: 4,
+                    fontSize: 16,
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                    borderRadius: '4px 0 0 4px',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  إشتراك
+                </Box>
+              </Stack>
             </Box>
-          </Stack>
-        </Box>
 
-        <Box sx={{ borderTop: '1px solid #E8DDD0', mb: 6 }} />
-
-        {/* ================= Main Footer ================= */}
-        <Box
-          sx={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'space-between',
-            gap: { xs: 4, md: 0 },
-          }}
-        >
-          {/* Logo + Description + Social */}
-          <Box sx={{ flexBasis: { xs: '100%', md: '22%' }, minWidth: { md: 280 } }}>
-            <Stack spacing={2}>
-               <Link href="/" style={{ display: 'inline-block' }}>
-      <Image
-        src="/logo/logo-deira.png"
-        alt="نبيه ديرة"
-        width={132}
-        height={106}
-        priority
-        style={{ cursor: 'pointer' }}
-      />
-    </Link>
-              <Typography fontSize={16} color="rgba(154, 110, 58, 1)" lineHeight={1.6}>
-                نربط بين أصالة الأسواق التقليدية
-                وسهولة التسوق الرقمي، اكتشف
-                كنوز الرياض من راحة منزلك.
+            {/* 3. القسم الأيسر: تطبيقات الجوال */}
+            <Stack alignItems={{ xs: 'center', lg: 'flex-start' }} spacing={1} sx={{ flexShrink: 0 }}>
+              <Typography fontSize={16} fontWeight={700} color="#222">
+                تطبيقات الجوال
               </Typography>
-
               <Stack direction="row" spacing={1.5}>
-                {socialIcons.map((icon, idx) => (
-                  <Box
-                    key={idx}
+                <Image src="/assets/footer/AppleApp.png" alt="app" width={130} height={42} />
+                <Image src="/assets/footer/GoogleApp.png" alt="google" width={130} height={42} />
+              </Stack>
+            </Stack>
+
+          </Stack>
+        </LayoutContainer>
+      </Box>
+
+      {/* ================= Links Section ================= */}
+      <Box sx={{ py: 6 }}>
+        <LayoutContainer>
+          <Grid container spacing={4}>
+            <Grid item xs={12} sm={6} md={4} lg={2.4}>
+              <Typography fontSize={18} fontWeight={700} mb={3}>عن متجرنا</Typography>
+            </Grid>
+
+            <Grid item xs={12} sm={6} md={4} lg={2.4}>
+              <Typography fontSize={18} fontWeight={700} mb={3}>حسابي</Typography>
+              <FooterLink text="حسابي" />
+              <FooterLink text="طلباتي" active />
+              <FooterLink text="سلة المشتريات" />
+              <FooterLink text="المفضلة" />
+            </Grid>
+
+            <Grid item xs={12} sm={6} md={4} lg={2.4}>
+              <Typography fontSize={18} fontWeight={700} mb={3}>روابط مهمة</Typography>
+              <FooterLink text="من نحن" />
+              <FooterLink text="سياسة الخصوصية" />
+              <FooterLink text="الشروط والاحكام" />
+              <FooterLink text="الدعم الفني" />
+            </Grid>
+
+            <Grid item xs={12} sm={6} md={4} lg={2.4}>
+              <Typography fontSize={18} fontWeight={700} mb={3}>تواصل معنا</Typography>
+              <Stack spacing={1.5}>
+                <Box>
+                  <Typography fontSize={13} color="#777">« واتساب</Typography>
+                  <Typography fontSize={14} color="#AAA">098765456789</Typography>
+                </Box>
+                <Box>
+                  <Typography fontSize={13} color="#777">« موبايل</Typography>
+                  <Typography fontSize={14} color="#AAA">9876545678</Typography>
+                </Box>
+              </Stack>
+            </Grid>
+
+            <Grid item xs={12} sm={6} md={4} lg={2.4}>
+              <Typography fontSize={18} fontWeight={700} mb={3}>تابعنا على</Typography>
+              <Stack direction="row" spacing={1.5}>
+                {social.map((item, i) => (
+                  <IconButton
+                    key={i}
                     sx={{
-                      width: 36,
-                      height: 36,
-                      borderRadius: '8px',
-                      backgroundColor: '#EFE7DD',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      cursor: 'pointer',
+                      width: 40,
+                      height: 40,
+                      border: `1px solid ${item.active ? '#31105D' : '#E6E6E6'}`,
+                      color: item.active ? '#31105D' : '#888',
                     }}
                   >
-                    <Image src={icon} alt={`social-${idx}`} width={18} height={18} />
+                    <Iconify icon={item.icon} width={20} />
+                  </IconButton>
+                ))}
+              </Stack>
+            </Grid>
+          </Grid>
+        </LayoutContainer>
+      </Box>
+
+      {/* ================= Bottom Bar (Responsive) ================= */}
+      <Box sx={{ bgcolor: '#31105D', py: 3 }}>
+        <LayoutContainer>
+          <Stack
+            direction={{ xs: 'column', md: 'row' }}
+            alignItems="center"
+            justifyContent="space-between"
+            spacing={2}
+          >
+            <Typography fontSize={14} color="#fff">
+              الحقوق محفوظة لمصطفى الحسيني © 2026
+            </Typography>
+
+            <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center" spacing={3}>
+              {/* الضريبة بجانب الصور */}
+              <Stack direction="row" spacing={1} alignItems="center">
+                <Image src="/assets/footer/value.jpg" alt="vat" width={24} height={24} style={{ borderRadius: '4px' }} />
+                <Typography color="#fff" fontSize={14}>
+                  الرقم الضريبي : 546987552
+                </Typography>
+              </Stack>
+
+              {/* طرق الدفع */}
+              <Stack direction="row" spacing={1}>
+                {payments.map((img, i) => (
+                  <Box key={i} sx={{ bgcolor: '#fff', borderRadius: 0.5, px: 0.8, display: 'flex', alignItems: 'center', height: 28 }}>
+                    <Image src={img} alt="payment" width={35} height={18} />
                   </Box>
                 ))}
               </Stack>
             </Stack>
-          </Box>
-
-          {/* روابط سريعة */}
-          <Box sx={{ flexBasis: { xs: '48%', md: '18%' }, minWidth: { md: 200 } }}>
-            <Typography fontWeight={600} mb={2}>
-              روابط سريعة
-            </Typography>
-            <Stack spacing={1.2}>
-              {footerLinks.map((link) => (
-                <Typography
-                  key={link.label}
-                  fontSize={14}
-                  color="rgba(154, 110, 58, 1)"
-                  sx={{ cursor: 'pointer' }}
-                  onClick={() => handleScroll(link.id)}
-                >
-                  {link.label}
-                </Typography>
-              ))}
-            </Stack>
-          </Box>
-
-          {/* الدعم */}
-          <Box sx={{ flexBasis: { xs: '48%', md: '18%' }, minWidth: { md: 200 } }}>
-            <Typography fontWeight={600} color="#3E3A36" mb={2}>
-              الدعم
-            </Typography>
-            <Stack spacing={1.2}>
-              {supportLinks.map((link) => (
-                <Typography
-                  key={link.label}
-                  fontSize={14}
-                  color="rgba(154, 110, 58, 1)"
-                  sx={{ cursor: 'pointer' }}
-                  onClick={() => router.push(link.href)}
-                >
-                  {link.label}
-                </Typography>
-              ))}
-            </Stack>
-          </Box>
-
-          {/* تواصل معنا */}
-          <Box sx={{ flexBasis: { xs: '100%', md: '22%' }, minWidth: { md: 280 } }}>
-            <Typography fontWeight={600} color="#3E3A36" mb={2}>
-              تواصل معنا
-            </Typography>
-            <Stack spacing={1.5}>
-              <Typography fontSize={14} color="rgba(154, 110, 58, 1)">
-                info@nabdira.sa
-              </Typography>
-              <Typography fontSize={14} color="rgba(154, 110, 58, 1)">
-                +966 50 123 4567
-              </Typography>
-              <Typography fontSize={14} color="rgba(154, 110, 58, 1)">
-                الرياض، المملكة العربية السعودية
-              </Typography>
-            </Stack>
-          </Box>
-        </Box>
-
-        {/* ================= Bottom ================= */}
-        <Box
-          sx={{
-            borderTop: '1px solid #E8DDD0',
-            mt: 6,
-            pt: 3,
-            display: 'flex',
-            flexDirection: { xs: 'column', md: 'row' },
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            gap: 2,
-          }}
-        >
-          <Typography fontSize={16} color="rgba(154, 110, 58, 1)" textAlign="center">
-            © 2026 نيو ديرة. جميع الحقوق محفوظة.
-          </Typography>
-
-          <Stack direction="row" spacing={3} justifyContent="center" sx={{ flexWrap: 'wrap' }}>
-            {bottomLinks.map((link) => (
-              <Typography
-                key={link.label}
-                fontSize={16}
-                color="rgba(154, 110, 58, 1)"
-                sx={{ cursor: 'pointer' }}
-                onClick={() => router.push(link.href)}
-              >
-                {link.label}
-              </Typography>
-            ))}
           </Stack>
-        </Box>
-      </LayoutContainer>
+        </LayoutContainer>
+      </Box>
     </Box>
   );
 }

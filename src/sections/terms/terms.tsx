@@ -48,11 +48,11 @@ export default function TermsSection() {
           </Typography>
 
           <Typography variant="h6" sx={{ mb: 2 }}>
-            لمنصة New Diera (نيو ديره)
+            لمنصة New Diera (تترى)
           </Typography>
 
           <Typography sx={{ lineHeight: 2 }}>
-            تشكل هذه الشروط والأحكام اتفاقًا قانونيًا ملزمًا بينك وبين منصة New Dieraنيو ديره، وتحكم استخدامك للتطبيق أو الموقع الإلكتروني والخدمات المقدمة من خلاله. ويُعد استخدامك للمنصة أو التسجيل فيها موافقة صريحة منك على هذه الشروط.
+            تشكل هذه الشروط والأحكام اتفاقًا قانونيًا ملزمًا بينك وبين منصة New Dieraتترى، وتحكم استخدامك للتطبيق أو الموقع الإلكتروني والخدمات المقدمة من خلاله. ويُعد استخدامك للمنصة أو التسجيل فيها موافقة صريحة منك على هذه الشروط.
           </Typography>
         </Box>
 
@@ -69,13 +69,13 @@ export default function TermsSection() {
               يقصد بالمصطلحات التالية – أينما وردت في هذه الشروط – المعاني الموضحة أدناه ما لم يقتضِ السياق خلاف ذلك:
             </Typography>
             <Typography sx={{ lineHeight: 2 }}>
-              1.المنصة: منصة New Diera (نيو ديره) الإلكترونية، وتشمل التطبيق والموقع الإلكتروني.
+              1.المنصة: منصة New Diera (تترى) الإلكترونية، وتشمل التطبيق والموقع الإلكتروني.
             </Typography>
             <Typography sx={{ lineHeight: 2 }}>
-              2.New Diera (نيو ديره): الجهة المالكة والمشغلة للمنصة.
+              2.New Diera (تترى): الجهة المالكة والمشغلة للمنصة.
             </Typography>
             <Typography sx={{ lineHeight: 2 }}>
-              3.البائع: أي شخص طبيعي أو اعتباري مسجل في منصة New Diera (نيو ديره) لعرض وبيع المنتجات.
+              3.البائع: أي شخص طبيعي أو اعتباري مسجل في منصة New Diera (تترى) لعرض وبيع المنتجات.
             </Typography>
             <Typography sx={{ lineHeight: 2 }}>
               4.المستخدم: أي شخص يستخدم المنصة، سواء بائعًا أو مشتريًا.
@@ -84,7 +84,7 @@ export default function TermsSection() {
               5.المشتري: المستخدم الذي يقوم بشراء المنتجات عبر المنصة.
             </Typography>
             <Typography sx={{ lineHeight: 2 }}>
-              6.المنتجات: السلع المعروضة للبيع من قبل البائعين عبر منصة New Diera  نيو ديره.
+              6.المنتجات: السلع المعروضة للبيع من قبل البائعين عبر منصة New Diera  تترى.
             </Typography>
           </Box>
         </Box>
@@ -100,13 +100,13 @@ export default function TermsSection() {
               تنظم هذه الشروط:
             </Typography>
             <Typography sx={{ lineHeight: 2 }}>
-              1.العلاقة بين منصة New Diera (نيو ديره) وجميع المستخدمين.
+              1.العلاقة بين منصة New Diera (تترى) وجميع المستخدمين.
             </Typography>
             <Typography sx={{ lineHeight: 2 }}>
               2.العلاقة التعاقدية بين البائع والمشتري الناتجة عن عمليات البيع عبر المنصة.
             </Typography>
             <Typography sx={{ lineHeight: 2 }}>
-              ويقتصر دور منصة New Diera (نيو ديره) على توفير البيئة التقنية اللازمة لإتمام عمليات العرض والشراء.
+              ويقتصر دور منصة New Diera (تترى) على توفير البيئة التقنية اللازمة لإتمام عمليات العرض والشراء.
             </Typography>
           </Box>
         </Box>
@@ -153,7 +153,7 @@ export default function TermsSection() {
               2.يتحمل المستخدم المسؤولية الكاملة عن جميع الأنشطة التي تتم عبر حسابه.
             </Typography>
             <Typography sx={{ lineHeight: 2 }}>
-              3.يحق لمنصة New Diera (نيو ديره) تعليق أو إلغاء الحساب في حال:
+              3.يحق لمنصة New Diera (تترى) تعليق أو إلغاء الحساب في حال:
             </Typography>
             <Typography px={2} sx={{ lineHeight: 2 }}>
               -تقديم بيانات غير صحيحة أو مضللة.
@@ -175,7 +175,7 @@ export default function TermsSection() {
 
           <Box sx={{ pt: 2 }}>
             <Typography sx={{ lineHeight: 2 }}>
-              يلتزم البائع المسجل في منصة New Diera (نيو ديره) بما يلي:
+              يلتزم البائع المسجل في منصة New Diera (تترى) بما يلي:
             </Typography>
             <Typography sx={{ lineHeight: 2 }}>
               1.امتلاك الصفة النظامية لممارسة النشاط التجاري داخل المملكة.
@@ -201,18 +201,18 @@ export default function TermsSection() {
         {/* سادسًا */}
         <Box>
           <Typography variant="h5" fontWeight={700}>
-            سادسًا: دور ومسؤولية منصة New Diera نيو ديره
+            سادسًا: دور ومسؤولية منصة New Diera تترى
           </Typography>
 
           <Box sx={{ pt: 2 }}>
             <Typography sx={{ lineHeight: 2 }}>
-              1.تعمل منصة New Diera (نيو ديره) كوسيط تقني يربط بين البائعين والمشترين.
+              1.تعمل منصة New Diera (تترى) كوسيط تقني يربط بين البائعين والمشترين.
             </Typography>
             <Typography sx={{ lineHeight: 2 }}>
               2.لا تُعد المنصة طرفًا في عقد البيع المبرم بين البائع والمشتري.
             </Typography>
             <Typography sx={{ lineHeight: 2 }}>
-              3.لا تتحمل منصة New Diera (نيو ديره) أي مسؤولية عن:
+              3.لا تتحمل منصة New Diera (تترى) أي مسؤولية عن:
             </Typography>
             <Typography sx={{ lineHeight: 2 }}>
               oجودة أو سلامة المنتجات.
@@ -256,7 +256,7 @@ export default function TermsSection() {
               1.يلتزم البائع بتوضيح سياسة الشحن ومدة التوصيل قبل إتمام الطلب.
             </Typography>
             <Typography sx={{ lineHeight: 2 }}>
-              2.لا تتحمل منصة New Diera (نيو ديره) مسؤولية أي تأخير ناتج عن شركات الشحن.
+              2.لا تتحمل منصة New Diera (تترى) مسؤولية أي تأخير ناتج عن شركات الشحن.
             </Typography>
             <Typography sx={{ lineHeight: 2 }}>
               3.تنتقل مسؤولية المنتج إلى المشتري عند استلامه.
@@ -291,7 +291,7 @@ export default function TermsSection() {
 
           <Box sx={{ pt: 2 }}>
             <Typography sx={{ lineHeight: 2 }}>
-              1.جميع حقوق الملكية الفكرية المتعلقة بمنصة New Diera (نيو ديره) محفوظة لها.
+              1.جميع حقوق الملكية الفكرية المتعلقة بمنصة New Diera (تترى) محفوظة لها.
             </Typography>
             <Typography sx={{ lineHeight: 2 }}>
               2.يمنع نسخ أو إعادة استخدام أي محتوى دون موافقة خطية مسبقة.
@@ -310,7 +310,7 @@ export default function TermsSection() {
 
           <Box sx={{ pt: 2 }}>
             <Typography sx={{ lineHeight: 2 }}>
-              1.تلتزم منصة New Diera (نيو ديره) بحماية البيانات الشخصية للمستخدمين.
+              1.تلتزم منصة New Diera (تترى) بحماية البيانات الشخصية للمستخدمين.
             </Typography>
             <Typography sx={{ lineHeight: 2 }}>
               2.يتم جمع البيانات واستخدامها وفق سياسة الخصوصية المعتمدة.
@@ -329,7 +329,7 @@ export default function TermsSection() {
 
           <Box sx={{ pt: 2 }}>
             <Typography sx={{ lineHeight: 2 }}>
-             1.يحق لمنصة  New Dieraنيو ديره:
+             1.يحق لمنصة  New Dieraتترى:
             </Typography>
             <Typography sx={{ lineHeight: 2 }}>
               2.تعليق أو إنهاء أي حساب في حال مخالفة هذه الشروط.
@@ -348,7 +348,7 @@ export default function TermsSection() {
 
           <Box sx={{ pt: 2 }}>
             <Typography sx={{ lineHeight: 2 }}>
-              لا تتحمل منصة New Diera (نيو ديره) أي مسؤولية عن:
+              لا تتحمل منصة New Diera (تترى) أي مسؤولية عن:
             </Typography>
             <Typography sx={{ lineHeight: 2 }}>
              1.أي خسائر أو أضرار غير مباشرة.
@@ -383,7 +383,7 @@ export default function TermsSection() {
 
           <Box sx={{ pt: 2, mb: 5 }}>
             <Typography sx={{ lineHeight: 2 }}>
-              يحق لمنصة New Diera (نيو ديره) تعديل هذه الشروط في أي وقت، ويُعد استمرار استخدام المنصة بعد التعديل موافقة ضمنية عليه.
+              يحق لمنصة New Diera (تترى) تعديل هذه الشروط في أي وقت، ويُعد استمرار استخدام المنصة بعد التعديل موافقة ضمنية عليه.
             </Typography>
           </Box>
         </Box>

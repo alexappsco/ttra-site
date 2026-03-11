@@ -1,102 +1,140 @@
-import { bgBlur } from 'src/theme/css';
-import Logo from 'src/components/logo';
-import Stack from '@mui/material/Stack';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import SvgColor from 'src/components/svg-color';
-import IconButton from '@mui/material/IconButton';
-import { darken, useTheme } from '@mui/material/styles';
-import { useOffSetTop } from 'src/hooks/use-off-set-top';
-import { useResponsive } from 'src/hooks/use-responsive';
-import { useSettingsContext } from 'src/components/settings';
+'use client';
 
-import { NAV, HEADER } from '../config-layout';
-import AccountPopover from '../common/account-popover';
+import * as React from 'react';
+import Image from 'next/image';
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import { useTheme } from '@mui/material/styles';
+import InputAdornment from '@mui/material/InputAdornment';
+
+import LayoutContainer from 'src/sections/home/views/LayoutContainer';
+import Iconify from 'src/components/iconify';
 import LanguagePopover from '../common/language-popover';
 
-// ----------------------------------------------------------------------
-
-type Props = {
-  onOpenNav?: VoidFunction;
-};
-
-export default function Header({ onOpenNav }: Props) {
+export default function Header() {
   const theme = useTheme();
 
-  const settings = useSettingsContext();
-
-  const isNavHorizontal = settings.themeLayout === 'horizontal';
-
-  const isNavMini = settings.themeLayout === 'mini';
-
-  const lgUp = useResponsive('up', 'lg');
-
-  const offset = useOffSetTop(HEADER.H_DESKTOP);
-
-  const offsetTop = offset && !isNavHorizontal;
-
-  const renderContent = (
-    <>
-      {lgUp && isNavHorizontal && <Logo sx={{ mr: 2.5 }} />}
-
-      {!lgUp && (
-        <IconButton onClick={onOpenNav}>
-          <SvgColor src="/assets/icons/navbar/ic_menu_item.svg" sx={{ color: 'primary.main' }} />
-        </IconButton>
-      )}
-      <Stack
-        flexGrow={1}
-        direction="row"
-        alignItems="center"
-        justifyContent="flex-end"
-        spacing={{ xs: 0.5, sm: 1 }}
-      >
-        <LanguagePopover />
-
-        <AccountPopover />
-      </Stack>
-    </>
-  );
-
   return (
-
-    <AppBar
-      sx={{
-        height: HEADER.H_MOBILE,
-        zIndex: theme.zIndex.appBar + 1,
-        ...bgBlur({
-          color: theme.palette.background.default,
-        }),
-        transition: theme.transitions.create(['height'], {
-          duration: theme.transitions.duration.shorter,
-        }),
-        ...(lgUp && {
-          width: '100%',
-          height: HEADER.H_DESKTOP,
-          ...(offsetTop && {
-            height: HEADER.H_DESKTOP_OFFSET,
-          }),
-          ...(isNavHorizontal && {
-            width: 1,
-            bgcolor: 'background.default',
-            height: HEADER.H_DESKTOP_OFFSET,
-            borderBottom: `dashed 1px ${theme.palette.divider}`,
-          }),
-          ...(isNavMini && {
-            width: `calc(100% - ${NAV.W_MINI + 1}px)`,
-          }),
-        }),
+    <Box 
+      component="header" 
+      sx={{ 
+        width: 1, 
+        position: 'fixed', 
+        top: 0,            
+        left: 0,
+        right: 0,
+        zIndex: theme.zIndex.appBar + 100, 
+        bgcolor: 'background.paper',
+        boxShadow: '0 2px 4px rgba(0,0,0,0.02)' 
       }}
     >
-      <Toolbar
+      <Box
         sx={{
-          height: 1,
-          px: { lg: 5 },
-          backgroundColor: darken(theme.palette.background.neutral, 0.025),
+          bgcolor: '#f3f3f3',
+          borderBottom: '1px solid #e5e5e5',
         }}
       >
-        {renderContent}
-      </Toolbar>
-    </AppBar>
+        <LayoutContainer>
+          <Stack
+            direction={{ xs: 'column', md: 'row' }} 
+            alignItems="center"
+            justifyContent="space-between"
+            sx={{ 
+              minHeight: 40, 
+              py: { xs: 1, md: 0 },
+              gap: { xs: 1, md: 0 }
+            }}
+          >
+            <Stack 
+              direction="row" 
+              spacing={{ xs: 1, sm: 2 }} 
+              alignItems="center"
+              flexWrap="wrap"
+              justifyContent="center"
+            >
+              <Stack direction="row" spacing={0.5} alignItems="center">
+                <Typography fontSize={{ xs: 10, sm: 12, md: 13 }} sx={{ direction: 'ltr' }}>+966556754472</Typography>
+                <Iconify icon="solar:phone-calling-bold" width={16} sx={{ color: '#5e35b1' }} />
+              </Stack>
+              <Box sx={{ width: '1px', height: '14px', bgcolor: '#ccc' }} />
+              <Stack direction="row" spacing={0.5} alignItems="center">
+                <Typography fontSize={{ xs: 10, sm: 12, md: 13 }}>Support@ttra.sa</Typography>
+                <Iconify icon="solar:letter-bold" width={16} sx={{ color: '#5e35b1' }} />
+              </Stack>
+            </Stack>
+
+            <Stack 
+              direction="row" 
+              spacing={{ xs: 1, sm: 1.5, md: 2 }} 
+              alignItems="center"
+              flexWrap="wrap"
+              justifyContent="center"
+            >
+              <LanguagePopover />
+              <Box sx={{ width: '1px', height: '14px', bgcolor: '#ccc' }} />
+              <Typography sx={{ cursor: 'pointer', fontSize: { xs: 10, sm: 12, md: 13 } }}>المفضلة</Typography>
+              <Box sx={{ width: '1px', height: '14px', bgcolor: '#ccc' }} />
+              <Typography sx={{ cursor: 'pointer', fontSize: { xs: 10, sm: 12, md: 13 }, whiteSpace: 'nowrap' }}>
+                سياسة الاستبدال أو الاسترجاع
+              </Typography>
+              <Box sx={{ width: '1px', height: '14px', bgcolor: '#ccc' }} />
+              <Typography sx={{ cursor: 'pointer', fontSize: { xs: 10, sm: 12, md: 13 } }}>مكتبتي</Typography>
+            </Stack>
+          </Stack>
+        </LayoutContainer>
+      </Box>
+
+      <Box sx={{ py: { xs: 1, md: 1.5 }, bgcolor: '#fff' }}>
+        <LayoutContainer>
+          <Stack
+            direction="row" 
+            alignItems="center"
+            spacing={{ xs: 1, sm: 2, md: 3 }} 
+          >
+            <Box sx={{ flexShrink: 0 }}>
+              <Image
+                src="/logo/my-books.png"
+                alt="logo"
+                width={160} 
+                height={120} 
+                style={{ 
+                  objectFit: 'contain',
+                  width: 'auto', 
+                  height: 'clamp(50px, 8vw, 100px)', 
+                }}
+                priority
+              />
+            </Box>
+
+            <Box sx={{ flexGrow: 1, maxWidth: 800 }}>
+              <TextField
+                fullWidth
+                placeholder="ابحث عما تريد"
+                size="small"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Iconify icon="eva:search-fill" sx={{ color: 'text.disabled', width: { xs: 18, md: 20 } }} />
+                    </InputAdornment>
+                  ),
+                }}
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    borderRadius: '8px',
+                    bgcolor: '#fafafa',
+                    height: { xs: 40, md: 48 }, 
+                    fontSize: { xs: 12, md: 14 },
+                    '& fieldset': { border: '1px solid #eee' },
+                    '&:hover fieldset': { borderColor: '#ddd' },
+                  },
+                }}
+              />
+            </Box>
+          </Stack>
+        </LayoutContainer>
+      </Box>
+    </Box>
   );
 }
