@@ -1,140 +1,183 @@
 'use client';
 
-import * as React from 'react';
 import Image from 'next/image';
-import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-import { useTheme } from '@mui/material/styles';
-import InputAdornment from '@mui/material/InputAdornment';
-
+import Link from 'next/link';
+import {
+  AppBar,
+  Toolbar,
+  Box,
+  Typography,
+  Button,
+  Stack,
+  IconButton,
+  Drawer,
+  List,
+  ListItemButton,
+  ListItemText,
+} from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+import { useState } from 'react';
+import { useLocale } from 'next-intl';
 import LayoutContainer from 'src/sections/home/views/LayoutContainer';
-import Iconify from 'src/components/iconify';
-import LanguagePopover from '../common/language-popover';
 
-export default function Header() {
-  const theme = useTheme();
+export default function MainHeader() {
+  const [open, setOpen] = useState(false);
+  const locale = useLocale();
+  const isArabic = locale === 'ar';
+
+  // الترجمة للروابط
+  const navItems = [
+    { label: isArabic ? 'الرئيسية' : 'Home', href: '/' },
+    { label: isArabic ? 'الخدمات' : 'Services', href: '#services' },
+    { label: isArabic ? 'من نحن' : 'About Us', href: '#about' },
+    { label: isArabic ? 'تواصل معنا' : 'Contact Us', href: '#contact' },
+  ];
+
+  // دالة التمرير السلس
+  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, href: string) => {
+    if (href.startsWith('#')) {
+      e.preventDefault();
+      const targetId = href.replace('#', '');
+      const elem = document.getElementById(targetId);
+      if (elem) {
+        elem.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        });
+        setOpen(false); // إغلاق القائمة في الموبايل
+      }
+    }
+  };
 
   return (
-    <Box 
-      component="header" 
-      sx={{ 
-        width: 1, 
-        position: 'fixed', 
-        top: 0,            
-        left: 0,
-        right: 0,
-        zIndex: theme.zIndex.appBar + 100, 
-        bgcolor: 'background.paper',
-        boxShadow: '0 2px 4px rgba(0,0,0,0.02)' 
+    <AppBar
+      elevation={0}
+      sx={{
+        backgroundColor: 'rgba(57, 20, 98, 1)',
       }}
     >
-      <Box
-        sx={{
-          bgcolor: '#f3f3f3',
-          borderBottom: '1px solid #e5e5e5',
-        }}
-      >
-        <LayoutContainer>
-          <Stack
-            direction={{ xs: 'column', md: 'row' }} 
-            alignItems="center"
-            justifyContent="space-between"
-            sx={{ 
-              minHeight: 40, 
-              py: { xs: 1, md: 0 },
-              gap: { xs: 1, md: 0 }
-            }}
-          >
-            <Stack 
-              direction="row" 
-              spacing={{ xs: 1, sm: 2 }} 
-              alignItems="center"
-              flexWrap="wrap"
-              justifyContent="center"
-            >
-              <Stack direction="row" spacing={0.5} alignItems="center">
-                <Typography fontSize={{ xs: 10, sm: 12, md: 13 }} sx={{ direction: 'ltr' }}>+966556754472</Typography>
-                <Iconify icon="solar:phone-calling-bold" width={16} sx={{ color: '#5e35b1' }} />
-              </Stack>
-              <Box sx={{ width: '1px', height: '14px', bgcolor: '#ccc' }} />
-              <Stack direction="row" spacing={0.5} alignItems="center">
-                <Typography fontSize={{ xs: 10, sm: 12, md: 13 }}>Support@ttra.sa</Typography>
-                <Iconify icon="solar:letter-bold" width={16} sx={{ color: '#5e35b1' }} />
-              </Stack>
-            </Stack>
-
-            <Stack 
-              direction="row" 
-              spacing={{ xs: 1, sm: 1.5, md: 2 }} 
-              alignItems="center"
-              flexWrap="wrap"
-              justifyContent="center"
-            >
-              <LanguagePopover />
-              <Box sx={{ width: '1px', height: '14px', bgcolor: '#ccc' }} />
-              <Typography sx={{ cursor: 'pointer', fontSize: { xs: 10, sm: 12, md: 13 } }}>المفضلة</Typography>
-              <Box sx={{ width: '1px', height: '14px', bgcolor: '#ccc' }} />
-              <Typography sx={{ cursor: 'pointer', fontSize: { xs: 10, sm: 12, md: 13 }, whiteSpace: 'nowrap' }}>
-                سياسة الاستبدال أو الاسترجاع
-              </Typography>
-              <Box sx={{ width: '1px', height: '14px', bgcolor: '#ccc' }} />
-              <Typography sx={{ cursor: 'pointer', fontSize: { xs: 10, sm: 12, md: 13 } }}>مكتبتي</Typography>
-            </Stack>
-          </Stack>
-        </LayoutContainer>
-      </Box>
-
-      <Box sx={{ py: { xs: 1, md: 1.5 }, bgcolor: '#fff' }}>
-        <LayoutContainer>
-          <Stack
-            direction="row" 
-            alignItems="center"
-            spacing={{ xs: 1, sm: 2, md: 3 }} 
-          >
-            <Box sx={{ flexShrink: 0 }}>
+      <LayoutContainer>
+        <Toolbar
+          disableGutters
+          sx={{
+            height: 100,
+            display: 'flex',
+            justifyContent: 'space-between',
+          }}
+        >
+          {/* Logo */}
+          <Link href="/" style={{ display: 'flex', alignItems: 'center' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <Image
                 src="/logo/my-books.png"
                 alt="logo"
-                width={160} 
-                height={120} 
-                style={{ 
-                  objectFit: 'contain',
-                  width: 'auto', 
-                  height: 'clamp(50px, 8vw, 100px)', 
-                }}
+                width={120}
+                height={40}
+                style={{ objectFit: 'contain', height: 'auto' }}
                 priority
               />
             </Box>
+          </Link>
 
-            <Box sx={{ flexGrow: 1, maxWidth: 800 }}>
-              <TextField
-                fullWidth
-                placeholder="ابحث عما تريد"
-                size="small"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Iconify icon="eva:search-fill" sx={{ color: 'text.disabled', width: { xs: 18, md: 20 } }} />
-                    </InputAdornment>
-                  ),
-                }}
-                sx={{
-                  '& .MuiOutlinedInput-root': {
-                    borderRadius: '8px',
-                    bgcolor: '#fafafa',
-                    height: { xs: 40, md: 48 }, 
-                    fontSize: { xs: 12, md: 14 },
-                    '& fieldset': { border: '1px solid #eee' },
-                    '&:hover fieldset': { borderColor: '#ddd' },
-                  },
-                }}
-              />
-            </Box>
+          {/* Desktop Nav */}
+          <Stack
+            direction="row"
+            spacing={4}
+            sx={{
+              display: { xs: 'none', md: 'flex' },
+              alignItems: 'center',
+            }}
+          >
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={(e) => handleScroll(e, item.href)}
+                style={{ textDecoration: 'none' }}
+              >
+                <Typography
+                  sx={{
+                    fontSize: 16,
+                    fontWeight: 500,
+                    color: '#fff',
+                    cursor: 'pointer',
+                    position: 'relative',
+                    '&:hover': {
+                      color: 'rgba(212, 175, 55, 1)',
+                    },
+                  }}
+                >
+                  {item.label}
+                </Typography>
+              </Link>
+            ))}
           </Stack>
-        </LayoutContainer>
-      </Box>
-    </Box>
+
+          {/* CTA + Mobile Menu */}
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+            <Button
+              variant="contained"
+              sx={{
+                display: { xs: 'none', md: 'inline-flex' },
+                borderRadius: '999px',
+                px: 4,
+                py: 1,
+                fontWeight: 600,
+                fontSize: 15,
+                background: 'linear-gradient(135deg, rgba(212,175,55,1) 0%, rgba(255,215,100,1) 100%)',
+                color: '#000',
+                boxShadow: '0 4px 14px rgba(212,175,55,0.4)',
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  background: 'linear-gradient(135deg, rgba(255,215,100,1) 0%, rgba(212,175,55,1) 100%)',
+                  boxShadow: '0 6px 20px rgba(212,175,55,0.6)',
+                  transform: 'translateY(-2px)',
+                },
+              }}
+            >
+              {isArabic ? 'ابدأ الآن' : 'Start Now'}
+            </Button>
+
+            <IconButton
+              sx={{ display: { xs: 'flex', md: 'none' }, color: '#fff' }}
+              onClick={() => setOpen(true)}
+            >
+              <MenuIcon />
+            </IconButton>
+          </Box>
+        </Toolbar>
+      </LayoutContainer>
+
+      {/* Mobile Drawer */}
+      <Drawer anchor={isArabic ? "left" : "right"} open={open} onClose={() => setOpen(false)}>
+        <Box sx={{ width: 250, p: 2 }}>
+          <List>
+            {navItems.map((item) => (
+              <ListItemButton
+                key={item.href}
+                component={Link}
+                href={item.href}
+                onClick={(e: any) => handleScroll(e, item.href)}
+              >
+                <ListItemText primary={item.label} sx={{ textAlign: isArabic ? 'right' : 'left' }} />
+              </ListItemButton>
+            ))}
+          </List>
+
+          <Button
+            fullWidth
+            variant="contained"
+            sx={{
+              mt: 2,
+              borderRadius: '999px',
+              background: 'linear-gradient(135deg, rgba(212,175,55,1) 0%, rgba(255,215,100,1) 100%)',
+              color: '#000',
+            }}
+          >
+            {isArabic ? 'ابدأ الآن' : 'Start Now'}
+          </Button>
+        </Box>
+      </Drawer>
+    </AppBar>
   );
 }

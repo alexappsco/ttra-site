@@ -13,7 +13,7 @@ interface LocaleSetting {
 }
 
 export const locales: LocaleType[] = ['ar', 'en'];
-export const defaultLocale: LocaleType = 'ar';
+export const defaultLocale: LocaleType = 'en';
 
 export const localesSettings: { [key in string]: LocaleSetting } = {
   ar: {

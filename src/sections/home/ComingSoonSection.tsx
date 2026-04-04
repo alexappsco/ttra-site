@@ -1,0 +1,240 @@
+'use client';
+
+import { Box, Typography, Button, Stack } from '@mui/material';
+import { m } from 'framer-motion';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { useLocale } from 'next-intl';
+import Header from 'src/layouts/dashboard/header';
+
+export default function ComingSoonSection() {
+  const router = useRouter();
+  const locale = useLocale();
+  const isArabic = locale === 'ar';
+
+  const INITIAL_TIME = 360 * 24 * 60 * 60; // seconds
+  const [timeLeft, setTimeLeft] = useState(INITIAL_TIME);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) return INITIAL_TIME;
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const days = Math.floor(timeLeft / (24 * 60 * 60));
+  const hours = Math.floor((timeLeft % (24 * 60 * 60)) / (60 * 60));
+  const minutes = Math.floor((timeLeft % (60 * 60)) / 60);
+  const seconds = timeLeft % 60;
+
+  const handleRedirect = (localeToRedirect: 'ar' | 'en') => {
+    router.push(`/${localeToRedirect}/landing`);
+  };
+
+  const items = [
+    { label: isArabic ? 'أيام' : 'DAYS', value: days },
+    { label: isArabic ? 'ساعات' : 'HOURS', value: hours },
+    { label: isArabic ? 'دقائق' : 'MINUTES', value: minutes },
+    { label: isArabic ? 'ثواني' : 'SECONDS', value: seconds },
+  ];
+
+  const text = isArabic ? "قريباً جداً" : "coming soon";
+  const letters = Array.from(text);
+
+  const containerVariants = {
+    animate: {
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.3,
+      },
+    },
+  };
+
+  const letterVariants = {
+    initial: { opacity: 0.3, y: 0 },
+    animate: {
+      opacity: [0.3, 1, 0.3],
+      y: [0, -10, 0], // حركة عمودية كالموج
+      transition: {
+        duration: 1.5,
+        repeat: Infinity,
+        ease: "easeInOut",
+      },
+    },
+  };
+
+  return (
+    <Box
+      sx={{
+        minHeight: '100vh',
+        width: '100vw',
+        backgroundColor: '#000',
+        position: 'relative',
+        overflow: 'hidden',
+      }}
+    >
+      <Box sx={{ position: 'relative', zIndex: 10000 }}>
+        <Header />
+      </Box>
+
+      <Box
+        sx={{
+          height: 'calc(100vh - 64px)',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          position: 'relative',
+          zIndex: 1,
+        }}
+      >
+        <m.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          style={{ textAlign: 'center', width: '100%' }}
+        >
+          <Typography
+            variant="h1"
+            sx={{
+              color: '#fff',
+              fontWeight: 900,
+              letterSpacing: { xs: 6, md: 15 },
+              mb: 1,
+              fontSize: { xs: '2.5rem', md: '6rem' },
+              textTransform: 'uppercase',
+            }}
+          >
+            Tatra book
+          </Typography>
+
+          <Box
+            component={m.div}
+            variants={containerVariants}
+            initial="initial"
+            animate="animate"
+            sx={{
+              mb: 8,
+              display: 'flex',
+              justifyContent: 'center',
+              gap: 0.5,
+              direction: 'ltr' // لضمان ترتيب الحروف كالموج حتى في العربي
+            }}
+          >
+            {letters.map((char, index) => (
+              <Typography
+                key={index}
+                component={m.span}
+                variants={letterVariants}
+                sx={{
+                  color: '#D4AF37',
+                  fontSize: { xs: 16, md: 24 },
+                  letterSpacing: { xs: 2, md: 4 },
+                  fontWeight: 500,
+                  textTransform: 'uppercase',
+                  display: 'inline-block',
+                  whiteSpace: char === ' ' ? 'pre' : 'normal'
+                }}
+              >
+                {char}
+              </Typography>
+            ))}
+          </Box>
+
+          <Stack
+            direction="row"
+            spacing={{ xs: 1.5, md: 4 }}
+            justifyContent="center"
+            alignItems="center"
+            sx={{ mb: 10, px: 2 }}
+          >
+            {items.map((item, i) => (
+              <Box key={i} sx={{ textAlign: 'center', minWidth: { xs: 60, md: 140 } }}>
+                <Typography
+                  sx={{
+                    fontSize: { xs: '2rem', md: '5rem' },
+                    fontWeight: 900,
+                    color: '#fff',
+                    lineHeight: 1,
+                    fontFamily: 'monospace',
+                  }}
+                >
+                  {String(item.value).padStart(2, '0')}
+                </Typography>
+                <Typography
+                  sx={{
+                    color: '#888',
+                    fontSize: { xs: 9, md: 14 },
+                    letterSpacing: 2,
+                    mt: 1,
+                    fontWeight: 600,
+                  }}
+                >
+                  {item.label}
+                </Typography>
+              </Box>
+            ))}
+          </Stack>
+
+          <Stack 
+            direction={{ xs: 'column', sm: 'row' }} 
+            spacing={3} 
+            justifyContent="center"
+            alignItems="center"
+            sx={{ px: 3 }}
+          >
+            <Button
+              onClick={() => handleRedirect('en')}
+              sx={{
+                px: 6, py: 2,
+                minWidth: { xs: '100%', sm: 200 },
+                borderRadius: 0,
+                fontWeight: 800,
+                fontSize: '1.1rem',
+                border: '2px solid #fff',
+                color: '#fff',
+                backgroundColor: 'transparent',
+                transition: 'all 0.3s ease',
+                '&:hover': { backgroundColor: '#fff', color: '#000' },
+              }}
+            >
+              ENTER ENGLISH
+            </Button>
+
+            <Button
+              onClick={() => handleRedirect('ar')}
+              sx={{
+                px: 6, py: 2,
+                minWidth: { xs: '100%', sm: 200 },
+                borderRadius: 0,
+                fontWeight: 800,
+                fontSize: '1.2rem',
+                backgroundColor: '#D4AF37',
+                color: '#000',
+                border: '2px solid #D4AF37',
+                transition: 'all 0.3s ease',
+                '&:hover': { backgroundColor: 'transparent', color: '#D4AF37' },
+              }}
+            >
+              دخول بالعربية
+            </Button>
+          </Stack>
+        </m.div>
+      </Box>
+
+      <Box
+        sx={{
+          position: 'absolute',
+          top: 0, left: 0, right: 0, bottom: 0,
+          background: 'radial-gradient(circle at center, rgba(57, 20, 98, 0.25) 0%, rgba(0,0,0,1) 80%)',
+          pointerEvents: 'none',
+          zIndex: 0,
+        }}
+      />
+    </Box>
+  );
+}
