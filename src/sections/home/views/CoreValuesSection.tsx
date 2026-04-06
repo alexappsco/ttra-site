@@ -3,11 +3,10 @@
 import React from 'react';
 import { Box, Typography, Grid, Stack, useTheme, useMediaQuery } from '@mui/material';
 import Image from 'next/image';
-import LayoutContainer from './LayoutContainer'; // تأكد من المسار لديك
+import LayoutContainer from './LayoutContainer';  
 import { useLocale } from 'next-intl';
 import { m, Variants } from 'framer-motion';
 
-// استيراد الأيقونات
 import GavelIcon from '@mui/icons-material/Gavel';
 import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety';
 import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
@@ -152,10 +151,13 @@ export default function CoreValuesSection() {
                   position: 'relative',
                   width: '100%',
                   height: { xs: 300, sm: 400, md: 500 },
-                  borderRadius: 8,
+                  borderRadius: '32px', // Increased border radius
                   overflow: 'hidden',
                   boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
-                  backgroundColor: '#f9f9f9' 
+                  backgroundColor: '#fff',
+                  // Ensure the border radius clips the image content correctly
+                  '& > span': { borderRadius: '32px' }, 
+                  '& img': { borderRadius: '32px' }
                 }}
               >
                 <Image
@@ -163,7 +165,7 @@ export default function CoreValuesSection() {
                   alt="Core Values Illustration"
                   fill
                   style={{ 
-                    objectFit: 'cover', 
+                    objectFit: 'fill', // Changed to fill to ensure borders match perfectly
                     objectPosition: 'center'
                   }}
                 />

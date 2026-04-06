@@ -3,7 +3,7 @@
 import { Box, Typography, Button, Stack } from '@mui/material';
 import { m } from 'framer-motion';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useLocale } from 'next-intl';
 import Header from 'src/layouts/dashboard/header';
 
@@ -12,19 +12,28 @@ export default function ComingSoonSection() {
   const locale = useLocale();
   const isArabic = locale === 'ar';
 
-  const INITIAL_TIME = 360 * 24 * 60 * 60; // seconds
-  const [timeLeft, setTimeLeft] = useState(INITIAL_TIME);
+  const TARGET_DATE = new Date('2026-10-25T00:00:00').getTime();
+
+  const calculateTimeLeft = useCallback(() => {
+    const now = new Date().getTime();
+    const difference = TARGET_DATE - now;
+    return difference > 0 ? Math.floor(difference / 1000) : 0;
+  }, [TARGET_DATE]);
+
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setTimeLeft((prev) => {
-        if (prev <= 1) return INITIAL_TIME;
-        return prev - 1;
-      });
+      const remaining = calculateTimeLeft();
+      setTimeLeft(remaining);
+
+      if (remaining <= 0) {
+        clearInterval(interval);
+      }
     }, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [calculateTimeLeft]);
 
   const days = Math.floor(timeLeft / (24 * 60 * 60));
   const hours = Math.floor((timeLeft % (24 * 60 * 60)) / (60 * 60));
@@ -58,7 +67,7 @@ export default function ComingSoonSection() {
     initial: { opacity: 0.3, y: 0 },
     animate: {
       opacity: [0.3, 1, 0.3],
-      y: [0, -10, 0], // حركة عمودية كالموج
+      y: [0, -10, 0],
       transition: {
         duration: 1.5,
         repeat: Infinity,
@@ -109,7 +118,7 @@ export default function ComingSoonSection() {
               textTransform: 'uppercase',
             }}
           >
-            Tatra book
+            Tatra books
           </Typography>
 
           <Box
@@ -122,7 +131,7 @@ export default function ComingSoonSection() {
               display: 'flex',
               justifyContent: 'center',
               gap: 0.5,
-              direction: 'ltr' // لضمان ترتيب الحروف كالموج حتى في العربي
+              direction: 'ltr' 
             }}
           >
             {letters.map((char, index) => (

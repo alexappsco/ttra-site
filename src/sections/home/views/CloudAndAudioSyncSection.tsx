@@ -154,11 +154,8 @@ export default function CloudAndAudioSyncSection() {
                 position: 'relative',
                 width: '100%',
                 height: { xs: 250, sm: 400, md: 550, lg: 650 }, 
-                borderRadius: '30px',
+                borderRadius: '32px',
                 overflow: 'hidden',
-                backgroundColor: 'transparent', 
-                border: 'none',
-                boxShadow: 'none' 
               }}
             >
               <Image
@@ -167,8 +164,8 @@ export default function CloudAndAudioSyncSection() {
                 fill
                 priority
                 style={{ 
-                  objectFit: 'contain', 
-                  borderRadius: '20px' 
+                  objectFit: 'fill', 
+                  borderRadius: '32px' 
                 }}
               />
             </Box>
@@ -204,8 +201,8 @@ export default function CloudAndAudioSyncSection() {
         sx={{ 
           width: '100%', 
           position: 'relative',
-          height: { xs: '180px', sm: '300px', md: '400px', lg: '500px', xl: '600px' },
-          mt: { xs: 2, md: 0 },
+          height: { xs: '200px', sm: '350px', md: '450px', lg: '550px', xl: '650px' },
+          mt: { xs: 4, md: 0 },
         }}
       >
         <Image
@@ -214,8 +211,8 @@ export default function CloudAndAudioSyncSection() {
           fill
           priority
           style={{ 
-            objectFit: 'cover', 
-            objectPosition: 'center' 
+            objectFit: 'fill', 
+            objectPosition: 'top center' 
           }}
         />
       </Box>
