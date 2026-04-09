@@ -2,9 +2,9 @@
 
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Box, Stack, Typography, Grid, TextField, Button, IconButton } from '@mui/material';
 import { useLocale } from 'next-intl';
-
 import LayoutContainer from '../../sections/home/views/LayoutContainer';
 import Iconify from 'src/components/iconify';
 
@@ -13,7 +13,6 @@ export default function Footer() {
   const isArabic = locale === 'ar';
   const BG_COLOR = '#1A062E';
 
-  // نصوص الفوتر بناءً على اللغة
   const content = {
     description: isArabic 
       ? "منصة النشر الرقمي الأولى التي تضمن حقوق الناشر وتمنح القارئ تجربة فريدة." 
@@ -26,7 +25,6 @@ export default function Footer() {
     links: {
       home: isArabic ? "الرئيسية" : "Home",
       about: isArabic ? "عن تترى" : "About Titra",
-      features: isArabic ? "المميزات" : "Features",
       download: isArabic ? "تحميل التطبيق" : "Download App",
       help: isArabic ? "مركز المساعدة" : "Help Center",
       privacy: isArabic ? "سياسة الخصوصية" : "Privacy Policy",
@@ -36,15 +34,19 @@ export default function Footer() {
     rights: isArabic ? "جميع الحقوق محفوظة © 2026 تترى" : "All rights reserved © 2026 Titra"
   };
 
-  const FooterLink = ({ text }: { text: string }) => (
+  // تعديل الـ FooterLink ليدعم الروابط
+  const FooterLink = ({ text, href }: { text: string; href: string }) => (
     <Typography
+      component={Link}
+      href={href}
       variant="body2"
       sx={{
         color: '#E0E0E0',
-        cursor: 'pointer',
+        textDecoration: 'none',
+        display: 'block',
         mb: 1.5,
         fontSize: '0.9rem',
-        textAlign: isArabic ? 'left' : 'right', // توجيه النص حسب اللغة
+        textAlign: isArabic ? 'right' : 'left', // تم التعديل ليكون متناسق مع الاتجاه
         transition: 'color 0.3s',
         '&:hover': { color: '#D4AF37' },
       }}
@@ -59,23 +61,25 @@ export default function Footer() {
     { icon: 'mdi:twitter' },
   ];
 
+  const devPath = "/under-development";
+
   return (
     <Box
+      id="contact"
       component="footer"
       sx={{
         bgcolor: BG_COLOR,
         color: '#fff',
         pt: 8,
         pb: 4,
-        direction: isArabic ? 'rtl' : 'ltr', // تغيير اتجاه الفوتر بالكامل
+        direction: isArabic ? 'rtl' : 'ltr',
       }}
     >
       <LayoutContainer>
         <Grid container spacing={{ xs: 5, md: 8 }} justifyContent="space-between" alignItems="flex-start">
           
-          {/* 1. قسم النشرة البريدية (يمين في العربي / يسار في الإنجليزي) */}
           <Grid item xs={12} md={4} lg={3} order={{ xs: 1, md: isArabic ? 1 : 4 }}>
-            <Typography variant="h6" sx={{ mb: 3, fontWeight: 700, fontSize: '1.1rem', textAlign: isArabic ? 'left' : 'right' }}>
+            <Typography variant="h6" sx={{ mb: 3, fontWeight: 700, fontSize: '1.1rem', textAlign: isArabic ? 'right' : 'left' }}>
               {content.newsletterTitle}
             </Typography>
             <Stack spacing={2} alignItems={{ xs: 'center', md: isArabic ? 'flex-start' : 'flex-end' }}>
@@ -98,7 +102,7 @@ export default function Footer() {
                       px: 2, 
                       py: 1, 
                       color: '#fff',
-                      textAlign: isArabic ? 'left' : 'right',
+                      textAlign: isArabic ? 'right' : 'left',
                       '& input::placeholder': { color: '#888', opacity: 1 }
                     }
                   }}
@@ -124,33 +128,29 @@ export default function Footer() {
             </Stack>
           </Grid>
 
-          {/* 2. قسم الدعم والقانونية */}
           <Grid item xs={6} md={2} order={{ xs: 3, md: 2 }}>
-            <Typography variant="h6" sx={{ mb: 3, fontWeight: 700, fontSize: '1.1rem', textAlign: isArabic ? 'left' : 'right' }}>
+            <Typography variant="h6" sx={{ mb: 3, fontWeight: 700, fontSize: '1.1rem', textAlign: isArabic ? 'right' : 'left' }}>
               {content.supportLegal}
             </Typography>
             <Stack>
-              <FooterLink text={content.links.help} />
-              <FooterLink text={content.links.privacy} />
-              <FooterLink text={content.links.terms} />
-              <FooterLink text={content.links.faq} />
+              <FooterLink href={devPath} text={content.links.help} />
+              <FooterLink href={devPath} text={content.links.privacy} />
+              <FooterLink href={devPath} text={content.links.terms} />
+              <FooterLink href={devPath} text={content.links.faq} />
             </Stack>
           </Grid>
 
-          {/* 3. قسم روابط سريعة */}
           <Grid item xs={6} md={2} order={{ xs: 4, md: 3 }}>
-            <Typography variant="h6" sx={{ mb: 3, fontWeight: 700, fontSize: '1.1rem', textAlign: isArabic ? 'left' : 'right' }}>
+            <Typography variant="h6" sx={{ mb: 3, fontWeight: 700, fontSize: '1.1rem', textAlign: isArabic ? 'right' : 'left' }}>
               {content.quickLinks}
             </Typography>
             <Stack>
-              <FooterLink text={content.links.home} />
-              <FooterLink text={content.links.about} />
-              <FooterLink text={content.links.features} />
-              <FooterLink text={content.links.download} />
+              <FooterLink href="/" text={content.links.home} />
+              <FooterLink href="/about-us" text={content.links.about} />
+              <FooterLink href={devPath} text={content.links.download} />
             </Stack>
           </Grid>
 
-          {/* 4. قسم اللوجو والوصف (يسار في العربي / يمين في الإنجليزي) */}
           <Grid item xs={12} md={4} lg={3} order={{ xs: 2, md: isArabic ? 4 : 1 }}>
             <Stack spacing={2} alignItems={{ xs: 'center', md: isArabic ? 'flex-end' : 'flex-start' }}>
                <Image 
@@ -166,7 +166,7 @@ export default function Footer() {
                 sx={{ 
                   color: '#BDBDBD', 
                   lineHeight: 1.8, 
-                  textAlign: isArabic ? 'left' : 'right',
+                  textAlign: isArabic ? 'right' : 'left',
                   maxWidth: 300 
                 }}
               >
@@ -189,10 +189,7 @@ export default function Footer() {
               </Stack>
             </Stack>
           </Grid>
-
         </Grid>
-
-        {/* خط فاصل سفلي */}
         <Box 
           sx={{ 
             mt: 8, 

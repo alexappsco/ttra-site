@@ -121,6 +121,31 @@ export default function ComingSoonSection() {
             Tatra books
           </Typography>
 
+          {/* الرابط الصغير تحت العنوان */}
+          <Typography
+            component="a"
+            href="https://ttra-site.vercel.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{
+              color: '#D4AF37',
+              fontSize: { xs: '0.7rem', md: '0.85rem' },
+              letterSpacing: { xs: 1, md: 2 },
+              fontWeight: 400,
+              display: 'inline-block',
+              mb: 4,
+              textDecoration: 'none',
+              opacity: 0.7,
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                opacity: 1,
+                textDecoration: 'underline',
+              },
+            }}
+          >
+            https://ttra-site.vercel.app
+          </Typography>
+
           <Box
             component={m.div}
             variants={containerVariants}
