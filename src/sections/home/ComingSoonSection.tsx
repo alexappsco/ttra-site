@@ -27,9 +27,7 @@ export default function ComingSoonSection() {
       const remaining = calculateTimeLeft();
       setTimeLeft(remaining);
 
-      if (remaining <= 0) {
-        clearInterval(interval);
-      }
+      if (remaining <= 0) clearInterval(interval);
     }, 1000);
 
     return () => clearInterval(interval);
@@ -51,7 +49,7 @@ export default function ComingSoonSection() {
     { label: isArabic ? 'ثواني' : 'SECONDS', value: seconds },
   ];
 
-  const text = isArabic ? "قريباً جداً" : "coming soon";
+  const text = isArabic ? 'قريباً جداً' : 'coming soon';
   const letters = Array.from(text);
 
   const containerVariants = {
@@ -71,7 +69,7 @@ export default function ComingSoonSection() {
       transition: {
         duration: 1.5,
         repeat: Infinity,
-        ease: "easeInOut",
+        ease: 'easeInOut',
       },
     },
   };
@@ -81,9 +79,15 @@ export default function ComingSoonSection() {
       sx={{
         minHeight: '100vh',
         width: '100vw',
-        backgroundColor: '#000',
         position: 'relative',
         overflow: 'hidden',
+
+        // الخلفية
+        backgroundImage: "url('/assets/background/tatra-books.jpeg')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundColor: '#000',
       }}
     >
       <Box sx={{ position: 'relative', zIndex: 10000 }}>
@@ -121,7 +125,6 @@ export default function ComingSoonSection() {
             Tatra books
           </Typography>
 
-          {/* الرابط الصغير تحت العنوان */}
           <Typography
             component="a"
             href="https://ttra-site.vercel.app"
@@ -156,7 +159,7 @@ export default function ComingSoonSection() {
               display: 'flex',
               justifyContent: 'center',
               gap: 0.5,
-              direction: 'ltr' 
+              direction: 'ltr',
             }}
           >
             {letters.map((char, index) => (
@@ -171,7 +174,7 @@ export default function ComingSoonSection() {
                   fontWeight: 500,
                   textTransform: 'uppercase',
                   display: 'inline-block',
-                  whiteSpace: char === ' ' ? 'pre' : 'normal'
+                  whiteSpace: char === ' ' ? 'pre' : 'normal',
                 }}
               >
                 {char}
@@ -214,9 +217,9 @@ export default function ComingSoonSection() {
             ))}
           </Stack>
 
-          <Stack 
-            direction={{ xs: 'column', sm: 'row' }} 
-            spacing={3} 
+          <Stack
+            direction={{ xs: 'column', sm: 'row' }}
+            spacing={3}
             justifyContent="center"
             alignItems="center"
             sx={{ px: 3 }}
@@ -224,7 +227,8 @@ export default function ComingSoonSection() {
             <Button
               onClick={() => handleRedirect('en')}
               sx={{
-                px: 6, py: 2,
+                px: 6,
+                py: 2,
                 minWidth: { xs: '100%', sm: 200 },
                 borderRadius: 0,
                 fontWeight: 800,
@@ -242,7 +246,8 @@ export default function ComingSoonSection() {
             <Button
               onClick={() => handleRedirect('ar')}
               sx={{
-                px: 6, py: 2,
+                px: 6,
+                py: 2,
                 minWidth: { xs: '100%', sm: 200 },
                 borderRadius: 0,
                 fontWeight: 800,
@@ -260,11 +265,18 @@ export default function ComingSoonSection() {
         </m.div>
       </Box>
 
+      {/* overlay */}
       <Box
         sx={{
           position: 'absolute',
-          top: 0, left: 0, right: 0, bottom: 0,
-          background: 'radial-gradient(circle at center, rgba(57, 20, 98, 0.25) 0%, rgba(0,0,0,1) 80%)',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+         background: `
+  linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.55)),
+  radial-gradient(circle at center, rgba(57, 20, 98, 0.15) 0%, rgba(0,0,0,0.8) 80%)
+`,
           pointerEvents: 'none',
           zIndex: 0,
         }}
