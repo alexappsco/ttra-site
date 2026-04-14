@@ -2,7 +2,6 @@
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import { LoadingButton } from '@mui/lab';
 import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 
@@ -56,14 +55,7 @@ export default function CustomBreadcrumbs({
         {actions?.length && (
           <Stack direction="row" spacing={1} flexWrap="wrap">
             {actions.map((action, index) => (
-              <LoadingButton
-                key={index}
-                sx={{ flexShrink: 0 }}
-                size="large"
-                color="primary"
-                variant="contained"
-                {...action}
-              />
+             "load"
             ))}
           </Stack>
         )}

@@ -1,5 +1,5 @@
-import { LoadingButtonProps } from '@mui/lab';
-import { BreadcrumbsProps } from '@mui/material/Breadcrumbs';
+import type { ButtonProps } from '@mui/material/Button';
+import type { BreadcrumbsProps } from '@mui/material/Breadcrumbs';
 
 // ----------------------------------------------------------------------
 
@@ -12,6 +12,6 @@ export type BreadcrumbsLinkProps = {
 export interface CustomBreadcrumbsProps extends BreadcrumbsProps {
   heading?: string;
   activeLast?: boolean;
-  actions?: LoadingButtonProps[];
+  actions?: ButtonProps[];
   links: BreadcrumbsLinkProps[];
 }
