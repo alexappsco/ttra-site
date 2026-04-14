@@ -1,10 +1,11 @@
 'use client';
 
 import React from 'react';
-import { Box, Typography, Grid, Container, Stack } from '@mui/material';
+import { Box, Typography, Container, Stack } from '@mui/material';
 import Image from 'next/image';
 import { useLocale } from 'next-intl';
 import { m } from 'framer-motion';
+import Grid from '@mui/material/Grid';
 
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';

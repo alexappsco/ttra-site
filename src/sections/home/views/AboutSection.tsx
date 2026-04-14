@@ -1,9 +1,10 @@
 'use client';
 
 import React from 'react';
-import { Box, Typography, Container, Stack, Divider, Grid } from '@mui/material';
+import { Box, Typography, Container, Stack, Divider } from '@mui/material';
 import { m } from 'framer-motion';
 import { useLocale } from 'next-intl';
+import Grid from '@mui/material/Grid';
 
 export default function AboutSection() {
   const locale = useLocale();

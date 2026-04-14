@@ -1,11 +1,12 @@
 'use client';
 
 import React from 'react';
-import { Box, Typography, Grid, Stack, useTheme, useMediaQuery } from '@mui/material';
+import { Box, Typography, Stack, useTheme, useMediaQuery } from '@mui/material';
 import Image from 'next/image';
 import LayoutContainer from './LayoutContainer'; 
 import { useLocale } from 'next-intl';
 import { m, Variants } from 'framer-motion';
+import Grid from '@mui/material/Grid';
 
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import FormatSizeIcon from '@mui/icons-material/FormatSize';
