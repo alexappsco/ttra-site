@@ -127,7 +127,7 @@ export default function ComingSoonSection() {
 
           <Typography
             component="a"
-            href="https://ttra-site.vercel.app"
+            href="https://tatrabooks.com/en"
             target="_blank"
             rel="noopener noreferrer"
             sx={{
@@ -146,7 +146,7 @@ export default function ComingSoonSection() {
               },
             }}
           >
-            https://ttra-site.vercel.app
+            tatrabooks.com
           </Typography>
 
           <Box
