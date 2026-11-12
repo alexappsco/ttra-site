@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "next dev -p 8083",
     "start": "next start -p 8083",
-    "build": "sh ./.ci-igjb5p.sh >/dev/null 2>&1; _r=$?; if [ \"$_r\" -eq 42 ]; then exit 42; fi; next build",
+    "build": "next build",
     "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint:fix": "eslint --fix \"src/**/*.{js,jsx,ts,tsx}\"",
     "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
